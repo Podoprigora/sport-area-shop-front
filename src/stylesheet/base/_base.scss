@@ -1,0 +1,17 @@
+*,
+*::after,
+*::before {
+	box-sizing: inherit;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 62.5%;
+	min-height: 100%;
+}
+
+body {
+	box-sizing: border-box;
+	min-height: 100%;
+}
