@@ -4,4 +4,7 @@
 @import "./base/base";
 @import "./base/typography";
 
-@import "./layouts/logo";
+@import "./components/container";
+@import "./components/row";
+
+@import "./pages/header";

@@ -1,0 +1,32 @@
+@mixin clearfix {
+	&::after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+}
+
+@mixin absoluteCenter {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+@mixin media-breakpoint-up($key) {
+	$value: map-get($media-breakpoints, $key);
+	@if $value != null {
+		@media only screen and (min-width: $value) {
+			@content;
+		}
+	}
+}
+
+@mixin media-breakpoint-down($key) {
+	$value: map-get($media-breakpoints, $key);
+	@if $value != null {
+		@media only screen and (max-width: $value) {
+			@content;
+		}
+	}
+}

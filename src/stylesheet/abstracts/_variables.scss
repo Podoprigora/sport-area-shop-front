@@ -1,0 +1,46 @@
+// Colors
+
+$color-primary: #669f42;
+
+$color-secondary: #fe983f;
+
+$bg-color: #f2f5fa;
+$bg-color-light: #f9fafc;
+$bg-color-dark: #eef2f4;
+
+$border-color: #e0e4e7;
+$border-color-light: #efeef3;
+$border-color-dark: #d8e2e7;
+
+// Font
+
+$default-font-size: 1.4rem;
+
+// Breakpoints
+
+/*
+0 - 600px: Phone
+600 - 900px: Tablet portrait
+900 - 1200px: Tablet landscape
+[1200 - 1800] is where our normal styles apply
+1800px + : Big desktop
+
+1em = 16px
+*/
+
+$media-breakpoint-phone: 37.5em;
+$media-breakpoint-tablet-port: 56.25em;
+$media-breakpoint-tablet-land: 75em;
+$media-breakpoint-desktop-large: 112.5em;
+
+$media-breakpoints: (
+	"phone": $media-breakpoint-phone,
+	"tablet-port": $media-breakpoint-tablet-port,
+	"tablet-land": $media-breakpoint-tablet-land,
+	"desktop-large": $media-breakpoint-desktop-large
+);
+
+// Layout
+
+$container-max-width: 120rem;
+$container-padding: 0 3.2rem;
