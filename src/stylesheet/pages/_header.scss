@@ -6,6 +6,11 @@
 	background-color: #fff;
 	border-bottom: 1px solid $border-color;
 
+	&__container {
+		display: flex;
+		flex-flow: row nowrap;
+	}
+
 	&__logo-link {
 		display: inline-block;
 	}

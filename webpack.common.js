@@ -108,10 +108,19 @@ module.exports = (env) => {
                 {
                     test: /.(png|jpe?g|gif|svg)$/i,
                     loader: 'url-loader',
+                    exclude: [path.resolve(__dirname, 'src/stylesheet/resources/icons')],
                     options: {
                         limit: 8192,
                         name: '[name]-[contenthash].[ext]',
                         outputPath: 'resources/images'
+                    }
+                },
+                {
+                    test: /.svg$/i,
+                    loader: '@svgr/webpack',
+                    include: [path.resolve(__dirname, 'src/stylesheet/resources/icons')],
+                    options: {
+                        dimensions: false
                     }
                 }
             ]
