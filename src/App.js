@@ -2,7 +2,10 @@ import React from 'react';
 
 import './stylesheet/main.scss';
 import Logo from './stylesheet/resources/images/sport-area-logo.svg';
-import ShoppingCartIcon from './pages/components/SvgIcons/feather/ShoppingCartIcon';
+
+import ShoppingBasketIcon from './pages/components/SvgIcons/material/ShoppingBasketIcon';
+import HeartIcon from './pages/components/SvgIcons/feather/HeartIcon';
+import UserIcon from './pages/components/SvgIcons/feather/UserIcon';
 
 const App = () => {
     return (
@@ -13,7 +16,9 @@ const App = () => {
                         <img src={Logo} alt="" className="header__logo-img" />
                     </a>
                     <div style={{ marginLeft: 'auto', display: 'flex', color: '#669f42' }}>
-                        <ShoppingCartIcon />
+                        <UserIcon style={{ marginLeft: '2.4rem' }} />
+                        <HeartIcon style={{ marginLeft: '2.4rem' }} />
+                        <ShoppingBasketIcon style={{ marginLeft: '2.4rem' }} />
                     </div>
                 </div>
             </header>
