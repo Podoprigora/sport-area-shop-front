@@ -7,6 +7,7 @@ module.exports = (env) => {
     const devMode = env === 'dev';
 
     return {
+        mode: devMode ? 'development' : 'production',
         entry: {
             app: ['@babel/polyfill', './src/index.js']
         },
@@ -27,6 +28,13 @@ module.exports = (env) => {
             filename: '[name]-[contenthash].js',
             chunkFilename: '[name]-[contenthash].js'
         },
+        resolve: {
+            alias: {
+                '@components': path.resolve(__dirname, './src/components'),
+                '@svg-icons': path.resolve(__dirname, './src/pages/components/SvgIcons'),
+                '@resources': path.resolve(__dirname, './src/stylesheet/resources')
+            }
+        },
         optimization: {
             runtimeChunk: 'single',
             moduleIds: 'hashed',
@@ -46,7 +54,15 @@ module.exports = (env) => {
                 }
             }
         },
-        devtool: devMode ? 'source-map' : '',
+        ...(devMode && {
+            devtool: 'source-map',
+            devServer: {
+                open: false,
+                historyApiFallback: true,
+                contentBase: './',
+                port: '1001'
+            }
+        }),
         module: {
             rules: [
                 {

@@ -16,6 +16,11 @@ module.exports = {
         browser: true,
         node: true
     },
+    settings: {
+        'import/resolver': {
+            webpack: { config: 'webpack.config.js' }
+        }
+    },
     rules: {
         camelcase: 0,
         'no-console': 0,

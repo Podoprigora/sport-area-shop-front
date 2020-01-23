@@ -1,5 +1,5 @@
+import User from '@resources/icons/icomoon-feather/user.svg';
 import withIconAttributes from '../withSvgAttrStyles';
-import User from '../../../../stylesheet/resources/icons/icomoon-feather/user.svg';
 
 const UserIcon = withIconAttributes(User);
 

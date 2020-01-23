@@ -1,11 +1,10 @@
 import React from 'react';
 
 import './stylesheet/main.scss';
-import Logo from './stylesheet/resources/images/sport-area-logo.svg';
-
-import ShoppingBasketIcon from './pages/components/SvgIcons/material/ShoppingBasketIcon';
-import HeartIcon from './pages/components/SvgIcons/feather/HeartIcon';
-import UserIcon from './pages/components/SvgIcons/feather/UserIcon';
+import Logo from '@resources/images/sport-area-logo.svg';
+import UserIcon from '@svg-icons/feather/UserIcon';
+import HeartIcon from '@svg-icons/feather/HeartIcon';
+import ShoppingCartIcon from '@svg-icons/feather/ShoppingCartIcon';
 
 const App = () => {
     return (
@@ -18,7 +17,7 @@ const App = () => {
                     <div style={{ marginLeft: 'auto', display: 'flex', color: '#669f42' }}>
                         <UserIcon style={{ marginLeft: '2.4rem' }} />
                         <HeartIcon style={{ marginLeft: '2.4rem' }} />
-                        <ShoppingBasketIcon style={{ marginLeft: '2.4rem' }} />
+                        <ShoppingCartIcon style={{ marginLeft: '2.4rem' }} />
                     </div>
                 </div>
             </header>
