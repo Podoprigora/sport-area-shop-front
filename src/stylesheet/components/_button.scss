@@ -1,0 +1,54 @@
+.btn {
+	$this: &;
+
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	background-color: transparent;
+	color: $btn-color;
+	font-size: inherit;
+	border: none;
+
+	&:focus,
+	&:active {
+		outline: none;
+	}
+
+	&--small {
+		font-size: 1.4rem;
+
+		#{$this}__icon {
+			width: 20px;
+			height: 20px;
+		}
+	}
+
+	&--medium {
+		font-size: 1.6rem;
+
+		#{$this}__icon {
+			width: 20px;
+			height: 20px;
+		}
+	}
+
+	&--large {
+		font-size: 2.4rem;
+
+		#{$this}__icon {
+			width: 24px;
+			height: 24px;
+		}
+	}
+
+	&--icon-align-top {
+	}
+
+	&--icon-align-right {
+	}
+
+	&__icon {
+		margin-right: .5rem;
+		color: lighten($btn-color, 10%);
+	}
+}
