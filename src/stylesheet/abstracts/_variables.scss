@@ -13,8 +13,20 @@ $border-color-light: #efeef3;
 $border-color-dark: #d8e2e7;
 
 // Font
+$font-size: 1.4rem;
 
-$default-font-size: 1.4rem;
+// Button
+$btn-color: #757575;
+$btn-font-size-small: 1.4rem;
+$btn-font-size-medium: 1.6rem;
+$btn-font-size-large: 2rem;
+$btn-font-size: $btn-font-size-small;
+
+// Icon
+$icon-size-small: 16px;
+$icon-size-medium: 20px;
+$icon-size-large: 24px;
+$icon-size: $icon-size-large;
 
 // Breakpoints
 

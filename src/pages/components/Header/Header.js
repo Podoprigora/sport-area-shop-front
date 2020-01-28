@@ -9,7 +9,13 @@ import GridIcon from '@svg-icons/feather/GridIcon';
 import Logo from '@resources/images/sport-area-logo.svg';
 import Button from '@components/Button';
 import PlusIcon from '@svg-icons/feather/PlusIcon';
-import MenuIcon from '@svg-icons/feather/MenuIcon';
+import MenuIcon from '@svg-icons/material/MenuIcon';
+import CreatemodeEditIcon from '@svg-icons/material/CreatemodeEditIcon';
+import ViewListIcon from '@svg-icons/material/ViewListIcon';
+import MapPinIcon from '@svg-icons/feather/MapPinIcon';
+import ThumbUpIcon from '@svg-icons/material/ThumbUpIcon';
+import PlaylistAddIcon from '@svg-icons/material/PlaylistAddIcon';
+import GridViewIcon from '@svg-icons/material/GridViewIcon';
 
 const Header = (props) => {
     return (
@@ -24,7 +30,7 @@ const Header = (props) => {
             <div className="header__nav-part">
                 <div className="container header__container">
                     <Button size="medium" className="header__nav-btn">
-                        <GridIcon className="btn__icon" />
+                        <GridViewIcon className="btn__icon" />
                         Categories
                     </Button>
                     <Button
@@ -34,6 +40,26 @@ const Header = (props) => {
                     >
                         <MenuIcon className="btn__icon" />
                         Categories
+                    </Button>
+                    <Button size="small" className="header__nav-btn" style={{ marginLeft: '2rem' }}>
+                        <CreatemodeEditIcon size="medium" className="btn__icon" />
+                        Categories
+                    </Button>
+                    <Button size="small" className="header__nav-btn" style={{ marginLeft: '2rem' }}>
+                        <ViewListIcon size="small" className="btn__icon" />
+                        View List
+                    </Button>
+                    <Button size="small" className="header__nav-btn" style={{ marginLeft: '2rem' }}>
+                        <MapPinIcon size="small" className="btn__icon" />
+                        View List
+                    </Button>
+                    <Button size="small" className="header__nav-btn" style={{ marginLeft: '2rem' }}>
+                        <ThumbUpIcon size="small" className="btn__icon" />
+                        View List
+                    </Button>
+                    <Button size="small" className="header__nav-btn" style={{ marginLeft: '2rem' }}>
+                        <PlaylistAddIcon size="large" className="btn__icon" />
+                        Playlist Add
                     </Button>
                     <div className="header__search"> </div>
                     <div className="header__actions" style={{ marginLeft: 'auto' }}>

@@ -7,6 +7,7 @@
 	background-color: transparent;
 	color: $btn-color;
 	font-size: inherit;
+	letter-spacing: .4px;
 	border: none;
 
 	&:focus,
@@ -15,30 +16,15 @@
 	}
 
 	&--small {
-		font-size: 1.4rem;
-
-		#{$this}__icon {
-			width: 20px;
-			height: 20px;
-		}
+		font-size: $btn-font-size-small;
 	}
 
 	&--medium {
-		font-size: 1.6rem;
-
-		#{$this}__icon {
-			width: 20px;
-			height: 20px;
-		}
+		font-size: $btn-font-size-medium;
 	}
 
 	&--large {
-		font-size: 2.4rem;
-
-		#{$this}__icon {
-			width: 24px;
-			height: 24px;
-		}
+		font-size: $btn-font-size-large;
 	}
 
 	&--icon-align-top {
@@ -48,7 +34,6 @@
 	}
 
 	&__icon {
-		margin-right: .5rem;
-		color: lighten($btn-color, 10%);
+		margin-right: .6rem;
 	}
 }
