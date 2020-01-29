@@ -20,10 +20,7 @@
 }
 
 .icon {
-	display: inline-flex;
-	flex-flow: row nowrap;
-	align-items: center;
-	justify-content: center;
+	display: block;
 	width: $icon-size;
 	height: $icon-size;
 

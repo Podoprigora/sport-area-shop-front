@@ -1,12 +1,10 @@
 // Colors
-
 $color-primary: #669f42;
-
 $color-secondary: #fe983f;
 
 $bg-color: #f2f5fa;
 $bg-color-light: #f9fafc;
-$bg-color-dark: #eef2f4;
+$bg-color-dark: #f2f4f5;
 
 $border-color: #e0e4e7;
 $border-color-light: #efeef3;
@@ -21,12 +19,36 @@ $btn-font-size-small: 1.4rem;
 $btn-font-size-medium: 1.6rem;
 $btn-font-size-large: 2rem;
 $btn-font-size: $btn-font-size-small;
+$btn-font-weight: 500;
+$btn-text-transform: uppercase;
+
+$btn-bg-color-primary: $color-primary;
+$btn-color-primary: #fff;
+
+$btn-box-shadow: 0 1px 2px 0px rgba(0, 0, 0, 0.2);
+$btn-focus-box-shadow: 0 0px 0px 1px rgba($color-secondary, .6), 0 0px 0px 4px rgba($color-secondary, .2);
+
+$btn-border-radius: 5px;
+
+$icon-btn-hover-bg-color: $bg-color-dark;
 
 // Icon
 $icon-size-small: 16px;
 $icon-size-medium: 20px;
 $icon-size-large: 24px;
 $icon-size: $icon-size-large;
+
+$icon-color: #646464;
+
+// Inputs
+$input-padding: .8rem;
+$input-bg-color: #fff;
+$input-bg-color-disabled: $bg-color-light;
+$input-border-color: $border-color;
+$input-border-radius: 3px;
+$input-focus-stripe-width: 2px;
+$input-focus-stripe-color: $color-primary;
+$input-placeholder-color: #949494;
 
 // Breakpoints
 

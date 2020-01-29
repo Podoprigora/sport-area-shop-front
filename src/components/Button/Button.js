@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const Button = ({ children, size, className, ...props }) => {
+const Button = ({ children, size, primary, icon: Icon, className, ...props }) => {
     const sizeClassnames = {
         small: 'btn--small',
         medium: 'btn--medium',
@@ -12,18 +12,23 @@ const Button = ({ children, size, className, ...props }) => {
     return (
         <button
             type="button"
-            className={classNames('btn', sizeClassnames[size], className)}
+            className={classNames('btn', sizeClassnames[size], className, {
+                'btn--primary': primary
+            })}
             {...props}
         >
-            {children}
+            {!!Icon && <Icon className="btn__icon" />}
+            <span className="btn__text">{children}</span>
         </button>
     );
 };
 
 Button.propTypes = {
     children: PropTypes.node.isRequired,
+    icon: PropTypes.elementType,
     className: PropTypes.string,
-    size: PropTypes.oneOf(['small', 'medium', 'large'])
+    size: PropTypes.oneOf(['small', 'medium', 'large']),
+    primary: PropTypes.bool
 };
 
 Button.defaultProp = {

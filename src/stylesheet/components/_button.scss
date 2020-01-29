@@ -6,13 +6,30 @@
 	align-items: center;
 	background-color: transparent;
 	color: $btn-color;
-	font-size: inherit;
+	font-family: inherit;
+	font-size: $btn-font-size;
+	font-weight: 500;
+	text-transform: uppercase;
 	letter-spacing: .4px;
+	padding: 1rem 1.4rem;
 	border: none;
+	border-radius: $btn-border-radius;
+	box-shadow: $btn-box-shadow;
+	cursor: pointer;
+	transition: all .15s ease-out;
 
-	&:focus,
-	&:active {
+	&:focus {
 		outline: none;
+		box-shadow: $btn-focus-box-shadow;
+	}
+
+	&--primary {
+		background-color: $btn-bg-color-primary;
+		color: $btn-color-primary;
+
+		&:hover {
+			background-color: lighten($btn-bg-color-primary, 5%);
+		}
 	}
 
 	&--small {
@@ -28,12 +45,14 @@
 	}
 
 	&--icon-align-top {
+		display: block;
 	}
 
 	&--icon-align-right {
+		display: block;
 	}
 
 	&__icon {
-		margin-right: .6rem;
+		margin-right: 1.2rem;
 	}
 }

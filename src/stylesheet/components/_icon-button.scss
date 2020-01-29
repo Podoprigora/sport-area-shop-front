@@ -1,0 +1,28 @@
+.btn-icon {
+	position: relative;
+	background-color: transparen;
+	color: $icon-color;
+	padding: 1rem;
+	cursor: pointer;
+	z-index: 0;
+
+	&::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: $icon-btn-hover-bg-color;
+		border-radius: 50%;
+		transform: scale3d(0, 0, 0);
+		transition: transform .15s ease-out;
+		z-index: -1;
+	}
+
+	&:hover {
+		&::before {
+			transform: scale3d(1, 1, 1);
+		}
+	}
+}
