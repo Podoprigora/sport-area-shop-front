@@ -7,8 +7,11 @@ const MainPage = (props) => {
         <div className="page">
             <Carousel>
                 <img src="./remote/images/brand_banners/premium-roxy-1.jpeg" alt="" />
-                <div>test</div>
-                <div>test</div>
+                <img src="./remote/images/brand_banners/premium-quiksilver-1.jpeg" alt="" />
+                <img src="./remote/images/brand_banners/premium-oneill-1.jpeg" alt="" />
+                <img src="./remote/images/brand_banners/premium-nike-1.jpg" alt="" />
+                <img src="./remote/images/brand_banners/premium-element-1.jpeg" alt="" />
+                <img src="./remote/images/brand_banners/premium-converse.jpeg" alt="" />
             </Carousel>
         </div>
     );

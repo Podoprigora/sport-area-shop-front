@@ -2,6 +2,7 @@
 	position: relative;
 	display: block;
 	overflow: hidden;
+	min-height: 10rem;
 
 	&__item {
 		display: none;
@@ -29,23 +30,27 @@
 	&__indicator {
 		display: inline-block;
 		&:not(:first-child) {
-			margin-left: .8rem;
+			margin-left: 1rem;
 		}
 	}
 
 	&__indicator-btn {
 		display: block;
 		background: #fff;
-		width: 1rem;
-		height: 1rem;
+		width: .8rem;
+		height: .8rem;
 		border-radius: 50%;
 		opacity: .4;
 		cursor: pointer;
-		transition: all .3s ease-out;
+		transition: all .15s ease-out;
 
 		&--active {
 			opacity: 1;
-			transform: scale3d(1.2, 1.2, 1);
+			transform: scale3d(1.4, 1.4, 1);
+		}
+
+		&:hover {
+			opacity: 1;
 		}
 	}
 
