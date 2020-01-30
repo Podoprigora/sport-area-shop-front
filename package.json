@@ -69,8 +69,11 @@
         "webpack-merge": "^4.2.2"
     },
     "dependencies": {
+        "classnames": "^2.2.6",
         "prop-types": "^15.7.2",
         "react": "^16.12.0",
-        "react-dom": "^16.12.0"
+        "react-dom": "^16.12.0",
+        "react-router-dom": "^5.1.2",
+        "react-transition-group": "^4.3.0"
     }
 }
