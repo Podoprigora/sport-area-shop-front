@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = (env) => {
     const devMode = env === 'dev';
@@ -13,6 +14,7 @@ module.exports = (env) => {
         },
         plugins: [
             ...(!devMode ? [new CleanWebpackPlugin()] : []),
+            ...(!devMode ? [new CopyPlugin([{ from: './remote', to: 'remote' }])] : []),
             new MiniCssExtractPlugin({
                 filename: devMode ? '[name].css' : 'resources/[name]-[contenthash].css',
                 chunkFilename: devMode ? '[name].css' : 'resources/[name]-[contenthash].css'
@@ -31,7 +33,7 @@ module.exports = (env) => {
         resolve: {
             alias: {
                 '@components': path.resolve(__dirname, './src/components'),
-                '@svg-icons': path.resolve(__dirname, './src/pages/components/SvgIcons'),
+                '@svg-icons': path.resolve(__dirname, './src/components/SvgIcons'),
                 '@resources': path.resolve(__dirname, './src/stylesheet/resources')
             }
         },
@@ -53,6 +55,10 @@ module.exports = (env) => {
                     }
                 }
             }
+        },
+        performance: {
+            maxEntrypointSize: 400000,
+            maxAssetSize: 600000
         },
         ...(devMode && {
             devtool: 'source-map',

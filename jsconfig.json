@@ -6,7 +6,7 @@
         "baseUrl": ".",
         "paths": {
           "@components/*": ["./src/components/*"],
-          "@svg-icons/*": ["./src/pages/components/SvgIcons/*"],
+          "@svg-icons/*": ["./src/components/SvgIcons/*"],
           "@resources/*": ["../src/stylesheet/resources/*"]
         }
     },

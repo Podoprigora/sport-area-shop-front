@@ -5,7 +5,7 @@ import Carousel from '@components/Carousel';
 const MainPage = (props) => {
     return (
         <div className="page">
-            <Carousel>
+            <Carousel autoPlay interval={10000}>
                 <img src="./remote/images/brand_banners/premium-roxy-1.jpeg" alt="" />
                 <img src="./remote/images/brand_banners/premium-quiksilver-1.jpeg" alt="" />
                 <img src="./remote/images/brand_banners/premium-oneill-1.jpeg" alt="" />
