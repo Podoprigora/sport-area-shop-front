@@ -8,6 +8,7 @@
 	}
 
 	&__item {
+		display: none;
 		float: left;
 		margin-right: -100%;
 		width: 100%;
@@ -46,7 +47,7 @@
 		border-radius: 50%;
 		opacity: .4;
 		cursor: pointer;
-		box-shadow: 0 1px 2px 0px rgba(#000, .2);
+		box-shadow: 0 1px 1px 0px rgba(#000, .2);
 		transition: all .15s ease-out;
 
 		&--active {
@@ -61,8 +62,6 @@
 	}
 
 	&__control {
-		$control: &;
-
 		position: absolute;
 		top: 50%;
 		transform: translateY(-50%);
@@ -70,6 +69,7 @@
 		background-color: rgba(#fff, .4);
 		padding: .6rem;
 		border-radius: 50%;
+		opacity: 0;
 		cursor: pointer;
 		transition: all .3s ease-out;
 
@@ -80,32 +80,22 @@
 
 		&--prev {
 			left: 1.4rem;
+			transform: translate3d(-1.4rem, -50%, 0);
 		}
 
 		&--next {
 			right: 1.4rem;
+			transform: translate3d(1.4rem, -50%, 0);
 		}
 
-		&--position-outside {
-			opacity: 0;
-
-			&#{$control}--prev {
-				transform: translate3d(-1.4rem, -50%, 0);
-			}
-
-			&#{$control}--next {
-				transform: translate3d(1.4rem, -50%, 0);
-			}
-
-			&#{$control}--hover {
-				opacity: 1;
-				transform: translate3d(0, -50%, 0);
-				transition: all .3s ease-out;
-			}
+		&--active {
+			opacity: 1;
+			transform: translate3d(0, -50%, 0);
 		}
 	}
 
 	&__slide-anim-left-enter {
+		display: inline-block;
 		transform: translate3d(100%, 0, 0);
 		transition: all 1s ease-out;
 
@@ -116,10 +106,10 @@
 	}
 
 	&__slide-anim-left-exit {
+		display: inline-block;
 		transform: translate3d(0, 0, 0);
 		opacity: 1;
 		transition: all 1s ease-out;
-		// transform-origin: 90% 50%;
 
 		&-active {
 			opacity: 0;
@@ -128,6 +118,7 @@
 	}
 
 	&__slide-anim-right-enter {
+		display: inline-block;
 		transform: translate3d(-100%, 0, 0);
 		transition: all 1s ease-out;
 
@@ -138,8 +129,8 @@
 	}
 
 	&__slide-anim-right-exit {
+		display: inline-block;
 		transform: translate3d(0, 0, 0);
-		// transform-origin: 10% 50%;
 		opacity: 1;
 		transition: all 1s ease-out;
 

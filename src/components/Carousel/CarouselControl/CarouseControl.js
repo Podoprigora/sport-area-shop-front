@@ -1,20 +1,18 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { CSSTransition } from 'react-transition-group';
 
 import ChevronLeftIcon from '@svg-icons/feather/ChevronLeftIcon';
 import ChevronRightIcon from '@svg-icons/feather/ChevronRightIcon';
 
-const CarouselControl = memo(function CarouselControl({ type, hover, position, onClick }) {
+const CarouselControl = memo(function CarouselControl({ type, active, onClick }) {
     return (
         <button
             type="button"
             className={classNames('carousel__control', {
                 'carousel__control--prev': type === 'prev',
                 'carousel__control--next': type === 'next',
-                'carousel__control--position-outside': position === 'outside',
-                'carousel__control--hover': position === 'outside' && hover
+                'carousel__control--active': active
             })}
             onClick={onClick}
         >
@@ -29,15 +27,13 @@ const CarouselControl = memo(function CarouselControl({ type, hover, position, o
 
 CarouselControl.propTypes = {
     type: PropTypes.oneOf(['next', 'prev']),
-    hover: PropTypes.bool,
-    position: PropTypes.oneOf(['outside', '']),
+    active: PropTypes.bool,
     onClick: PropTypes.func
 };
 
 CarouselControl.defaultProps = {
     type: 'next',
-    hover: false,
-    position: '',
+    active: false,
     onClick: () => {}
 };
 

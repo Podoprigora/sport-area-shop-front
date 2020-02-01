@@ -1,27 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
-import debounce from 'lodash/debounce';
+import throttle from 'lodash/throttle';
 
 import useEventCallback from '@components/hooks/useEventCallback';
 import CarouselControl from './CarouselControl';
 import CarouselIndicators from './CarouselIndicators';
 
-// When need to update the classNames of CSSTransition dynamically
-// https://github.com/reactjs/react-transition-group/issues/182
-const dynamicChildFactory = (animClassNames) => (child) => {
-    return React.cloneElement(child, {
-        classNames: animClassNames
-    });
-};
+const animationTimeout = 1000;
 
-let mouseEntedTimerId = null;
-
-const Carousel = ({ children, autoPlay, interval, className, ...props }) => {
+const Carousel = ({ children, autoPlay, interval, className, control, ...props }) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [isMouseEntered, setIsMouseEntered] = useState(false);
     const animDirection = useRef('left');
+    const mouseEnterTimerId = useRef(null);
     const itemsLength = React.Children.toArray(children).length;
     const animClassNames = `carousel__slide-anim-${animDirection.current}`;
 
@@ -59,26 +52,64 @@ const Carousel = ({ children, autoPlay, interval, className, ...props }) => {
         setActiveIndex(index);
     });
 
+    const handlePrevControlClick = useCallback(
+        throttle(
+            (ev) => {
+                prevSlide();
+            },
+            animationTimeout,
+            { leading: true, trailing: false }
+        ),
+        []
+    );
+
+    const handleNextControlClick = useCallback(
+        throttle(
+            (ev) => {
+                nextSlide();
+            },
+            animationTimeout,
+            { leading: true, trailing: false }
+        ),
+        []
+    );
+
     const handleMouseEnter = useEventCallback((ev) => {
-        mouseEntedTimerId = setTimeout(() => {
+        mouseEnterTimerId.current = setTimeout(() => {
             setIsMouseEntered(true);
         }, 150);
     });
 
     const handleMouseLeave = useEventCallback((ev) => {
-        clearTimeout(mouseEntedTimerId);
+        clearTimeout(mouseEnterTimerId.current);
         setIsMouseEntered(false);
     });
 
-    const activeItem = itemsLength && (
-        <CSSTransition key={activeIndex} classNames={animClassNames} timeout={1000}>
-            <div className="carousel__item">{React.Children.toArray(children)[activeIndex]}</div>
-        </CSSTransition>
-    );
+    const items = React.Children.toArray(children).map((item, index) => {
+        return (
+            <CSSTransition
+                key={index}
+                in={index === activeIndex}
+                classNames={animClassNames}
+                timeout={animationTimeout}
+            >
+                <div
+                    className={classNames('carousel__item', {
+                        'carousel__item--active': index === activeIndex
+                    })}
+                >
+                    {item}
+                </div>
+            </CSSTransition>
+        );
+    });
 
     if (!itemsLength) {
         return null;
     }
+
+    const shouldShowControl = itemsLength > 1 && control !== 'none';
+    const isActiveControl = control === 'always' || (isMouseEntered && control === 'hover');
 
     return (
         <div
@@ -87,14 +118,7 @@ const Carousel = ({ children, autoPlay, interval, className, ...props }) => {
             onMouseLeave={handleMouseLeave}
             {...props}
         >
-            <div className="carousel__items">
-                <TransitionGroup
-                    component={null}
-                    childFactory={dynamicChildFactory(animClassNames)}
-                >
-                    {activeItem}
-                </TransitionGroup>
-            </div>
+            <div className="carousel__items">{items}</div>
 
             <CarouselIndicators
                 size={itemsLength}
@@ -102,21 +126,19 @@ const Carousel = ({ children, autoPlay, interval, className, ...props }) => {
                 onSelect={handleIndicatorSelect}
             />
 
-            {itemsLength > 1 && (
+            {shouldShowControl && (
                 <CarouselControl
                     type="prev"
-                    hover={isMouseEntered}
-                    position="outside"
-                    onClick={prevSlide}
+                    active={isActiveControl}
+                    onClick={handlePrevControlClick}
                 />
             )}
 
-            {itemsLength > 1 && (
+            {shouldShowControl && (
                 <CarouselControl
                     type="next"
-                    hover={isMouseEntered}
-                    position="outside"
-                    onClick={nextSlide}
+                    active={isActiveControl}
+                    onClick={handleNextControlClick}
                 />
             )}
         </div>
@@ -127,12 +149,14 @@ Carousel.propTypes = {
     children: PropTypes.node,
     autoPlay: PropTypes.bool,
     interval: PropTypes.number,
+    control: PropTypes.oneOf(['always', 'hover', 'none']),
     className: PropTypes.string
 };
 
 Carousel.defaultProps = {
     autoPlay: false,
-    interval: 5000
+    interval: 5000,
+    control: 'hover'
 };
 
 export default Carousel;
