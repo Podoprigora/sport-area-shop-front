@@ -15,8 +15,8 @@ const Carousel = ({ children, autoPlay, interval, className, control, ...props }
     const [isMouseEntered, setIsMouseEntered] = useState(false);
     const animDirection = useRef('left');
     const mouseEnterTimerId = useRef(null);
+    const autoPlayTimerId = useRef(null);
     const itemsLength = React.Children.toArray(children).length;
-    const animClassNames = `carousel__slide-anim-${animDirection.current}`;
 
     const nextSlide = useEventCallback(() => {
         setActiveIndex((prevState) => {
@@ -32,20 +32,45 @@ const Carousel = ({ children, autoPlay, interval, className, control, ...props }
         animDirection.current = 'right';
     });
 
-    useEffect(() => {
+    const stop = useCallback(() => {
+        animDirection.current = 'left';
+        clearInterval(autoPlayTimerId.current);
+    }, []);
+
+    const play = useCallback(() => {
         if (autoPlay) {
-            const timeID = setInterval(() => {
+            stop();
+            autoPlayTimerId.current = setInterval(() => {
                 nextSlide();
             }, interval);
-
-            return () => {
-                animDirection.current = 'left';
-                clearInterval(timeID);
-            };
         }
+    }, [autoPlay, interval, nextSlide, stop]);
 
-        return () => {};
-    }, [nextSlide, activeIndex, autoPlay, interval]);
+    useEffect(() => {
+        play();
+
+        return () => {
+            stop();
+        };
+    }, [play, stop]);
+
+    useEffect(() => {
+        const windowFocusHandler = (ev) => {
+            play();
+        };
+
+        const windowBlurHandler = (ev) => {
+            stop();
+        };
+
+        window.addEventListener('focus', windowFocusHandler, false);
+        window.addEventListener('blur', windowBlurHandler, false);
+
+        return () => {
+            window.removeEventListener('focus', windowFocusHandler);
+            window.removeEventListener('blur', windowBlurHandler);
+        };
+    }, [play, stop]);
 
     const handleIndicatorSelect = useEventCallback((index) => (ev) => {
         animDirection.current = index >= activeIndex ? 'left' : 'right';
@@ -75,6 +100,7 @@ const Carousel = ({ children, autoPlay, interval, className, control, ...props }
     );
 
     const handleMouseEnter = useEventCallback((ev) => {
+        stop();
         mouseEnterTimerId.current = setTimeout(() => {
             setIsMouseEntered(true);
         }, 150);
@@ -83,6 +109,7 @@ const Carousel = ({ children, autoPlay, interval, className, control, ...props }
     const handleMouseLeave = useEventCallback((ev) => {
         clearTimeout(mouseEnterTimerId.current);
         setIsMouseEntered(false);
+        play();
     });
 
     const items = React.Children.toArray(children).map((item, index) => {
@@ -90,7 +117,7 @@ const Carousel = ({ children, autoPlay, interval, className, control, ...props }
             <CSSTransition
                 key={index}
                 in={index === activeIndex}
-                classNames={animClassNames}
+                classNames={`carousel__slide-anim-${animDirection.current}`}
                 timeout={animationTimeout}
             >
                 <div
