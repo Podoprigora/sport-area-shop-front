@@ -1,0 +1,30 @@
+.scrolling-carousel {
+	position: relative;
+	overflow: hidden;
+
+	&__scroller {
+		position: relative;
+		display: block;
+		overflow-x: scroll;
+		overflow-y: hidden;
+		white-space: nowrap;
+	}
+
+	&__scroller-content {
+		display: inline-block;
+	}
+
+	&__items {
+		display: inline-flex;
+		flex-flow: row nowrap;
+		justify-content: flex-start;
+		align-items: stretch;
+		margin-bottom: 1px;
+	}
+
+	&__item {
+		&:not(:last-child) {
+			margin-right: 1rem;
+		}
+	}
+}

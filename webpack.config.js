@@ -98,7 +98,7 @@ module.exports = (env) => {
                         {
                             loader: MiniCssExtractPlugin.loader,
                             options: {
-                                hmr: devMode,
+                                // hmr: devMode,
                                 publicPath: '../'
                             }
                         },
