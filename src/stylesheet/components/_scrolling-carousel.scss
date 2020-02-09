@@ -1,6 +1,22 @@
 .scrolling-carousel {
 	position: relative;
+	display: flex;
+	flex-flow: row nowrap;
 	overflow: hidden;
+
+	&__control {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: flex-start;
+		align-items: center;
+		color: $icon-color;
+		width: 3rem;
+		cursor: pointer;
+
+		&:hover {
+			color: darken($icon-color, 20%);
+		}
+	}
 
 	&__scroller {
 		position: relative;
@@ -8,10 +24,14 @@
 		overflow-x: scroll;
 		overflow-y: hidden;
 		white-space: nowrap;
+		width: 100%;
+		transition: width .3s ease-out;
 	}
 
 	&__scroller-content {
 		display: inline-block;
+		padding-bottom: 6px;
+		background: rgba($border-color, .4);
 	}
 
 	&__items {
@@ -24,7 +44,7 @@
 
 	&__item {
 		&:not(:last-child) {
-			margin-right: 1rem;
+			// margin-right: .5rem;
 		}
 	}
 }

@@ -32,6 +32,15 @@ const MainPage = (props) => {
                     <CarouselCard>6</CarouselCard>
                     <CarouselCard>7</CarouselCard>
                     <CarouselCard>8</CarouselCard>
+                    <CarouselCard>9</CarouselCard>
+                    <CarouselCard>10</CarouselCard>
+                    <CarouselCard>11</CarouselCard>
+                    <CarouselCard>12</CarouselCard>
+                    <CarouselCard>13</CarouselCard>
+                    <CarouselCard>14</CarouselCard>
+                    <CarouselCard>15</CarouselCard>
+                    <CarouselCard>16</CarouselCard>
+                    <CarouselCard>17</CarouselCard>
                 </ScrollingCarousel>
             </div>
         </div>
