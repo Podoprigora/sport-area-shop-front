@@ -26,11 +26,11 @@
 		}
 
 		&--next:not(&--disabled) {
-			box-shadow: -8px 0 10px -6px rgba(#000, .15);
+			box-shadow: -6px 0 8px -5px rgba(#000, .15);
 		}
 
 		&--prev:not(&--disabled) {
-			box-shadow: 8px 0 10px -6px rgba(#000, .15);
+			box-shadow: 6px 0 8px -5px rgba(#000, .15);
 		}
 
 		&--disabled {

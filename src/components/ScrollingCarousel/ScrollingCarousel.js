@@ -18,6 +18,7 @@ const ScrollingCarousel = ({ children, disableScrollbar, className }) => {
     const scrollerContentNode = useRef(null);
     const scrollerNode = useRef(null);
     const isDraggableContent = useRef(false);
+    const isActivatedDrag = useRef(false);
     const startScrollPositionX = useRef(0);
 
     const updateDisplayControlsState = useEventCallback(() => {
@@ -58,6 +59,7 @@ const ScrollingCarousel = ({ children, disableScrollbar, className }) => {
     const handleScrollerContentMouseDown = (ev) => {
         ev.preventDefault();
 
+        isActivatedDrag.current = false;
         isDraggableContent.current = true;
         startScrollPositionX.current = ev.clientX + scrollerNode.current.scrollLeft;
     };
@@ -79,6 +81,10 @@ const ScrollingCarousel = ({ children, disableScrollbar, className }) => {
 
         if (isDraggableContent.current === true) {
             scrollerNode.current.scrollLeft = startScrollPositionX.current - ev.clientX;
+
+            setTimeout(() => {
+                isActivatedDrag.current = true;
+            }, 166);
         }
     };
 
@@ -108,7 +114,21 @@ const ScrollingCarousel = ({ children, disableScrollbar, className }) => {
         updateDisplayControlsState();
     }, 166);
 
-    const items = React.Children.map(children, (item, i) => {
+    const items = React.Children.map(children, (child, i) => {
+        const handleItemClick = (ev) => {
+            const { onClick } = child.props;
+
+            ev.preventDefault();
+
+            if (onClick && !isActivatedDrag.current) {
+                onClick(ev);
+            }
+        };
+
+        const item = React.cloneElement(child, {
+            onClick: handleItemClick
+        });
+
         return (
             <div key={i} className="scrolling-carousel__item">
                 {item}

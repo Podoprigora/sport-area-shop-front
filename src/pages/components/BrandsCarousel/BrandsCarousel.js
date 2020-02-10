@@ -16,10 +16,14 @@ const BrandsCarousel = ({ data, className, onItemClick, ...props }) => {
 
                     return (
                         <a
-                            role="presentation"
+                            href={`brands/${name}`}
                             key={name}
                             className="brands-carousel__item"
-                            onClick={(ev) => onItemClick(item, ev)}
+                            onClick={(ev) => {
+                                ev.preventDefault();
+
+                                onItemClick(item, ev);
+                            }}
                         >
                             <img src={image} alt={title} className="brands-carousel__img" />
                         </a>
