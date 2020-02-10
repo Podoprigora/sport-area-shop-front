@@ -4,20 +4,17 @@ import classNames from 'classnames';
 import scroll from 'scroll';
 import Scrollbars from 'react-custom-scrollbars';
 import debounce from 'lodash/debounce';
-import ScrollbarSize from '@components/ScrollbarSize';
-import useEventCallback from '@components/hooks/useEventCallback';
+import throttle from 'lodash/throttle';
 
-import ControlNext from './ControlNext';
-import ControlPrev from './ControlPrev';
+import useEventCallback from '@components/hooks/useEventCallback';
+import ScrollingControl from './ScrollingControl';
 
 const ScrollingCarousel = ({ children, className }) => {
-    const [scrollerStyle, setScrollerStyle] = useState({
-        marginBottom: null
-    });
     const [displayControls, setDisplayControls] = useState({
         prev: false,
         next: false
     });
+    const [scrollable, setScrollable] = useState(false);
     const scrollerContentNode = useRef(null);
     const scrollerNode = useRef(null);
     const isDraggableContent = useRef(false);
@@ -27,6 +24,11 @@ const ScrollingCarousel = ({ children, className }) => {
         const { clientWidth, scrollWidth, scrollLeft } = scrollerNode.current;
         const displayControlPrev = scrollLeft > 0;
         const displayControlNext = clientWidth + scrollLeft < scrollWidth;
+        const hasScrolling = scrollWidth > clientWidth;
+
+        if (hasScrolling !== scrollable) {
+            setScrollable(hasScrolling);
+        }
 
         if (
             displayControlPrev !== displayControls.prev ||
@@ -41,6 +43,18 @@ const ScrollingCarousel = ({ children, className }) => {
 
     useEffect(() => {
         updateDisplayControlsState();
+    }, [updateDisplayControlsState]);
+
+    useEffect(() => {
+        const handleResizeWindow = throttle(() => {
+            updateDisplayControlsState();
+        }, 166);
+
+        window.addEventListener('resize', handleResizeWindow);
+
+        return () => {
+            window.removeEventListener('resize', handleResizeWindow);
+        };
     }, [updateDisplayControlsState]);
 
     const handleScrollerContentMouseDown = (ev) => {
@@ -69,11 +83,6 @@ const ScrollingCarousel = ({ children, className }) => {
             scrollerNode.current.scrollLeft = startScrollPositionX.current - ev.clientX;
         }
     };
-
-    const handleScrollbarSizeChange = useEventCallback((scrollbarHeight) => {
-        setScrollerStyle({ marginBottom: -scrollbarHeight });
-        updateDisplayControlsState();
-    });
 
     const scrollContent = useCallback((direction = 'left') => {
         const nextScrollPosition =
@@ -110,10 +119,19 @@ const ScrollingCarousel = ({ children, className }) => {
     });
 
     return (
-        <div className={classNames('scrolling-carousel', className)}>
-            {displayControls.prev && <ControlPrev onClick={handleClickControlPrev} />}
-            <div className="scrolling-carousel__scroller" style={scrollerStyle}>
-                <ScrollbarSize onChange={handleScrollbarSizeChange} />
+        <div
+            className={classNames('scrolling-carousel', className, {
+                'scrolling-carousel--scrollable': scrollable
+            })}
+        >
+            {scrollable && (
+                <ScrollingControl
+                    type="prev"
+                    disabled={!displayControls.prev}
+                    onClick={handleClickControlPrev}
+                />
+            )}
+            <div className="scrolling-carousel__body">
                 <Scrollbars
                     autoHeight
                     ref={(node) => {
@@ -135,7 +153,13 @@ const ScrollingCarousel = ({ children, className }) => {
                 </Scrollbars>
             </div>
 
-            {displayControls.next && <ControlNext onClick={handleClickControlNext} />}
+            {scrollable && (
+                <ScrollingControl
+                    type="next"
+                    disabled={!displayControls.next}
+                    onClick={handleClickControlNext}
+                />
+            )}
         </div>
     );
 };

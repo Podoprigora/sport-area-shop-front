@@ -1,10 +1,12 @@
 .scrolling-carousel {
+	$this: &;
+
 	position: relative;
 	display: flex;
 	flex-flow: row nowrap;
-	overflow: hidden;
 
 	&__control {
+		position: relative;
 		display: flex;
 		flex-flow: row nowrap;
 		justify-content: flex-start;
@@ -12,26 +14,47 @@
 		color: $icon-color;
 		width: 3rem;
 		cursor: pointer;
+		z-index: 1;
+		transition: opacity .15s ease-out;
 
-		&:hover {
-			color: darken($icon-color, 20%);
+		&:not(&--disabled) {
+			cursor: pointer;
+
+			&:hover {
+				color: $icon-color-hover;
+			}
+		}
+
+		&--next:not(&--disabled) {
+			box-shadow: -8px 0 10px -6px rgba(#000, .15);
+		}
+
+		&--prev:not(&--disabled) {
+			box-shadow: 8px 0 10px -6px rgba(#000, .15);
+		}
+
+		&--disabled {
+			opacity: .2;
 		}
 	}
 
-	&__scroller {
+	&__body {
 		position: relative;
 		display: block;
-		overflow-x: scroll;
-		overflow-y: hidden;
-		white-space: nowrap;
-		width: 100%;
-		transition: width .3s ease-out;
+		overflow: hidden;
+		flex: 1;
 	}
 
 	&__scroller-content {
 		display: inline-block;
-		padding-bottom: 6px;
-		background: rgba($border-color, .4);
+
+		#{$this}--scrollable & {
+			// Only for non touch screens
+			@media screen and (hover: hover) {
+				padding-bottom: 6px;
+				background: rgba($border-color, .4);
+			}
+		}
 	}
 
 	&__items {
@@ -43,8 +66,6 @@
 	}
 
 	&__item {
-		&:not(:last-child) {
-			// margin-right: .5rem;
-		}
+		min-height: 1.4rem;
 	}
 }
