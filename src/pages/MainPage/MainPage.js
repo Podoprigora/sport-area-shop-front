@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Carousel from '@components/Carousel';
-import ScrollingCarousel from '@components/ScrollingCarousel';
-
-// eslint-disable-next-line react/prop-types
-const CarouselCard = ({ children }) => {
-    return <div className="carousel-card">{children}</div>;
-};
+import BrandsCarouselContainer from './containers/BrandsCartouselContainer';
 
 const MainPage = (props) => {
     return (
@@ -23,25 +18,7 @@ const MainPage = (props) => {
             </div>
 
             <div className="page__section">
-                <ScrollingCarousel>
-                    <CarouselCard>1</CarouselCard>
-                    <CarouselCard>2</CarouselCard>
-                    <CarouselCard>3</CarouselCard>
-                    <CarouselCard>4</CarouselCard>
-                    <CarouselCard>5</CarouselCard>
-                    <CarouselCard>6</CarouselCard>
-                    <CarouselCard>7</CarouselCard>
-                    <CarouselCard>8</CarouselCard>
-                    <CarouselCard>9</CarouselCard>
-                    <CarouselCard>10</CarouselCard>
-                    <CarouselCard>11</CarouselCard>
-                    <CarouselCard>12</CarouselCard>
-                    <CarouselCard>13</CarouselCard>
-                    <CarouselCard>14</CarouselCard>
-                    <CarouselCard>15</CarouselCard>
-                    <CarouselCard>16</CarouselCard>
-                    <CarouselCard>17</CarouselCard>
-                </ScrollingCarousel>
+                <BrandsCarouselContainer />
             </div>
         </div>
     );

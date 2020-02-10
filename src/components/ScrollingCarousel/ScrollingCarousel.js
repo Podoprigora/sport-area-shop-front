@@ -9,7 +9,7 @@ import throttle from 'lodash/throttle';
 import useEventCallback from '@components/hooks/useEventCallback';
 import ScrollingControl from './ScrollingControl';
 
-const ScrollingCarousel = ({ children, className }) => {
+const ScrollingCarousel = ({ children, disableScrollbar, className }) => {
     const [displayControls, setDisplayControls] = useState({
         prev: false,
         next: false
@@ -26,9 +26,7 @@ const ScrollingCarousel = ({ children, className }) => {
         const displayControlNext = clientWidth + scrollLeft < scrollWidth;
         const hasScrolling = scrollWidth > clientWidth;
 
-        if (hasScrolling !== scrollable) {
-            setScrollable(hasScrolling);
-        }
+        setScrollable(hasScrolling);
 
         if (
             displayControlPrev !== displayControls.prev ||
@@ -121,7 +119,7 @@ const ScrollingCarousel = ({ children, className }) => {
     return (
         <div
             className={classNames('scrolling-carousel', className, {
-                'scrolling-carousel--scrollable': scrollable
+                'scrolling-carousel--scrollable': scrollable && !disableScrollbar
             })}
         >
             {scrollable && (
@@ -137,6 +135,9 @@ const ScrollingCarousel = ({ children, className }) => {
                     ref={(node) => {
                         scrollerNode.current = (node && node.view) || null;
                     }}
+                    {...(disableScrollbar && {
+                        renderTrackHorizontal: () => <div />
+                    })}
                     onScroll={handleScroll}
                 >
                     <div
@@ -166,6 +167,7 @@ const ScrollingCarousel = ({ children, className }) => {
 
 ScrollingCarousel.propTypes = {
     children: PropTypes.node.isRequired,
+    disableScrollbar: PropTypes.bool,
     className: PropTypes.string
 };
 
