@@ -12,7 +12,7 @@
 		justify-content: flex-start;
 		align-items: center;
 		color: $icon-color;
-		width: 3rem;
+		padding: 0 1.4rem;
 		cursor: pointer;
 		z-index: 1;
 		transition: opacity .15s ease-out;
@@ -26,11 +26,11 @@
 		}
 
 		&--next:not(&--disabled) {
-			box-shadow: -6px 0 8px -5px rgba(#000, .15);
+			box-shadow: -6px 0 6px -5px rgba(#000, .15);
 		}
 
 		&--prev:not(&--disabled) {
-			box-shadow: 6px 0 8px -5px rgba(#000, .15);
+			box-shadow: 6px 0 6px -5px rgba(#000, .15);
 		}
 
 		&--disabled {

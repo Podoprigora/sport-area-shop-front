@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Carousel from '@components/Carousel';
-import BrandsCarouselContainer from './containers/BrandsCartouselContainer';
+
+import BrandsCarouselContainer from './containers/BrandsCarouselContainer';
+import BrandnewCarouselContainer from './containers/BrandnewCarouselContainer';
 
 const MainPage = (props) => {
     return (
@@ -19,6 +21,10 @@ const MainPage = (props) => {
 
             <div className="page__section">
                 <BrandsCarouselContainer />
+            </div>
+
+            <div className="page__section">
+                <BrandnewCarouselContainer />
             </div>
         </div>
     );

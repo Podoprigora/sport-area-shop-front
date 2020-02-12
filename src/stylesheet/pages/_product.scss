@@ -1,0 +1,71 @@
+.product {
+	display: block;
+	position: relative;
+	padding: 1.4rem 1.4rem 2.4rem;
+	text-decoration: none;
+	color: inherit;
+	background: #fff;
+
+	&__img-container {
+		position: relative;
+		height: 24rem;
+		margin-bottom: 1.4rem;
+		overflow: hidden;
+	}
+
+	&__img {
+		display: inline-block;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		height: 100%;
+	}
+
+	&__title {
+		display: block;
+		height: 6.2rem;
+		font-size: 1.4rem;
+		margin-bottom: 1.4rem;
+		overflow: hidden;
+	}
+
+	&__brand {
+		display: block;
+		font-weight: 500;
+		padding-bottom: .4rem;
+	}
+
+	&__name {
+		font-weight: 400;
+	}
+
+	&__price {
+		font-size: 1.8rem;
+		font-weight: 500;
+		line-height: 1;
+	}
+
+	&__currency {
+		display: inline-block;
+		padding-left: .8rem;
+	}
+
+	&__flag {
+		position: absolute;
+		top: 1.4rem;
+		left: 1.4rem;
+		font-size: 1.2rem;
+		font-weight: 500;
+		line-height: 1;
+		padding: .4rem .6rem;
+		text-transform: uppercase;
+		z-index: 1;
+
+		&--new {
+			color: $color-primary;
+			border: 1px solid $color-primary;
+			border-radius: 3px;
+		}
+	}
+}

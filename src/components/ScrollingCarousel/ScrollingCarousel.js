@@ -152,6 +152,7 @@ const ScrollingCarousel = ({ children, disableScrollbar, className }) => {
             <div className="scrolling-carousel__body">
                 <Scrollbars
                     autoHeight
+                    autoHeightMax="auto"
                     ref={(node) => {
                         scrollerNode.current = (node && node.view) || null;
                     }}

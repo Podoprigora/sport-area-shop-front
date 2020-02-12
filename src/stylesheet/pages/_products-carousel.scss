@@ -1,0 +1,13 @@
+.products-carousel {
+	&__item {
+		position: relative;
+		display: block;
+		width: 20.5rem;
+		border-right: 1px solid $border-color;
+		border-bottom: 1px solid $border-color;
+	}
+
+	.scrolling-carousel__item:last-child &__item {
+		border-right: 0;
+	}
+}
