@@ -72,10 +72,13 @@ const Carousel = ({ children, autoPlay, interval, className, control, ...props }
         };
     }, [play, stop]);
 
-    const handleIndicatorSelect = useEventCallback((index) => (ev) => {
-        animDirection.current = index >= activeIndex ? 'left' : 'right';
-        setActiveIndex(index);
-    });
+    const handleIndicatorSelect = useCallback(
+        (index) => (ev) => {
+            animDirection.current = index >= activeIndex ? 'left' : 'right';
+            setActiveIndex(index);
+        },
+        [activeIndex]
+    );
 
     const handlePrevControlClick = useCallback(
         throttle(

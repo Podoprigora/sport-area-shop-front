@@ -1,0 +1,56 @@
+.link {
+	&,
+	&:link,
+	&:visited {
+		position: relative;
+		display: inline-flex;
+		flex-flow: row nowrap;
+		align-items: center;
+		color: $link-color;
+		font-size: $link-font-size-small;
+		font-weight: $link-font-weight;
+		text-decoration: none;
+		outline: none;
+		cursor: pointer;
+		transition: color .15s ease-out;
+	}
+
+	&:hover {
+		color: $link-color-hover;
+		text-decoration: none;
+	}
+
+	&--small {
+		font-size: $link-font-size-small;
+	}
+
+	&--medium {
+		font-size: $link-font-size-medium;
+	}
+
+	&--large {
+		font-size: $link-font-size-large;
+	}
+
+	&--primary {
+		&,
+		&:link,
+		&:visited {
+			color: $color-primary;
+		}
+
+		&:hover {
+			color: $color-secondary;
+		}
+	}
+
+	&__icon {
+		&--left {
+			margin-right: .2rem;
+		}
+
+		&--right {
+			margin-left: .2rem;
+		}
+	}
+}

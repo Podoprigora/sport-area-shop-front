@@ -5,11 +5,11 @@
         "jsx": "preserve",
         "baseUrl": ".",
         "paths": { 
-          "@components/*": ["./src/components/*"],
-          "@pages/*": ["./src/pages/*"],
-          "@svg-icons/*": ["./src/components/SvgIcons/*"],
-          "@resources/*": ["./src/stylesheet/resources/*"],
-          "@remote/*": ["./remote/*"]
+            "@svg-icons/*": ["./src/components/SvgIcons/*"],
+            "@components/*": ["./src/components/*"],
+            "@pages/*": ["./src/pages/*"],
+            "@resources/*": ["./src/stylesheet/resources/*"],
+            "@remote/*": ["./remote/*"]
         }
     },
     "include": ["src"],

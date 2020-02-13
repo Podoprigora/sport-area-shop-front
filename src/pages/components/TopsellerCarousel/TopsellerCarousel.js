@@ -1,7 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+
 import ScrollingCarousel from '@components/ScrollingCarousel';
+import Panel from '@components/Panel';
+import PanelHeader from '@components/Panel/PanelHeader';
+import Link from '@components/Link';
+import PanelBody from '@components/Panel/PanelBody';
+import StarIcon from '@svg-icons/feather/StarIcon';
+import ChevronRightIcon from '@svg-icons/feather/ChevronRightIcon';
 import Calc from '@pages/utils/Calc';
 import Format from '@pages/utils/Format';
 
@@ -11,48 +18,57 @@ const TopsellerCarousel = ({ data, className, onItemClick, ...props }) => {
     }
 
     return (
-        <div className={classNames('products-carousel', className)} {...props}>
-            <ScrollingCarousel>
-                {data.map((item, i) => {
-                    const { id, name, brand, image, price, oldPrice, currency } = item;
-                    const discount = Calc.discountPersent(oldPrice, price);
+        <Panel className={className} {...props}>
+            <PanelHeader title="Topseller" icon={StarIcon}>
+                <Link href="#" icon={ChevronRightIcon} iconAlign="right">
+                    View all
+                </Link>
+            </PanelHeader>
+            <PanelBody className="products-carousel">
+                <ScrollingCarousel>
+                    {data.map((item, i) => {
+                        const { id, name, brand, image, price, oldPrice, currency } = item;
+                        const discount = Calc.discountPersent(oldPrice, price);
 
-                    return (
-                        <a
-                            key={id}
-                            href="#"
-                            className="products-carousel__item product"
-                            onClick={(ev) => onItemClick(item, ev)}
-                        >
-                            {discount && (
-                                <div className="product__flag product__flag--hot">-{discount}%</div>
-                            )}
-                            <div className="product__img-container">
-                                <img src={image} alt={name} className="product__img" />
-                            </div>
-                            <h4 className="product__title">
-                                {brand && <span className="product__brand">{brand}</span>}
-                                <span className="product__name">{name}</span>
-                            </h4>
-                            {oldPrice ? (
-                                <div className="product__prices-container">
-                                    <div className="product__price product__price--old">
-                                        {Format.price(oldPrice, currency)}
+                        return (
+                            <a
+                                key={id}
+                                href="#"
+                                className="products-carousel__item product"
+                                onClick={(ev) => onItemClick(item, ev)}
+                            >
+                                {discount && (
+                                    <div className="product__flag product__flag--hot">
+                                        -{discount}%
                                     </div>
-                                    <div className="product__price product__price--new">
+                                )}
+                                <div className="product__img-container">
+                                    <img src={image} alt={name} className="product__img" />
+                                </div>
+                                <h4 className="product__title">
+                                    {brand && <span className="product__brand">{brand}</span>}
+                                    <span className="product__name">{name}</span>
+                                </h4>
+                                {oldPrice ? (
+                                    <div className="product__prices-container">
+                                        <div className="product__price product__price--old">
+                                            {Format.price(oldPrice, currency)}
+                                        </div>
+                                        <div className="product__price product__price--new">
+                                            {Format.price(price, currency)}
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="product__price">
                                         {Format.price(price, currency)}
                                     </div>
-                                </div>
-                            ) : (
-                                <div className="product__price">
-                                    {Format.price(price, currency)}
-                                </div>
-                            )}
-                        </a>
-                    );
-                })}
-            </ScrollingCarousel>
-        </div>
+                                )}
+                            </a>
+                        );
+                    })}
+                </ScrollingCarousel>
+            </PanelBody>
+        </Panel>
     );
 };
 

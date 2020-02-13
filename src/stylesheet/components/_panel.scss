@@ -1,0 +1,28 @@
+.panel {
+	&__header {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: flex-start;
+		align-items: center;
+		padding: 1.2rem 0;
+	}
+
+	&__header-body {
+		margin-left: 1.2rem;
+	}
+
+	&__title {
+		font-size: $panel-title-font-size;
+		font-weight: $panel-title-font-weight;
+		color: $panel-title-color;
+	}
+
+	&__icon {
+		color: $color-primary;
+		margin: 0 1.2rem;
+	}
+
+	&__body {
+		display: block;
+	}
+}

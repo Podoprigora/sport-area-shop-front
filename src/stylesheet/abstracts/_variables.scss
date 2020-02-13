@@ -15,6 +15,11 @@ $border-color-dark: #d8e2e7;
 // Font
 $font-size: 1.4rem;
 
+// Panel
+$panel-title-color: #333;
+$panel-title-font-size: 1.8rem;
+$panel-title-font-weight: 400;
+
 // Button
 $btn-color: #757575;
 $btn-font-size-small: 1.4rem;
@@ -43,6 +48,14 @@ $icon-size: $icon-size-large;
 
 $icon-color: #646464;
 $icon-color-hover: $color-primary;
+
+// Link
+$link-color: #646464;
+$link-color-hover: $color-primary;
+$link-font-size-small: 1.4rem;
+$link-font-size-medium: 1.6rem;
+$link-font-size-large: 2rem;
+$link-font-weight: 400;
 
 // Inputs
 $input-padding: .8rem;
