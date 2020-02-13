@@ -4,6 +4,7 @@ import Carousel from '@components/Carousel';
 
 import BrandsCarouselContainer from './containers/BrandsCarouselContainer';
 import BrandnewCarouselContainer from './containers/BrandnewCarouselContainer';
+import TopsellerCarouselContainer from './containers/TopsellerCarouselContainer';
 
 const MainPage = (props) => {
     return (
@@ -25,6 +26,10 @@ const MainPage = (props) => {
 
             <div className="page__section">
                 <BrandnewCarouselContainer />
+            </div>
+
+            <div className="page__section">
+                <TopsellerCarouselContainer />
             </div>
         </div>
     );

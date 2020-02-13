@@ -33,8 +33,10 @@ module.exports = (env) => {
         resolve: {
             alias: {
                 '@components': path.resolve(__dirname, './src/components'),
+                '@pages': path.resolve(__dirname, './src/pages'),
                 '@svg-icons': path.resolve(__dirname, './src/components/SvgIcons'),
-                '@resources': path.resolve(__dirname, './src/stylesheet/resources')
+                '@resources': path.resolve(__dirname, './src/stylesheet/resources'),
+                '@remote': path.resolve(__dirname, './remote')
             }
         },
         optimization: {

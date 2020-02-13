@@ -40,10 +40,27 @@
 		font-weight: 400;
 	}
 
+	&__prices-container {
+		display: flex;
+		flex-flow: row wrap;
+		align-items: center;
+	}
+
 	&__price {
 		font-size: 1.8rem;
 		font-weight: 500;
 		line-height: 1;
+
+		&--old {
+			font-size: 1.6rem;
+			color: $color-silver;
+			text-decoration: line-through;
+			padding-right: 1.2rem;
+		}
+
+		&--new {
+			color: $color-hot;
+		}
 	}
 
 	&__currency {
@@ -58,13 +75,19 @@
 		font-size: 1.2rem;
 		font-weight: 500;
 		line-height: 1;
-		padding: .4rem .6rem;
 		text-transform: uppercase;
+		padding: .4rem .6rem;
+		background: #fff;
 		z-index: 1;
 
 		&--new {
 			color: $color-primary;
 			border: 1px solid $color-primary;
+			border-radius: 3px;
+		}
+		&--hot {
+			color: $color-hot;
+			border: 1px solid $color-hot;
 			border-radius: 3px;
 		}
 	}

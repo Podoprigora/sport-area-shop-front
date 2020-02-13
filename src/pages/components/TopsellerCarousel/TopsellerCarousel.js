@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ScrollingCarousel from '@components/ScrollingCarousel';
+import Calc from '@pages/utils/Calc';
 import Format from '@pages/utils/Format';
 
-const BrandnewCarousel = ({ data, className, onItemClick, ...props }) => {
+const TopsellerCarousel = ({ data, className, onItemClick, ...props }) => {
     if (!data.length) {
         return null;
     }
@@ -13,7 +14,8 @@ const BrandnewCarousel = ({ data, className, onItemClick, ...props }) => {
         <div className={classNames('products-carousel', className)} {...props}>
             <ScrollingCarousel>
                 {data.map((item, i) => {
-                    const { id, name, brand, image, price, currency } = item;
+                    const { id, name, brand, image, price, oldPrice, currency } = item;
+                    const discount = Calc.discountPersent(oldPrice, price);
 
                     return (
                         <a
@@ -22,7 +24,9 @@ const BrandnewCarousel = ({ data, className, onItemClick, ...props }) => {
                             className="products-carousel__item product"
                             onClick={(ev) => onItemClick(item, ev)}
                         >
-                            <div className="product__flag product__flag--new">New</div>
+                            {discount && (
+                                <div className="product__flag product__flag--hot">-{discount}%</div>
+                            )}
                             <div className="product__img-container">
                                 <img src={image} alt={name} className="product__img" />
                             </div>
@@ -30,7 +34,20 @@ const BrandnewCarousel = ({ data, className, onItemClick, ...props }) => {
                                 {brand && <span className="product__brand">{brand}</span>}
                                 <span className="product__name">{name}</span>
                             </h4>
-                            <div className="product__price">{Format.price(price, currency)}</div>
+                            {oldPrice ? (
+                                <div className="product__prices-container">
+                                    <div className="product__price product__price--old">
+                                        {Format.price(oldPrice, currency)}
+                                    </div>
+                                    <div className="product__price product__price--new">
+                                        {Format.price(price, currency)}
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="product__price">
+                                    {Format.price(price, currency)}
+                                </div>
+                            )}
                         </a>
                     );
                 })}
@@ -39,7 +56,7 @@ const BrandnewCarousel = ({ data, className, onItemClick, ...props }) => {
     );
 };
 
-BrandnewCarousel.propTypes = {
+TopsellerCarousel.propTypes = {
     data: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.number.isRequired,
@@ -47,6 +64,7 @@ BrandnewCarousel.propTypes = {
             brand: PropTypes.string,
             image: PropTypes.string,
             price: PropTypes.number,
+            oldPrice: PropTypes.number,
             currency: PropTypes.string
         })
     ),
@@ -54,8 +72,8 @@ BrandnewCarousel.propTypes = {
     onItemClick: PropTypes.func
 };
 
-BrandnewCarousel.defaultProps = {
+TopsellerCarousel.defaultProps = {
     onItemClick: () => {}
 };
 
-export default BrandnewCarousel;
+export default TopsellerCarousel;

@@ -4,10 +4,12 @@
         "target": "es2016",
         "jsx": "preserve",
         "baseUrl": ".",
-        "paths": {
+        "paths": { 
           "@components/*": ["./src/components/*"],
+          "@pages/*": ["./src/pages/*"],
           "@svg-icons/*": ["./src/components/SvgIcons/*"],
-          "@resources/*": ["../src/stylesheet/resources/*"]
+          "@resources/*": ["./src/stylesheet/resources/*"],
+          "@remote/*": ["./remote/*"]
         }
     },
     "include": ["src"],

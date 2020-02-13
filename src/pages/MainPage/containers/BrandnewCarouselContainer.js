@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 
-import BrandnewCarousel from '../../components/BrandnewCarousel';
+import BrandnewCarousel from '@pages/components/BrandnewCarousel';
 
-import data from '../../../../remote/json/brandnew.json';
+import data from '@remote/json/brandnew.json';
 
 const BrandnewCarouselContainer = () => {
     const handleItemClick = useCallback((item, ev) => {

@@ -46,9 +46,10 @@
 	}
 
 	&__scroller-content {
-		display: inline-block;
+		display: block;
 
 		#{$this}--scrollable & {
+			display: inline-block;
 			// Only for non touch screens
 			@media screen and (hover: hover) {
 				padding-bottom: 6px;
@@ -58,11 +59,10 @@
 	}
 
 	&__items {
-		display: inline-flex;
+		display: flex;
 		flex-flow: row nowrap;
 		justify-content: flex-start;
 		align-items: stretch;
-		margin-bottom: 1px;
 	}
 
 	&__item {
