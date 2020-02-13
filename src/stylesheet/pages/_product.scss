@@ -1,7 +1,7 @@
 .product {
 	display: block;
 	position: relative;
-	padding: 1.4rem 1.4rem 2.4rem;
+	padding: $spacer-2 $spacer-2 $spacer-3;
 	text-decoration: none;
 	color: inherit;
 	background: #fff;
@@ -9,7 +9,7 @@
 	&__img-container {
 		position: relative;
 		height: 24rem;
-		margin-bottom: 1.4rem;
+		margin-bottom: $spacer-2;
 		overflow: hidden;
 	}
 
@@ -25,8 +25,8 @@
 	&__title {
 		display: block;
 		height: 6.2rem;
-		font-size: 1.4rem;
-		margin-bottom: 1.4rem;
+		font-size: $font-size;
+		margin-bottom: $spacer-2;
 		overflow: hidden;
 	}
 
@@ -55,7 +55,7 @@
 			font-size: 1.6rem;
 			color: $color-silver;
 			text-decoration: line-through;
-			padding-right: 1.2rem;
+			padding-right: $spacer-2;
 		}
 
 		&--new {
@@ -70,8 +70,8 @@
 
 	&__flag {
 		position: absolute;
-		top: 1.4rem;
-		left: 1.4rem;
+		top: $spacer-2;
+		left: $spacer-2;
 		font-size: 1.2rem;
 		font-weight: 500;
 		line-height: 1;

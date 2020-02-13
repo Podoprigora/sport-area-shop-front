@@ -9,25 +9,21 @@
 	}
 
 	&__nav-part {
-		// background-color: rgba(#2a2a2a, .8);
-		// background-color: #2a2a2a;
-		// background-color: #fff;
-		padding: 1.2rem 0;
-		// border-bottom: 1px solid $border-color;
+		padding: $spacer-2 0;
 	}
 
 	&__nav-btn {
 		font-size: 1.6rem;
 		font-weight: 400;
 		text-transform: none;
-		padding: .8rem 1.4rem;
+		padding: $spacer-1 $spacer-2;
 		border-top-right-radius: 0;
 		border-bottom-right-radius: 0;
 		box-shadow: none;
 		width: 26rem;
 
 		.btn__icon {
-			margin-right: 1.4rem;
+			margin-right: $spacer-2;
 		}
 
 		&:focus {
@@ -74,7 +70,7 @@
 		}
 
 		.input__el {
-			padding: 1rem 1rem 1rem 4.8rem;
+			padding: $spacer-1 $spacer-1 $spacer-1 $spacer-4;
 			font-size: 1.4rem;
 			height: 100%;
 		}
@@ -83,7 +79,7 @@
 	&__search-icon {
 		position: absolute;
 		top: 50%;
-		left: 1.4rem;
+		left: $spacer-2;
 		color: $input-placeholder-color;
 		transform: translateY(-50%);
 	}
@@ -92,12 +88,12 @@
 		display: flex;
 		flex-flow: row nowrap;
 		align-items: center;
-		padding-left: 1.4rem;
+		padding-left: $spacer-2;
 		margin-left: auto;
 
 		& > .btn-icon {
 			color: $color-primary;
-			margin-left: 1rem;
+			margin-left: $spacer-1;
 
 			& .svg-icon {
 				stroke-width: 0;

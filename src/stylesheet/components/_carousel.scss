@@ -25,7 +25,7 @@
 
 	&__indicators {
 		position: absolute;
-		bottom: 1.4rem;
+		bottom: $spacer-2;
 		left: 50%;
 		transform: translateX(-50%);
 		display: flex;
@@ -80,13 +80,13 @@
 		}
 
 		&--prev {
-			left: 1.4rem;
-			transform: translate3d(-1.4rem, -50%, 0);
+			left: $spacer-2;
+			transform: translate3d(-$spacer-1, -50%, 0);
 		}
 
 		&--next {
-			right: 1.4rem;
-			transform: translate3d(1.4rem, -50%, 0);
+			right: $spacer-2;
+			transform: translate3d($spacer-1, -50%, 0);
 		}
 
 		&--active {
