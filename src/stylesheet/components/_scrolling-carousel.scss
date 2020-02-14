@@ -39,7 +39,7 @@
 			// Only for non touch screens
 			@media screen and (hover: hover) {
 				padding-bottom: 6px;
-				background: rgba($border-color, .4);
+				background: $bg-color-dark;
 			}
 		}
 	}

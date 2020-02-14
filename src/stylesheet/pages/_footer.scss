@@ -1,0 +1,10 @@
+.footer {
+	background-color: $bg-color-dark;
+	border-top: 1px solid $border-color-dark;
+	padding: $spacer-3 0;
+
+	&__copyright {
+		font-weight: 500;
+		color: $color-gray;
+	}
+}

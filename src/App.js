@@ -3,10 +3,10 @@ import { HashRouter, Switch, Route } from 'react-router-dom';
 
 import './stylesheet/main.scss';
 
-import Header from './pages/components/Header';
-import Main from './pages/components/Main';
-
-import MainPage from './pages/MainPage';
+import Header from '@pages/components/Header';
+import Main from '@pages/components/Main';
+import Footer from '@pages/components/Footer';
+import MainPage from '@pages/MainPage';
 
 const App = () => {
     return (
@@ -19,6 +19,7 @@ const App = () => {
                     </Route>
                 </Switch>
             </Main>
+            <Footer />
         </HashRouter>
     );
 };
