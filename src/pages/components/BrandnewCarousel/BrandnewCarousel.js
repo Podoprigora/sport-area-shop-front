@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+
 import ScrollingCarousel from '@components/ScrollingCarousel';
 import Format from '@pages/utils/Format';
 import Panel from '@components/Panel';

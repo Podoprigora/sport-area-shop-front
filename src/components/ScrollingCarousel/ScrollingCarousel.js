@@ -9,7 +9,13 @@ import throttle from 'lodash/throttle';
 import useEventCallback from '@components/hooks/useEventCallback';
 import ScrollingControl from './ScrollingControl';
 
-const ScrollingCarousel = ({ children, disableScrollbar, className }) => {
+const ScrollingCarousel = ({
+    children,
+    disableScrollbar,
+    className,
+    renderNextControl,
+    renderPrevControl
+}) => {
     const [displayControls, setDisplayControls] = useState({
         prev: false,
         next: false
@@ -146,6 +152,7 @@ const ScrollingCarousel = ({ children, disableScrollbar, className }) => {
                 <ScrollingControl
                     type="prev"
                     disabled={!displayControls.prev}
+                    render={renderPrevControl}
                     onClick={handleClickControlPrev}
                 />
             )}
@@ -179,6 +186,7 @@ const ScrollingCarousel = ({ children, disableScrollbar, className }) => {
                 <ScrollingControl
                     type="next"
                     disabled={!displayControls.next}
+                    render={renderNextControl}
                     onClick={handleClickControlNext}
                 />
             )}
@@ -189,7 +197,9 @@ const ScrollingCarousel = ({ children, disableScrollbar, className }) => {
 ScrollingCarousel.propTypes = {
     children: PropTypes.node.isRequired,
     disableScrollbar: PropTypes.bool,
-    className: PropTypes.string
+    className: PropTypes.string,
+    renderNextControl: PropTypes.func,
+    renderPrevControl: PropTypes.func
 };
 
 export default ScrollingCarousel;

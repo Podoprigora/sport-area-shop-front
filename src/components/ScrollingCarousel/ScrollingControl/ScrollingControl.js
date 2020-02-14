@@ -2,31 +2,41 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import ChevronLeftIcon from '@components/SvgIcons/feather/ChevronLeftIcon';
-import ChevronRightIcon from '@components/SvgIcons/feather/ChevronRightIcon';
+import IconButton from '@components/IconButton';
+import ChevronLeftIcon from '@svg-icons/feather/ChevronLeftIcon';
+import ChevronRightIcon from '@svg-icons/feather/ChevronRightIcon';
 
-const ScrollingControl = ({ type, disabled, onClick, ...props }) => {
+const ScrollingControl = ({ type, disabled, onClick, render, ...props }) => {
+    const btn = render ? (
+        React.createElement(render, {
+            disabled,
+            onClick
+        })
+    ) : (
+        <IconButton disabled={disabled} onClick={onClick}>
+            {type === 'prev' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+        </IconButton>
+    );
+
     return (
-        <button
-            type="button"
+        <div
             className={classNames('scrolling-carousel__control', {
                 'scrolling-carousel__control--prev': type === 'prev',
                 'scrolling-carousel__control--next': type === 'next',
                 'scrolling-carousel__control--disabled': disabled
             })}
-            disabled={disabled}
-            onClick={onClick}
             {...props}
         >
-            {type === 'prev' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-        </button>
+            {btn}
+        </div>
     );
 };
 
 ScrollingControl.propTypes = {
     type: PropTypes.oneOf(['prev', 'next']),
     disabled: PropTypes.bool,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    render: PropTypes.func
 };
 
 ScrollingControl.defaultProps = {

@@ -20,9 +20,17 @@
 		z-index: -1;
 	}
 
-	&:hover {
-		&::before {
-			transform: scale3d(1, 1, 1);
+	&:not(&--disabled) {
+		&:hover {
+			color: $color-primary;
+			&::before {
+				transform: scale3d(1, 1, 1);
+			}
 		}
+	}
+
+	&--disabled {
+		cursor: text;
+		opacity: .2;
 	}
 }

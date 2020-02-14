@@ -9,21 +9,11 @@
 		position: relative;
 		display: flex;
 		flex-flow: row nowrap;
-		justify-content: flex-start;
+		justify-content: center;
 		align-items: center;
-		color: $icon-color;
-		padding: 0 $spacer-2;
-		cursor: pointer;
+		width: $spacer-4;
+		transition: box-shadow .15s ease-out;
 		z-index: 1;
-		transition: opacity .15s ease-out;
-
-		&:not(&--disabled) {
-			cursor: pointer;
-
-			&:hover {
-				color: $icon-color-hover;
-			}
-		}
 
 		&--next:not(&--disabled) {
 			box-shadow: -6px 0 6px -5px rgba(#000, .15);
@@ -31,10 +21,6 @@
 
 		&--prev:not(&--disabled) {
 			box-shadow: 6px 0 6px -5px rgba(#000, .15);
-		}
-
-		&--disabled {
-			opacity: .2;
 		}
 	}
 
