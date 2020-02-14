@@ -55,20 +55,18 @@ const Carousel = ({ children, autoPlay, interval, className, control, ...props }
     }, [play, stop]);
 
     useEffect(() => {
-        const windowFocusHandler = (ev) => {
-            play();
+        const handleDocumentVisibilityChange = (ev) => {
+            if (document.hidden) {
+                stop();
+            } else {
+                play();
+            }
         };
 
-        const windowBlurHandler = (ev) => {
-            stop();
-        };
-
-        window.addEventListener('focus', windowFocusHandler, false);
-        window.addEventListener('blur', windowBlurHandler, false);
+        document.addEventListener('visibilitychange', handleDocumentVisibilityChange, false);
 
         return () => {
-            window.removeEventListener('focus', windowFocusHandler);
-            window.removeEventListener('blur', windowBlurHandler);
+            document.removeEventListener('visibilitychange', handleDocumentVisibilityChange, false);
         };
     }, [play, stop]);
 
