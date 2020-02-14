@@ -6,13 +6,23 @@
 	padding: 0;
 }
 
+html,
+body {
+	height: 100vh;
+}
+
 html {
 	font-size: 62.5%;
-	min-height: 100%;
 }
 
 body {
 	box-sizing: border-box;
-	min-height: 100%;
 	background-color: $bg-color-light-2;
+}
+
+#root,
+.app-root {
+	display: flex;
+	flex-flow: column nowrap;
+	min-height: 100%;
 }

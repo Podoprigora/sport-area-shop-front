@@ -103,6 +103,5 @@ $media-breakpoints: (
 );
 
 // Layout
-
 $container-max-width: 120rem;
-$container-padding: 0 3.2rem;
+$container-padding: 0 $spacer-3;
