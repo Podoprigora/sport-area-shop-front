@@ -34,6 +34,7 @@
 	&__container {
 		display: flex;
 		flex-flow: row nowrap;
+		justify-content: space-between;
 		align-items: stretch;
 	}
 
@@ -45,6 +46,16 @@
 		display: inline-block;
 		width: 16.5rem;
 		height: auto;
+	}
+
+	&__user-container {
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: center;
+	}
+
+	&__link {
+		margin-left: $spacer-2;
 	}
 
 	&__search {
