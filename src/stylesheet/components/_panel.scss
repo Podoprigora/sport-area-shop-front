@@ -5,6 +5,7 @@
 		justify-content: flex-start;
 		align-items: center;
 		padding: 1.2rem 0;
+		// line-height: 1;
 	}
 
 	&__header-body {
@@ -15,6 +16,7 @@
 		font-size: $panel-title-font-size;
 		font-weight: $panel-title-font-weight;
 		color: $panel-title-color;
+		line-height: $panel-title-line-height;
 	}
 
 	&__icon {

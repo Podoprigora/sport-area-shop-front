@@ -2,10 +2,10 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import scroll from 'scroll';
-import Scrollbars from 'react-custom-scrollbars';
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
 
+import Scrollbar from '@components/Scrollbar';
 import useEventCallback from '@components/hooks/useEventCallback';
 import ScrollingControl from './ScrollingControl';
 
@@ -157,17 +157,7 @@ const ScrollingCarousel = ({
                 />
             )}
             <div className="scrolling-carousel__body">
-                <Scrollbars
-                    autoHeight
-                    autoHeightMax="auto"
-                    ref={(node) => {
-                        scrollerNode.current = (node && node.view) || null;
-                    }}
-                    {...(disableScrollbar && {
-                        renderTrackHorizontal: () => <div />
-                    })}
-                    onScroll={handleScroll}
-                >
+                <Scrollbar ref={scrollerNode} disabled={disableScrollbar} onScroll={handleScroll}>
                     <div
                         role="presentation"
                         className="scrolling-carousel__scroller-content"
@@ -179,7 +169,7 @@ const ScrollingCarousel = ({
                     >
                         <div className="scrolling-carousel__items">{items}</div>
                     </div>
-                </Scrollbars>
+                </Scrollbar>
             </div>
 
             {scrollable && (
