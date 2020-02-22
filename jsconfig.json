@@ -8,6 +8,7 @@
             "@svg-icons/*": ["./src/components/SvgIcons/*"],
             "@components/*": ["./src/components/*"],
             "@pages/*": ["./src/pages/*"],
+            "@services/*": ["./src/services/*"],
             "@resources/*": ["./src/stylesheet/resources/*"],
             "@remote/*": ["./remote/*"]
         }

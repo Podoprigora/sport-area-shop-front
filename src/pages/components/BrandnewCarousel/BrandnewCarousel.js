@@ -11,7 +11,7 @@ import ChevronRightIcon from '@components/SvgIcons/feather/ChevronRightIcon';
 import Link from '@components/Link';
 
 const BrandnewCarousel = ({ data, className, onItemClick, ...props }) => {
-    if (!data.length) {
+    if (!data || data.length === 0) {
         return null;
     }
 

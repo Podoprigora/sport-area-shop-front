@@ -13,7 +13,7 @@ import Calc from '@pages/utils/Calc';
 import Format from '@pages/utils/Format';
 
 const TopsellerCarousel = ({ data, className, onItemClick, ...props }) => {
-    if (!data.length) {
+    if (!data || data.length === 0) {
         return null;
     }
 

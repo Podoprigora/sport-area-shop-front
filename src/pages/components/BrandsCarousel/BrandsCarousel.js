@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import ScrollingCarousel from '@components/ScrollingCarousel';
 
 const BrandsCarousel = ({ data, className, onItemClick, ...props }) => {
-    if (!data.length) {
+    if (!data || data.length === 0) {
         return null;
     }
 

@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "image": "remote/images/brand_banners/premium-roxy-1.jpeg"
+    },
+    {
+        "id": 2,
+        "image": "remote/images/brand_banners/premium-quiksilver-1.jpeg"
+    },
+    {
+        "id": 3,
+        "image": "remote/images/brand_banners/premium-oneill-1.jpeg"
+    },
+    {
+        "id": 4,
+        "image": "remote/images/brand_banners/premium-nike-1.jpg"
+    },
+    {
+        "id": 5,
+        "image": "remote/images/brand_banners/premium-element-1.jpeg"
+    },
+    {
+        "id": 6,
+        "image": "remote/images/brand_banners/premium-converse.jpeg"
+    }
+]

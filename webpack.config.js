@@ -36,6 +36,7 @@ module.exports = (env) => {
                 '@components': path.resolve(__dirname, './src/components'),
                 '@pages': path.resolve(__dirname, './src/pages'),
                 '@resources': path.resolve(__dirname, './src/stylesheet/resources'),
+                '@services': path.resolve(__dirname, './src/services'),
                 '@remote': path.resolve(__dirname, './remote')
             }
         },
