@@ -18,7 +18,7 @@ const ProductSkeleton = React.forwardRef(function ProductSkeleton(props, ref) {
                     size="medium"
                     style={{ width: '80%', marginBottom: '1.4rem' }}
                 />
-                <Skeleton type="text" size="small" style={{ marginBottom: '.8rem' }} />
+                <Skeleton type="text" size="small" style={{ marginBottom: '.6rem' }} />
                 <Skeleton type="text" size="small" style={{ width: '50%' }} />
             </h4>
             <div className="product__price">

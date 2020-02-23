@@ -2,6 +2,9 @@ import React, { useState, useEffect, useLayoutEffect, useCallback, useRef } from
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import Skeleton from '@components/Skeleton';
+import Panel from '@components/Panel';
+import PanelHeader from '@components/Panel/PanelHeader';
+import PanelBody from '@components/Panel/PanelBody';
 import ProductSkeleton from './ProductSkeleton';
 
 const ProductsCarouselSkeleton = (props) => {
@@ -38,16 +41,14 @@ const ProductsCarouselSkeleton = (props) => {
     }, [calcLength, handleWindowResize]);
 
     return (
-        <div className="panel">
-            <div className="panel__header">
-                <div className="panel__icon">
-                    <Skeleton type="circle" size="small" />
-                </div>
-                <div className="panel__title">
+        <Panel>
+            <PanelHeader
+                renderIcon={() => <Skeleton type="circle" size="small" />}
+                renderTitle={() => (
                     <Skeleton type="text" size="medium" style={{ width: '20rem' }} />
-                </div>
-            </div>
-            <div className="panel__body u-margin-horizontal-spacer-4">
+                )}
+            />
+            <PanelBody className="u-margin-horizontal-spacer-4">
                 <div className="products-carousel products-carousel-skeleton" ref={containerRef}>
                     <ProductSkeleton className="products-carousel__item" ref={itemRef} />
                     {itemsLength > 1 &&
@@ -57,8 +58,8 @@ const ProductsCarouselSkeleton = (props) => {
                             );
                         })}
                 </div>
-            </div>
-        </div>
+            </PanelBody>
+        </Panel>
     );
 };
 

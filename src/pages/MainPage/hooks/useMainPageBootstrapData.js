@@ -5,7 +5,7 @@ import ProductsService from '@services/ProductsService';
 
 export default function useMainPageBootstrapData() {
     const [error, setError] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState({});
 
     useEffect(() => {
@@ -18,8 +18,6 @@ export default function useMainPageBootstrapData() {
         let isMounted = true;
 
         (async () => {
-            setIsLoading(true);
-
             const [adwSlidersData, brandsData, brandnewData, topsellerData] = await Promise.all(
                 promises
             );
