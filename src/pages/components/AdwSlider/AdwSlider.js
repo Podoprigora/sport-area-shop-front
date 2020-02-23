@@ -13,7 +13,13 @@ const AdwSlider = ({ data, className, isLoading }) => {
     }
 
     return (
-        <Carousel autoPlay interval={10000} control="hover" className={className}>
+        <Carousel
+            autoPlay
+            interval={10000}
+            control="hover"
+            className={className}
+            style={{ minHeight: '10rem' }}
+        >
             {data.map(({ id, image }, i) => (
                 <img key={id} src={image} alt="" />
             ))}

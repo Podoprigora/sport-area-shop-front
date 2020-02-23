@@ -1,5 +1,6 @@
 .products-carousel {
 	&__item {
+		flex-shrink: 0;
 		position: relative;
 		display: block;
 		width: 21rem;
