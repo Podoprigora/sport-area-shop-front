@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import Skeleton from '@components/Skeleton';
@@ -15,6 +15,7 @@ const ProductsCarouselSkeleton = (props) => {
 
         if (containerWidth > itemWidth) {
             const length = Math.round(Math.ceil(containerWidth / (itemWidth + 25)));
+
             setItemLength(length);
         }
     }, []);
@@ -26,7 +27,7 @@ const ProductsCarouselSkeleton = (props) => {
         []
     );
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         calcLength();
 
         window.addEventListener('resize', handleWindowResize, false);

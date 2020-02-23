@@ -9,5 +9,6 @@
 .products-carousel-skeleton {
 	display: flex;
 	flex-flow: row nowrap;
-	justify-content: stretch;
+	justify-content: flex-start;
+	overflow: hidden;
 }
