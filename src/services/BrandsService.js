@@ -5,10 +5,10 @@ import fakeRequest from './fakeRequest';
 
 export default class BrandsService {
     static async fetchAll() {
-        return fakeRequest(brandsData, { success: true, delay: 1500 });
+        return fakeRequest(brandsData, { success: true, delay: 300 });
     }
 
     static async fetchAdwSliders() {
-        return fakeRequest(adwData, { success: true, delay: 1000 });
+        return fakeRequest(adwData, { success: true, delay: 500 });
     }
 }

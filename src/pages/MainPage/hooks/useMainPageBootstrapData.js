@@ -9,46 +9,36 @@ export default function useMainPageBootstrapData() {
     const [data, setData] = useState({});
 
     useEffect(() => {
-        const adwSlidersPromise = BrandsService.fetchAdwSliders().catch((e) => {
-            setError(e);
-        });
-        const brandsPromise = BrandsService.fetchAll().catch((e) => {
-            setError(e);
-        });
-        const brandnewPromise = ProductsService.fetchBrandnew().catch((e) => {
-            setError(e);
-        });
-        const topsellerPromise = ProductsService.fetchTopseller().catch((e) => {
-            setError(e);
-        });
+        const promises = [
+            BrandsService.fetchAdwSliders(),
+            BrandsService.fetchAll(),
+            ProductsService.fetchBrandnew(),
+            ProductsService.fetchTopseller()
+        ].map(async (pr) => pr.catch((e) => setError(e)));
+        let isMounted = true;
 
         (async () => {
             setIsLoading(true);
 
-            try {
-                const [
-                    brandsData,
-                    adwSlidersData,
-                    brandnewData,
-                    topsellerData
-                ] = await Promise.all([
-                    brandsPromise,
-                    adwSlidersPromise,
-                    brandnewPromise,
-                    topsellerPromise
-                ]);
+            const [adwSlidersData, brandsData, brandnewData, topsellerData] = await Promise.all(
+                promises
+            );
+
+            if (isMounted) {
                 setData({
                     adwSlidersData,
                     brandsData,
                     brandnewData,
                     topsellerData
                 });
-            } catch (e) {
-                setError(e);
-            }
 
-            setIsLoading(false);
+                setIsLoading(false);
+            }
         })();
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     return {

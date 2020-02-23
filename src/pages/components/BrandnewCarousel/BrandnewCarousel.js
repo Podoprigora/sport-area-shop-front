@@ -9,8 +9,13 @@ import PanelBody from '@components/Panel/PanelBody';
 import TagIcon from '@components/SvgIcons/feather/TagIcon';
 import ChevronRightIcon from '@components/SvgIcons/feather/ChevronRightIcon';
 import Link from '@components/Link';
+import ProductsCarouselSkeleton from '../Skeletons/ProductsCarouselSkeleton';
 
-const BrandnewCarousel = ({ data, className, onItemClick, ...props }) => {
+const BrandnewCarousel = ({ data, className, onItemClick, isLoading, ...props }) => {
+    if (isLoading) {
+        return <ProductsCarouselSkeleton />;
+    }
+
     if (!data || data.length === 0) {
         return null;
     }
@@ -66,6 +71,7 @@ BrandnewCarousel.propTypes = {
         })
     ),
     className: PropTypes.string,
+    isLoading: PropTypes.bool,
     onItemClick: PropTypes.func
 };
 

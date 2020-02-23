@@ -1,0 +1,105 @@
+.skeleton {
+	$this: &;
+
+	display: block;
+	background-color: $skeleton-bg-color;
+
+	&--text {
+		min-width: 0;
+		min-height: $font-size;
+		border-radius: 10rem;
+
+		&#{$this}--small {
+			min-height: 1rem;
+		}
+
+		&#{$this}--medium {
+			min-height: $font-size;
+		}
+
+		&#{$this}--large {
+			min-height: 2 * $font-size;
+		}
+	}
+
+	&--circle {
+		border-radius: 50%;
+		width: 4.8rem;
+		height: 4.8rem;
+
+		&#{$this}--small {
+			width: 2.4rem;
+			height: 2.4rem;
+		}
+
+		&#{$this}--medium {
+			width: 4.8rem;
+			height: 4.8rem;
+		}
+
+		&#{$this}--large {
+			width: 7.2rem;
+			height: 7.2rem;
+		}
+	}
+
+	&--rect {
+		border-radius: .5rem;
+		min-height: 4.8rem;
+
+		&#{$this}--small {
+			min-height: 2.4rem;
+		}
+
+		&#{$this}--medium {
+			min-height: 4.8rem;
+		}
+
+		&#{$this}--large {
+			min-height: 7.2rem;
+		}
+	}
+
+	&--animation-pulse {
+		animation: skeleton-animation-pulse 1.5s ease-in-out .5s infinite;
+	}
+
+	&--animation-wave {
+		position: relative;
+		overflow: hidden;
+
+		&::after {
+			position: absolute;
+			content: "";
+			background-image: linear-gradient(to right, transparent, rgba(#fff, .5), transparent);
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			transform: translateX(-100%);
+			z-index: 1;
+			animation: skeleton-animation-wave 1.5s ease-out .5s infinite;
+		}
+	}
+}
+
+@keyframes skeleton-animation-wave {
+	0% {
+		transform: translateX(-100%);
+	}
+	100% {
+		transform: translateX(100%);
+	}
+}
+
+@keyframes skeleton-animation-pulse {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: .4;
+	}
+	100% {
+		opacity: 1;
+	}
+}

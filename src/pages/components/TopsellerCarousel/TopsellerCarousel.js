@@ -11,8 +11,13 @@ import StarIcon from '@svg-icons/feather/StarIcon';
 import ChevronRightIcon from '@svg-icons/feather/ChevronRightIcon';
 import Calc from '@pages/utils/Calc';
 import Format from '@pages/utils/Format';
+import ProductsCarouselSkeleton from '../Skeletons/ProductsCarouselSkeleton';
 
-const TopsellerCarousel = ({ data, className, onItemClick, ...props }) => {
+const TopsellerCarousel = ({ data, className, isLoading, onItemClick, ...props }) => {
+    if (isLoading) {
+        return <ProductsCarouselSkeleton />;
+    }
+
     if (!data || data.length === 0) {
         return null;
     }
@@ -85,6 +90,7 @@ TopsellerCarousel.propTypes = {
         })
     ),
     className: PropTypes.string,
+    isLoading: PropTypes.bool,
     onItemClick: PropTypes.func
 };
 

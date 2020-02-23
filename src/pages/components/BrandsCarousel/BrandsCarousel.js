@@ -2,8 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ScrollingCarousel from '@components/ScrollingCarousel';
+import BrandsCarouselSkeleton from '../Skeletons/BrandsCarouselSkeleton';
 
-const BrandsCarousel = ({ data, className, onItemClick, ...props }) => {
+const BrandsCarousel = ({ data, className, onItemClick, isLoading, ...props }) => {
+    if (isLoading) {
+        return <BrandsCarouselSkeleton />;
+    }
+
     if (!data || data.length === 0) {
         return null;
     }
@@ -43,6 +48,7 @@ BrandsCarousel.propTypes = {
         })
     ),
     className: PropTypes.string,
+    isLoading: PropTypes.bool,
     onItemClick: PropTypes.func
 };
 

@@ -1,8 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Carousel from '@components/Carousel';
+import AdwSliderSkeleton from '../Skeletons/AdwSliderSkeleton';
 
-const AdwSlider = ({ data, className }) => {
+const AdwSlider = ({ data, className, isLoading }) => {
+    if (isLoading) {
+        return <AdwSliderSkeleton />;
+    }
+
     if (!data || data.length === 0) {
         return null;
     }
@@ -23,7 +28,8 @@ AdwSlider.propTypes = {
             image: PropTypes.string.isRequired
         })
     ),
-    className: PropTypes.string
+    className: PropTypes.string,
+    isLoading: PropTypes.bool
 };
 
 export default AdwSlider;

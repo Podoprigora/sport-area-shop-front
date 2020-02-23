@@ -3,6 +3,7 @@
 
 @import "./base/base";
 @import "./base/typography";
+@import "./base/utility";
 
 @import "./components/container";
 @import "./components/panel";
@@ -15,6 +16,7 @@
 @import "./components/carousel";
 @import "./components/scrolling-carousel";
 @import "./components/custom-scrollbars";
+@import "./components/skeleton";
 
 @import "./pages/header";
 @import "./pages/main";
@@ -24,5 +26,6 @@
 @import "./pages/brands-carousel";
 @import "./pages/products-carousel";
 @import "./pages/product";
+@import "./pages/skeletons";
 
 @import "./pages/test";

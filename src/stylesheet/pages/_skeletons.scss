@@ -1,0 +1,13 @@
+.carousel-skeleton {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-around;
+	align-items: center;
+	padding: 1rem 0;
+}
+
+.products-carousel-skeleton {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: stretch;
+}

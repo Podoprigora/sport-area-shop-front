@@ -1,44 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Skeleton from '@components/Skeleton';
 import AdwSlider from '@pages/components/AdwSlider';
 import BrandsCarousel from '@pages/components/BrandsCarousel';
 import BrandnewCarousel from '@pages/components/BrandnewCarousel';
 import TopsellerCarousel from '@pages/components/TopsellerCarousel';
+import ProductSkeleton from '@pages/components/Skeletons/ProductSkeleton';
+import ProductsCarouselSkeleton from '@pages/components/Skeletons/ProductsCarouselSkeleton';
+
 import useMainPageBootstrapData from './hooks/useMainPageBootstrapData';
 
 const MainPage = (props) => {
     const {
         isLoading,
-        error,
-        data: {
-            adwSlidersData = null,
-            brandsData = null,
-            brandnewData = null,
-            topsellerData = null
-        }
+        data: { adwSlidersData, brandsData, brandnewData, topsellerData }
     } = useMainPageBootstrapData();
-
-    console.log(isLoading, 'Error:', error, adwSlidersData);
 
     return (
         <div className="page">
             <div className="page__section">
-                <AdwSlider data={adwSlidersData} />
+                <AdwSlider data={adwSlidersData} isLoading={isLoading} />
             </div>
             <div className="page__section">
                 <BrandsCarousel data={brandsData} />
             </div>
             <div className="page__section">
-                <BrandnewCarousel data={brandnewData} />
+                <BrandnewCarousel data={brandnewData} isLoading={isLoading} />
             </div>
             <div className="page__section">
-                <TopsellerCarousel data={topsellerData} />
+                <TopsellerCarousel data={topsellerData} isLoading={isLoading} />
             </div>
         </div>
     );
 };
-
-MainPage.propTypes = {};
 
 export default MainPage;
