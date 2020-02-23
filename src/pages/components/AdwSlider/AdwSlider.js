@@ -1,9 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import debounce from 'lodash/debounce';
 import Carousel from '@components/Carousel';
 import AdwSliderSkeleton from '../Skeletons/AdwSliderSkeleton';
 
 const AdwSlider = ({ data, className, isLoading }) => {
+    const [style, setStyle] = useState({ minHeight: '10rem' });
+    const elRef = useRef(null);
+
+    const updateStyle = useCallback(() => {
+        if (elRef.current) {
+            const ratio = 1 / 3.2;
+            const width = elRef.current.clientWidth;
+            const minHeight = Math.ceil(width * ratio);
+
+            setStyle({ minHeight });
+        }
+    }, []);
+
+    const handleWindowResize = useCallback(
+        debounce(() => {
+            updateStyle();
+        }, 166),
+        []
+    );
+
+    useEffect(() => {
+        updateStyle();
+
+        window.addEventListener('resize', handleWindowResize, false);
+
+        return () => {
+            window.removeEventListener('resize', handleWindowResize, false);
+        };
+    }, [updateStyle, handleWindowResize, isLoading]);
+
     if (isLoading) {
         return <AdwSliderSkeleton />;
     }
@@ -18,7 +49,8 @@ const AdwSlider = ({ data, className, isLoading }) => {
             interval={10000}
             control="hover"
             className={className}
-            style={{ minHeight: '10rem' }}
+            style={style}
+            ref={elRef}
         >
             {data.map(({ id, image }, i) => (
                 <img key={id} src={image} alt="" />

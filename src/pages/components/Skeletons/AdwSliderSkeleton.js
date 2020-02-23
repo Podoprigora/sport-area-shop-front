@@ -3,16 +3,16 @@ import debounce from 'lodash/debounce';
 import Skeleton from '@components/Skeleton';
 
 const AdwSliderSkeleton = () => {
-    const ratio = 1 / 3.5;
     const [style, setStyle] = useState({ height: '10rem' });
     const elRef = useRef(null);
 
     const updateStyle = useCallback(() => {
+        const ratio = 1 / 3.5;
         const width = elRef.current.clientWidth;
         const height = Math.ceil(width * ratio);
 
         setStyle({ height });
-    }, [ratio]);
+    }, []);
 
     const handleWindowResize = useCallback(
         debounce(() => {
