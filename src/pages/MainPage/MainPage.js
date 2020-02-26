@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useLayoutEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import AdwSlider from '@pages/components/AdwSlider';

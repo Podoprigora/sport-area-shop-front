@@ -1,16 +1,51 @@
-.carousel-card {
-	display: block;
-	width: 21.1rem;
-	height: 10rem;
-	text-align: center;
-	line-height: 5;
-	font-size: 2rem;
-	background-color: rgb(156, 223, 235);
-	border: 1px solid $border-color-dark;
-
-	// border-radius: 3px;
+.modal-content {
+	position: absolute;
+	width: 40rem;
+	height: 20rem;
+	padding: 2rem;
+	background-color: #fff;
+	border-radius: .5rem;
+	box-shadow: 0 1px 10px 1px rgba(#000, .2);
 }
 
-.scrolling-carousel__item:not(:first-child) .carousel-card {
-	border-left-width: 0;
+.modal-animation {
+	&-appear {
+		// opacity: 0;
+		transform: translate3d(0, -4rem, 0);
+		transition: transform .3s ease-out;
+
+		&-active {
+			// opacity: 1;
+			transform: translate3d(0, 0, 0);
+		}
+	}
+
+	&-exit {
+		opacity: 1;
+		transition: opacity .3s ease;
+
+		&-active {
+			opacity: 0;
+		}
+	}
+}
+
+.transition-fade {
+	&-appear {
+		opacity: 0;
+		transition: all .3s ease;
+
+		&-active {
+			opacity: 1;
+		}
+	}
+
+	&-exit {
+		opacity: 1;
+		transition: all .3s ease;
+
+		&-active {
+			opacity: 0;
+		}
+	}
 }

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import setRef from '@components/utils/setRef';
 
 const Portal = React.forwardRef(function Portal(props, ref) {
-    const { children } = props;
+    const { children, onRendered } = props;
     const [mountNode, setMountNode] = useState(null);
 
     useEffect(() => {
@@ -23,11 +23,18 @@ const Portal = React.forwardRef(function Portal(props, ref) {
         };
     }, [mountNode, ref]);
 
+    useEffect(() => {
+        if (onRendered && mountNode) {
+            onRendered();
+        }
+    }, [onRendered, mountNode]);
+
     return mountNode ? ReactDOM.createPortal(children, mountNode) : mountNode;
 });
 
 Portal.propTypes = {
-    children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
+    onRendered: PropTypes.func
 };
 
 export default Portal;

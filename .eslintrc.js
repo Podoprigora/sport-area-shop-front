@@ -29,6 +29,7 @@ module.exports = {
         'no-underscore-dangle': 0,
         'no-extend-native': 0,
         'no-param-reassign': 0,
+        'no-prototype-builtins': 0,
         'func-names': 0,
         'linebreak-style': ['error', 'windows'],
         'arrow-body-style': 0,
