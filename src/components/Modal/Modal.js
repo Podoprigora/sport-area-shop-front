@@ -7,10 +7,13 @@ import Backdrop from '@components/Backdrop';
 import FocusBounding from '@components/FocusBounding';
 import useEventCallback from '@components/hooks/useEventCallback';
 import setRef from '@components/utils/setRef';
+import ModalManager from './ModalManager';
 
 const getHasTransition = (props) => {
     return props.children && props.children.props.hasOwnProperty('in');
 };
+
+const manager = new ModalManager();
 
 const Modal = React.forwardRef(function Modal(props, ref) {
     const {
@@ -31,21 +34,29 @@ const Modal = React.forwardRef(function Modal(props, ref) {
     const triggerRef = useRef(null);
     const hasTransition = getHasTransition(props);
 
-    const handleOpen = useEventCallback(() => {
+    const isTopModal = useCallback(() => {
+        return manager.isTopModal(modalNode);
+    }, [modalNode]);
+
+    const handleOpen = useCallback(() => {
+        manager.add(modalNode);
+
         if (onOpen) {
             onOpen();
         }
-    });
+    }, [onOpen, modalNode]);
 
-    const handleClose = useEventCallback(() => {
+    const handleClose = useCallback(() => {
         if (!hasTransition && triggerRef.current) {
             triggerRef.current.focus();
         }
 
+        manager.remove(modalNode);
+
         if (onClose) {
             onClose();
         }
-    });
+    }, [modalNode, hasTransition, onClose]);
 
     const handleEnter = useEventCallback(() => {
         setExited(false);
@@ -71,11 +82,11 @@ const Modal = React.forwardRef(function Modal(props, ref) {
         (ev) => {
             ev.stopPropagation();
 
-            if (ev.key === 'Escape') {
+            if (ev.key === 'Escape' && isTopModal()) {
                 handleClose();
             }
         },
-        [handleClose]
+        [handleClose, isTopModal]
     );
 
     const handleClick = useCallback(
@@ -114,12 +125,6 @@ const Modal = React.forwardRef(function Modal(props, ref) {
     }, [open, modalNode, ref]);
 
     useEffect(() => {
-        return () => {
-            handleClose();
-        };
-    }, [handleClose]);
-
-    useEffect(() => {
         document.addEventListener('keydown', handleDocumentKeyDown, false);
 
         return () => {
@@ -132,6 +137,12 @@ const Modal = React.forwardRef(function Modal(props, ref) {
             triggerRef.current = document.activeElement;
         }
     }, [open]);
+
+    useEffect(() => {
+        return () => {
+            manager.remove(modalNode);
+        };
+    }, [modalNode]);
 
     const childProps = {};
 
