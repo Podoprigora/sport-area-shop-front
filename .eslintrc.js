@@ -38,6 +38,7 @@ module.exports = {
         'jsx-a11y/label-has-for': 0,
         'jsx-a11y/label-has-associated-control': 0,
         'jsx-a11y/tabindex-no-positive': 0,
+        'jsx-a11y/no-noninteractive-tabindex': 0,
         'prefer-destructuring': 0,
 
         'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
@@ -63,6 +64,7 @@ module.exports = {
         'react-hooks/rules-of-hooks': 'error',
         'react-hooks/exhaustive-deps': 'warn',
         'react/sort-comp': 0,
+        'react/no-find-dom-node': 0,
 
         'import/prefer-default-export': 0
     }

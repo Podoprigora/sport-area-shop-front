@@ -29,9 +29,5 @@ button {
 	border: none;
 	padding: 0;
 	margin: 0;
-
-	&:focus,
-	&:active {
-		outline: none;
-	}
+	cursor: pointer;
 }

@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 import Portal from '@components/Portal';
 import Backdrop from '@components/Backdrop';
+import FocusBounding from '@components/FocusBounding';
 import useEventCallback from '@components/hooks/useEventCallback';
 import setRef from '@components/utils/setRef';
 
@@ -12,11 +13,22 @@ const getHasTransition = (props) => {
 };
 
 const Modal = React.forwardRef(function Modal(props, ref) {
-    const { children, open, className, center, backdrop = true, onClose, onOpen, ...other } = props;
+    const {
+        children,
+        open,
+        className,
+        centered,
+        backdrop = true,
+        disableFocusBounding = false,
+        onClose,
+        onOpen,
+        ...other
+    } = props;
 
     const [exited, setExited] = useState(true);
     const [modalNode, setModalNode] = useState(null);
     const backdropRef = useRef(null);
+    const triggerRef = useRef(null);
     const hasTransition = getHasTransition(props);
 
     const handleOpen = useEventCallback(() => {
@@ -26,6 +38,10 @@ const Modal = React.forwardRef(function Modal(props, ref) {
     });
 
     const handleClose = useEventCallback(() => {
+        if (!hasTransition && triggerRef.current) {
+            triggerRef.current.focus();
+        }
+
         if (onClose) {
             onClose();
         }
@@ -42,6 +58,10 @@ const Modal = React.forwardRef(function Modal(props, ref) {
     const handleExited = useEventCallback(() => {
         setExited(true);
 
+        if (triggerRef.current) {
+            triggerRef.current.focus();
+        }
+
         if (props.children.props && props.children.props.onExited) {
             props.children.props.onExited();
         }
@@ -51,7 +71,7 @@ const Modal = React.forwardRef(function Modal(props, ref) {
         (ev) => {
             ev.stopPropagation();
 
-            if (ev.code === 'Escape') {
+            if (ev.key === 'Escape') {
                 handleClose();
             }
         },
@@ -107,6 +127,12 @@ const Modal = React.forwardRef(function Modal(props, ref) {
         };
     }, [handleDocumentKeyDown]);
 
+    useEffect(() => {
+        if (open) {
+            triggerRef.current = document.activeElement;
+        }
+    }, [open]);
+
     const childProps = {};
 
     if (hasTransition) {
@@ -124,7 +150,7 @@ const Modal = React.forwardRef(function Modal(props, ref) {
                 role="presentation"
                 className={classNames('modal', className, {
                     'modal--hidden': !open && exited,
-                    'modal--center': center
+                    'modal--centered': centered
                 })}
                 onClick={handleClick}
                 ref={setModalNode}
@@ -139,7 +165,9 @@ const Modal = React.forwardRef(function Modal(props, ref) {
                         onClick={handleBackdropClick}
                     />
                 )}
-                {React.cloneElement(children, childProps)}
+                <FocusBounding disabled={disableFocusBounding}>
+                    {React.cloneElement(children, childProps)}
+                </FocusBounding>
             </div>
         </Portal>
     );
@@ -149,8 +177,9 @@ Modal.propTypes = {
     open: PropTypes.bool,
     children: PropTypes.node,
     className: PropTypes.string,
-    center: PropTypes.bool,
+    centered: PropTypes.bool,
     backdrop: PropTypes.bool,
+    disableFocusBounding: PropTypes.bool,
     onClose: PropTypes.func,
     onOpen: PropTypes.func
 };

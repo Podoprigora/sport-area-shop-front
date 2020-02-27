@@ -21,7 +21,8 @@
 	}
 
 	&:not(&--disabled) {
-		&:hover {
+		&:hover,
+		&:focus {
 			color: $color-primary;
 			&::before {
 				transform: scale3d(1, 1, 1);
@@ -32,5 +33,9 @@
 	&--disabled {
 		cursor: text;
 		opacity: .2;
+	}
+
+	&:focus {
+		outline: none;
 	}
 }
