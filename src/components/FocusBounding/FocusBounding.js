@@ -1,18 +1,22 @@
-import React, { useRef, useCallback, useEffect } from 'react';
+import React, { useRef, useCallback, useMemo, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 const FocusBounding = (props) => {
-    const { children, disabled } = props;
+    const { children, disabled: disabledProp } = props;
 
     const childRef = useRef(null);
     const childNodeRef = useRef(null);
     const startingBoundRef = useRef(null);
     const endingBoundRef = useRef(null);
 
+    const isDisabled = useCallback(() => {
+        return typeof disabledProp === 'function' ? disabledProp() : disabledProp;
+    }, [disabledProp]);
+
     const handleDocumentKeyDown = useCallback(
         (ev) => {
-            if (ev.key !== 'Tab' || disabled) {
+            if (ev.key !== 'Tab' || isDisabled()) {
                 return;
             }
 
@@ -30,11 +34,11 @@ const FocusBounding = (props) => {
                 }
             }
         },
-        [disabled]
+        [isDisabled]
     );
 
     useEffect(() => {
-        // This is required for compatibility with react-transition-group which don't apply React.forwardRef
+        // This is required for compatibility with react-transition-group which doesn't apply React.forwardRef
         childNodeRef.current = ReactDOM.findDOMNode(childRef.current);
 
         startingBoundRef.current.focus();
@@ -64,7 +68,7 @@ const FocusBounding = (props) => {
 
 FocusBounding.propTypes = {
     children: PropTypes.node.isRequired,
-    disabled: PropTypes.bool
+    disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func])
 };
 
 export default FocusBounding;

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -23,6 +23,9 @@ const Modal = React.forwardRef(function Modal(props, ref) {
         centered,
         backdrop = true,
         disableFocusBounding = false,
+        disableBackdropClick = false,
+        disableEscapeKeyDown = false,
+        onEscapeKeyDown,
         onClose,
         onOpen,
         ...other
@@ -35,28 +38,26 @@ const Modal = React.forwardRef(function Modal(props, ref) {
     const hasTransition = getHasTransition(props);
 
     const isTopModal = useCallback(() => {
-        return manager.isTopModal(modalNode);
+        return modalNode && manager.isTopModal(modalNode);
     }, [modalNode]);
 
-    const handleOpen = useCallback(() => {
-        manager.add(modalNode);
+    // Handlers
 
+    const handleOpen = useCallback(() => {
         if (onOpen) {
             onOpen();
         }
-    }, [onOpen, modalNode]);
+    }, [onOpen]);
 
     const handleClose = useCallback(() => {
         if (!hasTransition && triggerRef.current) {
             triggerRef.current.focus();
         }
 
-        manager.remove(modalNode);
-
         if (onClose) {
             onClose();
         }
-    }, [modalNode, hasTransition, onClose]);
+    }, [hasTransition, onClose]);
 
     const handleEnter = useEventCallback(() => {
         setExited(false);
@@ -82,20 +83,35 @@ const Modal = React.forwardRef(function Modal(props, ref) {
         (ev) => {
             ev.stopPropagation();
 
-            if (ev.key === 'Escape' && isTopModal()) {
-                handleClose();
+            if (!modalNode) {
+                return;
+            }
+
+            const isValidTarget = modalNode.contains(ev.target);
+
+            if (ev.key === 'Escape' && !disableEscapeKeyDown && isValidTarget && isTopModal()) {
+                if (onEscapeKeyDown) {
+                    onEscapeKeyDown(ev);
+                } else {
+                    handleClose();
+                }
             }
         },
-        [handleClose, isTopModal]
+        [modalNode, disableEscapeKeyDown, handleClose, onEscapeKeyDown, isTopModal]
     );
 
     const handleClick = useCallback(
         (ev) => {
-            if (!backdrop && modalNode && modalNode.isEqualNode(ev.target)) {
+            if (
+                !backdrop &&
+                !disableBackdropClick &&
+                modalNode &&
+                modalNode.isEqualNode(ev.target)
+            ) {
                 handleClose();
             }
         },
-        [backdrop, modalNode, handleClose]
+        [backdrop, modalNode, disableBackdropClick, handleClose]
     );
 
     const handleBackdropClick = useCallback(
@@ -103,16 +119,22 @@ const Modal = React.forwardRef(function Modal(props, ref) {
             ev.preventDefault();
             ev.stopPropagation();
 
-            if (backdropRef.current && backdropRef.current.isEqualNode(ev.target)) {
+            if (
+                !disableBackdropClick &&
+                backdropRef.current &&
+                backdropRef.current.isEqualNode(ev.target)
+            ) {
                 handleClose();
             }
         },
-        [handleClose]
+        [handleClose, disableBackdropClick]
     );
 
     const handlePortalRendered = useCallback(() => {
         handleOpen();
     }, [handleOpen]);
+
+    // Effects
 
     useEffect(() => {
         if (open && modalNode) {
@@ -125,6 +147,24 @@ const Modal = React.forwardRef(function Modal(props, ref) {
     }, [open, modalNode, ref]);
 
     useEffect(() => {
+        if (open) {
+            triggerRef.current = document.activeElement;
+        }
+    }, [open]);
+
+    useEffect(() => {
+        if (modalNode) {
+            manager.add(modalNode);
+
+            return () => {
+                manager.remove(modalNode);
+            };
+        }
+
+        return undefined;
+    }, [modalNode]);
+
+    useEffect(() => {
         document.addEventListener('keydown', handleDocumentKeyDown, false);
 
         return () => {
@@ -132,24 +172,22 @@ const Modal = React.forwardRef(function Modal(props, ref) {
         };
     }, [handleDocumentKeyDown]);
 
-    useEffect(() => {
-        if (open) {
-            triggerRef.current = document.activeElement;
+    // Render
+
+    const isDisabledFocusBounding = useCallback(() => {
+        return disableFocusBounding || !isTopModal();
+    }, [disableFocusBounding, isTopModal]);
+
+    const childProps = useMemo(() => {
+        if (hasTransition) {
+            return {
+                onEnter: handleEnter,
+                onExited: handleExited
+            };
         }
-    }, [open]);
 
-    useEffect(() => {
-        return () => {
-            manager.remove(modalNode);
-        };
-    }, [modalNode]);
-
-    const childProps = {};
-
-    if (hasTransition) {
-        childProps.onEnter = handleEnter;
-        childProps.onExited = handleExited;
-    }
+        return {};
+    }, [hasTransition, handleEnter, handleExited]);
 
     if (!open && (!hasTransition || exited)) {
         return null;
@@ -176,7 +214,7 @@ const Modal = React.forwardRef(function Modal(props, ref) {
                         onClick={handleBackdropClick}
                     />
                 )}
-                <FocusBounding disabled={disableFocusBounding}>
+                <FocusBounding disabled={isDisabledFocusBounding}>
                     {React.cloneElement(children, childProps)}
                 </FocusBounding>
             </div>
@@ -190,7 +228,10 @@ Modal.propTypes = {
     className: PropTypes.string,
     centered: PropTypes.bool,
     backdrop: PropTypes.bool,
+    disableEscapeKeyDown: PropTypes.bool,
+    disableBackdropClick: PropTypes.bool,
     disableFocusBounding: PropTypes.bool,
+    onEscapeKeyDown: PropTypes.func,
     onClose: PropTypes.func,
     onOpen: PropTypes.func
 };
