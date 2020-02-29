@@ -48,7 +48,7 @@ const ProductsCarouselSkeleton = (props) => {
                     <Skeleton type="text" size="medium" style={{ width: '20rem' }} />
                 )}
             />
-            <PanelBody className="u-margin-horizontal-spacer-4">
+            <PanelBody className="u-margin-lr-4">
                 <div className="products-carousel products-carousel-skeleton" ref={containerRef}>
                     <ProductSkeleton className="products-carousel__item" ref={itemRef} />
                     {itemsLength > 1 &&
