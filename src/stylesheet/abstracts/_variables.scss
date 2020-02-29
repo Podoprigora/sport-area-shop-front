@@ -34,21 +34,34 @@ $panel-title-font-weight: 400;
 $panel-title-line-height: 1;
 
 // Button
-$btn-color: #757575;
-$btn-font-size-small: 1.4rem;
-$btn-font-size-medium: 1.6rem;
-$btn-font-size-large: 2rem;
-$btn-font-size: $btn-font-size-small;
+$btn-color: #626262;
+$btn-bg-color: #e3e4e5;
+$btn-hover-bg-color: #fff;
+$btn-font-size-small: 1.2rem;
+$btn-font-size-medium: 1.4rem;
+$btn-font-size-large: 1.6rem;
+$btn-font-size: $btn-font-size-medium;
 $btn-font-weight: 500;
 $btn-text-transform: uppercase;
+$btn-border: 2px solid transparent;
+$btn-box-shadow: 0 1px 2px 0px rgba(0, 0, 0, 0.2);
+$btn-focus-box-shadow: 0 0px 0px 1px rgba($color-secondary, .6), 0 0px 0px 4px rgba($color-secondary, .2);
+$btn-border-radius: 5px;
+$btn-min-height: 3.6rem;
+$btn-min-width: 8.4rem;
+
+$btn-transition: all .15s ease-out;
 
 $btn-bg-color-primary: $color-primary;
 $btn-color-primary: #fff;
 
-$btn-box-shadow: 0 1px 2px 0px rgba(0, 0, 0, 0.2);
-$btn-focus-box-shadow: 0 0px 0px 1px rgba($color-secondary, .6), 0 0px 0px 4px rgba($color-secondary, .2);
+$btn-bg-color-plain: $border-color-dark;
+$btn-border-plain: 2px solid $border-color-dark;
 
-$btn-border-radius: 5px;
+$btn-color-primary-plain: $color-primary;
+$btn-bg-color-primary-plain: #fff;
+$btn-border-primary-plain: 2px solid $color-primary;
+$btn-hover-border-color-primary-plain: lighten($color-primary, 10%);
 
 $icon-btn-hover-bg-color: #fff;
 

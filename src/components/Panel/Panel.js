@@ -9,7 +9,7 @@ const Panel = ({ children, title, className }) => {
         <div className={classNames('panel', className)}>
             {title ? (
                 <>
-                    <PanelHeader>{title}</PanelHeader>
+                    <PanelHeader title={title} />
                     <PanelBody>{children}</PanelBody>
                 </>
             ) : (

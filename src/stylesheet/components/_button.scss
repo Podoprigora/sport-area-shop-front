@@ -1,32 +1,61 @@
 .btn {
+	$this: &;
+
+	position: relative;
 	display: flex;
 	flex-flow: row nowrap;
 	align-items: center;
-	background-color: transparent;
+	background-color: $btn-bg-color;
 	color: $btn-color;
 	font-family: inherit;
 	font-size: $btn-font-size;
-	font-weight: 500;
-	text-transform: uppercase;
-	letter-spacing: .4px;
-	padding: $spacer-1 $spacer-2;
-	border: none;
+	font-weight: $btn-font-weight;
+	padding: 0 $spacer-2;
+	min-height: $btn-min-height;
+	min-width: $btn-min-width;
+	border: $btn-border;
 	border-radius: $btn-border-radius;
 	box-shadow: $btn-box-shadow;
 	cursor: pointer;
-	transition: all .15s ease-out;
+	transition: $btn-transition;
+
+	&:hover:not(&--disabled) {
+		background-color: $btn-hover-bg-color;
+	}
 
 	&:focus {
 		outline: none;
 		box-shadow: $btn-focus-box-shadow;
 	}
 
+	&--disabled {
+		opacity: .6;
+		cursor: auto;
+	}
+
+	// Should be always prior to &--primary
+	&--plain {
+		background-color: $btn-bg-color-plain;
+		border: $btn-border-plain;
+		box-shadow: none;
+	}
+
 	&--primary {
 		background-color: $btn-bg-color-primary;
 		color: $btn-color-primary;
 
-		&:hover {
+		&:hover:not(#{$this}--disabled) {
 			background-color: lighten($btn-bg-color-primary, 5%);
+		}
+
+		&#{$this}--plain {
+			border: $btn-border-primary-plain;
+
+			&:hover {
+				background-color: $btn-bg-color-primary-plain;
+				color: $btn-color-primary-plain;
+				border-color: $btn-hover-border-color-primary-plain;
+			}
 		}
 	}
 
@@ -40,17 +69,66 @@
 
 	&--large {
 		font-size: $btn-font-size-large;
+		padding-top: .8rem;
+		padding-bottom: .8rem;
+
+		#{$this}__text {
+			letter-spacing: .4px;
+		}
+	}
+
+	&--centered {
+		justify-content: center;
+	}
+
+	&--icon-align-left {
+		#{$this}__icon {
+			margin-right: $spacer-2;
+		}
+	}
+
+	&--icon-align-top,
+	&--icon-align-bottom {
+		flex-flow: column nowrap;
+		align-items: center;
+		justify-content: center;
+		padding: $spacer-2 $spacer-2;
 	}
 
 	&--icon-align-top {
-		display: block;
+		#{$this}__icon {
+			margin-bottom: $spacer-2;
+		}
+	}
+
+	&--icon-align-bottom {
+		#{$this}__text {
+			order: -1;
+			margin-bottom: $spacer-2;
+		}
 	}
 
 	&--icon-align-right {
-		display: block;
+		#{$this}__text {
+			order: -1;
+			margin-right: $spacer-2;
+		}
 	}
 
-	&__icon {
-		margin-right: $spacer-2;
+	&--empty-text {
+		min-width: 0;
+
+		#{$this}__icon {
+			margin: 0;
+		}
+	}
+
+	&--auto-width {
+		width: 100%;
+	}
+
+	&__text {
+		display: block;
+		letter-spacing: .6px;
 	}
 }

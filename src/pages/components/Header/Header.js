@@ -33,7 +33,7 @@ const Header = (props) => {
             </div>
             <div className="header__nav-part">
                 <div className="container header__container">
-                    <Button primary className="header__nav-btn" icon={MenuIcon}>
+                    <Button primary className="header__nav-btn" icon={MenuIcon} size="large">
                         Shop by category
                     </Button>
                     <div className="header__search">

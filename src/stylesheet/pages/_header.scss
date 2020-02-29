@@ -16,7 +16,6 @@
 		font-size: 1.6rem;
 		font-weight: 400;
 		text-transform: none;
-		padding: $spacer-1 $spacer-2;
 		border-top-right-radius: 0;
 		border-bottom-right-radius: 0;
 		box-shadow: none;
@@ -24,6 +23,10 @@
 
 		.btn__icon {
 			margin-right: $spacer-2;
+		}
+
+		.btn__text {
+			text-transform: none;
 		}
 
 		&:focus {
