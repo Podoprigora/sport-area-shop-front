@@ -27,9 +27,22 @@ $spacer-2: 1.2rem;
 $spacer-3: 2.4rem;
 $spacer-4: 4.8rem;
 
+// Heading
+$heading-1-font-size: $font-size * 2.5;
+$heading-2-font-size: $font-size * 2;
+$heading-3-font-size: $font-size * 1.75;
+$heading-4-font-size: $font-size * 1.5;
+$heading-5-font-size: $font-size * 1.25;
+$heading-6-font-size: $font-size;
+$heading-font-weight: 400;
+$heading-color: $color-gray;
+$heading-line-height: inherit;
+$heading-gutter-bottom: $spacer-2;
+
 // Panel
 $panel-title-color: $color-gray;
 $panel-title-font-size: 1.8rem;
+$panel-title-font-size: $heading-5-font-size;
 $panel-title-font-weight: 400;
 $panel-title-line-height: 1;
 
@@ -45,7 +58,7 @@ $btn-font-weight: 500;
 $btn-text-transform: uppercase;
 $btn-border: 2px solid transparent;
 $btn-box-shadow: 0 1px 2px 0px rgba(0, 0, 0, 0.2);
-$btn-focus-box-shadow: 0 0px 0px 1px rgba($color-secondary, .4), 0 0px 0px 4px rgba($color-secondary, .2);
+$btn-focus-box-shadow: 0 0px 0px 1px rgba($color-primary, .4), 0 0px 0px 4px rgba(#98d175, .6);
 $btn-border-radius: 5px;
 $btn-min-height: 3.6rem;
 $btn-min-width: 8.4rem;
@@ -53,6 +66,7 @@ $btn-transition: all .15s ease-out;
 
 $btn-primary-bg-color: $color-primary;
 $btn-primary-color: #fff;
+$btn-primary-focus-box-shadow: 0 0px 0px 1px rgba(#fff, .1), 0 0px 0px 4px rgba(#98d175, .6);
 
 $btn-plain-bg-color: $border-color-dark;
 $btn-plain-border: 2px solid $border-color-dark;

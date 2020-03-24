@@ -48,6 +48,10 @@
 			background-color: lighten($btn-primary-bg-color, 5%);
 		}
 
+		&:focus {
+			box-shadow: $btn-primary-focus-box-shadow;
+		}
+
 		&#{$this}--plain {
 			border: $btn-primary-plain-border;
 

@@ -12,10 +12,7 @@
 	}
 
 	&__title {
-		font-size: $panel-title-font-size;
-		font-weight: $panel-title-font-weight;
-		color: $panel-title-color;
-		line-height: $panel-title-line-height;
+		display: block;
 	}
 
 	&__icon {

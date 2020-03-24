@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Heading from '@components/Heading';
 
 const PanelHeader = (props) => {
     const { title, icon, children, renderIcon, renderTitle, ...other } = props;
@@ -14,7 +15,9 @@ const PanelHeader = (props) => {
     }
 
     const titleContent = (title || renderTitle) && (
-        <div className="panel__title">{title || renderTitle(props)}</div>
+        <Heading size="5" gutterBottom={false} className="panel__title">
+            {title || renderTitle(props)}
+        </Heading>
     );
 
     return (
