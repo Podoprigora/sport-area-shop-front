@@ -35,40 +35,40 @@
 
 	// Should be always prior to &--primary
 	&--plain {
-		background-color: $btn-bg-color-plain;
-		border: $btn-border-plain;
+		background-color: $btn-plain-bg-color;
+		border: $btn-plain-border;
 		box-shadow: none;
 	}
 
 	&--primary {
-		background-color: $btn-bg-color-primary;
-		color: $btn-color-primary;
+		background-color: $btn-primary-bg-color;
+		color: $btn-primary-color;
 
 		&:hover:not(#{$this}--disabled) {
-			background-color: lighten($btn-bg-color-primary, 5%);
+			background-color: lighten($btn-primary-bg-color, 5%);
 		}
 
 		&#{$this}--plain {
-			border: $btn-border-primary-plain;
+			border: $btn-primary-plain-border;
 
 			&:hover {
-				background-color: $btn-bg-color-primary-plain;
-				color: $btn-color-primary-plain;
-				border-color: $btn-hover-border-color-primary-plain;
+				background-color: $btn-primary-plain-bg-color;
+				color: $btn-primary-plain-color;
+				border-color: $btn-primary-plain-hover-border-color;
 			}
 		}
 	}
 
 	&--small {
-		font-size: $btn-font-size-small;
+		font-size: $btn-small-font-size;
 	}
 
 	&--medium {
-		font-size: $btn-font-size-medium;
+		font-size: $btn-medium-font-size;
 	}
 
 	&--large {
-		font-size: $btn-font-size-large;
+		font-size: $btn-large-font-size;
 		padding-top: .8rem;
 		padding-bottom: .8rem;
 

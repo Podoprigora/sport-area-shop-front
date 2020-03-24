@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -15,8 +15,11 @@ const Button = React.forwardRef(function Button(props, ref) {
         disabled,
         plain,
         autoWidth,
+        autoFocus,
         ...other
     } = props;
+
+    useEffect(() => {}, [autoFocus]);
 
     const sizeClassnames = {
         small: 'btn--small',
@@ -69,7 +72,8 @@ Button.propTypes = {
     centered: PropTypes.bool,
     disabled: PropTypes.bool,
     plain: PropTypes.bool,
-    autoWidth: PropTypes.bool
+    autoWidth: PropTypes.bool,
+    autoFocus: PropTypes.bool
 };
 
 export default Button;

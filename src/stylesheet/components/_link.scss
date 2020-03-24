@@ -7,7 +7,7 @@
 		flex-flow: row nowrap;
 		align-items: center;
 		color: $link-color;
-		font-size: $link-font-size-small;
+		font-size: $link-small-font-size;
 		font-weight: $link-font-weight;
 		text-decoration: none;
 		outline: none;
@@ -16,20 +16,20 @@
 	}
 
 	&:hover {
-		color: $link-color-hover;
+		color: $link-hover-color;
 		text-decoration: none;
 	}
 
 	&--small {
-		font-size: $link-font-size-small;
+		font-size: $link-small-font-size;
 	}
 
 	&--medium {
-		font-size: $link-font-size-medium;
+		font-size: $link-medium-font-size;
 	}
 
 	&--large {
-		font-size: $link-font-size-large;
+		font-size: $link-large-font-size;
 	}
 
 	&--primary {

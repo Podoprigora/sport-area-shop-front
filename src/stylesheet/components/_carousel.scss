@@ -79,6 +79,10 @@
 			box-shadow: 0 1px 4px 0px rgba(#000, .2);
 		}
 
+		&:focus {
+			outline: none;
+		}
+
 		&--prev {
 			left: $spacer-2;
 			transform: translate3d(-$spacer-1, -50%, 0);

@@ -25,22 +25,22 @@
 	height: $icon-size;
 
 	&--small {
-		width: $icon-size-small;
-		height: $icon-size-small;
+		width: $icon-small-size;
+		height: $icon-small-size;
 	}
 
 	&--medium {
-		width: $icon-size-medium;
-		height: $icon-size-medium;
+		width: $icon-medium-size;
+		height: $icon-medium-size;
 	}
 
 	&--large {
-		width: $icon-size-large;
-		height: $icon-size-large;
+		width: $icon-large-size;
+		height: $icon-large-size;
 	}
 
 	&--xlarge {
-		width: $icon-size-xlarge;
-		height: $icon-size-xlarge;
+		width: $icon-xlarge-size;
+		height: $icon-xlarge-size;
 	}
 }

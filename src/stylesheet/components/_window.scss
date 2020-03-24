@@ -1,0 +1,33 @@
+.window {
+	position: relative;
+	display: flex;
+	flex-flow: column nowrap;
+	background-color: #fff;
+	padding: $spacer-2;
+	border-radius: 5px;
+	box-shadow: 0 2px 16px -1px rgba(#000, .2);
+
+	&:focus {
+		outline: none;
+	}
+
+	&-appear {
+		transform: translate3d(0, -5rem, 0);
+		opacity: 0;
+		transition: all .3s ease-out;
+
+		&-active {
+			transform: translate3d(0, 0, 0);
+			opacity: 1;
+		}
+	}
+
+	&-exit {
+		opacity: 1;
+		transition: all .3s ease-out;
+
+		&-active {
+			opacity: 0;
+		}
+	}
+}
