@@ -5,8 +5,8 @@
 		display: block;
 		width: 21rem;
 		height: 100%;
-		border-right: 1px solid $border-color;
-		border-bottom: 1px solid $border-color;
+		border-right: 1px solid $border-color-light;
+		border-bottom: 1px solid $border-color-light;
 	}
 
 	.scrolling-carousel__item:last-child &__item {
