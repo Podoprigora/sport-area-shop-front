@@ -4,11 +4,11 @@
 		flex-flow: row nowrap;
 		justify-content: flex-start;
 		align-items: center;
-		padding: 1.2rem 0;
+		padding: $spacer-2 0;
 	}
 
 	&__header-body {
-		margin-left: 1.2rem;
+		margin-left: $spacer-2;
 	}
 
 	&__title {
@@ -17,7 +17,7 @@
 
 	&__icon {
 		color: $color-primary;
-		margin: 0 1.2rem;
+		margin: 0 $spacer-2;
 	}
 
 	&__body {

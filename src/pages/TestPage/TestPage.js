@@ -12,7 +12,6 @@ const TestPage = (props) => {
             <Panel title="Test window" className="page__section">
                 <TestWindow />
             </Panel>
-
             <Panel title="Test buttons" className="page__section">
                 <TestButtons />
             </Panel>

@@ -135,4 +135,8 @@
 		display: block;
 		letter-spacing: .6px;
 	}
+
+	&__icon {
+		flex-shrink: 0;
+	}
 }

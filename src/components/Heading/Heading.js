@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 const Heading = (props) => {
-    const { size, children, className, gutterBottom, ...other } = props;
+    const { size = 5, children, className, gutterBottom = true, ...other } = props;
 
     return React.createElement(
         `h${size}`,
@@ -27,11 +27,6 @@ Heading.propTypes = {
     size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     className: PropTypes.string,
     gutterBottom: PropTypes.bool
-};
-
-Heading.defaultProps = {
-    size: 5,
-    gutterBottom: true
 };
 
 export default Heading;

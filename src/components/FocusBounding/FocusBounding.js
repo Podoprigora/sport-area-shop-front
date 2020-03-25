@@ -41,7 +41,9 @@ const FocusBounding = (props) => {
         // This is required for compatibility with react-transition-group which doesn't apply React.forwardRef
         childNodeRef.current = ReactDOM.findDOMNode(childRef.current);
 
-        startingBoundRef.current.focus();
+        if (!childNodeRef.current.contains(document.activeElement)) {
+            startingBoundRef.current.focus();
+        }
     }, []);
 
     useEffect(() => {

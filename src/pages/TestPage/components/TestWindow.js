@@ -1,14 +1,26 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 
+import ShoppingCartIcon from '@svg-icons/feather/ShoppingCartIcon';
 import Button from '@components/Button';
 import Window from '@components/Window';
+import WindowHeader from '@components/Window/WindowHeader';
+import WindowBody from '@components/Window/WindowBody';
+import WindowActions from '@components/Window/WindowActions';
+import ShoppingBasketIcon from '@svg-icons/material/ShoppingBasketIcon';
 
 const TestWindow = (props) => {
     const [openWindow, setOpenWindow] = useState(false);
+    const btnRef = useRef(null);
 
     const handleOpenWindowBtnClick = useCallback((ev) => {
         setOpenWindow(true);
+    }, []);
+
+    const handleOpenWindow = useCallback(() => {
+        if (btnRef.current) {
+            btnRef.current.focus();
+        }
     }, []);
 
     const handleCloseWindow = useCallback(() => {
@@ -23,16 +35,24 @@ const TestWindow = (props) => {
 
             <Window
                 open={openWindow}
-                onClose={handleCloseWindow}
+                maxWidth={600}
                 centered
-                style={{ width: '100%', maxWidth: '80rem', minHeight: '40rem', margin: '1rem' }}
+                onOpen={handleOpenWindow}
+                onClose={handleCloseWindow}
             >
-                test window
-                <div style={{ padding: '5rem' }}>
+                <WindowHeader title="Test window" onClose={handleCloseWindow} />
+                <WindowBody style={{ height: '20rem' }}>
+                    <div style={{ padding: '1rem 0' }}>Window content</div>
+                </WindowBody>
+
+                <WindowActions align="right">
+                    <Button primary plain centered ref={btnRef}>
+                        OK
+                    </Button>
                     <Button centered plain autoFocus onClick={handleCloseWindow}>
                         Close
                     </Button>
-                </div>
+                </WindowActions>
             </Window>
         </div>
     );

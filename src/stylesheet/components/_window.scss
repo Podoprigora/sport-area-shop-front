@@ -1,24 +1,120 @@
 .window {
+	$this: &;
+
 	position: relative;
 	display: flex;
 	flex-flow: column nowrap;
-	background-color: #fff;
-	padding: $spacer-2;
-	border-radius: 5px;
-	box-shadow: 0 2px 16px -1px rgba(#000, .2);
+	background-color: $window-bg-color;
+	border-radius: $window-border-radius;
+	box-shadow: $window-box-shadow;
+	// Responsivenes
+	margin: $window-margin;
+	width: 100%;
+	max-height: calc(100% - #{$window-margin * 2});
+	overflow: hidden;
 
 	&:focus {
 		outline: none;
 	}
 
+	&--fullscreen {
+		width: 100%;
+		max-width: 100%;
+		height: 100%;
+		max-height: 100%;
+		margin: 0;
+		border-radius: 0;
+	}
+
+	&__header {
+		position: relative;
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: flex-start;
+		align-items: center;
+		padding: $spacer-2;
+
+		&-icon {
+			color: $color-primary;
+			flex-shrink: 0;
+		}
+
+		&-title {
+			display: block;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			margin-right: auto;
+			overflow: hidden;
+		}
+	}
+
+	&__btn-close {
+		position: absolute;
+		top: 50%;
+		right: .4rem;
+		transform: translateY(-50%);
+
+		&::before {
+			background-color: $bg-color;
+		}
+	}
+
+	&__body {
+		flex: 1 1 auto;
+		padding: 0 $spacer-2;
+		overflow: auto;
+		border-top: 1px solid $border-color;
+		border-bottom: 1px solid $border-color;
+
+		&--painted {
+			background-color: $window-body-painted-bg-color;
+		}
+	}
+
+	&__actions {
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: center;
+		padding: $spacer-2;
+
+		&--align-left {
+			justify-content: flex-start;
+		}
+
+		&--align-right {
+			justify-content: flex-end;
+		}
+
+		&--align-center {
+			justify-content: center;
+		}
+
+		& > *:not(:first-child) {
+			margin-left: $spacer-2;
+		}
+	}
+
 	&-appear {
-		transform: translate3d(0, -5rem, 0);
+		transform: translate3d(0, -5rem, 0) !important;
 		opacity: 0;
 		transition: all .3s ease-out;
 
 		&-active {
-			transform: translate3d(0, 0, 0);
+			transform: translate3d(0, 0, 0) !important;
 			opacity: 1;
+		}
+	}
+
+	&--fullscreen {
+		&#{$this}-appear {
+			transform: scale3d(.8, .8, 1);
+			opacity: 0;
+			transition: all .3s ease;
+
+			&-active {
+				transform: scale3d(1, 1, 1);
+				opacity: 1;
+			}
 		}
 	}
 

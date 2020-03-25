@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import useForkRef from '@components/hooks/useForkRef';
 
 const Button = React.forwardRef(function Button(props, ref) {
     const {
@@ -19,7 +20,14 @@ const Button = React.forwardRef(function Button(props, ref) {
         ...other
     } = props;
 
-    useEffect(() => {}, [autoFocus]);
+    const buttonRef = useRef(null);
+    const handleRef = useForkRef(buttonRef, ref);
+
+    useEffect(() => {
+        if (autoFocus) {
+            buttonRef.current.focus();
+        }
+    }, [autoFocus]);
 
     const sizeClassnames = {
         small: 'btn--small',
@@ -52,7 +60,7 @@ const Button = React.forwardRef(function Button(props, ref) {
                 }
             )}
             disabled={disabled}
-            ref={ref}
+            ref={handleRef}
             {...other}
         >
             {!!Icon && <Icon className="btn__icon" size={iconSize || size} />}

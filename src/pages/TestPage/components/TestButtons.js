@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@components/Button';
 import UserIcon from '@svg-icons/feather/UserIcon';
@@ -8,6 +8,14 @@ import ChevronRightIcon from '@svg-icons/feather/ChevronRightIcon';
 import ShoppingCartIcon from '@svg-icons/feather/ShoppingCartIcon';
 
 const TestButtons = (props) => {
+    const btnRef = useRef(null);
+
+    useEffect(() => {
+        if (btnRef.current) {
+            btnRef.current.focus();
+        }
+    }, []);
+
     return (
         <div>
             <div
@@ -31,6 +39,7 @@ const TestButtons = (props) => {
                     icon={StarIcon}
                     iconAlign="bottom"
                     iconSize="large"
+                    ref={btnRef}
                     style={{ marginRight: '1.4rem' }}
                 >
                     Save & Close
