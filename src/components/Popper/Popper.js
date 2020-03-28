@@ -1,63 +1,77 @@
-import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { createPopper } from '@popperjs/core';
+import { CSSTransition } from 'react-transition-group';
 
-const popperDefaultOptions = {
-    modifiers: [
-        {
-            name: 'offset',
-            options: {
-                offset: [0, 8]
-            }
-        }
-    ]
-};
+import Portal from '@components/Portal';
+import usePopper from './usePopper';
 
 const Popper = (props) => {
-    const { children, placement = 'bottom', options = {} } = props;
+    const {
+        children,
+        anchorRef,
+        open,
+        placement,
+        strategy,
+        modifiers,
+        transitionProps = null
+    } = props;
 
-    const [referenceNode, setReferenceNode] = useState(null);
-    const [popperNode, setPopperNode] = useState(null);
-    const [popperOptions] = useState(() => {
-        return {
-            placement,
-            ...popperDefaultOptions,
-            ...options
-        };
+    const { referenceRef, popperRef, popperState, popperInstance } = usePopper({
+        placement,
+        strategy,
+        modifiers
     });
-    const [popperInstance, setPopperInstance] = useState(null);
+    const [exited, setExited] = useState(true);
 
-    const referenceRef = useCallback((el) => {
-        setReferenceNode(el);
+    const handleTransitionEnter = useCallback(() => {
+        setExited(false);
     }, []);
-    const popperRef = useCallback((el) => {
-        setPopperNode(el);
+
+    const handleTransitionExited = useCallback(() => {
+        setExited(true);
     }, []);
 
     useEffect(() => {
-        if (referenceNode && popperNode) {
-            const popper = createPopper(referenceNode, popperNode, {
-                ...popperOptions,
-                onFirstUpdate: (state) => {
-                    setPopperInstance(popper);
-                }
-            });
-
-            return () => {
-                popper.destroy();
-            };
+        if (anchorRef.current) {
+            referenceRef(anchorRef.current);
         }
+    }, [anchorRef, referenceRef]);
 
-        return undefined;
-    }, [referenceNode, popperNode, popperOptions]);
+    if (!open && exited) {
+        return null;
+    }
 
-    return children({ referenceRef, popperRef, instance: popperInstance });
+    return (
+        <Portal>
+            <div className="popper" ref={popperRef}>
+                {transitionProps ? (
+                    <CSSTransition
+                        {...transitionProps}
+                        in={open && !!popperInstance}
+                        onEnter={handleTransitionEnter}
+                        onExited={handleTransitionExited}
+                    >
+                        {children(popperState)}
+                    </CSSTransition>
+                ) : (
+                    children(popperState)
+                )}
+            </div>
+        </Portal>
+    );
 };
 
 Popper.propTypes = {
     children: PropTypes.func.isRequired,
+    anchorRef: PropTypes.object.isRequired,
+    open: PropTypes.bool.isRequired,
     placement: PropTypes.string,
-    options: PropTypes.object
+    strategy: PropTypes.string,
+    modifiers: PropTypes.array,
+    transitionProps: PropTypes.exact({
+        classNames: PropTypes.string.isRequired,
+        timeout: PropTypes.number
+    })
 };
 
 export default Popper;

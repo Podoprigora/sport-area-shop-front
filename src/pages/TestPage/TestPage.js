@@ -34,6 +34,26 @@ const TestPage = (props) => {
                 </Heading>
                 <Heading size={6}>Test heading 6</Heading>
             </Panel>
+            <Panel title="Test heading" className="page__section">
+                <Heading size="1">Test heading 1</Heading>
+                <Heading size="2">Test heading 2</Heading>
+                <Heading size="3">Test heading 3</Heading>
+                <Heading size="4">Test heading 4</Heading>
+                <Heading size="5" gutterBottom={false}>
+                    Test heading 5
+                </Heading>
+                <Heading size={6}>Test heading 6</Heading>
+            </Panel>
+            <Panel title="Test heading" className="page__section">
+                <Heading size="1">Test heading 1</Heading>
+                <Heading size="2">Test heading 2</Heading>
+                <Heading size="3">Test heading 3</Heading>
+                <Heading size="4">Test heading 4</Heading>
+                <Heading size="5" gutterBottom={false}>
+                    Test heading 5
+                </Heading>
+                <Heading size={6}>Test heading 6</Heading>
+            </Panel>
         </div>
     );
 };

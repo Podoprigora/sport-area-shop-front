@@ -102,11 +102,11 @@
 	&__slide-anim-left-enter {
 		display: block;
 		transform: translate3d(100%, 0, 0);
-		transition: all 1s ease-out;
 
 		&-active {
 			opacity: 1;
 			transform: translate3d(0, 0, 0);
+			transition: all 1s ease-out;
 		}
 	}
 
@@ -114,22 +114,22 @@
 		display: block;
 		transform: translate3d(0, 0, 0);
 		opacity: 1;
-		transition: all 1s ease-out;
 
 		&-active {
 			opacity: 0;
 			transform: translate3d(-100%, 0, 0);
+			transition: all 1s ease-out;
 		}
 	}
 
 	&__slide-anim-right-enter {
 		display: block;
 		transform: translate3d(-100%, 0, 0);
-		transition: all 1s ease-out;
 
 		&-active {
 			opacity: 1;
 			transform: translate3d(0, 0, 0);
+			transition: all 1s ease-out;
 		}
 	}
 
@@ -137,11 +137,11 @@
 		display: block;
 		transform: translate3d(0, 0, 0);
 		opacity: 1;
-		transition: all 1s ease-out;
 
 		&-active {
 			opacity: 0;
 			transform: translate3d(100%, 0, 0);
+			transition: all 1s ease-out;
 		}
 	}
 }
