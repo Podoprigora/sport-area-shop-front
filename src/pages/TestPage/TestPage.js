@@ -5,10 +5,18 @@ import Panel from '@components/Panel';
 import Heading from '@components/Heading';
 import TestButtons from './components/TestButtons';
 import TestWindow from './components/TestWindow';
+import TestReactPopper from './components/TestReactPopper';
+import TestPopper from './components/TestPopper';
 
 const TestPage = (props) => {
     return (
         <div className="page">
+            <Panel title="Test PopperJS" className="page__section">
+                <TestPopper />
+            </Panel>
+            <Panel title="Test ReactPopper" className="page__section">
+                <TestReactPopper />
+            </Panel>
             <Panel title="Test window" className="page__section">
                 <TestWindow />
             </Panel>
