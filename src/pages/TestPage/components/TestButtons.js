@@ -6,6 +6,7 @@ import StarIcon from '@svg-icons/feather/StarIcon';
 import ChevronLeftIcon from '@svg-icons/feather/ChevronLeftIcon';
 import ChevronRightIcon from '@svg-icons/feather/ChevronRightIcon';
 import ShoppingCartIcon from '@svg-icons/feather/ShoppingCartIcon';
+import Tooltip from '@components/Tooltip';
 
 const TestButtons = (props) => {
     const btnRef = useRef(null);
@@ -44,10 +45,11 @@ const TestButtons = (props) => {
                 >
                     Save & Close
                 </Button>
-
-                <Button primary icon={StarIcon} style={{ marginRight: '1.4rem' }}>
-                    Save & Close
-                </Button>
+                <Tooltip title="Test tooltip">
+                    <Button primary icon={StarIcon} style={{ marginRight: '1.4rem' }}>
+                        Save & Close
+                    </Button>
+                </Tooltip>
 
                 <Button
                     primary

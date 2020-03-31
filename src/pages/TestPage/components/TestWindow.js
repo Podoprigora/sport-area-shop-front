@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import ShoppingCartIcon from '@svg-icons/feather/ShoppingCartIcon';
 import Button from '@components/Button';
 import Window from '@components/Window';
+import Tooltip from '@components/Tooltip';
 import WindowHeader from '@components/Window/WindowHeader';
 import WindowBody from '@components/Window/WindowBody';
 import WindowActions from '@components/Window/WindowActions';
@@ -43,12 +44,17 @@ const TestWindow = (props) => {
                 <WindowHeader title="Test window" onClose={handleCloseWindow} />
                 <WindowBody style={{ height: '20rem' }}>
                     <div style={{ padding: '1rem 0' }}>Window content</div>
+                    <Tooltip title="Window Tooltip">
+                        <Button>Show tooltip</Button>
+                    </Tooltip>
                 </WindowBody>
 
                 <WindowActions align="right">
-                    <Button primary plain centered ref={btnRef}>
-                        OK
-                    </Button>
+                    <Tooltip title="Save" disableFocusListener>
+                        <Button primary plain centered ref={btnRef}>
+                            OK
+                        </Button>
+                    </Tooltip>
                     <Button centered plain autoFocus onClick={handleCloseWindow}>
                         Close
                     </Button>

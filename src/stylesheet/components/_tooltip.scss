@@ -1,0 +1,32 @@
+.tooltip {
+	background-color: $tooltip-bg-color;
+	color: $tooltip-color;
+	font-size: $tooltip-font-size;
+	font-weight: $tooltip-font-weight;
+	letter-spacing: $tooltip-letter-spacing;
+	padding: $tooltip-padding;
+	max-width: $tooltip-max-width;
+	border-radius: $tooltip-border-radius;
+
+	&-enter {
+		opacity: 0;
+		transform: scale3d(.6, .6, 1);
+
+		&-active {
+			opacity: 1;
+			transform: scale3d(1, 1, 1);
+			transition: opacity .15s ease, transform .3s ease;
+		}
+	}
+
+	&-exit {
+		opacity: 1;
+		transform: scale3d(1, 1, 1);
+
+		&-active {
+			transform: scale3d(.6, .6, 1);
+			opacity: 0;
+			transition: opacity .15s ease, transform .3s ease;
+		}
+	}
+}

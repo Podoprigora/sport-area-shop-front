@@ -72,12 +72,12 @@ const TestPopper = () => {
             <Popper
                 open={open}
                 anchorRef={anchorRef}
-                placement="left"
+                placement="bottom-start"
                 transitionProps={{ timeout: 300, classNames: 'tooltip' }}
             >
                 {({ placement }) => {
                     return (
-                        <div role="tooltip" className={`tooltip tooltip--${placement}`}>
+                        <div role="tooltip" className={`tooltip u-placement-${placement}`}>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius eveniet
                             nihil reiciendis odit, amet optio totam at quis quae possimus laboriosam
                             sint placeat debitis, atque cupiditate cumque pariatur culpa ea?

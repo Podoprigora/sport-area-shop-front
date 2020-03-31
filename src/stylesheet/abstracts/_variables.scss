@@ -27,6 +27,7 @@ $spacer-4: 4.8rem;
 
 // Z-index
 $modal-z-index: 2000;
+$popper-z-index: 3000;
 
 // Heading
 $heading-1-font-size: $font-size * 2.5;
@@ -71,6 +72,16 @@ $btn-primary-plain-border: 2px solid $color-primary;
 $btn-primary-plain-hover-border-color: lighten($color-primary, 10%);
 
 $icon-btn-hover-bg-color: #fff;
+
+// Tooltip
+$tooltip-bg-color: $color-gray;
+$tooltip-color: #fff;
+$tooltip-font-size: 1.2rem;
+$tooltip-font-weight: 400;
+$tooltip-letter-spacing: .4px;
+$tooltip-padding: .8rem 1.2rem;
+$tooltip-max-width: 40rem;
+$tooltip-border-radius: 5px;
 
 // Icon
 $icon-small-size: 16px;

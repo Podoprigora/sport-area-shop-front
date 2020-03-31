@@ -3,7 +3,10 @@
 
 @import "./base/base";
 @import "./base/typography";
-@import "./base/utility";
+
+@import "./utilities/margin";
+@import "./utilities/width";
+@import "./utilities/placement";
 
 @import "./components/container";
 @import "./components/heading";
@@ -21,6 +24,8 @@
 @import "./components/modal";
 @import "./components/backdrop";
 @import "./components/window";
+@import "./components/popper";
+@import "./components/tooltip";
 
 @import "./vendors/vendors";
 
