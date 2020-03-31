@@ -20,16 +20,10 @@ const FocusBounding = (props) => {
                 return;
             }
 
-            let backward = false;
-
-            if (ev.shiftKey) {
-                backward = true;
-            }
-
             if (!childNodeRef.current.contains(ev.target)) {
-                if (ev.target.isEqualNode(endingBoundRef.current) && !backward) {
+                if (ev.target.isEqualNode(endingBoundRef.current) && !ev.shiftKey) {
                     startingBoundRef.current.focus();
-                } else if (ev.target.isEqualNode(startingBoundRef.current) && backward) {
+                } else if (ev.target.isEqualNode(startingBoundRef.current) && ev.shiftKey) {
                     endingBoundRef.current.focus();
                 }
             }
@@ -69,7 +63,7 @@ const FocusBounding = (props) => {
 };
 
 FocusBounding.propTypes = {
-    children: PropTypes.node.isRequired,
+    children: PropTypes.element.isRequired,
     disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func])
 };
 
