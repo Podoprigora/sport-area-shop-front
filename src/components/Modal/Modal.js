@@ -8,7 +8,6 @@ import FocusBounding from '@components/FocusBounding';
 import useEventCallback from '@components/hooks/useEventCallback';
 import setRef from '@components/utils/setRef';
 import ModalManager from './ModalManager';
-import modalPropTypes from './modalPropTypes';
 
 const getHasTransition = (props) => {
     return props.children && props.children.props.hasOwnProperty('in');
@@ -223,6 +222,21 @@ const Modal = React.forwardRef(function Modal(props, ref) {
     );
 });
 
-Modal.propTypes = modalPropTypes;
+const propTypes = {
+    open: PropTypes.bool,
+    children: PropTypes.node,
+    className: PropTypes.string,
+    centered: PropTypes.bool,
+    backdrop: PropTypes.bool,
+    disableEscapeKeyDown: PropTypes.bool,
+    disableBackdropClick: PropTypes.bool,
+    disableFocusBounding: PropTypes.bool,
+    onEscapeKeyDown: PropTypes.func,
+    onClose: PropTypes.func,
+    onOpen: PropTypes.func
+};
+
+Modal.propTypes = propTypes;
 
 export default Modal;
+export { propTypes };

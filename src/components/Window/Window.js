@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
 
-import Modal from '@components/Modal';
-import modalPropTypes from '@components/Modal/modalPropTypes';
+import Modal, { propTypes as modalPropTypes } from '@components/Modal';
 import DraggableWrap from '@components/DraggableWrap';
 
 const Window = React.forwardRef(function Window(props, ref) {

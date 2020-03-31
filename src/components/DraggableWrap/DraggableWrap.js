@@ -17,7 +17,7 @@ const DraggableWrap = (props) => {
 };
 
 DraggableWrap.propTypes = {
-    children: PropTypes.node,
+    children: PropTypes.element,
     disabled: PropTypes.bool
 };
 
