@@ -32,7 +32,7 @@ const Popper = (props) => {
     }, []);
 
     useEffect(() => {
-        if (anchorRef.current) {
+        if (anchorRef && anchorRef.current) {
             referenceRef(anchorRef.current);
         }
     }, [anchorRef, referenceRef]);
@@ -63,7 +63,7 @@ const Popper = (props) => {
 
 Popper.propTypes = {
     children: PropTypes.func.isRequired,
-    anchorRef: PropTypes.object.isRequired,
+    anchorRef: PropTypes.object,
     open: PropTypes.bool.isRequired,
     placement: PropTypes.string,
     strategy: PropTypes.string,

@@ -8,6 +8,7 @@ import FocusBounding from '@components/FocusBounding';
 import useEventCallback from '@components/hooks/useEventCallback';
 import setRef from '@components/utils/setRef';
 import ModalManager from './ModalManager';
+import modalPropTypes from './modalPropTypes';
 
 const getHasTransition = (props) => {
     return props.children && props.children.props.hasOwnProperty('in');

@@ -7,10 +7,15 @@ import TestButtons from './components/TestButtons';
 import TestWindow from './components/TestWindow';
 import TestReactPopper from './components/TestReactPopper';
 import TestPopper from './components/TestPopper';
+import TestDropdown from './components/TestDropdown';
 
 const TestPage = (props) => {
     return (
         <div className="page">
+            <Panel title="Test Dropdown" className="page__section">
+                <TestDropdown />
+            </Panel>
+
             <Panel title="Test PopperJS" className="page__section">
                 <TestPopper />
             </Panel>
