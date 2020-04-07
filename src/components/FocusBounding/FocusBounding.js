@@ -1,6 +1,7 @@
 import React, { useRef, useCallback, useMemo, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import useForkRef from '@components/hooks/useForkRef';
 
 const FocusBounding = (props) => {
     const { children, disabled: disabledProp } = props;
@@ -9,6 +10,7 @@ const FocusBounding = (props) => {
     const childNodeRef = useRef(null);
     const startingBoundRef = useRef(null);
     const endingBoundRef = useRef(null);
+    const handleChildRef = useForkRef(childRef, children.ref);
 
     const isDisabled = useCallback(() => {
         return typeof disabledProp === 'function' ? disabledProp() : disabledProp;
@@ -56,7 +58,7 @@ const FocusBounding = (props) => {
                 ref={startingBoundRef}
                 data-test="starting-bound"
             />
-            {React.cloneElement(children, { ref: childRef, tabIndex: '-1' })}
+            {React.cloneElement(children, { ref: handleChildRef })}
             <div role="presentation" tabIndex="0" ref={endingBoundRef} data-test="ending-bound" />
         </>
     );

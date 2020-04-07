@@ -8,7 +8,6 @@ import FocusBounding from '@components/FocusBounding';
 import useEventCallback from '@components/hooks/useEventCallback';
 import setRef from '@components/utils/setRef';
 import ModalManager from './ModalManager';
-import modalPropTypes from './modalPropTypes';
 
 const getHasTransition = (props) => {
     return props.children && props.children.props.hasOwnProperty('in');
@@ -51,14 +50,10 @@ const Modal = React.forwardRef(function Modal(props, ref) {
     }, [onOpen]);
 
     const handleClose = useCallback(() => {
-        if (!hasTransition && triggerRef.current) {
-            triggerRef.current.focus();
-        }
-
         if (onClose) {
             onClose();
         }
-    }, [hasTransition, onClose]);
+    }, [onClose]);
 
     const handleEnter = useEventCallback(() => {
         setExited(false);
@@ -70,10 +65,6 @@ const Modal = React.forwardRef(function Modal(props, ref) {
 
     const handleExited = useEventCallback(() => {
         setExited(true);
-
-        if (triggerRef.current) {
-            triggerRef.current.focus();
-        }
 
         if (props.children.props && props.children.props.onExited) {
             props.children.props.onExited();
@@ -150,6 +141,8 @@ const Modal = React.forwardRef(function Modal(props, ref) {
     useEffect(() => {
         if (open) {
             triggerRef.current = document.activeElement;
+        } else if (!open && triggerRef.current) {
+            triggerRef.current.focus();
         }
     }, [open]);
 
