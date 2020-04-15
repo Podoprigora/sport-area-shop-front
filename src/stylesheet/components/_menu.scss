@@ -1,0 +1,60 @@
+.menu {
+	$this: &;
+
+	background: #fff;
+	min-width: 20rem;
+	padding: 1rem 0;
+	border-radius: 5px;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+	z-index: 2500;
+
+	&__item {
+		display: block;
+		padding: 1rem 1.4rem;
+		cursor: pointer;
+
+		&:hover:not(&--disabled) {
+			background-color: $bg-color-dark;
+		}
+
+		&--selected,
+		&:focus:not(&--disabled) {
+			background-color: rgba(#98d175, .6);
+			transition: background-color .2s ease;
+		}
+
+		&--disabled {
+			opacity: .4;
+			cursor: text;
+		}
+	}
+
+	&__divider {
+		height: 0;
+		border-top: 1px solid $border-color-light;
+		margin: 1rem 0;
+		overflow: hidden;
+	}
+
+	&-enter {
+		opacity: 0;
+		transform: scale3d(.8, .8, 1);
+
+		&-active {
+			transform: scale3d(1, 1, 1);
+			opacity: 1;
+			transition: all .3s ease;
+		}
+	}
+
+	&-exit {
+		opacity: 1;
+		transform: scale3d(1, 1, 1);
+
+		&-active {
+			opacity: 0;
+			transform: scale3d(.8, .8, 1);
+			transition: all .3s ease;
+		}
+	}
+}

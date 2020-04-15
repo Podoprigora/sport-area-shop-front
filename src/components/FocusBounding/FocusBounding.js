@@ -56,10 +56,17 @@ const FocusBounding = (props) => {
                 role="presentation"
                 tabIndex="0"
                 ref={startingBoundRef}
+                className="u-focus-outline-0"
                 data-test="starting-bound"
             />
             {React.cloneElement(children, { ref: handleChildRef })}
-            <div role="presentation" tabIndex="0" ref={endingBoundRef} data-test="ending-bound" />
+            <div
+                role="presentation"
+                tabIndex="0"
+                ref={endingBoundRef}
+                className="u-focus-outline-0"
+                data-test="ending-bound"
+            />
         </>
     );
 };
