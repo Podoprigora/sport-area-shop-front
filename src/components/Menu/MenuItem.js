@@ -3,7 +3,15 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 const MenuItem = (props) => {
-    const { children, selected, disabled, onClick = () => {}, ...other } = props;
+    const {
+        children,
+        icon: Icon,
+        iconSize = 'large',
+        selected,
+        disabled,
+        onClick = () => {},
+        ...other
+    } = props;
     const itemRef = useRef(null);
 
     const handleItemClick = useCallback(
@@ -48,7 +56,8 @@ const MenuItem = (props) => {
             onKeyDown={handleItemKeyDown}
             {...other}
         >
-            {children}
+            {!!Icon && <Icon className="menu__icon" size={iconSize} />}
+            <div className="menu__text">{children}</div>
         </div>
     );
 };
@@ -57,6 +66,8 @@ MenuItem.propTypes = {
     children: PropTypes.node.isRequired,
     selected: PropTypes.bool,
     disabled: PropTypes.bool,
+    icon: PropTypes.elementType,
+    iconSize: PropTypes.string,
     onClick: PropTypes.func
 };
 

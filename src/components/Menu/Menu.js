@@ -7,42 +7,52 @@ import useEventCallback from '@components/hooks/useEventCallback';
 import Modal from '@components/Modal';
 import { usePopper } from '@components/Popper';
 
-const getMenuIndexOffset = (menuElement, step = 1) => {
+const getNextIndex = (menuElement, prevIndex, offset = 1) => {
     const activeElement = document.activeElement;
+    const menuElementItems = Array.from(menuElement.children);
     let nextElement = null;
 
     if (activeElement === menuElement) {
-        nextElement = step > 0 ? menuElement.firstChild : menuElement.lastChild;
-    } else {
-        nextElement =
-            step > 0 ? activeElement.nextElementSibling : activeElement.previousElementSibling;
+        nextElement = offset > 0 ? menuElement.firstChild : menuElement.lastChild;
+    } else if (offset > 0) {
+        nextElement = activeElement.nextElementSibling || menuElement.firstChild;
+    } else if (offset < 0) {
+        nextElement = activeElement.previousElementSibling || menuElement.lastChild;
     }
 
-    let offset = step;
+    while (nextElement && nextElement !== activeElement) {
+        if (
+            nextElement.getAttribute('role') !== 'menuitem' ||
+            nextElement.getAttribute('aria-disabled') === 'true'
+        ) {
+            nextElement =
+                offset > 0 ? nextElement.nextElementSibling : nextElement.previousElementSibling;
 
-    if (nextElement) {
-        while (nextElement) {
-            if (
-                nextElement.getAttribute('role') !== 'menuitem' ||
-                nextElement.getAttribute('aria-disabled') === 'true'
-            ) {
-                nextElement =
-                    step > 0 ? nextElement.nextElementSibling : nextElement.previousElementSibling;
-
-                offset += step;
-            } else {
-                break;
+            if (!nextElement && activeElement !== menuElement) {
+                nextElement = offset > 0 ? menuElement.firstChild : menuElement.lastChild;
             }
+        } else {
+            break;
         }
     }
 
-    console.log(nextElement, offset);
-
-    return nextElement ? offset : false;
+    return nextElement ? menuElementItems.indexOf(nextElement) : prevIndex;
 };
 
 const Menu = (props) => {
-    const { open, anchorRef, placement = 'bottom-start', children, onClose = () => {} } = props;
+    const {
+        open,
+        anchorRef,
+        placement = 'bottom-start',
+        children,
+        autoFocusItem = false,
+        autoWidth = false,
+        width,
+        className,
+        style,
+        onClose = () => {}
+    } = props;
+
     const defaultIndex = -1;
 
     const { referenceRef, popperRef, popperState, popperInstance } = usePopper({
@@ -58,9 +68,8 @@ const Menu = (props) => {
     });
     const [exited, setExited] = useState(true);
     const [selectedIndex, setSelectedIndex] = useState(defaultIndex);
+    const [menuStyle, setMenuStyle] = useState({ ...style, ...(width && { width }) });
     const menuRef = useRef(null);
-
-    const itemsLength = React.Children.toArray(children).length;
 
     // Handlers
 
@@ -77,24 +86,18 @@ const Menu = (props) => {
                 break;
             case 'ArrowDown': {
                 ev.preventDefault();
-                const offset = getMenuIndexOffset(menuRef.current, 1);
 
-                if (offset) {
-                    setSelectedIndex((prevIndex) => {
-                        return prevIndex + offset;
-                    });
-                }
+                setSelectedIndex((prevIndex) => {
+                    return getNextIndex(menuRef.current, prevIndex, 1);
+                });
                 break;
             }
             case 'ArrowUp': {
                 ev.preventDefault();
-                const offset = getMenuIndexOffset(menuRef.current, -1);
 
-                if (offset) {
-                    setSelectedIndex((prevIndex) => {
-                        return prevIndex + offset;
-                    });
-                }
+                setSelectedIndex((prevIndex) => {
+                    return getNextIndex(menuRef.current, prevIndex, -1);
+                });
                 break;
             }
             default:
@@ -139,6 +142,24 @@ const Menu = (props) => {
     }, [open, popperState, anchorRef]);
 
     useEffect(() => {
+        if (autoFocusItem && open && menuRef.current) {
+            setSelectedIndex((prevIndex) => {
+                return getNextIndex(menuRef.current, defaultIndex, 1);
+            });
+        }
+    }, [autoFocusItem, defaultIndex, open, popperState]);
+
+    useEffect(() => {
+        if (anchorRef.current && autoWidth) {
+            const anchorWidth = anchorRef.current.clientWidth;
+
+            setMenuStyle((prevStyle) => {
+                return { ...prevStyle, minWidth: anchorWidth };
+            });
+        }
+    }, [anchorRef, autoWidth]);
+
+    useEffect(() => {
         return () => {
             if (!open) {
                 setSelectedIndex(defaultIndex);
@@ -169,11 +190,12 @@ const Menu = (props) => {
                 >
                     <div
                         role="menu"
-                        className={classNames('menu u-focus-outline-0', {
+                        className={classNames('menu u-focus-outline-0', className, {
                             [`u-placement-${currentPlacement}`]: currentPlacement
                         })}
                         ref={menuRef}
                         tabIndex="-1"
+                        style={menuStyle}
                         onKeyDown={handleMenuKeyDown}
                     >
                         {items}
@@ -189,6 +211,11 @@ Menu.propTypes = {
     open: PropTypes.bool,
     placement: PropTypes.string,
     children: PropTypes.node,
+    autoWidth: PropTypes.bool,
+    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    className: PropTypes.string,
+    style: PropTypes.object,
+    autoFocusItem: PropTypes.bool,
     onClose: PropTypes.func
 };
 

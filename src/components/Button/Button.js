@@ -2,6 +2,7 @@ import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import useForkRef from '@components/hooks/useForkRef';
+import KeyboardArrowDownIcon from '@svg-icons/material/KeyboardArrowDown';
 
 const Button = React.forwardRef(function Button(props, ref) {
     const {
@@ -17,6 +18,8 @@ const Button = React.forwardRef(function Button(props, ref) {
         plain,
         autoWidth,
         autoFocus,
+        arrow,
+        arrowSize = 'medium',
         ...other
     } = props;
 
@@ -65,6 +68,7 @@ const Button = React.forwardRef(function Button(props, ref) {
         >
             {!!Icon && <Icon className="btn__icon" size={iconSize || size} />}
             {children && <span className="btn__text">{children}</span>}
+            {arrow && <KeyboardArrowDownIcon className="btn__arrow" size={arrowSize} />}
         </button>
     );
 });
@@ -81,7 +85,9 @@ Button.propTypes = {
     disabled: PropTypes.bool,
     plain: PropTypes.bool,
     autoWidth: PropTypes.bool,
-    autoFocus: PropTypes.bool
+    autoFocus: PropTypes.bool,
+    arrow: PropTypes.bool,
+    arrowSize: PropTypes.oneOf(['small', 'medium', 'large', null])
 };
 
 export default Button;

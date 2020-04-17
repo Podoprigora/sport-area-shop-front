@@ -1,7 +1,7 @@
 import React from 'react';
 
 const MenuDivider = () => {
-    return <div className="menu__divider" role="separator" />;
+    return <hr className="menu__divider" />;
 };
 
 export default MenuDivider;

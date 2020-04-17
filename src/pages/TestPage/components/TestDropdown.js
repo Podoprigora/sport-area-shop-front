@@ -10,6 +10,16 @@ import { CSSTransition } from 'react-transition-group';
 import { reference } from '@popperjs/core';
 import useEventCallback from '@components/hooks/useEventCallback';
 import Menu, { MenuItem, MenuDivider } from '@components/Menu';
+import ShoppingBasketIcon from '@svg-icons/material/ShoppingBasketIcon';
+import UserIcon from '@svg-icons/feather/UserIcon';
+import MapPinIcon from '@svg-icons/feather/MapPinIcon';
+import TagIcon from '@svg-icons/feather/TagIcon';
+import FavoriteOutlineIcon from '@svg-icons/material/FavoriteOutlineIcon';
+import CreatemodeEditIcon from '@svg-icons/material/CreatemodeEditIcon';
+import PlaylistAddIcon from '@svg-icons/material/PlaylistAddIcon';
+import ViewListIcon from '@svg-icons/material/ViewListIcon';
+import MenuIcon from '@svg-icons/material/MenuIcon';
+import GridViewIcon from '@svg-icons/material/GridViewIcon';
 
 const TestDropdown = () => {
     // const { referenceRef, popperRef, popperState, popperInstance } = usePopper({
@@ -24,13 +34,23 @@ const TestDropdown = () => {
     //     ]
     // });
     const [open, setOpen] = useState(false);
+    const [autoFocusMenuItem, setAutoFocusMenuItem] = useState(false);
     const menuRef = useRef(null);
     const buttonRef = useRef(null);
     // const handleMenuRef = useForkRef(popperRef, menuRef);
 
     const handleButtonClick = useEventCallback((ev) => {
         setOpen(true);
+        setAutoFocusMenuItem(false);
         // referenceRef(buttonRef.current);
+    });
+
+    const handleButtonKeyDown = useEventCallback((ev) => {
+        if (ev.key === 'Enter') {
+            ev.preventDefault();
+            setOpen(true);
+            setAutoFocusMenuItem(true);
+        }
     });
 
     const handleMenuClose = useCallback(() => {
@@ -49,10 +69,17 @@ const TestDropdown = () => {
         setOpen(false);
     }, []);
 
+    const handleMenuItem1Click = useCallback((ev) => {
+        console.log('item 1 click');
+    }, []);
+
+    const handleMenuItem2Click = useCallback((ev) => {
+        console.log('item 2 click');
+    }, []);
+
     const handleMenuItem3Click = useCallback((ev) => {
         console.log('item 3 click');
     }, []);
-
     //
     // useEffect(() => {
     //     if (open && menuRef.current) {
@@ -64,22 +91,36 @@ const TestDropdown = () => {
         <div>
             <Button
                 primary
+                arrow
+                icon={CreatemodeEditIcon}
+                // iconSize="large"
                 ref={buttonRef}
-                icon={KeyboardArrowDownIcon}
-                iconAlign="right"
-                iconSize="medium"
                 aria-haspopup
                 onClick={handleButtonClick}
+                onKeyDown={handleButtonKeyDown}
             >
                 Show menu
             </Button>
 
-            <Menu open={open} anchorRef={buttonRef} onClose={handleMenuClose}>
-                <MenuItem disabled>Item 1</MenuItem>
-                <MenuItem>Item 2</MenuItem>
+            <Menu
+                open={open}
+                anchorRef={buttonRef}
+                autoFocusItem={autoFocusMenuItem}
+                onClose={handleMenuClose}
+            >
+                <MenuItem disabled icon={FavoriteOutlineIcon} onClick={handleMenuItem1Click}>
+                    Item 1
+                </MenuItem>
+                <MenuItem icon={CreatemodeEditIcon} onClick={handleMenuItem2Click}>
+                    Item 2
+                </MenuItem>
                 <MenuDivider />
-                <MenuItem onClick={handleMenuItem3Click}>Item 3</MenuItem>
-                <MenuItem disabled>Item 4</MenuItem>
+                <MenuItem icon={PlaylistAddIcon} onClick={handleMenuItem3Click}>
+                    Item 3
+                </MenuItem>
+                <MenuItem disabled icon={ViewListIcon}>
+                    Item 4
+                </MenuItem>
             </Menu>
 
             {/* <Modal open={open} backdrop={false} onClose={handleMenuClose}>

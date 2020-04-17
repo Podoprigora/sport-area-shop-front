@@ -85,6 +85,13 @@
 		justify-content: center;
 	}
 
+	&--icon-align-left,
+	&--icon-align-right {
+		#{$this}__arrow {
+			margin-left: .2rem;
+		}
+	}
+
 	&--icon-align-left {
 		#{$this}__icon {
 			margin-right: $spacer-2;
@@ -97,6 +104,10 @@
 		align-items: center;
 		justify-content: center;
 		padding: $spacer-2 $spacer-2;
+
+		#{$this}__arrow {
+			margin-top: .2rem;
+		}
 	}
 
 	&--icon-align-top {

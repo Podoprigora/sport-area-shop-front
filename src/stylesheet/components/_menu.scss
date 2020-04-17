@@ -1,16 +1,16 @@
 .menu {
-	$this: &;
-
 	background: #fff;
-	min-width: 20rem;
-	padding: 1rem 0;
+	min-width: 18rem;
+	padding: .8rem 0;
 	border-radius: 5px;
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-	z-index: 2500;
+	// z-index: 2500;
 
 	&__item {
-		display: block;
-		padding: 1rem 1.4rem;
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: center;
+		padding: .8rem 1.4rem;
 		cursor: pointer;
 
 		&:hover:not(&--disabled) {
@@ -29,10 +29,17 @@
 		}
 	}
 
+	&__icon {
+		color: $icon-color;
+		margin-right: $spacer-2;
+	}
+
 	&__divider {
-		height: 0;
-		border-top: 1px solid $border-color-light;
-		margin: 1rem 0;
+		display: block;
+		height: 1px;
+		background-color: $border-color-light;
+		margin: .8rem 0;
+		border: 0;
 		overflow: hidden;
 	}
 
