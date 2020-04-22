@@ -127,6 +127,7 @@ const Menu = (props) => {
 
     // Effects
 
+    // Set Popper referenceRef
     useEffect(() => {
         if (anchorRef.current) {
             referenceRef(anchorRef.current);
@@ -141,6 +142,7 @@ const Menu = (props) => {
         }
     }, [open, popperState, anchorRef]);
 
+    // Set focus to first item
     useEffect(() => {
         if (autoFocusItem && open && menuRef.current) {
             setSelectedIndex((prevIndex) => {
@@ -149,6 +151,7 @@ const Menu = (props) => {
         }
     }, [autoFocusItem, defaultIndex, open, popperState]);
 
+    // Update menu width according to anchor element
     useEffect(() => {
         if (anchorRef.current && autoWidth) {
             const anchorWidth = anchorRef.current.clientWidth;
@@ -159,6 +162,7 @@ const Menu = (props) => {
         }
     }, [anchorRef, autoWidth]);
 
+    // Reset selectedIndex when menu is closed
     useEffect(() => {
         return () => {
             if (!open) {

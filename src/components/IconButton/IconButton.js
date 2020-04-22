@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const IconButton = ({ children, disabled, className, ...props }) => {
+const IconButton = React.forwardRef(function IconButton(props, ref) {
+    const { children, disabled, className, ...other } = props;
     return (
         <button
             type="button"
@@ -10,12 +11,13 @@ const IconButton = ({ children, disabled, className, ...props }) => {
                 'btn-icon--disabled': disabled
             })}
             disabled={disabled}
-            {...props}
+            ref={ref}
+            {...other}
         >
             {children}
         </button>
     );
-};
+});
 
 IconButton.propTypes = {
     children: PropTypes.element.isRequired,

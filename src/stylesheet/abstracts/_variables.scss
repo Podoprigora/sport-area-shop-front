@@ -102,9 +102,10 @@ $link-large-font-size: 2rem;
 $link-font-weight: 400;
 
 // Input
-$input-padding: .8rem;
+$input-padding: .8rem 1rem;
 $input-bg-color: #fff;
-$input-disabled-bg-color: $bg-color-light;
+$input-disabled-bg-color: #edecec;
+$input-disabled-color: #9e9e9e;
 $input-border-color: $border-color;
 $input-border-radius: 3px;
 $input-focus-stripe-width: 2px;

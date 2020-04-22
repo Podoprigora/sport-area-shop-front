@@ -9,7 +9,9 @@ import React, {
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const Input = forwardRef(function Input({ type, disabled, autoFocus, fullWidth, ...props }, ref) {
+const Input = forwardRef(function Input(props, ref) {
+    const { type, disabled, autoFocus, fullWidth, ...other } = props;
+
     const [focused, setFocused] = useState(false);
     const inputRef = useRef(null);
 
@@ -38,8 +40,15 @@ const Input = forwardRef(function Input({ type, disabled, autoFocus, fullWidth, 
         setFocused(false);
     }, []);
 
+    const handleIconClick = useCallback((ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+
+        console.log('focus');
+    }, []);
+
     const inputEl = (
-        <input type={type} ref={inputRef} className="input__el" {...{ disabled }} {...props} />
+        <input type={type} ref={inputRef} className="input__el" {...{ disabled }} {...other} />
     );
 
     return (

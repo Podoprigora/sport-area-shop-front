@@ -3,14 +3,19 @@ import PropTypes from 'prop-types';
 
 import Panel from '@components/Panel';
 import Heading from '@components/Heading';
+import Input from '@components/Input';
 import TestButtons from './components/TestButtons';
 import TestWindow from './components/TestWindow';
 import TestPopper from './components/TestPopper';
 import TestDropdown from './components/TestDropdown';
+import TestInputs from './components/TestInputs';
 
 const TestPage = (props) => {
     return (
         <div className="page">
+            <Panel title="Test Inputs" className="page__section">
+                <TestInputs />
+            </Panel>
             <Panel title="Test Dropdown" className="page__section">
                 <TestDropdown />
             </Panel>

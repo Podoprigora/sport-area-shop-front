@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 import Popper from '@components/Popper';
 import useForkRef from '@components/hooks/useForkRef';
+import useEventCallback from '@components/hooks/useEventCallback';
 
 const Tooltip = (props) => {
     const {
@@ -45,13 +46,21 @@ const Tooltip = (props) => {
         [leaveDelay]
     );
 
-    const handleFocus = useCallback((ev) => {
+    const handleFocus = useEventCallback((ev) => {
         setOpen(true);
-    }, []);
 
-    const handleBlur = useCallback((ev) => {
+        if (children.props.onFocus) {
+            children.props.onFocus(ev);
+        }
+    });
+
+    const handleBlur = useEventCallback((ev) => {
         setOpen(false);
-    }, []);
+
+        if (children.props.onBlur) {
+            children.props.onBlur(ev);
+        }
+    });
 
     useEffect(() => {
         return () => {

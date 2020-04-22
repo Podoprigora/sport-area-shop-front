@@ -1,6 +1,7 @@
 .input {
 	position: relative;
-	display: inline-block;
+	display: inline-flex;
+	align-items: center;
 	background: $input-bg-color;
 	border: 1px solid $input-border-color;
 	border-radius: $input-border-radius;
@@ -20,10 +21,11 @@
 	}
 
 	&__el {
+		display: block;
 		background: transparent;
 		width: 100%;
 		padding: $input-padding;
-		border: none;
+		border: 0;
 
 		&:focus {
 			outline: none;
@@ -44,6 +46,7 @@
 
 	&--disabled {
 		background-color: $input-disabled-bg-color;
+		color: $input-disabled-color;
 	}
 
 	&--full-width {
