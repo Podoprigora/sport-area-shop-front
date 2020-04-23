@@ -11,11 +11,11 @@ import Tooltip from '@components/Tooltip';
 const TestButtons = (props) => {
     const btnRef = useRef(null);
 
-    useEffect(() => {
-        if (btnRef.current) {
-            btnRef.current.focus();
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (btnRef.current) {
+    //         btnRef.current.focus();
+    //     }
+    // }, []);
 
     return (
         <div>

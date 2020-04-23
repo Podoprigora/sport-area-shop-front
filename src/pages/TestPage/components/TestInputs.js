@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import Input from '@components/Input';
 import Button from '@components/Button';
 import IconButton from '@components/IconButton';
@@ -7,9 +7,17 @@ import PlusIcon from '@svg-icons/feather/PlusIcon';
 import MenuIcon from '@svg-icons/material/MenuIcon';
 
 const TestInputs = () => {
+    const inputRef = useRef(null);
+
+    useEffect(() => {
+        if (inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, []);
+
     return (
         <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Input placeholder="Enter name" />
+            <Input ref={inputRef} placeholder="Enter name" />
             <Button primary centered style={{ marginLeft: '1rem' }}>
                 Open
             </Button>

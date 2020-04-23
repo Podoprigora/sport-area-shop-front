@@ -4,12 +4,13 @@ import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 
 import useEventCallback from '@components/hooks/useEventCallback';
+import useForkRef from '@components/hooks/useForkRef';
 import Modal from '@components/Modal';
 import { usePopper } from '@components/Popper';
 
 const getNextIndex = (menuElement, prevIndex, offset = 1) => {
     const activeElement = document.activeElement;
-    const menuElementItems = Array.from(menuElement.children);
+    const menuElementItems = Array.from(menuElement.children) || [];
     let nextElement = null;
 
     if (activeElement === menuElement) {
@@ -39,10 +40,10 @@ const getNextIndex = (menuElement, prevIndex, offset = 1) => {
     return nextElement ? menuElementItems.indexOf(nextElement) : prevIndex;
 };
 
-const Menu = (props) => {
+const Menu = React.forwardRef(function Menu(props, ref) {
     const {
         open,
-        anchorRef,
+        anchorRef = { current: null },
         placement = 'bottom-start',
         children,
         autoFocusItem = false,
@@ -69,7 +70,9 @@ const Menu = (props) => {
     const [exited, setExited] = useState(true);
     const [selectedIndex, setSelectedIndex] = useState(defaultIndex);
     const [menuStyle, setMenuStyle] = useState({ ...style, ...(width && { width }) });
+
     const menuRef = useRef(null);
+    const handleMenuRef = useForkRef(menuRef, ref);
 
     // Handlers
 
@@ -134,12 +137,19 @@ const Menu = (props) => {
         }
     }, [anchorRef, referenceRef]);
 
+    // Toggling focus between menu and anchor element when menu is shown and hidden
     useEffect(() => {
-        if (open && menuRef.current) {
+        if (!menuRef.current) {
+            return undefined;
+        }
+
+        if (open) {
             menuRef.current.focus();
         } else if (!open && anchorRef.current) {
             anchorRef.current.focus();
         }
+
+        return undefined;
     }, [open, popperState, anchorRef]);
 
     // Set focus to first item
@@ -197,7 +207,7 @@ const Menu = (props) => {
                         className={classNames('menu u-focus-outline-0', className, {
                             [`u-placement-${currentPlacement}`]: currentPlacement
                         })}
-                        ref={menuRef}
+                        ref={handleMenuRef}
                         tabIndex="-1"
                         style={menuStyle}
                         onKeyDown={handleMenuKeyDown}
@@ -208,7 +218,7 @@ const Menu = (props) => {
             </div>
         </Modal>
     );
-};
+});
 
 Menu.propTypes = {
     anchorRef: PropTypes.object,
