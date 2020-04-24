@@ -1,6 +1,4 @@
-// Font
-$font-size: 1.4rem;
-$line-height: 1.4;
+@import "./color-palette";
 
 // Colors
 $color-primary: #669f42;
@@ -17,6 +15,12 @@ $bg-color-dark-2: #e5e5e5;
 $border-color: #dddddd;
 $border-color-light: #ebebeb;
 $border-color-dark: #cfcfcf;
+
+// Font
+$font-family: 'Roboto', sans-serif;
+$font-size: 1.4rem;
+$font-weight: 400;
+$line-height: 1.4;
 
 // Spacer
 $spacer-0: 0;

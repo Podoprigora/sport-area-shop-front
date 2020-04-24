@@ -8,7 +8,7 @@ import usePopper from './usePopper';
 const Popper = (props) => {
     const {
         children,
-        anchorRef,
+        anchorRef = { current: null },
         open,
         placement,
         strategy,
@@ -32,7 +32,7 @@ const Popper = (props) => {
     }, []);
 
     useEffect(() => {
-        if (anchorRef && anchorRef.current) {
+        if (anchorRef.current) {
             referenceRef(anchorRef.current);
         }
     }, [anchorRef, referenceRef]);
