@@ -167,7 +167,7 @@ const Menu = React.forwardRef(function Menu(props, ref) {
             const anchorWidth = anchorRef.current.clientWidth;
 
             setMenuStyle((prevStyle) => {
-                return { ...prevStyle, minWidth: anchorWidth };
+                return { ...prevStyle, width: anchorWidth };
             });
         }
     }, [anchorRef, autoWidth]);

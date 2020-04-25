@@ -9,7 +9,7 @@
 		color: $link-color;
 		font-size: $link-small-font-size;
 		font-weight: $link-font-weight;
-		text-decoration: none;
+		text-decoration: $link-text-decoration;
 		outline: none;
 		cursor: pointer;
 		transition: color .15s ease-out;
@@ -46,11 +46,11 @@
 
 	&__icon {
 		&--left {
-			margin-right: .8rem;
+			margin-right: $spacing-scale-4;
 		}
 
 		&--right {
-			margin-left: .2rem;
+			margin-left: $spacing-scale-1;
 		}
 	}
 }

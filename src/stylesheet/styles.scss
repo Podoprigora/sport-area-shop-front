@@ -1,5 +1,6 @@
 @import "./abstracts/variables";
 @import "./abstracts/mixins";
+@import "./abstracts/functions";
 
 @import "./base/base";
 @import "./base/typography";
@@ -9,6 +10,7 @@
 @import "./utils/placement";
 @import "./utils/element";
 
+@import "./components/css-transitions";
 @import "./components/container";
 @import "./components/heading";
 @import "./components/panel";
@@ -28,6 +30,7 @@
 @import "./components/popper";
 @import "./components/tooltip";
 @import "./components/menu";
+@import "./components/divider";
 
 @import "./vendors/vendors";
 

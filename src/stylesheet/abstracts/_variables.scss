@@ -1,20 +1,15 @@
 @import "./color-palette";
 
 // Colors
-$color-primary: #669f42;
-$color-secondary: #fe983f;
-$color-hot: #f44336;
-$color-silver: #9e9e9e;
-$color-gray: #646464;
+$color-primary: lighten($light-green-darken-3, 3%);
+$color-secondary: $amber-darken-3;
 
-$bg-color: #f7f7f7;
-$bg-color-light: #fefefe;
-$bg-color-dark: #f3f2f2;
-$bg-color-dark-2: #e5e5e5;
+$color-active: lighten($color-primary, 35%);
+$color-hover: rgba($black, 0.08);
 
-$border-color: #dddddd;
-$border-color-light: #ebebeb;
-$border-color-dark: #cfcfcf;
+$border-color-light: $grey-lighten-3;
+$border-color: $grey-lighten-2;
+$border-color-dark: $grey-lighten-1;
 
 // Font
 $font-family: 'Roboto', sans-serif;
@@ -22,16 +17,67 @@ $font-size: 1.4rem;
 $font-weight: 400;
 $line-height: 1.4;
 
-// Spacer
-$spacer-0: 0;
-$spacer-1: 1rem;
-$spacer-2: 1.2rem;
-$spacer-3: 2.4rem;
-$spacer-4: 4.8rem;
-
 // Z-index
 $modal-z-index: 2000;
 $popper-z-index: 3000;
+
+// Grid
+$spacing: .8rem;
+
+$spacing-scale-0: 0;
+$spacing-scale-1: $spacing * 0.25; // .2rem
+$spacing-scale-2: $spacing * 0.5; // .4rem
+$spacing-scale-3: $spacing * 0.75; // .6rem
+$spacing-scale-4: $spacing; // .8rem
+$spacing-scale-5: $spacing * 1.25; // 1rem
+$spacing-scale-6: $spacing * 1.5; // 1.2rem
+$spacing-scale-7: $spacing * 1.75; // 1.4rem
+$spacing-scale-8: $spacing * 2; // 1.6rem
+$spacing-scale-9: $spacing * 3; // 2.4rem
+$spacing-scale-10: $spacing * 4.5; // 3.6rem
+$spacing-scale-11: $spacing * 6; // 4.8rem
+
+$spacing-scale: (
+	"0": $spacing-scale-0,
+	"1": $spacing-scale-1,
+	"2": $spacing-scale-2,
+	"3": $spacing-scale-3,
+	"4": $spacing-scale-4,
+	"5": $spacing-scale-5,
+	"6": $spacing-scale-6,
+	"7": $spacing-scale-7,
+	"8": $spacing-scale-8,
+	"9": $spacing-scale-9,
+	"10": $spacing-scale-10,
+	"11": $spacing-scale-11
+);
+
+/*
+Breakpoints
+Source: https://getbootstrap.com/docs/4.4/layout/grid/
+*/
+$breakpoint-xs: 0;
+$breakpoint-sm: px-to-em(576px);
+$breakpoint-md: px-to-em(768px);
+$breakpoint-lg: px-to-em(992px);
+$breakpoint-xl: px-to-em(1200px);
+$breakpoint-xxl: px-to-em(1400px);
+
+$breakpoints: (
+	"xs": $breakpoint-xs,
+	"sm": $breakpoint-sm,
+	"md": $breakpoint-md,
+	"lg": $breakpoint-lg,
+	"xl": $breakpoint-xl,
+	"xxl": $breakpoint-xxl
+);
+
+// Layout
+$container-max-width: 120rem;
+$container-padding: 0 $spacing-scale-9;
+
+// Skeleton
+$skeleton-bg-color: $blue-grey-lighten-5;
 
 // Heading
 $heading-1-font-size: $font-size * 2.5;
@@ -41,51 +87,60 @@ $heading-4-font-size: $font-size * 1.5;
 $heading-5-font-size: $font-size * 1.25;
 $heading-6-font-size: $font-size;
 $heading-font-weight: 400;
-$heading-color: $color-gray;
+$heading-color: $grey-darken-3;
 $heading-line-height: inherit;
-$heading-gutter-bottom: $spacer-2;
+$heading-gutter-bottom: $spacing-scale-6;
+
+// Body
+$body-bg-color: $grey-lighten-5;
+$body-color: $grey-darken-4;
+
+// Border radius
+$border-radius-sm: .3rem;
+$border-radius-lg: .5rem;
+$border-radius: $border-radius-lg;
+
+// Box shadow
+$box-shadow-sm: 0 1px 2px 0px rgba($black, .2);
+$box-shadow-md: 0 2px 4px 0 rgba($black, .2);
+$box-shadow-lg: 0 2px 16px -1px rgba($black, .2);
+$box-shadow: $box-shadow-md;
 
 // Button
-$btn-color: #626262;
-$btn-bg-color: $bg-color-dark-2;
-$btn-hover-bg-color: #fff;
+$btn-color: $grey-darken-3;
+$btn-bg-color: $grey-lighten-3;
+$btn-hover-bg-color: $white;
 $btn-small-font-size: 1.2rem;
 $btn-medium-font-size: 1.4rem;
 $btn-large-font-size: 1.6rem;
 $btn-font-size: $btn-medium-font-size;
 $btn-font-weight: 500;
-$btn-text-transform: uppercase;
-$btn-border: 2px solid transparent;
-$btn-box-shadow: 0 1px 2px 0px rgba(0, 0, 0, 0.2);
-$btn-focus-box-shadow: 0 0px 0px 1px rgba($color-primary, .4), 0 0px 0px 4px rgba(#98d175, .6);
-$btn-border-radius: 5px;
+$btn-text-transform: none;
+$btn-box-shadow: $box-shadow-sm;
+$btn-focus-box-shadow: 0 0px 0px 1px rgba($color-primary, .4), 0 0px 0px 4px $color-active;
+$btn-border-width: 2px;
+$btn-border-radius: $border-radius-lg;
 $btn-min-height: 3.6rem;
 $btn-min-width: 8.4rem;
-$btn-transition: all .15s ease-out;
 
 $btn-primary-bg-color: $color-primary;
-$btn-primary-color: #fff;
-$btn-primary-focus-box-shadow: 0 0px 0px 1px rgba(#fff, .1), 0 0px 0px 4px rgba(#98d175, .6);
+$btn-primary-color: $white;
+$btn-primary-focus-box-shadow: 0 0px 0px 1px rgba($white, .1), 0 0px 0px 4px $color-active;
 
-$btn-plain-bg-color: $btn-bg-color;
-$btn-plain-border: 2px solid $btn-bg-color;
-
-$btn-primary-plain-color: $color-primary;
-$btn-primary-plain-bg-color: #fff;
-$btn-primary-plain-border: 2px solid $color-primary;
-$btn-primary-plain-hover-border-color: lighten($color-primary, 10%);
-
-$icon-btn-hover-bg-color: #fff;
+// Icon button
+$icon-btn-hover-bg-color: $white;
+$icon-btn-hover-color: null;
+$icon-btn-padding: 1rem;
 
 // Tooltip
-$tooltip-bg-color: $color-gray;
-$tooltip-color: #fff;
+$tooltip-bg-color: $grey-darken-1;
+$tooltip-color: $white;
 $tooltip-font-size: 1.2rem;
 $tooltip-font-weight: 400;
 $tooltip-letter-spacing: .4px;
 $tooltip-padding: .8rem 1.2rem;
 $tooltip-max-width: 40rem;
-$tooltip-border-radius: 5px;
+$tooltip-border-radius: $border-radius-lg;
 
 // Icon
 $icon-small-size: 16px;
@@ -94,62 +149,42 @@ $icon-large-size: 24px;
 $icon-xlarge-size: 36px;
 $icon-size: $icon-large-size;
 
-$icon-color: #8f8f8f;
+$icon-color: $grey-darken-1;
 $icon-hover-color: $color-primary;
 
 // Link
-$link-color: #646464;
-$link-hover-color: $color-primary;
+$link-color: $grey-darken-2;
+$link-hover-color: $color-secondary;
 $link-small-font-size: 1.4rem;
 $link-medium-font-size: 1.6rem;
 $link-large-font-size: 2rem;
 $link-font-weight: 400;
+$link-text-decoration: underline;
 
 // Input
-$input-padding: .8rem 1rem;
-$input-bg-color: #fff;
-$input-disabled-bg-color: #edecec;
-$input-disabled-color: #9e9e9e;
+$input-bg-color: $white;
+$input-disabled-bg-color: $grey-lighten-4;
 $input-border-color: $border-color;
-$input-border-radius: 3px;
+$input-border-radius: $border-radius-sm;
+$input-padding-y: .8rem;
+$input-padding-x: 1rem;
 $input-focus-stripe-width: 2px;
-$input-focus-stripe-color: $color-primary;
-$input-placeholder-color: #949494;
+$input-focus-stripe-color: rgba($color-primary, .85);
+$input-placeholder-color: $grey;
 
-// Skeleton
-$skeleton-bg-color: #e5e7e8;
+// Menu
+$menu-bg-color: $white;
+$menu-padding-y: $spacing-scale-4;
+$menu-padding-x: 0;
+$menu-border-radius: $border-radius;
+$menu-box-shadow: $box-shadow;
+$menu-min-width: 18rem;
+$menu-item-padding-y: $spacing-scale-4;
+$menu-item-padding-x: $spacing-scale-7;
 
 // Window
-$window-bg-color: #fff;
-$window-box-shadow: 0 2px 16px -1px rgba(#000, .2);
-$window-border-radius: 5px;
-$window-margin: $spacer-3;
-$window-body-painted-bg-color: $bg-color;
-
-// Breakpoints
-
-/*
-0 - 600px: Phone
-600 - 900px: Tablet portrait
-900 - 1200px: Tablet landscape
-[1200 - 1800] is where our normal styles apply
-1800px + : Big desktop
-
-1em = 16px
-*/
-
-$media-breakpoint-phone: 37.5em;
-$media-breakpoint-tablet-port: 56.25em;
-$media-breakpoint-tablet-land: 75em;
-$media-breakpoint-desktop-large: 112.5em;
-
-$media-breakpoints: (
-	"phone": $media-breakpoint-phone,
-	"tablet-port": $media-breakpoint-tablet-port,
-	"tablet-land": $media-breakpoint-tablet-land,
-	"desktop-large": $media-breakpoint-desktop-large
-);
-
-// Layout
-$container-max-width: 120rem;
-$container-padding: 0 $spacer-3;
+$window-bg-color: $white;
+$window-box-shadow: $box-shadow-lg;
+$window-border-radius: $border-radius-lg;
+$window-margin: $spacing-scale-9;
+$window-body-painted-bg-color: $body-bg-color;

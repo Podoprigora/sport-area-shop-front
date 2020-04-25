@@ -17,7 +17,8 @@ html {
 
 body {
 	box-sizing: border-box;
-	background-color: $bg-color;
+	background-color: $body-bg-color;
+	color: $body-color;
 }
 
 #root,

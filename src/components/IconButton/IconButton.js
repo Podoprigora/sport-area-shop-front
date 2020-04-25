@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 const IconButton = React.forwardRef(function IconButton(props, ref) {
-    const { children, disabled, className, ...other } = props;
+    const { children, disabled, className, primary, ...other } = props;
     return (
         <button
             type="button"
             className={classNames('btn-icon', className, {
+                'btn-icon--primary': primary,
                 'btn-icon--disabled': disabled
             })}
             disabled={disabled}
@@ -22,7 +23,8 @@ const IconButton = React.forwardRef(function IconButton(props, ref) {
 IconButton.propTypes = {
     children: PropTypes.element.isRequired,
     disabled: PropTypes.bool,
-    className: PropTypes.string
+    className: PropTypes.string,
+    primary: PropTypes.bool
 };
 
 export default IconButton;

@@ -1,19 +1,10 @@
-.u-width-1 {
-	display: block;
-	width: $spacer-1;
+@mixin generate-width-utils {
+	@each $key, $spacer in $spacing-scale {
+		.u-width-#{$key} {
+			display: block;
+			width: $spacer;
+		}
+	}
 }
 
-.u-width-2 {
-	display: block;
-	width: $spacer-2;
-}
-
-.u-width-3 {
-	display: block;
-	width: $spacer-3;
-}
-
-.u-width-4 {
-	display: block;
-	width: $spacer-4;
-}
+@include generate-width-utils;

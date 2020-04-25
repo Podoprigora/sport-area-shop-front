@@ -24,7 +24,7 @@
 		display: block;
 		background: transparent;
 		width: 100%;
-		padding: $input-padding;
+		padding: $input-padding-y $input-padding-x;
 		border: 0;
 
 		&:focus {
@@ -46,7 +46,7 @@
 
 	&--disabled {
 		background-color: $input-disabled-bg-color;
-		color: $input-disabled-color;
+		color: darken($input-disabled-bg-color, 20%);
 	}
 
 	&--full-width {

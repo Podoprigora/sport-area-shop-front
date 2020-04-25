@@ -1,19 +1,10 @@
-.u-margin-lr-1 {
-	display: block;
-	margin: 0 $spacer-1;
+@mixin generate-margin-x-utils {
+	@each $key, $spacer in $spacing-scale {
+		.u-margin-x-#{$key} {
+			display: block;
+			margin: 0 $spacer;
+		}
+	}
 }
 
-.u-margin-lr-2 {
-	display: block;
-	margin: 0 $spacer-2;
-}
-
-.u-margin-lr-3 {
-	display: block;
-	margin: 0 $spacer-3;
-}
-
-.u-margin-lr-4 {
-	display: block;
-	margin: 0 $spacer-4;
-}
+@include generate-margin-x-utils;

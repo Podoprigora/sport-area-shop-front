@@ -1,7 +1,7 @@
 .product {
 	display: block;
 	position: relative;
-	padding: $spacer-2 $spacer-2 $spacer-3;
+	padding: $spacing-scale-6 $spacing-scale-6 $spacing-scale-9;
 	text-decoration: none;
 	color: inherit;
 	background: #fff;
@@ -9,7 +9,7 @@
 	&__img-container {
 		position: relative;
 		height: 24rem;
-		margin-bottom: $spacer-2;
+		margin-bottom: $spacing-scale-6;
 		overflow: hidden;
 	}
 
@@ -26,7 +26,7 @@
 		display: block;
 		height: 6.2rem;
 		font-size: $font-size;
-		margin-bottom: $spacer-2;
+		margin-bottom: $spacing-scale-6;
 		overflow: hidden;
 	}
 
@@ -53,13 +53,13 @@
 
 		&--old {
 			font-size: 1.6rem;
-			color: $color-silver;
+			color: $grey;
 			text-decoration: line-through;
-			padding-right: $spacer-2;
+			padding-right: $spacing-scale-6;
 		}
 
 		&--new {
-			color: $color-hot;
+			color: $red;
 		}
 	}
 
@@ -70,8 +70,8 @@
 
 	&__flag {
 		position: absolute;
-		top: $spacer-2;
-		left: $spacer-2;
+		top: $spacing-scale-6;
+		left: $spacing-scale-6;
 		font-size: 1.2rem;
 		font-weight: 500;
 		line-height: 1;
@@ -86,8 +86,8 @@
 			border-radius: 3px;
 		}
 		&--hot {
-			color: $color-hot;
-			border: 1px solid $color-hot;
+			color: $red;
+			border: 1px solid $red;
 			border-radius: 3px;
 		}
 	}

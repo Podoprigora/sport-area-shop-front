@@ -11,7 +11,7 @@
 		flex-flow: row nowrap;
 		justify-content: center;
 		align-items: center;
-		width: $spacer-4;
+		width: $spacing-scale-11;
 		transition: box-shadow .15s ease-out;
 		z-index: 1;
 
@@ -39,7 +39,7 @@
 			// Only for non touch screens
 			@media screen and (hover: hover) {
 				padding-bottom: 7px;
-				background: $bg-color-dark;
+				background: $grey-lighten-4;
 			}
 		}
 	}

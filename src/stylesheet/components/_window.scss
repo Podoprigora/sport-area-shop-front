@@ -7,7 +7,7 @@
 	background-color: $window-bg-color;
 	border-radius: $window-border-radius;
 	box-shadow: $window-box-shadow;
-	// Responsivenes
+	// Responsiveness
 	margin: $window-margin;
 	width: 100%;
 	max-height: calc(100% - #{$window-margin * 2});
@@ -32,7 +32,7 @@
 		flex-flow: row nowrap;
 		justify-content: flex-start;
 		align-items: center;
-		padding: $spacer-2;
+		padding: $spacing-scale-6;
 
 		&-icon {
 			color: $color-primary;
@@ -53,15 +53,11 @@
 		top: 50%;
 		right: .4rem;
 		transform: translateY(-50%);
-
-		&::before {
-			background-color: $bg-color;
-		}
 	}
 
 	&__body {
 		flex: 1 1 auto;
-		padding: 0 $spacer-2;
+		padding: 0 $spacing-scale-6;
 		overflow: auto;
 		border-top: 1px solid $border-color;
 		border-bottom: 1px solid $border-color;
@@ -75,7 +71,7 @@
 		display: flex;
 		flex-flow: row nowrap;
 		align-items: center;
-		padding: $spacer-2;
+		padding: $spacing-scale-6;
 
 		&--align-left {
 			justify-content: flex-start;
@@ -90,7 +86,7 @@
 		}
 
 		& > *:not(:first-child) {
-			margin-left: $spacer-2;
+			margin-left: $spacing-scale-6;
 		}
 	}
 

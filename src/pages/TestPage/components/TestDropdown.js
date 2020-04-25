@@ -9,7 +9,8 @@ import useForkRef from '@components/hooks/useForkRef';
 import { CSSTransition } from 'react-transition-group';
 import { reference } from '@popperjs/core';
 import useEventCallback from '@components/hooks/useEventCallback';
-import Menu, { MenuItem, MenuDivider } from '@components/Menu';
+import Menu, { MenuItem } from '@components/Menu';
+import Divider from '@components/Divider';
 import ShoppingBasketIcon from '@svg-icons/material/ShoppingBasketIcon';
 import UserIcon from '@svg-icons/feather/UserIcon';
 import MapPinIcon from '@svg-icons/feather/MapPinIcon';
@@ -104,17 +105,18 @@ const TestDropdown = () => {
 
             <Menu
                 open={open}
+                autoWidth
                 anchorRef={buttonRef}
                 autoFocusItem={autoFocusMenuItem}
                 onClose={handleMenuClose}
             >
                 <MenuItem disabled icon={FavoriteOutlineIcon} onClick={handleMenuItem1Click}>
-                    Item 1
+                    Item 1 Item 1 Item 1 Item 1 Item 1
                 </MenuItem>
                 <MenuItem icon={CreatemodeEditIcon} onClick={handleMenuItem2Click}>
                     Item 2
                 </MenuItem>
-                <MenuDivider />
+                <Divider />
                 <MenuItem icon={PlaylistAddIcon} onClick={handleMenuItem3Click}>
                     Item 3
                 </MenuItem>

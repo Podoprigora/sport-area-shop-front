@@ -1,7 +1,7 @@
 import React from 'react';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 
-import './stylesheet/main.scss';
+import './stylesheet/styles.scss';
 
 import Header from '@pages/components/Header';
 import Main from '@pages/components/Main';

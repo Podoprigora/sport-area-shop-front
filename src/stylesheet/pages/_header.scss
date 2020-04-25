@@ -4,12 +4,12 @@
 		flex-flow: row nowrap;
 		align-items: center;
 		min-height: 4.6rem;
-		background-color: #fff;
+		background-color: $white;
 		border-bottom: 1px solid $border-color;
 	}
 
 	&__nav-part {
-		padding: $spacer-2 0;
+		padding: $spacing-scale-6 0;
 	}
 
 	&__nav-btn {
@@ -22,7 +22,7 @@
 		width: 26rem;
 
 		.btn__icon {
-			margin-right: $spacer-2;
+			margin-right: $spacing-scale-6;
 		}
 
 		.btn__text {
@@ -58,7 +58,7 @@
 	}
 
 	&__link {
-		margin-left: $spacer-3;
+		margin-left: $spacing-scale-9;
 	}
 
 	&__search {
@@ -70,10 +70,10 @@
 		height: 100%;
 
 		.input {
-			border-color: rgba($color-primary, .85);
+			border-color: $input-focus-stripe-color;
 			border-width: 2px;
 			border-left-width: 0;
-			border-radius: 5px;
+			border-radius: $border-radius;
 			border-top-left-radius: 0;
 			border-bottom-left-radius: 0;
 			height: 100%;
@@ -83,8 +83,9 @@
 			}
 		}
 
+		// TODO: refactoring
 		.input__el {
-			padding: $spacer-1 $spacer-1 $spacer-1 $spacer-4;
+			padding-left: 4.4rem;
 			font-size: 1.4rem;
 			height: 100%;
 		}
@@ -93,7 +94,7 @@
 	&__search-icon {
 		position: absolute;
 		top: 50%;
-		left: $spacer-2;
+		left: $spacing-scale-6;
 		color: $input-placeholder-color;
 		transform: translateY(-50%);
 	}
@@ -102,20 +103,11 @@
 		display: flex;
 		flex-flow: row nowrap;
 		align-items: center;
-		padding-left: $spacer-2;
+		padding-left: $spacing-scale-6;
 		margin-left: auto;
 
 		& > .btn-icon {
-			color: $color-primary;
-			margin-left: $spacer-2;
-
-			& .svg-icon {
-				stroke-width: 0;
-			}
-
-			&::before {
-				background-color: #fff;
-			}
+			margin-left: $spacing-scale-6;
 		}
 	}
 }

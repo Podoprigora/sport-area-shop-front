@@ -4,11 +4,11 @@
 		flex-flow: row nowrap;
 		justify-content: flex-start;
 		align-items: center;
-		padding: $spacer-2 0;
+		padding: $spacing-scale-6 0;
 	}
 
 	&__header-body {
-		margin-left: $spacer-2;
+		margin-left: $spacing-scale-6;
 	}
 
 	&__title {
@@ -17,7 +17,7 @@
 
 	&__icon {
 		color: $color-primary;
-		margin: 0 $spacer-2;
+		margin: 0 $spacing-scale-6;
 	}
 
 	&__body {

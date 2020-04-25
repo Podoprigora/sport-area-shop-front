@@ -2,7 +2,7 @@
 	position: relative;
 	background-color: transparent;
 	color: $icon-color;
-	padding: 1rem;
+	padding: $icon-btn-padding;
 	cursor: pointer;
 	z-index: 0;
 
@@ -13,7 +13,7 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
-		background-color: $icon-btn-hover-bg-color;
+		background-color: $color-hover;
 		border-radius: 50%;
 		transform: scale3d(0, 0, 1);
 		transition: transform .15s ease-out;
@@ -23,19 +23,26 @@
 	&:not(&--disabled) {
 		&:hover,
 		&:focus {
-			color: $color-primary;
+			@if $icon-btn-hover-bg-color {
+				color: $icon-btn-hover-color;
+			}
+
 			&::before {
 				transform: scale3d(1, 1, 1);
 			}
 		}
 	}
 
+	&:focus {
+		outline: none;
+	}
+
+	&--primary {
+		color: $color-primary;
+	}
+
 	&--disabled {
 		cursor: text;
 		opacity: .2;
-	}
-
-	&:focus {
-		outline: none;
 	}
 }

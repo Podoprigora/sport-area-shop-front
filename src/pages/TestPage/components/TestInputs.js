@@ -5,6 +5,7 @@ import IconButton from '@components/IconButton';
 import CreatemodeEditIcon from '@svg-icons/material/CreatemodeEditIcon';
 import PlusIcon from '@svg-icons/feather/PlusIcon';
 import MenuIcon from '@svg-icons/material/MenuIcon';
+import FavoriteOutlineIcon from '@svg-icons/material/FavoriteOutlineIcon';
 
 const TestInputs = () => {
     const inputRef = useRef(null);
@@ -21,6 +22,9 @@ const TestInputs = () => {
             <Button primary centered style={{ marginLeft: '1rem' }}>
                 Open
             </Button>
+            <IconButton>
+                <FavoriteOutlineIcon />
+            </IconButton>
         </div>
     );
 };

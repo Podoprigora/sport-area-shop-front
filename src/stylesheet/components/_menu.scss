@@ -1,25 +1,24 @@
 .menu {
-	background: #fff;
-	min-width: 18rem;
-	padding: .8rem 0;
-	border-radius: 5px;
-	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-	// z-index: 2500;
+	background-color: $menu-bg-color;
+	min-width: $menu-min-width;
+	padding: $menu-padding-y $menu-padding-x;
+	border-radius: $menu-border-radius;
+	box-shadow: $menu-box-shadow;
 
 	&__item {
 		display: flex;
 		flex-flow: row nowrap;
 		align-items: center;
-		padding: .8rem 1.4rem;
+		padding: $menu-item-padding-y $menu-item-padding-x;
 		cursor: pointer;
 
 		&:hover:not(&--disabled) {
-			background-color: $bg-color-dark;
+			background-color: $color-hover;
 		}
 
 		&--selected,
 		&:focus:not(&--disabled) {
-			background-color: rgba(#98d175, .6);
+			background-color: $color-active;
 			transition: background-color .2s ease;
 		}
 
@@ -31,37 +30,13 @@
 
 	&__icon {
 		color: $icon-color;
-		margin-right: $spacer-2;
+		margin-right: $spacing-scale-6;
 	}
 
-	&__divider {
-		display: block;
-		height: 1px;
-		background-color: $border-color-light;
-		margin: .8rem 0;
-		border: 0;
-		overflow: hidden;
+	&__text {
+		flex: 1;
+		@include truncation;
 	}
 
-	&-enter {
-		opacity: 0;
-		transform: scale3d(.8, .8, 1);
-
-		&-active {
-			transform: scale3d(1, 1, 1);
-			opacity: 1;
-			transition: all .3s ease;
-		}
-	}
-
-	&-exit {
-		opacity: 1;
-		transform: scale3d(1, 1, 1);
-
-		&-active {
-			opacity: 0;
-			transform: scale3d(.8, .8, 1);
-			transition: all .3s ease;
-		}
-	}
+	@include scale-transition;
 }
