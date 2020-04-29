@@ -1,0 +1,65 @@
+.u-flex-row {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+
+	@include generate-grid("u-");
+}
+
+.u-flex-direction-row {
+	flex-direction: row;
+}
+.u-flex-direction-row-reverse {
+	flex-direction: row-reverse;
+}
+.u-flex-direction-column {
+	flex-direction: column;
+}
+.u-flex-direction-column-reverse {
+	flex-direction: column-reverse;
+}
+
+.u-flex-wrap {
+	flex-wrap: wrap;
+}
+.u-flex-wrap-reverse {
+	flex-wrap: wrap-reverse;
+}
+.u-flex-nowrap {
+	flex-wrap: nowrap;
+}
+
+.u-flex-justify-flex-start {
+	justify-content: flex-start;
+}
+.u-flex-justify-flex-end {
+	justify-content: flex-end;
+}
+.u-flex-justify-center {
+	justify-content: center;
+}
+.u-flex-justify-space-between {
+	justify-content: space-between;
+}
+.u-flex-justify-space-around {
+	justify-content: space-around;
+}
+.u-flex-justify-space-evenly {
+	justify-content: space-evenly;
+}
+
+.u-flex-align-items-flex-start {
+	align-items: flex-start;
+}
+.u-flex-align-items-flex-end {
+	align-items: flex-end;
+}
+.u-flex-align-items-center {
+	align-items: center;
+}
+.u-flex-align-items-stretch {
+	align-items: stretch;
+}
+.u-flex-align-items-baseline {
+	align-items: baseline;
+}

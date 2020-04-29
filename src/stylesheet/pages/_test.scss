@@ -51,3 +51,11 @@
 		}
 	}
 }
+
+.test-box {
+	@include truncation;
+	padding: $spacing-scale-5;
+	// margin: $spacing-scale-3;
+	background-color: $deep-orange-lighten-3;
+	border: 1px solid $deep-orange-darken-4;
+}

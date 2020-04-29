@@ -22,6 +22,7 @@ const TestButtons = (props) => {
             <div
                 style={{
                     display: 'flex',
+                    flexFlow: 'row wrap',
                     justifyContent: 'flex-start',
                     alignItems: 'flex-start'
                 }}

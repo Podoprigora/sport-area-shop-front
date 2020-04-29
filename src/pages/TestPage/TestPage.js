@@ -9,12 +9,16 @@ import TestWindow from './components/TestWindow';
 import TestPopper from './components/TestPopper';
 import TestDropdown from './components/TestDropdown';
 import TestInputs from './components/TestInputs';
+import TestGrid from './components/TestGrid';
 
 const TestPage = (props) => {
     return (
         <div className="page">
             <Panel title="Test Inputs" className="page__section">
                 <TestInputs />
+            </Panel>
+            <Panel title="Test Grid" className="page__section">
+                <TestGrid />
             </Panel>
             <Panel title="Test Dropdown" className="page__section">
                 <TestDropdown />

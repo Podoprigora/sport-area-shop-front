@@ -1,0 +1,57 @@
+@each $spacer-key, $spacer in $spacing-scale {
+	@each $bp-key, $bp in $breakpoints {
+		$infix: "";
+		@if $bp != 0 {
+			$infix: "-#{$bp-key}";
+		}
+
+		@include media-breakpoint-up($bp-key) {
+			.u-margin#{$infix}-#{$spacer-key} {
+				display: block;
+				margin: $spacer;
+			}
+			.u-margin-x#{$infix}-#{$spacer-key} {
+				display: block;
+				margin: 0 $spacer;
+			}
+			.u-margin-y#{$infix}-#{$spacer-key} {
+				display: block;
+				margin: $spacer 0;
+			}
+			.u-padding#{$infix}-#{$spacer-key} {
+				display: block;
+				padding: $spacer;
+			}
+			.u-padding-x#{$infix}-#{$spacer-key} {
+				display: block;
+				padding: 0 $spacer;
+			}
+			.u-padding-y#{$infix}-#{$spacer-key} {
+				display: block;
+				padding: $spacer 0;
+			}
+			.u-width#{$infix}-#{$spacer-key} {
+				display: block;
+				width: $spacer;
+			}
+			.u-height#{$infix}-#{$spacer-key} {
+				display: block;
+				height: $spacer;
+			}
+		}
+	}
+}
+
+.u-width-full {
+	width: 100%;
+}
+
+.u-margin-auto {
+	margin: 0 auto;
+}
+.u-margin-l-auto {
+	margin-left: auto;
+}
+.u-margin-r-auto {
+	margin-right: auto;
+}

@@ -22,6 +22,7 @@ $modal-z-index: 2000;
 $popper-z-index: 3000;
 
 // Grid
+$grid-columns: 12;
 $spacing: .8rem;
 
 $spacing-scale-0: 0;
@@ -101,9 +102,9 @@ $border-radius-lg: .5rem;
 $border-radius: $border-radius-lg;
 
 // Box shadow
-$box-shadow-sm: 0 1px 2px 0px rgba($black, .2);
-$box-shadow-md: 0 2px 4px 0 rgba($black, .2);
-$box-shadow-lg: 0 2px 16px -1px rgba($black, .2);
+$box-shadow-sm: 0 2px 1px -1px rgba($black, 0.12), 0 1px 1px 0 rgba($black, 0.05), 0 1px 3px 0 rgba($black, 0.122);
+$box-shadow-md: 0 2px 1px -1px rgba($black, 0.12), 0 1px 1px 0 rgba($black, 0.1), 0 2px 4px 0 rgba($black, .2);
+$box-shadow-lg: 0 4px 16px -1px rgba(0, 0, 0, 0.25);
 $box-shadow: $box-shadow-md;
 
 // Button

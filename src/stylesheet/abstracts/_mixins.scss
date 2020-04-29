@@ -20,10 +20,16 @@
 	text-overflow: ellipsis;
 }
 
+// Breakpoints
 @mixin media-breakpoint-up($key) {
 	$value: map-get($breakpoints, $key);
+
 	@if $value != null {
-		@media only screen and (min-width: $value) {
+		@if $value != 0 {
+			@media only screen and (min-width: $value) {
+				@content;
+			}
+		} @else {
 			@content;
 		}
 	}
@@ -34,6 +40,64 @@
 	@if $value != null {
 		@media only screen and (max-width: $value) {
 			@content;
+		}
+	}
+}
+
+// Grid system
+@mixin make-col-default {
+	width: 100%;
+}
+
+@mixin make-col($size: 0) {
+	@if $size == 0 {
+		flex: 1;
+		max-width: 100%;
+	} @else {
+		$width: $size / $grid-columns * 100%;
+		flex: 0 $width;
+		max-width: $width;
+	}
+}
+
+@mixin make-col-auto {
+	flex: none;
+	width: auto;
+	max-width: 100%;
+}
+
+@mixin generate-grid($prefix: "") {
+	@each $breakpoint-key, $breakpoint in $breakpoints {
+		$infix: "";
+		@if ($breakpoint != 0) {
+			$infix: "-" + $breakpoint-key;
+		}
+
+		.#{$prefix}flex-col#{$infix},
+		.#{$prefix}flex-col#{$infix}-auto {
+			@include make-col-default;
+		}
+
+		@for $i from 1 through $grid-columns {
+			.#{$prefix}flex-col#{$infix}-#{$i} {
+				@include make-col-default;
+			}
+		}
+
+		@include media-breakpoint-up($breakpoint-key) {
+			.#{$prefix}flex-col#{$infix} {
+				@include make-col;
+			}
+
+			.#{$prefix}flex-col#{$infix}-auto {
+				@include make-col-auto;
+			}
+
+			@for $i from 1 through $grid-columns {
+				.#{$prefix}flex-col#{$infix}-#{$i} {
+					@include make-col($i);
+				}
+			}
 		}
 	}
 }
