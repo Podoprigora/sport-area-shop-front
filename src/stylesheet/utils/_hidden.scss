@@ -1,0 +1,17 @@
+@each $bp-key, $bp in $breakpoints {
+	@include media-breakpoint-up($bp-key) {
+		.u-hidden-#{$bp-key}-up {
+			display: none;
+		}
+	}
+
+	@include media-breakpoint-down($bp-key) {
+		.u-hidden-#{$bp-key}-down {
+			display: none;
+		}
+	}
+}
+
+.u-hidden {
+	display: none;
+}

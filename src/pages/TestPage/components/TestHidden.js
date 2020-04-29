@@ -1,12 +1,16 @@
 import React from 'react';
 import useMediaQuery from '@components/hooks/useMediaQuery';
+import Hidden from '@components/Hidden';
+import Button from '@components/Button';
 
 const TestHidden = () => {
-    const matches = useMediaQuery('(max-width: 768px)');
-
-    console.log(matches);
-
-    return <div>Test Hidden</div>;
+    return (
+        <Hidden mdUp smDown component={null}>
+            <Button primary centered>
+                Save
+            </Button>
+        </Hidden>
+    );
 };
 
 export default TestHidden;
