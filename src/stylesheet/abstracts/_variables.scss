@@ -3,6 +3,7 @@
 // Colors
 $color-primary: lighten($light-green-darken-3, 3%);
 $color-secondary: $amber-darken-3;
+$color-red: $deep-orange-accent-3;
 
 $color-active: lighten($color-primary, 35%);
 $color-hover: rgba($black, 0.08);
@@ -165,13 +166,25 @@ $link-text-decoration: underline;
 // Input
 $input-bg-color: $white;
 $input-disabled-bg-color: $grey-lighten-4;
+$input-border-width: 1px;
 $input-border-color: $border-color;
 $input-border-radius: $border-radius-sm;
-$input-padding-y: .8rem;
+$input-padding-y: .75rem;
 $input-padding-x: 1rem;
 $input-focus-stripe-width: 2px;
 $input-focus-stripe-color: rgba($color-primary, .85);
 $input-placeholder-color: $grey;
+
+// Field
+$field-label-color: $grey-darken-3;
+$field-label-font-size: 1.2rem;
+$field-label-font-weight: 500;
+$field-label-letter-spacing: .3px;
+$field-label-width: 12rem;
+$field-helper-text-color: $grey;
+$field-helper-text-font-size: 1.2rem;
+$field-helper-text-font-weight: 400;
+$field-helper-text-letter-spacing: .3px;
 
 // Menu
 $menu-bg-color: $white;

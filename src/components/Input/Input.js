@@ -8,6 +8,7 @@ const Input = forwardRef(function Input(props, ref) {
     const { type, disabled, autoFocus, fullWidth, ...other } = props;
 
     const [focused, setFocused] = useState(false);
+
     const inputRef = useRef(null);
     const handleInputRef = useForkRef(inputRef, ref);
 

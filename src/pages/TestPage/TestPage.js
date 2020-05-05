@@ -11,10 +11,14 @@ import TestDropdown from './components/TestDropdown';
 import TestInputs from './components/TestInputs';
 import TestGrid from './components/TestGrid';
 import TestHidden from './components/TestHidden';
+import TestFieldControl from './components/TestFieldControl';
 
 const TestPage = (props) => {
     return (
         <div className="page">
+            <Panel title="Test FieldControl" className="page__section">
+                <TestFieldControl />
+            </Panel>
             <Panel title="Test Inputs" className="page__section">
                 <TestInputs />
             </Panel>

@@ -1,0 +1,77 @@
+.field {
+	display: flex;
+	flex-wrap: wrap;
+	min-width: 0;
+
+	&--full-width {
+		width: 100%;
+	}
+
+	&__input {
+		flex: 1;
+	}
+
+	&__label {
+		$label-selector: &;
+
+		position: relative;
+		display: inline-block;
+		font-size: $field-label-font-size;
+		font-weight: $field-label-font-weight;
+		letter-spacing: $field-label-letter-spacing;
+		color: $field-label-color;
+		text-align: right;
+		padding: calc(#{$input-padding-y} + #{$input-border-width}) $input-padding-x 0;
+		width: $field-label-width;
+
+		&--required {
+			&::before {
+				content: '*';
+				color: $color-red;
+				margin-right: 2px;
+			}
+		}
+
+		&--disabled {
+			opacity: .6;
+		}
+
+		&--align-top {
+			flex: none;
+			text-align: left;
+			width: 100%;
+			padding: 0 $spacing-scale-1 $spacing-scale-1;
+
+			&#{$label-selector}--required {
+				&::before {
+					content: '';
+					margin: 0;
+				}
+				&::after {
+					content: '*';
+					color: $color-red;
+					margin-left: 2px;
+				}
+			}
+		}
+	}
+
+	&__helper-text {
+		display: flex;
+		flex-wrap: nowrap;
+		align-items: center;
+		font-size: $field-helper-text-font-size;
+		font-weight: $field-helper-text-font-weight;
+		letter-spacing: $field-helper-text-letter-spacing;
+		color: $field-helper-text-color;
+		padding: $spacing-scale-1 $spacing-scale-1 0;
+
+		&--error {
+			color: $color-red;
+		}
+	}
+
+	&__helper-icon {
+		margin-right: $spacing-scale-2;
+	}
+}

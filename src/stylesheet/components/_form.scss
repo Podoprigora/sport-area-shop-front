@@ -1,0 +1,9 @@
+.form {
+	display: block;
+
+	.field {
+		&:not(:last-child) {
+			margin-bottom: $spacing-scale-6;
+		}
+	}
+}

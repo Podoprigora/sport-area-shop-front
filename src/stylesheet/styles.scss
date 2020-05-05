@@ -5,11 +5,6 @@
 @import "./base/base";
 @import "./base/typography";
 
-@import "./utils/spacing";
-@import "./utils/placement";
-@import "./utils/element";
-@import "./utils/grid";
-
 @import "./components/css-transitions";
 @import "./components/container";
 @import "./components/heading";
@@ -20,6 +15,8 @@
 @import "./components/link";
 @import "./components/icon-button";
 @import "./components/input";
+@import "./components/field";
+@import "./components/form";
 @import "./components/carousel";
 @import "./components/scrolling-carousel";
 @import "./components/custom-scrollbars";
@@ -46,4 +43,9 @@
 
 @import "./pages/test";
 
+@import "./utils/spacing";
+@import "./utils/placement";
+@import "./utils/element";
+@import "./utils/grid";
+@import "./utils/text";
 @import "./utils/hidden";

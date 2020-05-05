@@ -18,14 +18,15 @@ const TestGrid = () => {
         // </div>
 
         <FlexRow spacing={4}>
-            <FlexCol>
+            <FlexCol md>
                 <div className="test-box">Item 1</div>
             </FlexCol>
-            <FlexCol>
+            {/* <div className="u-width-full" /> */}
+            <FlexCol md>
                 <div className="test-box">Item 2</div>
             </FlexCol>
             {/* <div className="u-width-full" /> */}
-            <FlexCol>
+            <FlexCol md>
                 <div className="test-box">Item 3</div>
             </FlexCol>
             {/* <FlexCol>

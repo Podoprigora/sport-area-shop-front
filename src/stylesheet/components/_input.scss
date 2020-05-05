@@ -3,7 +3,7 @@
 	display: inline-flex;
 	align-items: center;
 	background: $input-bg-color;
-	border: 1px solid $input-border-color;
+	border: $input-border-width solid $input-border-color;
 	border-radius: $input-border-radius;
 	outline: none;
 

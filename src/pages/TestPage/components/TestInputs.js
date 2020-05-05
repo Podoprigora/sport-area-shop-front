@@ -10,11 +10,11 @@ import FavoriteOutlineIcon from '@svg-icons/material/FavoriteOutlineIcon';
 const TestInputs = () => {
     const inputRef = useRef(null);
 
-    useEffect(() => {
-        if (inputRef.current) {
-            inputRef.current.focus();
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (inputRef.current) {
+    //         inputRef.current.focus();
+    //     }
+    // }, []);
 
     return (
         <div style={{ display: 'flex', alignItems: 'center' }}>
