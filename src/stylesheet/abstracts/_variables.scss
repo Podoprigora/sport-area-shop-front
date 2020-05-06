@@ -108,6 +108,16 @@ $box-shadow-md: 0 2px 1px -1px rgba($black, 0.12), 0 1px 1px 0 rgba($black, 0.1)
 $box-shadow-lg: 0 4px 16px -1px rgba(0, 0, 0, 0.25);
 $box-shadow: $box-shadow-md;
 
+// Icon
+$icon-small-size: 16px;
+$icon-medium-size: 20px;
+$icon-large-size: 24px;
+$icon-xlarge-size: 36px;
+$icon-size: $icon-large-size;
+
+$icon-color: $grey-darken-1;
+$icon-hover-color: $color-primary;
+
 // Button
 $btn-color: $grey-darken-3;
 $btn-bg-color: $grey-lighten-3;
@@ -120,6 +130,8 @@ $btn-font-weight: 500;
 $btn-text-transform: none;
 $btn-box-shadow: $box-shadow-sm;
 $btn-focus-box-shadow: 0 0px 0px 1px rgba($color-primary, .4), 0 0px 0px 4px $color-active;
+$btn-padding-x: $spacing-scale-6;
+$btn-padding-y: 0;
 $btn-border-width: 2px;
 $btn-border-radius: $border-radius-lg;
 $btn-min-height: 3.6rem;
@@ -132,7 +144,10 @@ $btn-primary-focus-box-shadow: 0 0px 0px 1px rgba($white, .1), 0 0px 0px 4px $co
 // Icon button
 $icon-btn-hover-bg-color: $white;
 $icon-btn-hover-color: null;
-$icon-btn-padding: 1rem;
+$icon-btn-small-padding: $spacing-scale-3;
+$icon-btn-medium-padding: $spacing-scale-3;
+$icon-btn-large-padding: $spacing-scale-5;
+$icon-btn-padding: $icon-btn-large-padding;
 
 // Tooltip
 $tooltip-bg-color: $grey-darken-1;
@@ -143,16 +158,6 @@ $tooltip-letter-spacing: .4px;
 $tooltip-padding: .8rem 1.2rem;
 $tooltip-max-width: 40rem;
 $tooltip-border-radius: $border-radius-lg;
-
-// Icon
-$icon-small-size: 16px;
-$icon-medium-size: 20px;
-$icon-large-size: 24px;
-$icon-xlarge-size: 36px;
-$icon-size: $icon-large-size;
-
-$icon-color: $grey-darken-1;
-$icon-hover-color: $color-primary;
 
 // Link
 $link-color: $grey-darken-2;
@@ -169,15 +174,17 @@ $input-disabled-bg-color: $grey-lighten-4;
 $input-border-width: 1px;
 $input-border-color: $border-color;
 $input-border-radius: $border-radius-sm;
-$input-padding-y: .75rem;
-$input-padding-x: 1rem;
+$input-padding-y: $spacing-scale-4;
+$input-padding-x: $spacing-scale-5;
 $input-focus-stripe-width: 2px;
 $input-focus-stripe-color: rgba($color-primary, .85);
 $input-placeholder-color: $grey;
+$input-adornment-color: $grey;
 
 // Field
 $field-label-color: $grey-darken-3;
 $field-label-font-size: 1.2rem;
+$field-label-line-height: 1.6;
 $field-label-font-weight: 500;
 $field-label-letter-spacing: .3px;
 $field-label-width: 12rem;

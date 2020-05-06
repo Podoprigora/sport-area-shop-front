@@ -2,8 +2,10 @@
 	display: block;
 
 	.field {
-		&:not(:last-child) {
-			margin-bottom: $spacing-scale-6;
-		}
+		margin-bottom: $spacing-scale-6;
+	}
+
+	& > .field:last-of-type {
+		margin-bottom: 0;
 	}
 }

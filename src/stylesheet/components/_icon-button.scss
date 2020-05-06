@@ -45,4 +45,16 @@
 		cursor: text;
 		opacity: .2;
 	}
+
+	&--small {
+		padding: $icon-btn-small-padding;
+	}
+
+	&--medium {
+		padding: $icon-btn-medium-padding;
+	}
+
+	&--large {
+		padding: $icon-btn-large-padding;
+	}
 }

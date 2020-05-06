@@ -11,7 +11,7 @@
 	font-size: $btn-font-size;
 	font-weight: $btn-font-weight;
 	text-transform: $btn-text-transform;
-	padding: 0 $spacing-scale-6;
+	padding: $btn-padding-y $btn-padding-x;
 	min-height: $btn-min-height;
 	min-width: $btn-min-width;
 	border: $btn-border-width solid transparent;
@@ -73,8 +73,8 @@
 
 	&--large {
 		font-size: $btn-large-font-size;
-		padding-top: .8rem;
-		padding-bottom: .8rem;
+		padding-top: $spacing-scale-4;
+		padding-bottom: $spacing-scale-4;
 
 		#{$this}__text {
 			letter-spacing: .4px;
@@ -88,7 +88,7 @@
 	&--icon-align-left,
 	&--icon-align-right {
 		#{$this}__arrow {
-			margin-left: .2rem;
+			margin-left: $spacing-scale-1;
 		}
 	}
 

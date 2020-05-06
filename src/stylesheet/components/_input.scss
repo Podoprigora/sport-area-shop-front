@@ -1,7 +1,7 @@
 .input {
 	position: relative;
 	display: inline-flex;
-	align-items: center;
+	align-items: stretch;
 	background: $input-bg-color;
 	border: $input-border-width solid $input-border-color;
 	border-radius: $input-border-radius;
@@ -38,6 +38,20 @@
 		opacity: 1;
 	}
 
+	&__adornment {
+		display: flex;
+		align-items: center;
+		color: $input-adornment-color;
+
+		&--start {
+			margin-left: $input-padding-x;
+		}
+
+		&--end {
+			margin-right: $input-padding-x;
+		}
+	}
+
 	&--focused:not(&--disabled) {
 		&::after {
 			transform: scale3d(1, 1, 1);
@@ -52,5 +66,11 @@
 	&--full-width {
 		width: 100%;
 		min-width: 0;
+	}
+
+	&__btn-icon {
+		&:last-of-type {
+			margin: 0 calc(#{-$input-padding-x} + #{$spacing-scale-2});
+		}
 	}
 }

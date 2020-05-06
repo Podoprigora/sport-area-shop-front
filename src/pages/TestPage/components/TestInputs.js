@@ -18,11 +18,11 @@ const TestInputs = () => {
 
     return (
         <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Input ref={inputRef} placeholder="Enter name" />
+            <Input ref={inputRef} name="test" placeholder="Enter name" />
             <Button primary centered style={{ marginLeft: '1rem' }}>
                 Open
             </Button>
-            <IconButton>
+            <IconButton size="medium">
                 <FavoriteOutlineIcon />
             </IconButton>
         </div>

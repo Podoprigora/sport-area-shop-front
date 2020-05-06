@@ -17,6 +17,7 @@
 		position: relative;
 		display: inline-block;
 		font-size: $field-label-font-size;
+		line-height: $field-label-line-height;
 		font-weight: $field-label-font-weight;
 		letter-spacing: $field-label-letter-spacing;
 		color: $field-label-color;
@@ -28,7 +29,7 @@
 			&::before {
 				content: '*';
 				color: $color-red;
-				margin-right: 2px;
+				margin-right: $spacing-scale-1;
 			}
 		}
 
@@ -39,6 +40,7 @@
 		&--align-top {
 			flex: none;
 			text-align: left;
+			line-height: inherit;
 			width: 100%;
 			padding: 0 $spacing-scale-1 $spacing-scale-1;
 
@@ -50,7 +52,7 @@
 				&::after {
 					content: '*';
 					color: $color-red;
-					margin-left: 2px;
+					margin-left: $spacing-scale-1;
 				}
 			}
 		}
@@ -68,6 +70,7 @@
 
 		&--error {
 			color: $color-red;
+			padding: $spacing-scale-2 $spacing-scale-1 0;
 		}
 	}
 
