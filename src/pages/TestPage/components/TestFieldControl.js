@@ -17,6 +17,11 @@ import PlusIcon from '@svg-icons/feather/PlusIcon';
 import FavoriteOutlineIcon from '@svg-icons/material/FavoriteOutlineIcon';
 import TagIcon from '@svg-icons/feather/TagIcon';
 import CreatemodeEditIcon from '@svg-icons/material/CreatemodeEditIcon';
+import PlusCircleIcon from '@svg-icons/feather/PlusCircleIcon';
+import MinusCircleIcon from '@svg-icons/feather/MinusCircleIcon';
+import MinusIcon from '@svg-icons/feather/MinusIcon';
+import NumberInput from '@components/NumberInput';
+import NumberField from '@components/FormikForm/NumberField';
 
 const validationShema = Yup.object({
     name: Yup.string().required('Required'),
@@ -65,28 +70,8 @@ const TestFieldControl = () => {
 
     return (
         <>
-            <Input
-                name="number"
-                inputProps={{ style: { width: 50 } }}
-                prependAdornment={() => {
-                    return (
-                        <InputIconButton>
-                            <PlusIcon />
-                        </InputIconButton>
-                    );
-                }}
-                appendAdornment={() => {
-                    return (
-                        <InputIconButton>
-                            <PlusIcon />
-                        </InputIconButton>
-                    );
-                }}
-            />
-            <br />
-            <br />
             <Formik
-                initialValues={{ name: 'Alexandr', lastName: '' }}
+                initialValues={{ name: 'Alexandr', lastName: '', qty: '' }}
                 validationSchema={validationShema}
             >
                 {(formikProps) => {
@@ -94,6 +79,14 @@ const TestFieldControl = () => {
 
                     return (
                         <Form>
+                            <NumberField
+                                label="Quantity"
+                                name="qty"
+                                // simple
+                                regExp={new RegExp('[0-9]*')}
+                                // disabled
+                            />
+                            <NumberField label="Quantity 2" name="qty" />
                             <FlexRow>
                                 <FlexCol md>
                                     <InputField
