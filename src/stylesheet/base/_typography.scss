@@ -28,6 +28,11 @@ textarea {
 		border: none;
 		box-shadow: none;
 	}
+
+	&::-ms-clear,
+	&::-ms-reveal {
+		display: none;
+	}
 }
 
 button {
