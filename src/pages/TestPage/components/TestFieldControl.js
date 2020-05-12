@@ -170,8 +170,9 @@ const TestFieldControl = () => {
                                 // labelAlign="left"
                                 // labelTextAlign="left"
                                 // labelWidth={120}
-                                fullWidth
+                                // fullWidth
                                 // disabled
+                                errorVariant="both"
                                 prependAdornment={(inputProps) => <TagIcon size="medium" />}
                                 appendAdornment={(inputProps) => {
                                     const { value, disabled } = inputProps;

@@ -68,6 +68,13 @@
 		min-width: 0;
 	}
 
+	&--error {
+		&::after {
+			background-color: $color-red;
+			transform: scale3d(1, 1, 1);
+		}
+	}
+
 	&__btn-icon {
 		&:last-of-type {
 			margin: 0 calc(#{-$input-padding-x} + #{$spacing-scale-2});

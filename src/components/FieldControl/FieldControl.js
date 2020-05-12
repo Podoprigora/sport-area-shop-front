@@ -18,23 +18,26 @@ const FieldControl = React.forwardRef(function FieldControl(props, ref) {
         required,
         disabled,
         error,
+        errorVariant = 'both',
         touched,
         ...other
     } = props;
+
+    const hasError = error && error.length > 0 && touched;
 
     const inputProps = {
         fullWidth,
         required,
         disabled,
+        error: hasError && errorVariant !== 'text',
         ...other
     };
-
-    const hasError = error && error.length > 0 && touched;
 
     return (
         <div
             className={classNames('field', {
-                'field--full-width': fullWidth
+                'field--full-width': fullWidth,
+                'field--error': hasError
             })}
             ref={ref}
         >
@@ -53,8 +56,8 @@ const FieldControl = React.forwardRef(function FieldControl(props, ref) {
             )}
             <div className="field__input">
                 <Component {...inputProps} ref={inputRef} />
-                <FieldHelperText error={hasError}>
-                    {(hasError && error) || helperText}
+                <FieldHelperText error={hasError && errorVariant !== 'input'}>
+                    {(hasError && errorVariant !== 'input' && error) || helperText}
                 </FieldHelperText>
             </div>
         </div>
@@ -74,6 +77,7 @@ FieldControl.propTypes = {
     required: PropTypes.bool,
     disabled: PropTypes.bool,
     error: PropTypes.string,
+    errorVariant: PropTypes.oneOf(['text', 'input', 'both']),
     touched: PropTypes.bool
 };
 

@@ -19,6 +19,7 @@ const Input = forwardRef(function Input(props, ref) {
         autoFocus,
         autoComplete,
         fullWidth,
+        error,
         className,
         style,
         inputComponent = 'input',
@@ -109,8 +110,9 @@ const Input = forwardRef(function Input(props, ref) {
             role="presentation"
             className={classNames('input', className, {
                 'input--disabled': disabled,
-                'input--focused': focused,
-                'input--full-width': fullWidth
+                'input--focused': focused || error,
+                'input--full-width': fullWidth,
+                'input--error': error
             })}
             style={style}
             tabIndex={-1}
@@ -144,6 +146,7 @@ Input.propTypes = {
     autoFocus: PropTypes.bool,
     autoComplete: PropTypes.bool,
     fullWidth: PropTypes.bool,
+    error: PropTypes.bool,
     className: PropTypes.string,
     style: PropTypes.object,
     inputProps: PropTypes.object,
