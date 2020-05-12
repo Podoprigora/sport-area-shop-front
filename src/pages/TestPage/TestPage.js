@@ -12,10 +12,14 @@ import TestInputs from './components/TestInputs';
 import TestGrid from './components/TestGrid';
 import TestHidden from './components/TestHidden';
 import TestFieldControl from './components/TestFieldControl';
+import TestInputMask from './components/TestInputMask';
 
 const TestPage = (props) => {
     return (
         <div className="page">
+            <Panel title="Test input text mask">
+                <TestInputMask />
+            </Panel>
             <Panel title="Test FieldControl" className="page__section">
                 <TestFieldControl />
             </Panel>

@@ -21,6 +21,7 @@ const Input = forwardRef(function Input(props, ref) {
         fullWidth,
         className,
         style,
+        inputComponent = 'input',
         inputProps,
         prependAdornment,
         appendAdornment,
@@ -60,13 +61,22 @@ const Input = forwardRef(function Input(props, ref) {
         setFocused(false);
     };
 
+    const handleChange = (ev) => {
+        if (onChange) {
+            onChange(ev);
+        }
+    };
+
     const handleClick = useCallback((ev) => {
         if (inputRef.current && ev.target === ev.currentTarget) {
             inputRef.current.focus();
         }
     }, []);
 
-    const InputComponent = type === 'textarea' ? 'textarea' : 'input';
+    let InputComponent = inputComponent;
+    if (type === 'textarea') {
+        InputComponent = 'textarea';
+    }
 
     const inputEl = (
         <InputComponent
@@ -75,6 +85,7 @@ const Input = forwardRef(function Input(props, ref) {
             className="input__el"
             onFocus={handleFocus}
             onBlur={handleBlur}
+            onChange={handleChange}
             {...{
                 disabled,
                 id,
@@ -85,7 +96,6 @@ const Input = forwardRef(function Input(props, ref) {
                 required,
                 readOnly,
                 autoComplete,
-                onChange,
                 onClick,
                 onKeyDown,
                 onKeyUp
@@ -137,6 +147,7 @@ Input.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     inputProps: PropTypes.object,
+    inputComponent: PropTypes.elementType,
     prependAdornment: PropTypes.func,
     appendAdornment: PropTypes.func,
     onBlur: PropTypes.func,

@@ -55,8 +55,13 @@ const TestFieldControl = () => {
         console.log(ev);
     }, []);
 
+    const handleInputChange11 = useCallback((ev) => {
+        // console.log(ev.target.value);
+        console.log(ev);
+    }, []);
+
     const handleInputFocus = useCallback((ev) => {
-        // console.log(ev);
+        console.log(ev);
     }, []);
 
     const handleInputBtnClick = useCallback((ev) => {
@@ -71,7 +76,7 @@ const TestFieldControl = () => {
     return (
         <>
             <Formik
-                initialValues={{ name: 'Alexandr', lastName: '', qty: '' }}
+                initialValues={{ name: 'Alexandr', name11: '', lastName: '', qty: '' }}
                 validationSchema={validationShema}
             >
                 {(formikProps) => {
@@ -191,21 +196,21 @@ const TestFieldControl = () => {
                                 // onFocus={handleInputFocus}
                             />
                             <InputField
-                                label="Name"
+                                label="Name11"
                                 helperText="Enter your name"
                                 placeholder="Enter name"
                                 // autoFocus
                                 // fullWidth
                                 // value=""
-                                name="name"
+                                name="name11"
                                 labelAlign="top"
                                 labelTextAlign="right"
                                 labelWidth="300"
                                 required
-                                ref={fieldControlRef}
-                                inputRef={inputRef}
-                                onChange={handleInputChange}
-                                onFocus={handleInputFocus}
+                                // ref={fieldControlRef}
+                                // inputRef={inputRef}
+                                onChange={handleInputChange11}
+                                // onFocus={handleInputFocus}
                             />
                         </Form>
                     );

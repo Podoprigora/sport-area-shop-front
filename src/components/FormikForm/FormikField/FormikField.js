@@ -6,12 +6,12 @@ import FieldControl from '@components/FieldControl';
 
 const FormikField = React.forwardRef(function FormikField(props, ref) {
     const { component: Component, ...other } = props;
-    const [field, meta, helpers] = useField(other);
+    const [field, meta, helpers] = useField({ ...other });
     const { error, touched } = meta;
 
     const fieldProps = {
-        ...other,
         ...field,
+        ...other,
         ...helpers,
         error,
         touched
