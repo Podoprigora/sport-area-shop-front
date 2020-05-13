@@ -61,12 +61,12 @@ const TestInputMask = () => {
 
     const handlePhoneChange = useCallback((ev) => {
         setPhone(ev.target.value);
-        console.log(ev.target.value);
+        // console.log(ev.target.value);
     }, []);
 
     useEffect(() => {
-        console.log(cardInputRef);
-        cardInputRef.current.focus();
+        // console.log(cardInputRef);
+        // cardInputRef.current.focus();
     }, []);
 
     return (

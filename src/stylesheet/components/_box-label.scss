@@ -1,0 +1,24 @@
+.box-label {
+	$this: &;
+
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+
+	&--align-right {
+		#{$this}__text {
+			order: 0;
+			margin: 0;
+			margin-right: $input-padding-x;
+		}
+	}
+
+	&__content {
+		order: 1;
+	}
+
+	&__text {
+		order: 2;
+		margin-left: $input-padding-x;
+	}
+}

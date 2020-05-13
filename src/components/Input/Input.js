@@ -40,12 +40,6 @@ const Input = forwardRef(function Input(props, ref) {
     const inputRef = useRef(null);
     const handleInputRef = useForkRef(inputRef, ref);
 
-    useEffect(() => {
-        if (autoFocus) {
-            inputRef.current.focus();
-        }
-    }, [autoFocus]);
-
     const handleFocus = (ev) => {
         if (onFocus) {
             onFocus(ev);
@@ -96,6 +90,7 @@ const Input = forwardRef(function Input(props, ref) {
                 placeholder,
                 required,
                 readOnly,
+                autoFocus,
                 autoComplete,
                 onClick,
                 onKeyDown,

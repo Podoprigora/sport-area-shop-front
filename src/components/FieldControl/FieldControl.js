@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+
+import BoxLabel from '@components/BoxLabel';
 import FieldLabel from './FieldLabel';
 import FieldHelperText from './FieldHelperText';
 
@@ -13,6 +15,8 @@ const FieldControl = React.forwardRef(function FieldControl(props, ref) {
         labelTextAlign,
         labelWidth,
         labelClassName,
+        boxLabel,
+        boxLabelAlign,
         helperText,
         fullWidth,
         required,
@@ -32,6 +36,8 @@ const FieldControl = React.forwardRef(function FieldControl(props, ref) {
         error: hasError && errorVariant !== 'text',
         ...other
     };
+
+    const inputComponent = <Component {...inputProps} ref={inputRef} />;
 
     return (
         <div
@@ -55,7 +61,13 @@ const FieldControl = React.forwardRef(function FieldControl(props, ref) {
                 </FieldLabel>
             )}
             <div className="field__input">
-                <Component {...inputProps} ref={inputRef} />
+                {boxLabel ? (
+                    <BoxLabel label={boxLabel} labelAlign={boxLabelAlign}>
+                        {inputComponent}
+                    </BoxLabel>
+                ) : (
+                    inputComponent
+                )}
                 <FieldHelperText error={hasError && errorVariant !== 'input'}>
                     {(hasError && errorVariant !== 'input' && error) || helperText}
                 </FieldHelperText>
@@ -72,6 +84,8 @@ FieldControl.propTypes = {
     labelTextAlign: PropTypes.string,
     labelWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     labelClassName: PropTypes.string,
+    boxLabel: PropTypes.string,
+    boxLabelAlign: PropTypes.string,
     helperText: PropTypes.string,
     fullWidth: PropTypes.bool,
     required: PropTypes.bool,

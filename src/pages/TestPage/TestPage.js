@@ -13,10 +13,14 @@ import TestGrid from './components/TestGrid';
 import TestHidden from './components/TestHidden';
 import TestFieldControl from './components/TestFieldControl';
 import TestInputMask from './components/TestInputMask';
+import TestChckbox from './components/TestChckbox';
 
 const TestPage = (props) => {
     return (
         <div className="page">
+            <Panel title="Test Checkbox">
+                <TestChckbox />
+            </Panel>
             <Panel title="Test input text mask">
                 <TestInputMask />
             </Panel>
