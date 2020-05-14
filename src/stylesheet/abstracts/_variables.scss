@@ -136,6 +136,7 @@ $btn-border-width: 2px;
 $btn-border-radius: $border-radius-lg;
 $btn-min-height: 3.6rem;
 $btn-min-width: 8.4rem;
+$btn-disabled-opacity: .4;
 
 $btn-primary-bg-color: $color-primary;
 $btn-primary-color: $white;
@@ -148,6 +149,7 @@ $icon-btn-small-padding: $spacing-scale-3;
 $icon-btn-medium-padding: $spacing-scale-3;
 $icon-btn-large-padding: $spacing-scale-5;
 $icon-btn-padding: $icon-btn-large-padding;
+$icon-btn-disabled-opacity: .6;
 
 // Tooltip
 $tooltip-bg-color: $grey-darken-1;
@@ -171,6 +173,7 @@ $link-text-decoration: underline;
 // Input
 $input-bg-color: $white;
 $input-disabled-bg-color: $grey-lighten-4;
+$input-disabled-opacity: .6;
 $input-border-width: 1px;
 $input-border-color: $border-color;
 $input-border-radius: $border-radius-sm;
@@ -205,6 +208,7 @@ $menu-box-shadow: $box-shadow;
 $menu-min-width: 18rem;
 $menu-item-padding-y: $spacing-scale-4;
 $menu-item-padding-x: $spacing-scale-7;
+$menu-disabled-opacity: .4;
 
 // Window
 $window-bg-color: $white;

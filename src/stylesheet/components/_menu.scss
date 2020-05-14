@@ -23,8 +23,8 @@
 		}
 
 		&--disabled {
-			opacity: .4;
-			cursor: text;
+			opacity: $menu-disabled-opacity;
+			cursor: auto;
 		}
 	}
 

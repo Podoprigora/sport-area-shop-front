@@ -7,8 +7,6 @@
 	justify-content: center;
 
 	padding: $checkbox-padding;
-	margin-left: -$checkbox-padding;
-	margin-right: -$checkbox-padding;
 
 	&::before {
 		content: "";
@@ -54,10 +52,10 @@
 	}
 
 	&--disabled {
-		opacity: .2;
+		opacity: $input-disabled-opacity;
 
 		#{$this}__input {
-			cursor: text;
+			cursor: auto;
 		}
 	}
 }

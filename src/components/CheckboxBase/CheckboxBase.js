@@ -70,11 +70,11 @@ const CheckboxBase = React.forwardRef(function CheckboxBase(props, ref) {
         setFocused(false);
     }, []);
 
-    const iconComponent = React.createElement(icon, {
+    const iconComponent = React.cloneElement(icon, {
         className: 'checkbox__icon'
     });
 
-    const iconCheckedComponent = React.createElement(iconChecked, {
+    const iconCheckedComponent = React.cloneElement(iconChecked, {
         className: 'checkbox__icon checkbox__icon--checked'
     });
 
@@ -88,7 +88,7 @@ const CheckboxBase = React.forwardRef(function CheckboxBase(props, ref) {
             onMouseDown={handleContainerMouseDown}
         >
             <input
-                type="checkbox"
+                type={type}
                 className="checkbox__input"
                 ref={ref}
                 {...{
@@ -115,8 +115,8 @@ const CheckboxBase = React.forwardRef(function CheckboxBase(props, ref) {
 
 CheckboxBase.propTypes = {
     type: PropTypes.string,
-    icon: PropTypes.elementType.isRequired,
-    iconChecked: PropTypes.elementType.isRequired,
+    icon: PropTypes.node.isRequired,
+    iconChecked: PropTypes.node.isRequired,
     checked: PropTypes.bool,
     defaultChecked: PropTypes.bool,
     value: PropTypes.any,

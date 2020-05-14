@@ -30,7 +30,7 @@
 	}
 
 	&--disabled {
-		opacity: .6;
+		opacity: $btn-disabled-opacity;
 		cursor: auto;
 	}
 

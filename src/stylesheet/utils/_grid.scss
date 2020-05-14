@@ -1,8 +1,11 @@
-.u-flex-row {
+.u-flex {
 	display: flex;
 	flex-wrap: wrap;
 	width: 100%;
+}
 
+.u-flex-row {
+	@extend .u-flex;
 	@include generate-grid("u-");
 }
 

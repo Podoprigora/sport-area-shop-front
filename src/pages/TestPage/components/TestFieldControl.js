@@ -163,7 +163,7 @@ const TestFieldControl = () => {
                             </FlexRow>
                             <InputField
                                 // type="textarea"
-                                // label="Last Name"
+                                label="Last Name"
                                 // helperText="Enter your name"
                                 placeholder="Enter name"
                                 name="lastName"
@@ -171,7 +171,7 @@ const TestFieldControl = () => {
                                 // labelTextAlign="left"
                                 // labelWidth={120}
                                 // fullWidth
-                                // disabled
+                                disabled
                                 errorVariant="both"
                                 prependAdornment={(inputProps) => <TagIcon size="medium" />}
                                 appendAdornment={(inputProps) => {

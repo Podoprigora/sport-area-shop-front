@@ -34,7 +34,7 @@
 		}
 
 		&--disabled {
-			opacity: .6;
+			opacity: $input-disabled-opacity;
 		}
 
 		&--align-top {

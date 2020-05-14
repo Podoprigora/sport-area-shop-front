@@ -9,8 +9,8 @@ const Checkbox = React.forwardRef(function Checkbox(props, ref) {
     return (
         <CheckboxBase
             type="checkbox"
-            icon={CheckBoxOutlineBlankIcon}
-            iconChecked={CheckBoxIcon}
+            icon={<CheckBoxOutlineBlankIcon />}
+            iconChecked={<CheckBoxIcon />}
             ref={ref}
             {...props}
         />

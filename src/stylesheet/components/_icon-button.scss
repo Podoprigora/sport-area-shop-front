@@ -42,8 +42,8 @@
 	}
 
 	&--disabled {
-		cursor: text;
-		opacity: .2;
+		cursor: auto;
+		opacity: $icon-btn-disabled-opacity;
 	}
 
 	&--small {
