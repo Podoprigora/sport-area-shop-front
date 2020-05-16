@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import useControlled from '@components/hooks/useControlled';
@@ -19,36 +19,48 @@ const RadioGroup = React.forwardRef(function RadioGroup(props, ref) {
 
     const [value, setValue] = useControlled(valueProp, defaultValue);
 
-    const handleChange = (ev) => {
-        setValue(ev.target.value);
+    const handleChange = useCallback(
+        (ev) => {
+            setValue(ev.target.value);
 
-        if (onChange) {
-            onChange(ev);
-        }
-    };
+            if (onChange) {
+                onChange(ev);
+            }
+        },
+        [onChange, setValue]
+    );
 
-    const handleFocus = (ev) => {
-        if (onFocus) {
-            onFocus(ev);
-        }
-    };
+    const handleFocus = useCallback(
+        (ev) => {
+            if (onFocus) {
+                onFocus(ev);
+            }
+        },
+        [onFocus]
+    );
 
-    const handleBlur = (ev) => {
-        if (onBlur) {
-            onBlur(ev);
-        }
-    };
+    const handleBlur = useCallback(
+        (ev) => {
+            if (onBlur) {
+                onBlur(ev);
+            }
+        },
+        [onBlur]
+    );
+
+    const context = useMemo(
+        () => ({
+            value,
+            name,
+            onChange: handleChange,
+            onBlur: handleBlur,
+            onFocus: handleFocus
+        }),
+        [value, name, handleBlur, handleFocus, handleChange]
+    );
 
     return (
-        <RadioGroupContext.Provider
-            value={{
-                value,
-                name,
-                onChange: handleChange,
-                onBlur: handleBlur,
-                onFocus: handleFocus
-            }}
-        >
+        <RadioGroupContext.Provider value={context}>
             <FieldGroup ref={ref} {...other}>
                 {children}
             </FieldGroup>
