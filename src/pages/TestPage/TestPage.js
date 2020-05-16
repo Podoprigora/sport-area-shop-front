@@ -14,10 +14,14 @@ import TestHidden from './components/TestHidden';
 import TestFieldControl from './components/TestFieldControl';
 import TestInputMask from './components/TestInputMask';
 import TestChckbox from './components/TestChckbox';
+import TestList from './components/TestList';
 
 const TestPage = (props) => {
     return (
         <div className="page">
+            <Panel title="Test List">
+                <TestList />
+            </Panel>
             <Panel title="Test Checkbox">
                 <TestChckbox />
             </Panel>

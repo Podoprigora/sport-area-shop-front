@@ -1,0 +1,71 @@
+.list {
+	display: block;
+	position: relative;
+	padding: $spacing-scale-4 0;
+
+	&__item {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: flex-start;
+		align-items: center;
+		width: 100%;
+		padding: $spacing-scale-4 $spacing-scale-7;
+
+		// &:hover {
+		// 	background-color: $color-hover;
+		// 	transition: background-color .15s ease;
+		// }
+	}
+
+	&__text {
+		padding: .25rem 0;
+		// line-height: 1.5;
+		@include truncation;
+
+		&--flex {
+			flex: 1;
+		}
+	}
+
+	&__icon {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: $icon-color;
+		margin-right: $spacing-scale-7;
+	}
+
+	&__icon-btn {
+		position: relative;
+		color: $icon-color;
+		cursor: pointer;
+
+		&::after {
+			content: '';
+			position: absolute;
+			top: -$spacing-scale-4;
+			left: -$spacing-scale-4;
+			right: -$spacing-scale-4;
+			bottom: -$spacing-scale-4;
+			background-color: $color-hover;
+			transform: scale3d(0, 0, 0);
+			border-radius: 50%;
+			transition: transform .2s ease-out;
+		}
+
+		&:focus {
+			outline: none;
+		}
+
+		&:hover {
+			&::after {
+				transform: scale3d(1, 1, 1);
+			}
+		}
+	}
+
+	&__checkbox {
+		// margin-left: -$spacing-scale-7 / 2;
+		margin-right: $spacing-scale-7;
+	}
+}
