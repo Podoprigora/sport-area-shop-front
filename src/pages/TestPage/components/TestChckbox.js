@@ -37,7 +37,7 @@ const TestChckbox = () => {
                             name="radio"
                             label="Options"
                             helperText="Choise some option"
-                            column
+                            // column
                         >
                             <BoxLabel label="Option 1" labelAlign="left">
                                 <Radio value="1" />

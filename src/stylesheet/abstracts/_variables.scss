@@ -185,8 +185,8 @@ $input-placeholder-color: $grey;
 $input-adornment-color: $grey;
 
 // Checkbox
-// $checkbox-padding: $spacing-scale-3;
-$checkbox-padding: 0;
+$checkbox-margin-x: $spacing-scale-3;
+$checkbox-hover-padding: $spacing-scale-4;
 
 // Field
 $field-label-color: $grey-darken-3;

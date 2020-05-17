@@ -5,8 +5,8 @@
 	display: inline-flex;
 	align-items: center;
 
-	margin-left: -$checkbox-padding;
-	margin-right: $input-padding-x + $checkbox-padding;
+	margin-left: -$checkbox-margin-x;
+	margin-right: $input-padding-x + $checkbox-margin-x;
 
 	&--align-right {
 		margin-left: 0;
@@ -14,7 +14,7 @@
 		#{$this}__text {
 			order: 0;
 			margin: 0;
-			margin-right: $input-padding-x - $checkbox-padding;
+			margin-right: $input-padding-x - $checkbox-margin-x;
 		}
 	}
 
@@ -25,11 +25,15 @@
 	}
 
 	&__content {
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		order: 1;
 	}
 
 	&__text {
 		order: 2;
-		margin-left: $input-padding-x - $checkbox-padding;
+		margin-left: $input-padding-x - $checkbox-margin-x;
+		padding: calc(#{$spacing-scale-4} + 1px) 0;
 	}
 }
