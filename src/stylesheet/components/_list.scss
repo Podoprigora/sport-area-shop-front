@@ -18,7 +18,8 @@
 			transition: background-color .15s ease;
 		}
 
-		.checkbox {
+		.checkbox,
+		.btn-icon {
 			margin: 0;
 		}
 	}
@@ -47,35 +48,6 @@
 
 		&:not(:last-child) {
 			margin-right: $spacing-scale-7;
-		}
-	}
-
-	&__icon-btn {
-		position: relative;
-		// color: $icon-color;
-		cursor: pointer;
-
-		&::after {
-			content: '';
-			position: absolute;
-			top: -$spacing-scale-4;
-			left: -$spacing-scale-4;
-			right: -$spacing-scale-4;
-			bottom: -$spacing-scale-4;
-			background-color: $color-hover;
-			transform: scale3d(0, 0, 0);
-			border-radius: 50%;
-			transition: transform .2s ease-out;
-		}
-
-		&:focus {
-			outline: none;
-		}
-
-		&:hover {
-			&::after {
-				transform: scale3d(1, 1, 1);
-			}
 		}
 	}
 }

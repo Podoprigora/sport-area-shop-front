@@ -6,6 +6,7 @@ import Checkbox from '@components/Checkbox';
 import MenuDivider from '@components/Divider';
 import Button from '@components/Button';
 import ShoppingCartIcon from '@svg-icons/feather/ShoppingCartIcon';
+import IconButton from '@components/IconButton';
 
 const TestList = () => {
     return (
@@ -26,11 +27,15 @@ const TestList = () => {
                         <div className="list__text list__text--truncate list__text--flex">
                             Lorem ipsum dolor sit, amet consectetur
                         </div>
-                        <div className="list__icon list__icon-btn" role="button" tabIndex="-1">
-                            <FavoriteOutlineIcon />
+                        <div className="list__icon">
+                            <IconButton>
+                                <FavoriteOutlineIcon />
+                            </IconButton>
                         </div>
-                        <div className="list__icon list__icon-btn" role="button" tabIndex="-1">
-                            <FavoriteOutlineIcon />
+                        <div className="list__icon">
+                            <IconButton>
+                                <FavoriteOutlineIcon />
+                            </IconButton>
                         </div>
                     </ListItem>
                     <MenuDivider />

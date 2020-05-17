@@ -145,10 +145,10 @@ $btn-primary-focus-box-shadow: 0 0px 0px 1px rgba($white, .1), 0 0px 0px 4px $co
 // Icon button
 $icon-btn-hover-bg-color: $white;
 $icon-btn-hover-color: null;
-$icon-btn-small-padding: $spacing-scale-3;
-$icon-btn-medium-padding: $spacing-scale-3;
-$icon-btn-large-padding: $spacing-scale-5;
-$icon-btn-padding: $icon-btn-large-padding;
+$icon-btn-small-margin-x: $spacing-scale-3;
+$icon-btn-medium-margin-x: $spacing-scale-4;
+$icon-btn-large-margin-x: $spacing-scale-5;
+$icon-btn-margin-x: $icon-btn-medium-margin-x;
 $icon-btn-disabled-opacity: .6;
 
 // Tooltip

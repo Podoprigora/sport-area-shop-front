@@ -77,7 +77,7 @@
 
 	&__btn-icon {
 		&:last-of-type {
-			margin: 0 calc(#{-$input-padding-x} + #{$spacing-scale-2});
+			margin: 0;
 		}
 	}
 }

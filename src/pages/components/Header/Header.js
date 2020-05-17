@@ -40,10 +40,10 @@ const Header = (props) => {
                         <HeaderSearchField />
                     </div>
                     <div className="header__actions">
-                        <IconButton primary>
+                        <IconButton primary size="large">
                             <HeartIcon />
                         </IconButton>
-                        <IconButton primary>
+                        <IconButton primary size="large">
                             <ShoppingCartIcon />
                         </IconButton>
                     </div>

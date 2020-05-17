@@ -171,7 +171,7 @@ const TestFieldControl = () => {
                                 // labelTextAlign="left"
                                 // labelWidth={120}
                                 // fullWidth
-                                disabled
+                                // disabled
                                 errorVariant="both"
                                 prependAdornment={(inputProps) => <TagIcon size="medium" />}
                                 appendAdornment={(inputProps) => {
@@ -204,9 +204,9 @@ const TestFieldControl = () => {
                                 // fullWidth
                                 // value=""
                                 name="name11"
-                                labelAlign="top"
-                                labelTextAlign="right"
-                                labelWidth="300"
+                                // labelAlign="top"
+                                // labelTextAlign="right"
+                                // labelWidth="300"
                                 required
                                 // ref={fieldControlRef}
                                 // inputRef={inputRef}
