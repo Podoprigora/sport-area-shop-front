@@ -9,7 +9,7 @@
 		display: flex;
 		flex-flow: row nowrap;
 		justify-content: flex-start;
-		align-items: flex-start;
+		align-items: center;
 		width: 100%;
 		padding: $spacing-scale-4 $spacing-scale-7;
 
@@ -40,7 +40,8 @@
 		}
 	}
 
-	&__icon {
+	&__icon,
+	&__action {
 		display: flex;
 		justify-content: center;
 		align-items: center;
