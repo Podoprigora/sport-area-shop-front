@@ -6,21 +6,33 @@
 	box-shadow: $box-shadow-sm;
 
 	&__item {
+		$item-selector: &;
+		position: relative;
 		display: flex;
 		flex-flow: row nowrap;
 		justify-content: flex-start;
 		align-items: center;
 		width: 100%;
 		padding: $spacing-scale-4 $spacing-scale-7;
+		z-index: 0;
 
-		&:hover {
-			background-color: $color-hover;
-			transition: background-color .15s ease;
-		}
+		&--button {
+			cursor: pointer;
 
-		.checkbox,
-		.btn-icon {
-			margin: 0;
+			&:hover {
+				background-color: $color-hover;
+				transition: background-color .15s ease;
+			}
+
+			&:focus {
+				outline: none;
+			}
+
+			&#{$item-selector}--selected,
+			&:focus {
+				background-color: $color-focus;
+				transition: background-color .2s ease;
+			}
 		}
 	}
 
@@ -49,6 +61,13 @@
 
 		&:not(:last-child) {
 			margin-right: $spacing-scale-7;
+		}
+	}
+
+	&__action {
+		.checkbox,
+		.btn-icon {
+			margin: 0;
 		}
 	}
 }
