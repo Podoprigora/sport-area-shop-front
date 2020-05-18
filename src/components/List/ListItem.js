@@ -1,7 +1,11 @@
 import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+
 import useForkRef from '@components/hooks/useForkRef';
+import useIsFocusVisible from '@components/hooks/useIsFocusVisible';
+import useEventCallback from '@components/hooks/useEventCallback';
+
 import { ListItemContext } from './ListItemContext';
 
 const ListItem = React.forwardRef(function ListItem(props, ref) {
@@ -14,13 +18,40 @@ const ListItem = React.forwardRef(function ListItem(props, ref) {
         className,
         alignItems,
         onClick,
+        onFocus,
+        onBlur,
         onMouseDown,
         onKeyDown,
         ...other
     } = props;
 
+    const [focusVisible, setFocusVisible] = useState(false);
+    const { isFocusVisible, onBlurVisible, ref: focusVisibleRef } = useIsFocusVisible();
+
     const innerRef = useRef(null);
-    const handleRef = useForkRef(innerRef, ref);
+    const handleOwnRef = useForkRef(innerRef, focusVisibleRef);
+    const handleRef = useForkRef(handleOwnRef, ref);
+
+    const handleFocus = useEventCallback((ev) => {
+        if (isFocusVisible(ev)) {
+            setFocusVisible(true);
+        }
+
+        if (onFocus) {
+            onFocus(ev);
+        }
+    });
+
+    const handleBlur = useEventCallback((ev) => {
+        if (focusVisible) {
+            onBlurVisible(ev);
+            setFocusVisible(false);
+        }
+
+        if (onBlur) {
+            onBlur(ev);
+        }
+    });
 
     const handleClick = useCallback(
         (ev) => {
@@ -29,17 +60,6 @@ const ListItem = React.forwardRef(function ListItem(props, ref) {
             }
         },
         [onClick, disabled]
-    );
-
-    const handleMouseDown = useCallback(
-        (ev) => {
-            // ev.preventDefault();
-
-            if (onMouseDown) {
-                onMouseDown(ev);
-            }
-        },
-        [onMouseDown]
     );
 
     const handleKeyDown = useCallback(
@@ -68,11 +88,13 @@ const ListItem = React.forwardRef(function ListItem(props, ref) {
             'list__item--button': button,
             'list__item--selected': selected,
             'list__item--disabled': disabled,
+            'list__item--focus-visible': focusVisible,
             [`u-flex-align-items-${alignItems}`]: alignItems
         }),
         ...other,
         onClick: handleClick,
-        onMouseDown: handleMouseDown,
+        onFocus: handleFocus,
+        onBlur: handleBlur,
         onKeyDown: handleKeyDown
     };
 
@@ -96,6 +118,8 @@ ListItem.propTypes = {
     selected: PropTypes.bool,
     disabled: PropTypes.bool,
     onClick: PropTypes.func,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
     onKeyDown: PropTypes.func,
     onMouseDown: PropTypes.func
 };

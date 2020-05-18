@@ -26,16 +26,17 @@
 			cursor: pointer;
 			transition: background-color .15s ease-out;
 
-			// &:focus {
-			// 	outline: none;
-			// }
+			&:focus {
+				outline: none;
+			}
 
 			&:not(#{$item-selector}--disabled) {
 				&:hover {
 					background-color: $color-hover;
 				}
 
-				&#{$item-selector}--selected {
+				&#{$item-selector}--selected,
+				&#{$item-selector}--focus-visible {
 					background-color: $color-focus;
 				}
 			}
