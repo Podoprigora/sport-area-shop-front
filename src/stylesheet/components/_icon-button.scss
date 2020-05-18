@@ -1,12 +1,13 @@
 .btn-icon {
+	$this: &;
+
 	position: relative;
 	background-color: transparent;
 	color: $icon-color;
 	margin: 0 $icon-btn-margin-x;
 	cursor: pointer;
-	z-index: 0;
 
-	&::after {
+	&::before {
 		content: "";
 		position: absolute;
 
@@ -19,17 +20,17 @@
 		border-radius: 50%;
 		transform: scale3d(0, 0, 1);
 		transition: transform .15s ease-out;
-		z-index: 1;
+		z-index: 0;
 	}
 
 	&:not(&--disabled) {
 		&:hover,
-		&:focus {
+		&#{$this}--focus-visible {
 			@if $icon-btn-hover-bg-color {
 				color: $icon-btn-hover-color;
 			}
 
-			&::after {
+			&::before {
 				transform: scale3d(1, 1, 1);
 			}
 		}
@@ -51,7 +52,7 @@
 	&--small {
 		margin: 0 $icon-btn-small-margin-x;
 
-		&::after {
+		&::before {
 			top: -$icon-btn-small-margin-x;
 			right: -$icon-btn-small-margin-x;
 			bottom: -$icon-btn-small-margin-x;
@@ -62,7 +63,7 @@
 	&--medium {
 		margin: 0 $icon-btn-medium-margin-x;
 
-		&::after {
+		&::before {
 			top: -$icon-btn-medium-margin-x;
 			right: -$icon-btn-medium-margin-x;
 			bottom: -$icon-btn-medium-margin-x;
@@ -73,7 +74,7 @@
 	&--large {
 		margin: 0 $icon-btn-large-margin-x;
 
-		&::after {
+		&::before {
 			top: -$icon-btn-large-margin-x;
 			right: -$icon-btn-large-margin-x;
 			bottom: -$icon-btn-large-margin-x;
