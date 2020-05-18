@@ -4,6 +4,8 @@ import classNames from 'classnames';
 
 import useControlled from '@components/hooks/useControlled';
 import useEventCallback from '@components/hooks/useEventCallback';
+import useIsFocusVisible from '@components/hooks/useIsFocusVisible';
+import useForkRef from '@components/hooks/useForkRef';
 
 const CheckboxBase = React.forwardRef(function CheckboxBase(props, ref) {
     const {
@@ -26,8 +28,11 @@ const CheckboxBase = React.forwardRef(function CheckboxBase(props, ref) {
         onFocus
     } = props;
 
+    const [focusVisible, setFocusVisible] = useState(false);
     const [checked, setChecked] = useControlled(checkedProp, !!defaultChecked);
-    const [focused, setFocused] = useState(false);
+    const { isFocusVisible, onBlurVisible, ref: focusVisibleRef } = useIsFocusVisible();
+
+    const handleRef = useForkRef(focusVisibleRef, ref);
 
     const doChange = useCallback(
         (ev) => {
@@ -40,35 +45,30 @@ const CheckboxBase = React.forwardRef(function CheckboxBase(props, ref) {
         [setChecked, onChange]
     );
 
-    const handleFocus = useCallback(
-        (ev) => {
-            setFocused(true);
+    const handleFocus = useEventCallback((ev) => {
+        if (isFocusVisible(ev)) {
+            setFocusVisible(true);
+        }
 
-            if (onFocus) {
-                onFocus(ev);
-            }
-        },
-        [onFocus]
-    );
+        if (onFocus) {
+            onFocus(ev);
+        }
+    });
 
-    const handleBlur = useCallback(
-        (ev) => {
-            setFocused(false);
+    const handleBlur = useEventCallback((ev) => {
+        if (focusVisible) {
+            onBlurVisible(ev);
+            setFocusVisible(false);
+        }
 
-            if (onBlur) {
-                onBlur(ev);
-            }
-        },
-        [onBlur]
-    );
+        if (onBlur) {
+            onBlur(ev);
+        }
+    });
 
     const handleChange = useEventCallback((ev) => {
         doChange(ev);
     });
-
-    const handleContainerMouseDown = useCallback((ev) => {
-        setFocused(false);
-    }, []);
 
     const iconComponent = React.cloneElement(icon, {
         className: 'checkbox__icon'
@@ -82,15 +82,14 @@ const CheckboxBase = React.forwardRef(function CheckboxBase(props, ref) {
         <div
             role="presentation"
             className={classNames('checkbox', className, {
-                'checkbox--focused': focused,
+                'checkbox--focus-visible': focusVisible,
                 'checkbox--disabled': disabled
             })}
-            onMouseDown={handleContainerMouseDown}
         >
             <input
                 type={type}
                 className="checkbox__input"
-                ref={ref}
+                ref={handleRef}
                 {...{
                     checked: checkedProp,
                     defaultChecked,

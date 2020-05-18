@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import setRef from '../utils/setRef';
 
 export default function(refA, refB) {

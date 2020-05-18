@@ -45,8 +45,17 @@
 		}
 	}
 
+	&:not(&--disabled) {
+		&:hover,
+		&#{$this}--focus-visible {
+			&::before {
+				transform: scale3d(1, 1, 1);
+			}
+		}
+	}
+
 	&:hover:not(&--disabled),
-	&--focused:not(&--disabled) {
+	&--focus-visible:not(&--disabled) {
 		&::before {
 			transform: scale3d(1, 1, 1);
 		}

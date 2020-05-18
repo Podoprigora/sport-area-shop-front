@@ -111,7 +111,11 @@ const TestList = () => {
                             onClick={handleChecked(item)}
                         >
                             <ListItemAction>
-                                <Checkbox checked={checked.indexOf(item) !== -1} tabIndex="-1" />
+                                <Checkbox
+                                    checked={checked.indexOf(item) !== -1}
+                                    disabled={item === 1}
+                                    tabIndex="-1"
+                                />
                             </ListItemAction>
                             <ListItemText flex>
                                 Lorem ipsum dolor sit, amet consectetur

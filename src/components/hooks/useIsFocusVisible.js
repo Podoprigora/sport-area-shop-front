@@ -2,8 +2,9 @@
 // Source: https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/utils/useIsFocusVisible.js
 // based on https://github.com/WICG/focus-visible/blob/v4.1.5/src/focus-visible.js
 
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import TestDropdown from '@pages/TestPage/components/TestDropdown';
 
 let hadKeyboardEvent = true;
 let hadFocusVisibleRecently = true;
@@ -70,7 +71,7 @@ function prepare(doc) {
     doc.addEventListener('visibilitychange', handleVisibilityChange, true);
 }
 
-function teardown(doc) {
+export function teardown(doc) {
     doc.removeEventListener('keydown', handleKeyDown, true);
     doc.removeEventListener('mausedown', handlePointerDown, true);
     doc.removeEventListener('pointerdown', handlePointerDown, true);
