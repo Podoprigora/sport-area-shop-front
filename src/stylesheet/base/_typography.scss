@@ -42,3 +42,7 @@ button {
 	margin: 0;
 	cursor: pointer;
 }
+
+*::-moz-focus-inner {
+	border-style: none;
+}

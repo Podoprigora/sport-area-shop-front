@@ -1,7 +1,8 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import useForkRef from '@components/hooks/useForkRef';
+import { ListItemContext } from './ListItemContext';
 
 const ListItem = React.forwardRef(function ListItem(props, ref) {
     const {
@@ -32,7 +33,7 @@ const ListItem = React.forwardRef(function ListItem(props, ref) {
 
     const handleMouseDown = useCallback(
         (ev) => {
-            ev.preventDefault();
+            // ev.preventDefault();
 
             if (onMouseDown) {
                 onMouseDown(ev);
@@ -62,7 +63,7 @@ const ListItem = React.forwardRef(function ListItem(props, ref) {
 
     const componentProps = {
         role: button ? 'button' : 'listitem',
-        tabIndex: button ? 0 : null,
+        tabIndex: button && !disabled ? 0 : null,
         className: classNames('list__item', className, {
             'list__item--button': button,
             'list__item--selected': selected,
@@ -75,10 +76,14 @@ const ListItem = React.forwardRef(function ListItem(props, ref) {
         onKeyDown: handleKeyDown
     };
 
+    const context = useMemo(() => ({ disabled }), [disabled]);
+
     return (
-        <div {...componentProps} ref={handleRef}>
-            {children}
-        </div>
+        <ListItemContext.Provider value={context}>
+            <div {...componentProps} ref={handleRef}>
+                {children}
+            </div>
+        </ListItemContext.Provider>
     );
 });
 

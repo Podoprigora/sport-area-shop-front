@@ -52,13 +52,11 @@ const TestList = () => {
         <>
             <div
                 style={{
-                    background: '#fff',
                     maxWidth: '50rem',
-                    width: '100%',
-                    marginBottom: '1.6rem'
+                    width: '100%'
                 }}
             >
-                <List>
+                <List style={{ background: '#fff', marginBottom: '1.6rem' }}>
                     <ListItem button selected={selectedIndex === 0} onClick={handleItemClick(0)}>
                         <ListItemIcon>
                             <SearchIcon size="medium" />
@@ -72,7 +70,12 @@ const TestList = () => {
                             </IconButton>
                         </ListItemAction>
                     </ListItem>
-                    <ListItem button selected={selectedIndex === 1} onClick={handleItemClick(1)}>
+                    <ListItem
+                        button
+                        disabled
+                        selected={selectedIndex === 1}
+                        onClick={handleItemClick(1)}
+                    >
                         <ListItemIcon>
                             <SearchIcon size="medium" />
                         </ListItemIcon>
@@ -98,9 +101,15 @@ const TestList = () => {
                             </IconButton>
                         </ListItemAction>
                     </ListItem>
-                    <Divider />
+                </List>
+                <List style={{ background: '#fff', marginBottom: '1.6rem' }}>
                     {checkedItems.map((item) => (
-                        <ListItem key={item} button onClick={handleChecked(item)}>
+                        <ListItem
+                            key={item}
+                            button
+                            disabled={item === 1}
+                            onClick={handleChecked(item)}
+                        >
                             <ListItemAction>
                                 <Checkbox checked={checked.indexOf(item) !== -1} tabIndex="-1" />
                             </ListItemAction>
