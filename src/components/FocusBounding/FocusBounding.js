@@ -1,7 +1,9 @@
 import React, { useRef, useCallback, useMemo, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+
 import useForkRef from '@components/hooks/useForkRef';
+import useDocumentEventListener from '@components/hooks/useDocumentEventListener';
 
 const FocusBounding = (props) => {
     const { children, disabled: disabledProp } = props;
@@ -42,13 +44,7 @@ const FocusBounding = (props) => {
         }
     }, []);
 
-    useEffect(() => {
-        document.addEventListener('keydown', handleDocumentKeyDown, true);
-
-        return () => {
-            document.removeEventListener('keydown', handleDocumentKeyDown, true);
-        };
-    }, [handleDocumentKeyDown]);
+    useDocumentEventListener('keydown', handleDocumentKeyDown, true);
 
     return (
         <>

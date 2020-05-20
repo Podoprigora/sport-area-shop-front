@@ -5,7 +5,7 @@ export default function useDocumentEventListener(type, handler, useCapture = fal
     const handlerRef = useRef(handler);
 
     useEffect(() => {
-        setRef(handlerRef, handler);
+        handlerRef.current = handler;
     });
 
     useEffect(() => {

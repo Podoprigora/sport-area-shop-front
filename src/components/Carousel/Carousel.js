@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import throttle from 'lodash/throttle';
 
 import useEventCallback from '@components/hooks/useEventCallback';
+import useDocumentEventListener from '@components/hooks/useDocumentEventListener';
 import CarouselControl from './CarouselControl';
 import CarouselIndicators from './CarouselIndicators';
 
@@ -49,38 +50,6 @@ const Carousel = React.forwardRef(function Carousel(
         }
     }, [autoPlay, interval, nextSlide, stop]);
 
-    useEffect(() => {
-        play();
-
-        return () => {
-            stop();
-        };
-    }, [play, stop]);
-
-    useEffect(() => {
-        const handleDocumentVisibilityChange = (ev) => {
-            if (document.hidden) {
-                stop();
-            } else {
-                play();
-            }
-        };
-
-        document.addEventListener('visibilitychange', handleDocumentVisibilityChange, false);
-
-        return () => {
-            document.removeEventListener('visibilitychange', handleDocumentVisibilityChange, false);
-        };
-    }, [play, stop]);
-
-    const handleIndicatorSelect = useCallback(
-        (index) => (ev) => {
-            animDirection.current = index >= activeIndex ? 'left' : 'right';
-            setActiveIndex(index);
-        },
-        [activeIndex]
-    );
-
     const handlePrevControlClick = useCallback(
         throttle(
             (ev) => {
@@ -114,6 +83,30 @@ const Carousel = React.forwardRef(function Carousel(
         clearTimeout(mouseEnterTimerId.current);
         setIsMouseEntered(false);
         play();
+    });
+
+    const handleIndicatorSelect = useCallback(
+        (index) => (ev) => {
+            animDirection.current = index >= activeIndex ? 'left' : 'right';
+            setActiveIndex(index);
+        },
+        [activeIndex]
+    );
+
+    useEffect(() => {
+        play();
+
+        return () => {
+            stop();
+        };
+    }, [play, stop]);
+
+    useDocumentEventListener('visibilitychange', (ev) => {
+        if (document.hidden) {
+            stop();
+        } else {
+            play();
+        }
     });
 
     const items = React.Children.toArray(children).map((item, index) => {
