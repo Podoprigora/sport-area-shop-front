@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import List, { ListItem } from '@components/List';
 import ShoppingBasketIcon from '@svg-icons/material/ShoppingBasketIcon';
 import FavoriteOutlineIcon from '@svg-icons/material/FavoriteOutlineIcon';
@@ -14,10 +14,12 @@ import ListItemIcon from '@components/List/ListItemIcon';
 import ListItemAction from '@components/List/ListItemAction';
 import ListItemText from '@components/List/ListItemText';
 import Input from '@components/Input';
+import useDocumentEventListener from '@components/hooks/useDocumentEventListener';
 
 const TestList = () => {
     const [selectedIndex, setSelectedIndex] = useState(null);
     const [checked, setChecked] = useState([]);
+    const checkedListRef = useRef(null);
 
     const handleItemClick = useCallback(
         (index) => (ev) => {
@@ -45,6 +47,12 @@ const TestList = () => {
     const handleDeleteClick = (ev) => {
         console.log(ev);
     };
+
+    useDocumentEventListener('click', (ev) => {
+        if (!checkedListRef.current.contains(ev.target)) {
+            console.log('clicked outside');
+        }
+    });
 
     const checkedItems = [1, 2, 3, 4];
 
@@ -102,7 +110,7 @@ const TestList = () => {
                         </ListItemAction>
                     </ListItem>
                 </List>
-                <List style={{ background: '#fff', marginBottom: '1.6rem' }}>
+                <List style={{ background: '#fff', marginBottom: '1.6rem' }} ref={checkedListRef}>
                     {checkedItems.map((item) => (
                         <ListItem
                             key={item}
