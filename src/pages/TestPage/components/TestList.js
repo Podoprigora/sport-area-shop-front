@@ -1,5 +1,11 @@
 import React, { useState, useCallback, useRef } from 'react';
-import List, { ListItem } from '@components/List';
+import List, {
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    ListItemAction,
+    ListSubheader
+} from '@components/List';
 import ShoppingBasketIcon from '@svg-icons/material/ShoppingBasketIcon';
 import FavoriteOutlineIcon from '@svg-icons/material/FavoriteOutlineIcon';
 import Checkbox from '@components/Checkbox';
@@ -10,9 +16,6 @@ import IconButton from '@components/IconButton';
 import CreatemodeEditIcon from '@svg-icons/material/CreatemodeEditIcon';
 import ClearCloseIcon from '@svg-icons/material/ClearCloseIcon';
 import SearchIcon from '@svg-icons/feather/SearchIcon';
-import ListItemIcon from '@components/List/ListItemIcon';
-import ListItemAction from '@components/List/ListItemAction';
-import ListItemText from '@components/List/ListItemText';
 import Input from '@components/Input';
 import useDocumentEventListener from '@components/hooks/useDocumentEventListener';
 
@@ -65,6 +68,7 @@ const TestList = () => {
                 }}
             >
                 <List style={{ background: '#fff', marginBottom: '1.6rem' }}>
+                    <ListSubheader>Search history</ListSubheader>
                     <ListItem button selected={selectedIndex === 0} onClick={handleItemClick(0)}>
                         <ListItemIcon>
                             <SearchIcon size="medium" />
@@ -111,6 +115,7 @@ const TestList = () => {
                     </ListItem>
                 </List>
                 <List style={{ background: '#fff', marginBottom: '1.6rem' }} ref={checkedListRef}>
+                    <ListSubheader>Brands</ListSubheader>
                     {checkedItems.map((item) => (
                         <ListItem
                             key={item}

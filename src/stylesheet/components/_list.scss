@@ -77,4 +77,12 @@
 			margin: 0;
 		}
 	}
+
+	&__subheader {
+		font-size: 1.2rem;
+		font-weight: 500;
+		letter-spacing: .3px;
+		color: $grey-darken-3;
+		padding: $spacing-scale-2 $spacing-scale-7;
+	}
 }
