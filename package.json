@@ -56,7 +56,7 @@
         "file-loader": "^5.0.2",
         "html-webpack-plugin": "^3.2.0",
         "mini-css-extract-plugin": "^0.9.0",
-        "node-sass": "^4.13.1",
+        "node-sass": "^4.14.1",
         "postcss-loader": "^3.0.0",
         "prettier": "^1.19.1",
         "resolve-url-loader": "^3.1.1",
@@ -66,7 +66,7 @@
         "url-loader": "^3.0.0",
         "webpack": "^4.41.5",
         "webpack-cli": "^3.3.10",
-        "webpack-dev-server": "^3.10.1",
+        "webpack-dev-server": "^3.11.0",
         "webpack-merge": "^4.2.2"
     },
     "dependencies": {

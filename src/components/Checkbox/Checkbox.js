@@ -17,4 +17,4 @@ const Checkbox = React.forwardRef(function Checkbox(props, ref) {
     );
 });
 
-export default Checkbox;
+export default React.memo(Checkbox);

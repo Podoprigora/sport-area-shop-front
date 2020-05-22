@@ -17,4 +17,4 @@ ListSubheader.propTypes = {
     className: PropTypes.string
 };
 
-export default ListSubheader;
+export default React.memo(ListSubheader);

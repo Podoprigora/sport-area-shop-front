@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useRef } from 'react';
+import Scrollbars from 'react-custom-scrollbars';
 import List, {
     ListItem,
     ListItemIcon,
@@ -18,6 +19,9 @@ import ClearCloseIcon from '@svg-icons/material/ClearCloseIcon';
 import SearchIcon from '@svg-icons/feather/SearchIcon';
 import Input from '@components/Input';
 import useDocumentEventListener from '@components/hooks/useDocumentEventListener';
+import Scrollbar from '@components/Scrollbar';
+
+const checkedItems = Array.from(Array(50)).map((item, i) => i + 1);
 
 const TestList = () => {
     const [selectedIndex, setSelectedIndex] = useState(null);
@@ -31,33 +35,22 @@ const TestList = () => {
         []
     );
 
-    const handleChecked = useCallback(
-        (value) => (ev) => {
-            const currentIndex = checked.indexOf(value);
-            const newState = [...checked];
+    const handleChecked = (value) => (ev) => {
+        const currentIndex = checked.indexOf(value);
+        const newState = [...checked];
 
-            if (currentIndex !== -1) {
-                newState.splice(currentIndex, 1);
-            } else {
-                newState.push(value);
-            }
+        if (currentIndex !== -1) {
+            newState.splice(currentIndex, 1);
+        } else {
+            newState.push(value);
+        }
 
-            setChecked(newState);
-        },
-        [checked]
-    );
+        setChecked(newState);
+    };
 
     const handleDeleteClick = (ev) => {
         console.log(ev);
     };
-
-    useDocumentEventListener('click', (ev) => {
-        if (!checkedListRef.current.contains(ev.target)) {
-            console.log('clicked outside');
-        }
-    });
-
-    const checkedItems = [1, 2, 3, 4];
 
     return (
         <>
@@ -114,8 +107,11 @@ const TestList = () => {
                         </ListItemAction>
                     </ListItem>
                 </List>
-                <List style={{ background: '#fff', marginBottom: '1.6rem' }} ref={checkedListRef}>
-                    <ListSubheader>Brands</ListSubheader>
+                <List
+                    autoHeight={false}
+                    style={{ background: '#fff', marginBottom: '1.6rem', height: '30rem' }}
+                    ref={checkedListRef}
+                >
                     {checkedItems.map((item) => (
                         <ListItem
                             key={item}

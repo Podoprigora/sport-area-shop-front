@@ -2,21 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Scrollbars from 'react-custom-scrollbars';
 
-const Scrollbar = React.forwardRef(function Scrollbar({ children, disabled, onScroll }, ref) {
+const Scrollbar = React.forwardRef(function Scrollbar(props, ref) {
+    const { children, disabled, onScroll, ...other } = props;
+
     return (
         <Scrollbars
-            autoHeight
-            autoHeightMax="auto"
             ref={(node) => {
-                ref.current = (node && node.view) || null;
+                if (ref) {
+                    ref.current = (node && node.view) || null;
+                }
             }}
             {...(disabled && {
-                renderTrackHorizontal: () => <div />
+                renderTrackHorizontal: () => <div />,
+                renderTrackVertical: () => <div />
             })}
-            renderThumbHorizontal={(props) => {
-                return <div className="custom-scrollbars-thumb" {...props} />;
+            renderThumbHorizontal={(renderProps) => {
+                return <div className="custom-scrollbars-thumb" {...renderProps} />;
+            }}
+            renderThumbVertical={(renderProps) => {
+                return <div className="custom-scrollbars-thumb" {...renderProps} />;
             }}
             onScroll={onScroll}
+            {...other}
         >
             {children}
         </Scrollbars>

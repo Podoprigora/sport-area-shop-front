@@ -157,7 +157,13 @@ const ScrollingCarousel = ({
                 />
             )}
             <div className="scrolling-carousel__body">
-                <Scrollbar ref={scrollerNode} disabled={disableScrollbar} onScroll={handleScroll}>
+                <Scrollbar
+                    autoHeight
+                    autoHeightMax="auto"
+                    ref={scrollerNode}
+                    disabled={disableScrollbar}
+                    onScroll={handleScroll}
+                >
                     <div
                         role="presentation"
                         className="scrolling-carousel__scroller-content"
