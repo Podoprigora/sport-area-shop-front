@@ -6,7 +6,7 @@ import Divider from '@components/Divider';
 
 const defaultState = {
     items: [],
-    selected: [0, 4, 5],
+    selected: [],
     open: false,
     autoFocusItem: false
 };
@@ -37,6 +37,21 @@ const reducer = (state = defaultState, { type, payload }) => {
                 selected: [payload]
             };
         }
+        case 'MULTISELECT': {
+            const newSelected = [...state.selected];
+            const existedIndex = newSelected.indexOf(payload);
+
+            if (existedIndex !== -1) {
+                newSelected.splice(existedIndex, 1);
+            } else {
+                newSelected.push(payload);
+            }
+
+            return {
+                ...state,
+                selected: newSelected
+            };
+        }
         default:
             return state;
     }
@@ -63,7 +78,8 @@ const TestMenu = () => {
     }, []);
 
     const handleMenuItemClick = useCallback((ev, index) => {
-        dispatch({ type: 'SELECT', payload: index });
+        // dispatch({ type: 'SELECT', payload: index });
+        dispatch({ type: 'MULTISELECT', payload: index });
     }, []);
 
     const { open, autoFocusItem, selected } = state;
@@ -71,6 +87,8 @@ const TestMenu = () => {
     const isItemSelected = (index) => {
         return selected.indexOf(index) !== -1;
     };
+
+    console.log(selected);
 
     return (
         <div>
@@ -91,29 +109,32 @@ const TestMenu = () => {
                 onClose={handleMenuClose}
                 onItemClick={handleMenuItemClick}
             >
-                <ListItem button>
+                <ListItem button disabled selected={isItemSelected(0)}>
+                    <ListItemText>
+                        Lorem ipsum dolor sit amet consectetur Lorem ipsum dolor sit amet
+                        consectetur
+                    </ListItemText>
+                </ListItem>
+                <ListItem button selected={isItemSelected(1)}>
                     <ListItemText>Lorem ipsum dolor sit amet consectetur</ListItemText>
                 </ListItem>
-                <ListItem button>
+                <ListItem button disabled selected={isItemSelected(2)}>
                     <ListItemText>Lorem ipsum dolor sit amet consectetur</ListItemText>
                 </ListItem>
-                <ListItem button>
+                <ListItem button selected={isItemSelected(3)}>
                     <ListItemText>Lorem ipsum dolor sit amet consectetur</ListItemText>
                 </ListItem>
-                <ListItem button>
+                <ListItem button selected={isItemSelected(4)}>
                     <ListItemText>Lorem ipsum dolor sit amet consectetur</ListItemText>
                 </ListItem>
-                <ListItem button>
-                    <ListItemText>Lorem ipsum dolor sit amet consectetur</ListItemText>
-                </ListItem>
-                <ListItem button>
+                <ListItem button selected={isItemSelected(5)}>
                     <ListItemText>Lorem ipsum dolor sit amet consectetur</ListItemText>
                 </ListItem>
                 <Divider />
-                <ListItem button>
+                <ListItem button selected={isItemSelected(7)}>
                     <ListItemText>Lorem ipsum dolor sit amet consectetur</ListItemText>
                 </ListItem>
-                <ListItem button>
+                <ListItem button selected={isItemSelected(8)}>
                     <ListItemText>Lorem ipsum dolor sit amet consectetur</ListItemText>
                 </ListItem>
             </Menu>

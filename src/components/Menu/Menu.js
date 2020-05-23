@@ -5,15 +5,12 @@ import classNames from 'classnames';
 
 import useEventCallback from '@components/hooks/useEventCallback';
 import useForkRef from '@components/hooks/useForkRef';
-import useControlled from '@components/hooks/useControlled';
 import Modal from '@components/Modal';
 import { usePopper } from '@components/Popper';
 import List from '@components/List';
-import Scrollbar from '@components/Scrollbar';
 
-const getNextIndex = (menuElement, prevIndex, offset = 1) => {
+const moveFocus = (menuElement, offset = 1) => {
     const activeElement = document.activeElement;
-    const menuElementItems = Array.from(menuElement.children) || [];
     let nextElement = null;
 
     if (activeElement === menuElement) {
@@ -40,22 +37,12 @@ const getNextIndex = (menuElement, prevIndex, offset = 1) => {
         }
     }
 
-    return nextElement ? menuElementItems.indexOf(nextElement) : prevIndex;
+    if (nextElement) {
+        nextElement.focus();
+    }
 };
 
-const defaultIndex = -1;
-
-const getDefaultSelectedIndex = (children, defaultValue = defaultIndex) => {
-    let selectedIndex = defaultValue;
-
-    React.Children.forEach(children, (child, i) => {
-        if (child.props.selected && !child.props.disabled) {
-            selectedIndex = i;
-        }
-    });
-
-    return selectedIndex;
-};
+const defaultActiveIndex = -1;
 
 const Menu = React.forwardRef(function Menu(props, ref) {
     const {
@@ -70,7 +57,6 @@ const Menu = React.forwardRef(function Menu(props, ref) {
         className,
         style,
         onClose = () => {},
-        onSelect = () => {},
         onItemClick = () => {}
     } = props;
 
@@ -86,11 +72,6 @@ const Menu = React.forwardRef(function Menu(props, ref) {
         ]
     });
     const [exited, setExited] = useState(true);
-
-    const [selectedIndex, setSelectedIndex] = useControlled(
-        getDefaultSelectedIndex(children, null),
-        defaultIndex
-    );
     const [menuStyle, setMenuStyle] = useState({
         ...style,
         ...(width && { width }),
@@ -99,17 +80,9 @@ const Menu = React.forwardRef(function Menu(props, ref) {
 
     const menuRef = useRef(null);
     const handleMenuRef = useForkRef(menuRef, ref);
+    const activeIndexRef = useRef(defaultActiveIndex);
 
     // Handlers
-
-    const doSelect = useCallback(
-        (index) => {
-            setSelectedIndex(index);
-
-            onSelect(index);
-        },
-        [setSelectedIndex, onSelect]
-    );
 
     const handleModalClose = useEventCallback((ev) => {
         onClose();
@@ -125,13 +98,13 @@ const Menu = React.forwardRef(function Menu(props, ref) {
             case 'ArrowDown': {
                 ev.preventDefault();
 
-                doSelect(getNextIndex(menuRef.current, selectedIndex, 1));
+                moveFocus(menuRef.current, 1);
                 break;
             }
             case 'ArrowUp': {
                 ev.preventDefault();
 
-                doSelect(getNextIndex(menuRef.current, selectedIndex, -1));
+                moveFocus(menuRef.current, -1);
                 break;
             }
             default:
@@ -141,15 +114,13 @@ const Menu = React.forwardRef(function Menu(props, ref) {
 
     const handleItemClick = useCallback(
         (child, index) => (ev) => {
-            doSelect(index);
-
             if (child.props.onClick) {
                 child.props.onClick(ev);
             }
 
             onItemClick(ev, index);
         },
-        [onItemClick, doSelect]
+        [onItemClick]
     );
 
     const handleTransitionEnter = useCallback(() => {
@@ -175,29 +146,16 @@ const Menu = React.forwardRef(function Menu(props, ref) {
             return undefined;
         }
 
-        if (open && selectedIndex === defaultIndex) {
+        if (open && activeIndexRef.current === defaultActiveIndex) {
             menuRef.current.focus();
         } else if (!open && anchorRef.current) {
             anchorRef.current.focus();
         }
 
         return undefined;
-    }, [open, popperState, selectedIndex, anchorRef]);
+    }, [open, popperState, anchorRef]);
 
-    // Set focus to the first item
-    useEffect(() => {
-        if (open && menuRef.current) {
-            setSelectedIndex((prevIndex) => {
-                if (autoFocusItem && prevIndex === -1) {
-                    return getNextIndex(menuRef.current, prevIndex, 1);
-                }
-
-                return prevIndex;
-            });
-        }
-    }, [autoFocusItem, open, popperState, setSelectedIndex]);
-
-    // Update menu width according to the anchor element
+    // Update menu width according to the anchor element width
     useEffect(() => {
         if (anchorRef.current && autoWidth) {
             const anchorWidth = anchorRef.current.clientWidth;
@@ -208,29 +166,31 @@ const Menu = React.forwardRef(function Menu(props, ref) {
         }
     }, [anchorRef, autoWidth]);
 
-    // Reset selectedIndex when menu was closed
-    useEffect(() => {
-        return () => {
-            if (!open && !!popperInstance) {
-                setSelectedIndex(defaultIndex);
-            }
-        };
-    }, [open, popperInstance, setSelectedIndex]);
-
     // Render
 
-    const currentPlacement = popperState.placement || placement;
+    React.Children.forEach(children, (child, index) => {
+        if (child.props.selected && !child.props.disabled) {
+            activeIndexRef.current = index;
+        }
+    });
 
     const items = React.Children.map(children, (child, index) => {
-        const selected = index === selectedIndex;
+        if (
+            autoFocusItem &&
+            activeIndexRef.current === defaultActiveIndex &&
+            !child.props.disabled
+        ) {
+            activeIndexRef.current = index;
+        }
 
         return React.cloneElement(child, {
-            selected,
-            autoFocus: selected,
-            tabIndex: '-1',
+            autoFocus: activeIndexRef.current === index,
+            tabIndex: '0',
             onClick: handleItemClick(child, index)
         });
     });
+
+    const currentPlacement = popperState.placement || placement;
 
     return (
         <Modal open={open || !exited} backdrop={false} onClose={handleModalClose}>
@@ -277,8 +237,7 @@ Menu.propTypes = {
     style: PropTypes.object,
     autoFocusItem: PropTypes.bool,
     onClose: PropTypes.func,
-    onItemClick: PropTypes.func,
-    onSelect: PropTypes.func
+    onItemClick: PropTypes.func
 };
 
 export default Menu;
