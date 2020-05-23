@@ -16,10 +16,14 @@ import TestInputMask from './components/TestInputMask';
 import TestChckbox from './components/TestChckbox';
 import TestList from './components/TestList';
 import TestVirtualizedList from './components/TestVirtualizedList';
+import TestMenu from './components/TestMenu';
 
 const TestPage = (props) => {
     return (
         <div className="page">
+            <Panel title="Test Menu">
+                <TestMenu />
+            </Panel>
             <Panel title="Test Virtualized List">
                 <TestVirtualizedList />
             </Panel>
@@ -44,9 +48,9 @@ const TestPage = (props) => {
             <Panel title="Test Grid" className="page__section">
                 <TestGrid />
             </Panel>
-            <Panel title="Test Dropdown" className="page__section">
+            {/* <Panel title="Test Dropdown" className="page__section">
                 <TestDropdown />
-            </Panel>
+            </Panel> */}
 
             <Panel title="Test PopperJS" className="page__section">
                 <TestPopper />

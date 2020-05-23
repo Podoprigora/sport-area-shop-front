@@ -65,6 +65,7 @@ const ListItem = React.forwardRef(function ListItem(props, ref) {
     const handleKeyDown = useCallback(
         (ev) => {
             if (ev.key === 'Enter') {
+                ev.preventDefault();
                 handleClick(ev);
             }
 
@@ -84,6 +85,7 @@ const ListItem = React.forwardRef(function ListItem(props, ref) {
     const componentProps = {
         role: button ? 'button' : 'listitem',
         tabIndex: button && !disabled ? 0 : null,
+        'aria-disabled': disabled,
         className: classNames('list__item', className, {
             'list__item--button': button,
             'list__item--selected': selected,

@@ -12,7 +12,7 @@ import { ListItem, ListItemAction, ListItemText } from '@components/List';
 import Checkbox from '@components/Checkbox';
 import Scrollbar from '@components/Scrollbar';
 
-const listData = Array.from(Array(1000000)).map((item, i) => ({
+const listData = Array.from(Array(1000)).map((item, i) => ({
     id: i + 1,
     title: `Lorem ipsum dolor sit, amet consectetur`
 }));
@@ -35,6 +35,12 @@ const VirtualizedListItem = (props) => {
     );
 };
 
+const createItemData = (items, selected, onCheckChange) => ({
+    items,
+    selected,
+    onCheckChange
+});
+
 const VirtualizedList = (props) => {
     const { data, selected, onCheckChange } = props;
     const listRef = useRef(null);
@@ -45,11 +51,7 @@ const VirtualizedList = (props) => {
         listRef.current.scrollTo(target.scrollTop);
     }, []);
 
-    const itemData = {
-        items: data,
-        selected,
-        onCheckChange
-    };
+    const itemData = createItemData(data, selected, onCheckChange);
 
     return (
         <div

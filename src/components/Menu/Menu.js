@@ -5,8 +5,11 @@ import classNames from 'classnames';
 
 import useEventCallback from '@components/hooks/useEventCallback';
 import useForkRef from '@components/hooks/useForkRef';
+import useControlled from '@components/hooks/useControlled';
 import Modal from '@components/Modal';
 import { usePopper } from '@components/Popper';
+import List from '@components/List';
+import Scrollbar from '@components/Scrollbar';
 
 const getNextIndex = (menuElement, prevIndex, offset = 1) => {
     const activeElement = document.activeElement;
@@ -23,7 +26,7 @@ const getNextIndex = (menuElement, prevIndex, offset = 1) => {
 
     while (nextElement && nextElement !== activeElement) {
         if (
-            nextElement.getAttribute('role') !== 'menuitem' ||
+            nextElement.getAttribute('role') !== 'button' ||
             nextElement.getAttribute('aria-disabled') === 'true'
         ) {
             nextElement =
@@ -40,6 +43,20 @@ const getNextIndex = (menuElement, prevIndex, offset = 1) => {
     return nextElement ? menuElementItems.indexOf(nextElement) : prevIndex;
 };
 
+const defaultIndex = -1;
+
+const getDefaultSelectedIndex = (children, defaultValue = defaultIndex) => {
+    let selectedIndex = defaultValue;
+
+    React.Children.forEach(children, (child, i) => {
+        if (child.props.selected && !child.props.disabled) {
+            selectedIndex = i;
+        }
+    });
+
+    return selectedIndex;
+};
+
 const Menu = React.forwardRef(function Menu(props, ref) {
     const {
         open,
@@ -49,12 +66,13 @@ const Menu = React.forwardRef(function Menu(props, ref) {
         autoFocusItem = false,
         autoWidth = false,
         width,
+        height,
         className,
         style,
-        onClose = () => {}
+        onClose = () => {},
+        onSelect = () => {},
+        onItemClick = () => {}
     } = props;
-
-    const defaultIndex = -1;
 
     const { referenceRef, popperRef, popperState, popperInstance } = usePopper({
         placement,
@@ -68,13 +86,30 @@ const Menu = React.forwardRef(function Menu(props, ref) {
         ]
     });
     const [exited, setExited] = useState(true);
-    const [selectedIndex, setSelectedIndex] = useState(defaultIndex);
-    const [menuStyle, setMenuStyle] = useState({ ...style, ...(width && { width }) });
+
+    const [selectedIndex, setSelectedIndex] = useControlled(
+        getDefaultSelectedIndex(children, null),
+        defaultIndex
+    );
+    const [menuStyle, setMenuStyle] = useState({
+        ...style,
+        ...(width && { width }),
+        ...(height && { height })
+    });
 
     const menuRef = useRef(null);
     const handleMenuRef = useForkRef(menuRef, ref);
 
     // Handlers
+
+    const doSelect = useCallback(
+        (index) => {
+            setSelectedIndex(index);
+
+            onSelect(index);
+        },
+        [setSelectedIndex, onSelect]
+    );
 
     const handleModalClose = useEventCallback((ev) => {
         onClose();
@@ -90,17 +125,13 @@ const Menu = React.forwardRef(function Menu(props, ref) {
             case 'ArrowDown': {
                 ev.preventDefault();
 
-                setSelectedIndex((prevIndex) => {
-                    return getNextIndex(menuRef.current, prevIndex, 1);
-                });
+                doSelect(getNextIndex(menuRef.current, selectedIndex, 1));
                 break;
             }
             case 'ArrowUp': {
                 ev.preventDefault();
 
-                setSelectedIndex((prevIndex) => {
-                    return getNextIndex(menuRef.current, prevIndex, -1);
-                });
+                doSelect(getNextIndex(menuRef.current, selectedIndex, -1));
                 break;
             }
             default:
@@ -110,14 +141,15 @@ const Menu = React.forwardRef(function Menu(props, ref) {
 
     const handleItemClick = useCallback(
         (child, index) => (ev) => {
-            setSelectedIndex(index);
-            onClose();
+            doSelect(index);
 
             if (child.props.onClick) {
                 child.props.onClick(ev);
             }
+
+            onItemClick(ev, index);
         },
-        [onClose]
+        [onItemClick, doSelect]
     );
 
     const handleTransitionEnter = useCallback(() => {
@@ -143,25 +175,29 @@ const Menu = React.forwardRef(function Menu(props, ref) {
             return undefined;
         }
 
-        if (open) {
+        if (open && selectedIndex === defaultIndex) {
             menuRef.current.focus();
         } else if (!open && anchorRef.current) {
             anchorRef.current.focus();
         }
 
         return undefined;
-    }, [open, popperState, anchorRef]);
+    }, [open, popperState, selectedIndex, anchorRef]);
 
-    // Set focus to first item
+    // Set focus to the first item
     useEffect(() => {
-        if (autoFocusItem && open && menuRef.current) {
+        if (open && menuRef.current) {
             setSelectedIndex((prevIndex) => {
-                return getNextIndex(menuRef.current, defaultIndex, 1);
+                if (autoFocusItem && prevIndex === -1) {
+                    return getNextIndex(menuRef.current, prevIndex, 1);
+                }
+
+                return prevIndex;
             });
         }
-    }, [autoFocusItem, defaultIndex, open, popperState]);
+    }, [autoFocusItem, open, popperState, setSelectedIndex]);
 
-    // Update menu width according to anchor element
+    // Update menu width according to the anchor element
     useEffect(() => {
         if (anchorRef.current && autoWidth) {
             const anchorWidth = anchorRef.current.clientWidth;
@@ -172,22 +208,26 @@ const Menu = React.forwardRef(function Menu(props, ref) {
         }
     }, [anchorRef, autoWidth]);
 
-    // Reset selectedIndex when menu is closed
+    // Reset selectedIndex when menu was closed
     useEffect(() => {
         return () => {
-            if (!open) {
+            if (!open && !!popperInstance) {
                 setSelectedIndex(defaultIndex);
             }
         };
-    }, [open, defaultIndex]);
+    }, [open, popperInstance, setSelectedIndex]);
 
     // Render
 
     const currentPlacement = popperState.placement || placement;
 
     const items = React.Children.map(children, (child, index) => {
+        const selected = index === selectedIndex;
+
         return React.cloneElement(child, {
-            selected: index === selectedIndex,
+            selected,
+            autoFocus: selected,
+            tabIndex: '-1',
             onClick: handleItemClick(child, index)
         });
     });
@@ -202,18 +242,23 @@ const Menu = React.forwardRef(function Menu(props, ref) {
                     onEnter={handleTransitionEnter}
                     onExited={handleTransitionExited}
                 >
-                    <div
-                        role="menu"
-                        className={classNames('menu u-focus-outline-0', className, {
+                    <List
+                        className={classNames('menu', className, {
                             [`u-placement-${currentPlacement}`]: currentPlacement
                         })}
-                        ref={handleMenuRef}
-                        tabIndex="-1"
                         style={menuStyle}
-                        onKeyDown={handleMenuKeyDown}
+                        {...(height && { autoHeight: false })}
                     >
-                        {items}
-                    </div>
+                        <div
+                            role="menu"
+                            className="u-focus-outline-0"
+                            tabIndex="-1"
+                            ref={handleMenuRef}
+                            onKeyDown={handleMenuKeyDown}
+                        >
+                            {items}
+                        </div>
+                    </List>
                 </CSSTransition>
             </div>
         </Modal>
@@ -226,11 +271,14 @@ Menu.propTypes = {
     placement: PropTypes.string,
     children: PropTypes.node,
     autoWidth: PropTypes.bool,
-    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    width: PropTypes.number,
+    height: PropTypes.number,
     className: PropTypes.string,
     style: PropTypes.object,
     autoFocusItem: PropTypes.bool,
-    onClose: PropTypes.func
+    onClose: PropTypes.func,
+    onItemClick: PropTypes.func,
+    onSelect: PropTypes.func
 };
 
 export default Menu;
