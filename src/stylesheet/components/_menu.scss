@@ -1,42 +1,8 @@
 .menu {
 	background-color: $menu-bg-color;
 	min-width: $menu-min-width;
-	padding: $menu-padding-y $menu-padding-x;
 	border-radius: $menu-border-radius;
 	box-shadow: $menu-box-shadow;
-
-	// &__item {
-	// 	display: flex;
-	// 	flex-flow: row nowrap;
-	// 	align-items: center;
-	// 	padding: $menu-item-padding-y $menu-item-padding-x;
-	// 	cursor: pointer;
-
-	// 	&:hover:not(&--disabled) {
-	// 		background-color: $color-hover;
-	// 	}
-
-	// 	&--selected,
-	// 	&:focus:not(&--disabled) {
-	// 		background-color: $color-active;
-	// 		transition: background-color .2s ease;
-	// 	}
-
-	// 	&--disabled {
-	// 		opacity: $menu-disabled-opacity;
-	// 		cursor: auto;
-	// 	}
-	// }
-
-	// &__icon {
-	// 	color: $icon-color;
-	// 	margin-right: $spacing-scale-5;
-	// }
-
-	// &__text {
-	// 	flex: 1;
-	// 	@include truncation;
-	// }
 
 	@include scale-transition;
 }

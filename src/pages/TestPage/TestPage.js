@@ -7,7 +7,6 @@ import Input from '@components/Input';
 import TestButtons from './components/TestButtons';
 import TestWindow from './components/TestWindow';
 import TestPopper from './components/TestPopper';
-import TestDropdown from './components/TestDropdown';
 import TestInputs from './components/TestInputs';
 import TestGrid from './components/TestGrid';
 import TestHidden from './components/TestHidden';
@@ -48,10 +47,6 @@ const TestPage = (props) => {
             <Panel title="Test Grid" className="page__section">
                 <TestGrid />
             </Panel>
-            {/* <Panel title="Test Dropdown" className="page__section">
-                <TestDropdown />
-            </Panel> */}
-
             <Panel title="Test PopperJS" className="page__section">
                 <TestPopper />
             </Panel>

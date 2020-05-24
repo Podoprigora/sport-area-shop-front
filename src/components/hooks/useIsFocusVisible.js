@@ -2,9 +2,8 @@
 // Source: https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/utils/useIsFocusVisible.js
 // based on https://github.com/WICG/focus-visible/blob/v4.1.5/src/focus-visible.js
 
-import React, { useCallback, useMemo, useEffect } from 'react';
+import { useCallback, useMemo } from 'react';
 import ReactDOM from 'react-dom';
-import TestDropdown from '@pages/TestPage/components/TestDropdown';
 
 let hadKeyboardEvent = true;
 let hadFocusVisibleRecently = true;

@@ -203,14 +203,9 @@ $field-helper-text-letter-spacing: .3px;
 
 // Menu
 $menu-bg-color: $white;
-$menu-padding-y: $spacing-scale-4;
-$menu-padding-x: 0;
 $menu-border-radius: $border-radius;
 $menu-box-shadow: $box-shadow;
 $menu-min-width: 18rem;
-$menu-item-padding-y: $spacing-scale-4;
-$menu-item-padding-x: $spacing-scale-7;
-$menu-disabled-opacity: .4;
 
 // Window
 $window-bg-color: $white;
@@ -218,3 +213,17 @@ $window-box-shadow: $box-shadow-lg;
 $window-border-radius: $border-radius-lg;
 $window-margin: $spacing-scale-9;
 $window-body-painted-bg-color: $body-bg-color;
+
+// List
+$list-padding-x: 0;
+$list-padding-y: $spacing-scale-4;
+$list-item-padding-y: $spacing-scale-4;
+$list-item-padding-x: $spacing-scale-7;
+$list-item-text-padding-y: .25rem;
+$list-item-text-padding-x: 0;
+$list-item-disabled-opacity: .6;
+$list-subheader-font-size: 1.2rem;
+$list-subheader-font-weight: 500;
+$list-subheader-letter-spacing: .3px;
+$list-subheader-color: $grey-darken-3;
+$list-subheader-padding-y: $spacing-scale-2;

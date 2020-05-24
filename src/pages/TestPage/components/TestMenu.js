@@ -5,7 +5,6 @@ import { ListItemText, ListItem } from '@components/List';
 import Divider from '@components/Divider';
 
 const defaultState = {
-    items: [],
     selected: [],
     open: false,
     autoFocusItem: false
@@ -78,8 +77,8 @@ const TestMenu = () => {
     }, []);
 
     const handleMenuItemClick = useCallback((ev, index) => {
-        // dispatch({ type: 'SELECT', payload: index });
-        dispatch({ type: 'MULTISELECT', payload: index });
+        dispatch({ type: 'SELECT', payload: index });
+        // dispatch({ type: 'MULTISELECT', payload: index });
     }, []);
 
     const { open, autoFocusItem, selected } = state;
@@ -87,8 +86,6 @@ const TestMenu = () => {
     const isItemSelected = (index) => {
         return selected.indexOf(index) !== -1;
     };
-
-    console.log(selected);
 
     return (
         <div>
