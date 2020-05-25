@@ -19,6 +19,7 @@ const Input = forwardRef(function Input(props, ref) {
         autoFocus,
         autoComplete,
         fullWidth,
+        tabIndex = '0',
         error,
         className,
         style,
@@ -87,6 +88,7 @@ const Input = forwardRef(function Input(props, ref) {
                 name,
                 defaultValue,
                 value,
+                tabIndex,
                 placeholder,
                 required,
                 readOnly,
@@ -110,7 +112,7 @@ const Input = forwardRef(function Input(props, ref) {
                 'input--error': error
             })}
             style={style}
-            tabIndex={-1}
+            tabIndex="-1"
             onClick={handleClick}
         >
             {prependAdornment && (
@@ -135,6 +137,7 @@ Input.propTypes = {
     defaultValue: PropTypes.any,
     value: PropTypes.any,
     placeholder: PropTypes.string,
+    tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     disabled: PropTypes.bool,
     required: PropTypes.bool,
     readOnly: PropTypes.bool,

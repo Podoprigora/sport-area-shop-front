@@ -1,0 +1,30 @@
+.select-input {
+	$this: &;
+
+	display: inline-flex;
+	align-items: center;
+
+	cursor: pointer;
+
+	&:not(&--multiline) {
+		#{$this}__display,
+		#{$this}__placeholder {
+			@debug &;
+			@include truncation;
+		}
+	}
+
+	&__display {
+		width: 100%;
+		padding: $input-padding-y $input-padding-x;
+	}
+
+	&__placeholder {
+		color: $input-placeholder-color;
+	}
+
+	&__chevron {
+		color: $input-adornment-color;
+		margin: 0 $input-padding-x;
+	}
+}

@@ -99,6 +99,7 @@ const TestMenu = () => {
             </Button>
             <Menu
                 open={open}
+                modal={false}
                 autoFocusItem={autoFocusItem}
                 anchorRef={buttonRef}
                 width={300}

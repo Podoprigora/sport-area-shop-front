@@ -68,6 +68,11 @@
 		min-width: 0;
 	}
 
+	&:not(&--full-width) {
+		width: 100%;
+		max-width: $input-default-width;
+	}
+
 	&--error {
 		&::after {
 			background-color: $color-red;

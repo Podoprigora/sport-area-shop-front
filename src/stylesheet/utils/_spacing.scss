@@ -7,35 +7,39 @@
 
 		@include media-breakpoint-up($bp-key) {
 			.u-margin#{$infix}-#{$spacer-key} {
-				display: block;
 				margin: $spacer;
 			}
 			.u-margin-x#{$infix}-#{$spacer-key} {
-				display: block;
 				margin: 0 $spacer;
 			}
 			.u-margin-y#{$infix}-#{$spacer-key} {
-				display: block;
 				margin: $spacer 0;
 			}
+			.u-margin-l#{$infix}-#{$spacer-key} {
+				margin-left: $spacer;
+			}
+			.u-margin-r#{$infix}-#{$spacer-key} {
+				margin-right: $spacer;
+			}
+			.u-margin-t#{$infix}-#{$spacer-key} {
+				margin-top: $spacer;
+			}
+			.u-margin-b#{$infix}-#{$spacer-key} {
+				margin-bottom: $spacer;
+			}
 			.u-padding#{$infix}-#{$spacer-key} {
-				display: block;
 				padding: $spacer;
 			}
 			.u-padding-x#{$infix}-#{$spacer-key} {
-				display: block;
 				padding: 0 $spacer;
 			}
 			.u-padding-y#{$infix}-#{$spacer-key} {
-				display: block;
 				padding: $spacer 0;
 			}
 			.u-width#{$infix}-#{$spacer-key} {
-				display: block;
 				width: $spacer;
 			}
 			.u-height#{$infix}-#{$spacer-key} {
-				display: block;
 				height: $spacer;
 			}
 		}

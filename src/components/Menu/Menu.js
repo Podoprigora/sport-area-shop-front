@@ -8,6 +8,7 @@ import useForkRef from '@components/hooks/useForkRef';
 import Modal from '@components/Modal';
 import { usePopper } from '@components/Popper';
 import List from '@components/List';
+import Portal from '@components/Portal';
 
 const moveFocus = (menuElement, offset = 1) => {
     const activeElement = document.activeElement;
@@ -192,35 +193,39 @@ const Menu = React.forwardRef(function Menu(props, ref) {
 
     const currentPlacement = popperState.placement || placement;
 
+    const popperContent = (
+        <div className="popper" ref={popperRef}>
+            <CSSTransition
+                in={open && !!popperInstance}
+                timeout={300}
+                classNames="menu"
+                onEnter={handleTransitionEnter}
+                onExited={handleTransitionExited}
+            >
+                <List
+                    className={classNames('menu', className, {
+                        [`u-placement-${currentPlacement}`]: currentPlacement
+                    })}
+                    style={menuStyle}
+                    {...(height && { autoHeight: false })}
+                >
+                    <div
+                        role="menu"
+                        className="u-focus-outline-0"
+                        tabIndex="-1"
+                        ref={handleMenuRef}
+                        onKeyDown={handleMenuKeyDown}
+                    >
+                        {items}
+                    </div>
+                </List>
+            </CSSTransition>
+        </div>
+    );
+
     return (
         <Modal open={open || !exited} backdrop={false} onClose={handleModalClose}>
-            <div className="popper" ref={popperRef}>
-                <CSSTransition
-                    in={open && !!popperInstance}
-                    timeout={300}
-                    classNames="menu"
-                    onEnter={handleTransitionEnter}
-                    onExited={handleTransitionExited}
-                >
-                    <List
-                        className={classNames('menu', className, {
-                            [`u-placement-${currentPlacement}`]: currentPlacement
-                        })}
-                        style={menuStyle}
-                        {...(height && { autoHeight: false })}
-                    >
-                        <div
-                            role="menu"
-                            className="u-focus-outline-0"
-                            tabIndex="-1"
-                            ref={handleMenuRef}
-                            onKeyDown={handleMenuKeyDown}
-                        >
-                            {items}
-                        </div>
-                    </List>
-                </CSSTransition>
-            </div>
+            {popperContent}
         </Modal>
     );
 });

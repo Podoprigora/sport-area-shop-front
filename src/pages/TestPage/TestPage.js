@@ -16,10 +16,14 @@ import TestChckbox from './components/TestChckbox';
 import TestList from './components/TestList';
 import TestVirtualizedList from './components/TestVirtualizedList';
 import TestMenu from './components/TestMenu';
+import TestSelect from './components/TestSelect';
 
 const TestPage = (props) => {
     return (
         <div className="page">
+            <Panel title="Test Select">
+                <TestSelect />
+            </Panel>
             <Panel title="Test Menu">
                 <TestMenu />
             </Panel>
