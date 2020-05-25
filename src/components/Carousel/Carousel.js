@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import throttle from 'lodash/throttle';
 
 import useEventCallback from '@components/hooks/useEventCallback';
-import useDocumentEventListener from '@components/hooks/useDocumentEventListener';
+import useEventListener from '@components/hooks/useEventListener';
 import CarouselControl from './CarouselControl';
 import CarouselIndicators from './CarouselIndicators';
 
@@ -101,7 +101,7 @@ const Carousel = React.forwardRef(function Carousel(
         };
     }, [play, stop]);
 
-    useDocumentEventListener('visibilitychange', (ev) => {
+    useEventListener('visibilitychange', (ev) => {
         if (document.hidden) {
             stop();
         } else {

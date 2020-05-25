@@ -18,7 +18,7 @@ import CreatemodeEditIcon from '@svg-icons/material/CreatemodeEditIcon';
 import ClearCloseIcon from '@svg-icons/material/ClearCloseIcon';
 import SearchIcon from '@svg-icons/feather/SearchIcon';
 import Input from '@components/Input';
-import useDocumentEventListener from '@components/hooks/useDocumentEventListener';
+import useEventListener from '@components/hooks/useEventListener';
 import Scrollbar from '@components/Scrollbar';
 
 const checkedItems = Array.from(Array(50)).map((item, i) => i + 1);

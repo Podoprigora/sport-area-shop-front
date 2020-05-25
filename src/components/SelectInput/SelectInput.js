@@ -82,7 +82,7 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
         >
             <input type="hidden" ref={handleInputRef} {...{ value, disabled, readOnly }} />
             <div className="select-input__display">{displayContent}</div>
-            <ChevronIconComponent size="medium" className="select-input__chevron" />
+            <ChevronIconComponent className="select-input__chevron" />
         </div>
     );
 });

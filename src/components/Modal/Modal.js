@@ -7,7 +7,7 @@ import Backdrop from '@components/Backdrop';
 import FocusBounding from '@components/FocusBounding';
 import useEventCallback from '@components/hooks/useEventCallback';
 import setRef from '@components/utils/setRef';
-import useDocumentEventListener from '@components/hooks/useDocumentEventListener';
+import useEventListener from '@components/hooks/useEventListener';
 import ModalManager from './ModalManager';
 
 const getHasTransition = (props) => {
@@ -159,7 +159,7 @@ const Modal = React.forwardRef(function Modal(props, ref) {
         return undefined;
     }, [modalNode]);
 
-    useDocumentEventListener('keydown', handleDocumentKeyDown);
+    useEventListener('keydown', handleDocumentKeyDown);
 
     // Render
 
