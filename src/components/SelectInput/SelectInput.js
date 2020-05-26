@@ -17,7 +17,7 @@ const getNestedPropsChildrenString = (component) => {
     if (Array.isArray(component) && component.length > 0) {
         return component.reduce((acc, item) => {
             const result = getNestedPropsChildrenString(item);
-            return result || acc;
+            return acc || result;
         }, null);
     }
 
@@ -82,38 +82,36 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
         [name, setValue, onChange]
     );
 
-    const handleFocus = useCallback(
-        (ev) => {
-            setFocused(true);
+    const handleFocus = useEventCallback((ev) => {
+        setFocused(true);
 
-            if (openOnFocus && !hadBlurRecently.current) {
-                setOpen(true);
-            }
+        if (openOnFocus && !hadBlurRecently.current) {
+            setOpen(true);
+        }
 
+        if (!open) {
             defineEventTarget(ev, { name, value });
             onFocus(ev);
-        },
-        [name, value, openOnFocus, onFocus]
-    );
+        }
+    });
 
-    const handleBlur = useCallback(
-        (ev) => {
-            hadBlurRecently.current = true;
+    const handleBlur = useEventCallback((ev) => {
+        hadBlurRecently.current = true;
 
-            clearTimeout(hadBlurRecentlyTimeout.current);
+        clearTimeout(hadBlurRecentlyTimeout.current);
 
-            hadBlurRecentlyTimeout.current = null;
-            hadBlurRecentlyTimeout.current = setTimeout(() => {
-                hadBlurRecently.current = false;
-            }, 100);
+        hadBlurRecentlyTimeout.current = null;
+        hadBlurRecentlyTimeout.current = setTimeout(() => {
+            hadBlurRecently.current = false;
+        }, 100);
 
-            setFocused(false);
+        setFocused(false);
 
+        if (!open) {
             defineEventTarget(ev, { name, value });
             onBlur(ev);
-        },
-        [name, value, onBlur]
-    );
+        }
+    });
 
     const handleMouseDown = useEventCallback((ev) => {
         if (ev.button !== 0) {
@@ -141,42 +139,36 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
         }
     });
 
-    const handleItemClick = useCallback(
-        (child) => (ev) => {
-            ev.stopPropagation();
+    const handleItemClick = useEventCallback((child) => (ev) => {
+        ev.stopPropagation();
 
-            const newValue = child.props.value;
+        const newValue = child.props.value;
 
-            if (newValue === null || newValue === undefined) {
-                return;
-            }
+        if (newValue === null || newValue === undefined) {
+            return;
+        }
 
-            setOpen(false);
-
-            if (child.props.onClick) {
-                child.props.onClick(ev);
-            }
-
-            if (value !== newValue) {
-                doChange(ev, newValue);
-            }
-        },
-        [value, doChange]
-    );
-
-    const handleMenuClose = useCallback((ev) => {
         setOpen(false);
-    }, []);
 
-    const handleResetButtonClick = useCallback(
-        (ev) => {
-            ev.preventDefault();
-            ev.stopPropagation();
+        if (child.props.onClick) {
+            child.props.onClick(ev);
+        }
 
-            doChange(ev, '');
-        },
-        [doChange]
-    );
+        if (value !== newValue) {
+            doChange(ev, newValue);
+        }
+    });
+
+    const handleMenuClose = useEventCallback((ev) => {
+        setOpen(false);
+    });
+
+    const handleResetButtonClick = useEventCallback((ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+
+        doChange(ev, '');
+    });
 
     // Effects
 

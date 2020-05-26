@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -13,6 +13,8 @@ import Divider from '@components/Divider';
 import Form from '@components/FormikForm/Form';
 import SelectField from '@components/FormikForm/SelectField';
 import InputField from '@components/FormikForm/InputField';
+import useEventCallback from '@components/hooks/useEventCallback';
+import Button from '@components/Button';
 
 const initialValues = {
     selectItem: '',
@@ -29,7 +31,7 @@ const TestSelect = () => {
         <Formik initialValues={initialValues} validationSchema={validationShema}>
             <Form>
                 <div>
-                    <div className="u-flex u-flex-align-items-flex-start">
+                    {/* <div className="u-flex u-flex-align-items-flex-start">
                         <SelectField
                             name="selectItem"
                             className="u-margin-r-8"
@@ -38,7 +40,7 @@ const TestSelect = () => {
                             // placeholder="Select Item"
                             fullWidth
                             resetButton
-                            autoFocus
+                            // autoFocus
                         >
                             <ListItem button value="">
                                 <ListItemText>
@@ -63,14 +65,41 @@ const TestSelect = () => {
                             placeholder="Enter text"
                             appendAdornment={(inputProps) => <SearchIcon size="medium" />}
                         />
-                    </div>
+                    </div> */}
                     <div>
                         <SelectField
                             name="selectItem"
                             className="u-margin-r-8"
                             placeholder="Select Item"
                             resetButton
-                            autoFocus
+                            // autoFocus
+                        >
+                            <ListItem button value="">
+                                <ListItemText>
+                                    <em>None</em>
+                                </ListItemText>
+                            </ListItem>
+                            <MenuItem value="1">Item 1</MenuItem>
+                            <MenuItem value="2">Item 2</MenuItem>
+                            <ListSubheader>Test</ListSubheader>
+                            <MenuItem value="3">Item 3</MenuItem>
+                            <MenuItem value="4">Item 4</MenuItem>
+                            <MenuItem value="5">Item 5</MenuItem>
+                            <MenuItem value="6">Item 6</MenuItem>
+                            <MenuItem value="7">Item 7</MenuItem>
+                            <Divider />
+                            <ListItem button value="8">
+                                <ListItemText flex>Item 8</ListItemText>
+                                <ListItemText>8</ListItemText>
+                            </ListItem>
+                        </SelectField>
+                    </div>
+                    <div className="u-margin-b-6">
+                        <SelectInput
+                            className="u-margin-r-8"
+                            placeholder="Select Item"
+                            resetButton
+                            // autoFocus
                         >
                             <ListItem button value="">
                                 <ListItemText>
@@ -89,7 +118,7 @@ const TestSelect = () => {
                             <ListItem button value="8">
                                 <ListItemText>Item 8</ListItemText>
                             </ListItem>
-                        </SelectField>
+                        </SelectInput>
                     </div>
                     <div className="u-margin-b-6">
                         <InputField
