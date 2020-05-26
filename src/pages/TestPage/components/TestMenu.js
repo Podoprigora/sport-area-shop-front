@@ -99,11 +99,10 @@ const TestMenu = () => {
             </Button>
             <Menu
                 open={open}
-                modal={false}
                 autoFocusItem={autoFocusItem}
                 anchorRef={buttonRef}
                 width={300}
-                height={250}
+                // height={250}
                 onClose={handleMenuClose}
                 onItemClick={handleMenuItemClick}
             >

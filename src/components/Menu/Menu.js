@@ -55,6 +55,7 @@ const Menu = React.forwardRef(function Menu(props, ref) {
         autoWidth = false,
         width,
         height,
+        maxHeight,
         className,
         style,
         onClose = () => {},
@@ -76,7 +77,7 @@ const Menu = React.forwardRef(function Menu(props, ref) {
     const [menuStyle, setMenuStyle] = useState({
         ...style,
         ...(width && { width }),
-        ...(height && { height })
+        ...(height && !maxHeight && { height })
     });
 
     const menuRef = useRef(null);
@@ -153,11 +154,17 @@ const Menu = React.forwardRef(function Menu(props, ref) {
             anchorRef.current.focus();
         }
 
-        return undefined;
+        return () => {
+            activeIndexRef.current = defaultActiveIndex;
+        };
     }, [open, popperState, anchorRef]);
 
     // Update menu width according to the anchor element width
     useEffect(() => {
+        if (width) {
+            return undefined;
+        }
+
         if (anchorRef.current && autoWidth) {
             const anchorWidth = anchorRef.current.clientWidth;
 
@@ -165,7 +172,9 @@ const Menu = React.forwardRef(function Menu(props, ref) {
                 return { ...prevStyle, width: anchorWidth };
             });
         }
-    }, [anchorRef, autoWidth]);
+
+        return undefined;
+    }, [anchorRef, autoWidth, width]);
 
     // Render
 
@@ -207,7 +216,10 @@ const Menu = React.forwardRef(function Menu(props, ref) {
                         [`u-placement-${currentPlacement}`]: currentPlacement
                     })}
                     style={menuStyle}
-                    {...(height && { autoHeight: false })}
+                    {...((height || maxHeight) && { autoHeight: false })}
+                    {...(maxHeight && {
+                        scrollbarProps: { autoHeight: true, autoHeightMax: maxHeight }
+                    })}
                 >
                     <div
                         role="menu"
@@ -238,6 +250,7 @@ Menu.propTypes = {
     autoWidth: PropTypes.bool,
     width: PropTypes.number,
     height: PropTypes.number,
+    maxHeight: PropTypes.number,
     className: PropTypes.string,
     style: PropTypes.object,
     autoFocusItem: PropTypes.bool,

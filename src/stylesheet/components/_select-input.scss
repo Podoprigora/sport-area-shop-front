@@ -24,6 +24,7 @@
 	}
 
 	&__chevron {
+		flex: none;
 		color: $input-adornment-color;
 		margin: 0 $input-padding-x;
 	}
