@@ -15,6 +15,8 @@ const FieldControl = React.forwardRef(function FieldControl(props, ref) {
         labelTextAlign,
         labelWidth,
         labelClassName,
+        className,
+        style,
         boxLabel,
         boxLabelAlign,
         helperText,
@@ -41,10 +43,11 @@ const FieldControl = React.forwardRef(function FieldControl(props, ref) {
 
     return (
         <div
-            className={classNames('field', {
+            className={classNames('field', className, {
                 'field--full-width': fullWidth,
                 'field--error': hasError
             })}
+            style={style}
             ref={ref}
         >
             {label && (
@@ -84,6 +87,8 @@ FieldControl.propTypes = {
     labelTextAlign: PropTypes.string,
     labelWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     labelClassName: PropTypes.string,
+    className: PropTypes.string,
+    style: PropTypes.object,
     boxLabel: PropTypes.string,
     boxLabelAlign: PropTypes.string,
     helperText: PropTypes.string,

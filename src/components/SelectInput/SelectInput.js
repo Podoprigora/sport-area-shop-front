@@ -116,6 +116,10 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
     );
 
     const handleMouseDown = useEventCallback((ev) => {
+        if (ev.button !== 0) {
+            return;
+        }
+
         ev.preventDefault();
 
         displayRef.current.focus();
@@ -143,17 +147,19 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
 
             const newValue = child.props.value;
 
+            if (newValue === null || newValue === undefined) {
+                return;
+            }
+
             setOpen(false);
 
             if (child.props.onClick) {
                 child.props.onClick(ev);
             }
 
-            if (value === newValue) {
-                return;
+            if (value !== newValue) {
+                doChange(ev, newValue);
             }
-
-            doChange(ev, newValue);
         },
         [value, doChange]
     );
@@ -228,7 +234,6 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
             onBlur={handleBlur}
             onKeyDown={handleKeyDown}
             onMouseDown={handleMouseDown}
-            {...other}
         >
             <input type="hidden" ref={handleInputRef} {...{ value, disabled, readOnly }} />
             <div className="select-input__display">{displayContent}</div>
