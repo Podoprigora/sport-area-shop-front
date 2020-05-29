@@ -6,6 +6,7 @@ import throttle from 'lodash/throttle';
 
 import useEventCallback from '@components/hooks/useEventCallback';
 import useEventListener from '@components/hooks/useEventListener';
+import useMountedRef from '@components/hooks/useMountedRef';
 import CarouselControl from './CarouselControl';
 import CarouselIndicators from './CarouselIndicators';
 
@@ -20,16 +21,25 @@ const Carousel = React.forwardRef(function Carousel(
     const animDirection = useRef('left');
     const mouseEnterTimerId = useRef(null);
     const autoPlayTimerId = useRef(null);
+    const isMounted = useMountedRef();
     const itemsLength = React.Children.toArray(children).length;
 
     const nextSlide = useEventCallback(() => {
+        if (!isMounted.current) {
+            return;
+        }
+
         setActiveIndex((prevState) => {
             return (prevState + 1) % itemsLength;
         });
         animDirection.current = 'left';
-    }, [itemsLength]);
+    });
 
     const prevSlide = useEventCallback(() => {
+        if (!isMounted.current) {
+            return;
+        }
+
         setActiveIndex((prevState) => {
             return prevState ? prevState - 1 : itemsLength - 1;
         });
@@ -100,6 +110,14 @@ const Carousel = React.forwardRef(function Carousel(
             stop();
         };
     }, [play, stop]);
+
+    useEffect(() => {
+        return () => {
+            setTimeout(() => {
+                nextSlide();
+            }, 1000);
+        };
+    }, [nextSlide]);
 
     useEventListener('visibilitychange', (ev) => {
         if (document.hidden) {
