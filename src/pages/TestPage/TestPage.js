@@ -17,10 +17,14 @@ import TestList from './components/TestList';
 import TestVirtualizedList from './components/TestVirtualizedList';
 import TestMenu from './components/TestMenu';
 import TestSelect from './components/TestSelect';
+import TestClickAwayListener from './components/TestClickAwayListener';
 
 const TestPage = (props) => {
     return (
         <div className="page">
+            <Panel title="Test ClickAwayListener">
+                <TestClickAwayListener />
+            </Panel>
             <Panel title="Test Select">
                 <TestSelect />
             </Panel>

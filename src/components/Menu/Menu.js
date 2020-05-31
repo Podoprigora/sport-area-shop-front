@@ -9,6 +9,7 @@ import Modal from '@components/Modal';
 import { usePopper } from '@components/Popper';
 import List from '@components/List';
 import Portal from '@components/Portal';
+import ClickAwayListener from '@components/ClickAwayListener';
 
 const moveFocus = (menuElement, offset = 1) => {
     const activeElement = document.activeElement;
@@ -53,6 +54,7 @@ const Menu = React.forwardRef(function Menu(props, ref) {
         children,
         autoFocusItem = false,
         autoWidth = false,
+        modal = true,
         width,
         height,
         maxHeight,
@@ -90,6 +92,10 @@ const Menu = React.forwardRef(function Menu(props, ref) {
         onClose();
     });
 
+    const handleClickAway = useEventCallback((ev) => {
+        onClose();
+    });
+
     const handleMenuKeyDown = useEventCallback((ev) => {
         switch (ev.key) {
             case 'Tab':
@@ -107,6 +113,13 @@ const Menu = React.forwardRef(function Menu(props, ref) {
                 ev.preventDefault();
 
                 moveFocus(menuRef.current, -1);
+                break;
+            }
+            case 'Escape': {
+                // Because Modal has contained this kind of functionality
+                if (!modal) {
+                    onClose();
+                }
                 break;
             }
             default:
@@ -235,10 +248,22 @@ const Menu = React.forwardRef(function Menu(props, ref) {
         </div>
     );
 
+    if (modal) {
+        return (
+            <Modal open={open || !exited} backdrop={false} onClose={handleModalClose}>
+                {popperContent}
+            </Modal>
+        );
+    }
+
+    if (!open && exited) {
+        return null;
+    }
+
     return (
-        <Modal open={open || !exited} backdrop={false} onClose={handleModalClose}>
-            {popperContent}
-        </Modal>
+        <Portal>
+            <ClickAwayListener onClickAway={handleClickAway}>{popperContent}</ClickAwayListener>
+        </Portal>
     );
 });
 
@@ -254,6 +279,7 @@ Menu.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
     autoFocusItem: PropTypes.bool,
+    modal: PropTypes.bool,
     onClose: PropTypes.func,
     onItemClick: PropTypes.func
 };

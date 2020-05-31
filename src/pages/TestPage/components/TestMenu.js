@@ -101,6 +101,7 @@ const TestMenu = () => {
                 open={open}
                 autoFocusItem={autoFocusItem}
                 anchorRef={buttonRef}
+                modal={false}
                 width={300}
                 // height={250}
                 onClose={handleMenuClose}
