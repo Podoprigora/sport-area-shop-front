@@ -86,6 +86,14 @@ const Tooltip = (props) => {
                     placement={placement}
                     anchorRef={anchorRef}
                     transitionProps={{ classNames: 'tooltip', timeout: 300 }}
+                    modifiers={[
+                        {
+                            name: 'offset',
+                            options: {
+                                offset: [0, 8]
+                            }
+                        }
+                    ]}
                 >
                     {({ placement: currentPlacement }) => (
                         <div

@@ -9,12 +9,17 @@ import useEventCallback from '@components/hooks/useEventCallback';
 const ClickAwayListener = (props) => {
     const { children, onClickAway } = props;
 
-    const mountedRef = useMountedRef();
+    const syntheticEventRef = useRef(false);
     const touchMoveRef = useRef(false);
     const nodeRef = useRef(null);
     const handleRef = useForkRef(nodeRef, children.ref);
+    const mountedRef = useMountedRef();
 
     const handleClickAway = useEventCallback((ev) => {
+        const insideReactTree = syntheticEventRef.current;
+
+        syntheticEventRef.current = false;
+
         if (!mountedRef.current || !nodeRef.current) {
             return;
         }
@@ -32,7 +37,7 @@ const ClickAwayListener = (props) => {
             isClickAway = !nodeRef.current.contains(ev.target);
         }
 
-        if (isClickAway) {
+        if (isClickAway && !insideReactTree) {
             onClickAway(ev);
         }
     });
@@ -41,11 +46,27 @@ const ClickAwayListener = (props) => {
         touchMoveRef.current = true;
     });
 
+    // To keep track events that bubbles up through the portal
+    const createSyntheticHandler = (eventName) => (ev) => {
+        syntheticEventRef.current = true;
+
+        const childrenPropsHandler = children.props[eventName];
+        if (childrenPropsHandler) {
+            childrenPropsHandler(ev);
+        }
+    };
+
     useEventListener('click', handleClickAway);
     useEventListener('touchend', handleClickAway);
     useEventListener('touchmove', handleTouchMove);
 
-    return React.cloneElement(children, { ref: handleRef });
+    const childrenProps = {
+        ref: handleRef,
+        onClick: createSyntheticHandler('onClick'),
+        onTouchEnd: createSyntheticHandler('onTouchEnd')
+    };
+
+    return React.cloneElement(children, childrenProps);
 };
 
 ClickAwayListener.propTypes = {

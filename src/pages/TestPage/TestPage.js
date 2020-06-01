@@ -18,13 +18,17 @@ import TestVirtualizedList from './components/TestVirtualizedList';
 import TestMenu from './components/TestMenu';
 import TestSelect from './components/TestSelect';
 import TestClickAwayListener from './components/TestClickAwayListener';
+import TestSearchInput from './components/TestSearchInput';
 
 const TestPage = (props) => {
     return (
         <div className="page">
-            <Panel title="Test ClickAwayListener">
-                <TestClickAwayListener />
+            <Panel title="Test SearchInput">
+                <TestSearchInput />
             </Panel>
+            {/* <Panel title="Test ClickAwayListener">
+                <TestClickAwayListener />
+            </Panel> */}
             <Panel title="Test Select">
                 <TestSelect />
             </Panel>

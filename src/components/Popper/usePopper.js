@@ -5,12 +5,12 @@ const defaultModifiers = [
     {
         name: 'offset',
         options: {
-            offset: [0, 8]
+            offset: [0, 2]
         }
     }
 ];
 
-const usePopper = (props) => {
+const usePopper = (props = {}) => {
     const { placement = 'bottom', strategy = 'fixed', modifiers = [] } = props;
 
     const [referenceNode, setReferenceNode] = useState(null);
@@ -19,7 +19,7 @@ const usePopper = (props) => {
         return {
             placement,
             strategy,
-            modifiers: [...defaultModifiers, ...modifiers]
+            modifiers: modifiers.length > 0 ? modifiers : defaultModifiers
         };
     });
 

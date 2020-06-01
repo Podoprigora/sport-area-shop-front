@@ -25,6 +25,7 @@ const Input = forwardRef(function Input(props, ref) {
         style,
         inputComponent = 'input',
         inputProps,
+        displayRef,
         prependAdornment,
         appendAdornment,
         onBlur,
@@ -113,6 +114,7 @@ const Input = forwardRef(function Input(props, ref) {
             })}
             style={style}
             tabIndex="-1"
+            ref={displayRef}
             onClick={handleClick}
         >
             {prependAdornment && (
@@ -147,6 +149,7 @@ Input.propTypes = {
     error: PropTypes.bool,
     className: PropTypes.string,
     style: PropTypes.object,
+    displayRef: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
     inputProps: PropTypes.object,
     inputComponent: PropTypes.elementType,
     prependAdornment: PropTypes.func,

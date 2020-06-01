@@ -7,8 +7,6 @@ const TestClickAwayListener = () => {
     const [open, setOpen] = useState(false);
 
     const handleClickAway = useCallback((ev) => {
-        // console.log('click away');
-
         setOpen(false);
     }, []);
 
