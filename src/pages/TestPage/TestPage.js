@@ -26,9 +26,6 @@ const TestPage = (props) => {
             <Panel title="Test SearchInput">
                 <TestSearchInput />
             </Panel>
-            {/* <Panel title="Test ClickAwayListener">
-                <TestClickAwayListener />
-            </Panel> */}
             <Panel title="Test Select">
                 <TestSelect />
             </Panel>

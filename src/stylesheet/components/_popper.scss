@@ -1,4 +1,5 @@
 .popper {
+	backface-visibility: hidden;
 	transform: translate3d(-99999rem, -99999rem, 0);
 	z-index: $popper-z-index;
 }

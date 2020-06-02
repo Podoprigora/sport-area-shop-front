@@ -9,57 +9,91 @@ import Input from '@components/Input';
 import Portal from '@components/Portal';
 import ClickAwayListener from '@components/ClickAwayListener';
 import List, { ListItem, ListItemText } from '@components/List';
+import useEventCallback from '@components/hooks/useEventCallback';
 
 const SearchInput = React.forwardRef(function SearchInput(props, ref) {
-    const { children, ...other } = props;
+    const {
+        children,
+        height,
+        maxHeight = 250,
+        onOpen = () => {},
+        onClose = () => {},
+        ...other
+    } = props;
 
     const [open, setOpen] = useState(false);
-    const [menuStyle, setMenuStyle] = useState({});
+    const [popperStyle, setPopperStyle] = useState({});
     const anchorRef = useRef(null);
     const inputRef = useRef(null);
     const handleAnchorRef = useForkRef(anchorRef, ref);
+    const listItemsRef = useRef(null);
+    const listScrollbarRef = useRef(null);
     const { referenceRef, popperRef, popperState, popperInstance } = usePopper();
 
     // Handlers
 
-    const handleMenuClose = useCallback((ev) => {
-        // console.log(ev.composedPath());
+    const handleOpen = useEventCallback((ev) => {
+        if (open) {
+            return;
+        }
+
+        setOpen(true);
+        onOpen(ev);
+    });
+
+    const handleClose = useEventCallback((ev) => {
+        if (!open) {
+            return;
+        }
 
         setOpen(false);
-    }, []);
+        onClose(ev);
+    });
 
-    const handleClickAway = useCallback((ev) => {
-        setOpen(false);
-    }, []);
+    const handleClickAway = useEventCallback((ev) => {
+        handleClose(ev);
+    });
 
-    const handleClick = useCallback((ev) => {
-        // console.log('click');
-    }, []);
+    const handleClick = useEventCallback((ev) => {
+        handleOpen(ev);
+        inputRef.current.focus();
+    });
 
-    const handleKeyDown = useCallback(
-        (ev) => {
-            switch (ev.key) {
-                case 'Escape':
-                    handleMenuClose(ev);
-                    break;
-                case 'ArrowDown':
-                    setOpen(true);
-                    break;
-                case 'ArrowUp':
-                    setOpen(true);
-                    break;
-                default:
-                    break;
-            }
-        },
-        [handleMenuClose]
-    );
+    const handleKeyDown = useEventCallback((ev) => {
+        switch (ev.key) {
+            case 'Escape':
+                handleClose(ev);
+                break;
+            case 'ArrowDown':
+                ev.preventDefault();
+                handleOpen(ev);
+                break;
+            case 'ArrowUp':
+                ev.preventDefault();
+                handleOpen(ev);
+                break;
+            default:
+                break;
+        }
+    });
 
     const handleMouseDown = useCallback((ev) => {
         ev.preventDefault();
+    }, []);
 
-        setOpen(true);
-        inputRef.current.focus();
+    const handlePopperMouseDown = useCallback((ev) => {
+        ev.preventDefault();
+    }, []);
+
+    const handleInputKeyDown = useCallback((ev) => {
+        switch (ev.key) {
+            case 'ArrowUp':
+            case 'ArrowDown':
+                ev.preventDefault();
+                break;
+            default:
+                break;
+        }
     }, []);
 
     // Effects
@@ -74,11 +108,13 @@ const SearchInput = React.forwardRef(function SearchInput(props, ref) {
         if (anchorRef.current) {
             const width = anchorRef.current.clientWidth;
 
-            setMenuStyle((prevStyle) => {
+            setPopperStyle((prevStyle) => {
                 return { ...prevStyle, width };
             });
         }
     }, []);
+
+    // Render
 
     return (
         <ClickAwayListener onClickAway={handleClickAway}>
@@ -92,7 +128,9 @@ const SearchInput = React.forwardRef(function SearchInput(props, ref) {
             >
                 <Input
                     {...other}
+                    type="search"
                     ref={inputRef}
+                    onKeyDown={handleInputKeyDown}
                     prependAdornment={() => <SearchIcon size="medium" />}
                 />
                 {open && (
@@ -100,16 +138,25 @@ const SearchInput = React.forwardRef(function SearchInput(props, ref) {
                         <div
                             role="presentation"
                             className="popper menu"
-                            style={menuStyle}
+                            style={popperStyle}
                             ref={popperRef}
+                            onMouseDown={handlePopperMouseDown}
                         >
-                            <List>
-                                {!children && (
-                                    <ListItem>
-                                        <ListItemText>No options</ListItemText>
-                                    </ListItem>
-                                )}
-                                {children}
+                            <List
+                                {...((height || maxHeight) && { autoHeight: false })}
+                                {...(maxHeight && {
+                                    scrollbarProps: { autoHeight: true, autoHeightMax: maxHeight }
+                                })}
+                                scrollbarRef={listScrollbarRef}
+                            >
+                                <div ref={listItemsRef}>
+                                    {!children && (
+                                        <ListItem>
+                                            <ListItemText>No options</ListItemText>
+                                        </ListItem>
+                                    )}
+                                    {children}
+                                </div>
                             </List>
                         </div>
                     </Portal>
@@ -120,7 +167,11 @@ const SearchInput = React.forwardRef(function SearchInput(props, ref) {
 });
 
 SearchInput.propTypes = {
-    children: PropTypes.node
+    children: PropTypes.node,
+    height: PropTypes.number,
+    maxHeight: PropTypes.number,
+    onOpen: PropTypes.func,
+    onClose: PropTypes.func
 };
 
 export default SearchInput;

@@ -103,7 +103,7 @@ const TestMenu = () => {
                 anchorRef={buttonRef}
                 modal={false}
                 width={300}
-                // height={250}
+                listProps={{ maxHeight: 250 }}
                 onClose={handleMenuClose}
                 onItemClick={handleMenuItemClick}
             >

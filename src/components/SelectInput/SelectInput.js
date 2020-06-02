@@ -51,7 +51,11 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
         multiline = false,
         resetButton = false,
         style,
-        menuProps,
+        menuProps = {
+            listProps: {
+                maxHeight: 250
+            }
+        },
         onBlur = () => {},
         onFocus = () => {},
         onChange = () => {},
@@ -241,7 +245,6 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
                 anchorRef={displayRef}
                 onClose={handleMenuClose}
                 autoWidth
-                maxHeight={250}
                 {...menuProps}
             >
                 {items}

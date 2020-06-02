@@ -56,8 +56,7 @@ const Menu = React.forwardRef(function Menu(props, ref) {
         autoWidth = false,
         modal = true,
         width,
-        height,
-        maxHeight,
+        listProps = {},
         className,
         style,
         onClose = () => {},
@@ -78,8 +77,7 @@ const Menu = React.forwardRef(function Menu(props, ref) {
     const [exited, setExited] = useState(true);
     const [menuStyle, setMenuStyle] = useState({
         ...style,
-        ...(width && { width }),
-        ...(height && !maxHeight && { height })
+        ...(width && { width })
     });
 
     const menuRef = useRef(null);
@@ -229,10 +227,7 @@ const Menu = React.forwardRef(function Menu(props, ref) {
                         [`u-placement-${currentPlacement}`]: currentPlacement
                     })}
                     style={menuStyle}
-                    {...((height || maxHeight) && { autoHeight: false })}
-                    {...(maxHeight && {
-                        scrollbarProps: { autoHeight: true, autoHeightMax: maxHeight }
-                    })}
+                    {...listProps}
                 >
                     <div
                         role="menu"
@@ -274,8 +269,7 @@ Menu.propTypes = {
     children: PropTypes.node,
     autoWidth: PropTypes.bool,
     width: PropTypes.number,
-    height: PropTypes.number,
-    maxHeight: PropTypes.number,
+    listProps: PropTypes.object,
     className: PropTypes.string,
     style: PropTypes.object,
     autoFocusItem: PropTypes.bool,
