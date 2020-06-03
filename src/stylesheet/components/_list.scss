@@ -28,6 +28,10 @@
 					background-color: $color-hover;
 				}
 
+				&#{$item-selector}--highlighted {
+					background-color: $color-hover;
+				}
+
 				&#{$item-selector}--selected,
 				&#{$item-selector}--focus-visible {
 					background-color: $color-focus;

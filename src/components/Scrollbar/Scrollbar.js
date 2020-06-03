@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Scrollbars from 'react-custom-scrollbars';
 
+import setRef from '@components/utils/setRef';
+
 const Scrollbar = React.forwardRef(function Scrollbar(props, ref) {
     const { children, disabled, onScroll, ...other } = props;
 
@@ -9,7 +11,7 @@ const Scrollbar = React.forwardRef(function Scrollbar(props, ref) {
         <Scrollbars
             ref={(node) => {
                 if (ref) {
-                    ref.current = (node && node.view) || null;
+                    setRef(ref, (node && node.view) || null);
                 }
             }}
             {...(disabled && {

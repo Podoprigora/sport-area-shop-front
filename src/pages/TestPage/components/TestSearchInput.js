@@ -123,6 +123,7 @@ const TestSearchInput = () => {
         <div style={{ width: '40rem', margin: '0 auto' }}>
             <Autocomplete
                 data={films}
+                // disabled
                 getItemText={(item) => item.title}
                 getItemSelected={(value, item) => value.title === item.title}
                 renderInput={(inputProps) => {
@@ -134,9 +135,9 @@ const TestSearchInput = () => {
                         />
                     );
                 }}
-                renderItem={({ title }) => {
+                renderItem={({ title, year }) => {
                     return (
-                        <ListItem>
+                        <ListItem disabled={year > 2000}>
                             <ListItemText>{title}</ListItemText>
                         </ListItem>
                     );

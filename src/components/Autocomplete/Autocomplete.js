@@ -1,12 +1,13 @@
 import React, { useRef, useCallback, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 
 import useForkRef from '@components/hooks/useForkRef';
 import { usePopper } from '@components/Popper';
 import Portal from '@components/Portal';
 import ClickAwayListener from '@components/ClickAwayListener';
-import List, { ListItem, ListItemText, ListItemIcon } from '@components/List';
+import List, { ListItem, ListItemText } from '@components/List';
 import useEventCallback from '@components/hooks/useEventCallback';
 import useControlled from '@components/hooks/useControlled';
 import defineEventTarget from '@components/utils/defineEventTarget';
@@ -22,18 +23,18 @@ const getDefaultItemText = (item) => (typeof item === 'string' ? item : '');
 
 const getDefaultItemSelected = (value, item) => value === item;
 
-const createFilter = () => {
-    return (items, { inputValue = '', getItemText = getDefaultItemText }) => {
-        const query = inputValue.trim().toLowerCase();
+const defaultFilterItems = (items, { inputValue = '', getItemText = getDefaultItemText }) => {
+    const query = inputValue.trim().toLowerCase();
 
-        return items.filter((item) => {
-            let itemText = getItemText(item);
-            itemText = itemText.toLowerCase();
+    return items.filter((item) => {
+        let itemText = getItemText(item);
+        itemText = itemText.toLowerCase();
 
-            return itemText.indexOf(query) !== -1;
-        });
-    };
+        return itemText.indexOf(query) !== -1;
+    });
 };
+
+const defaultHighlightedIndex = -1;
 
 const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
     const {
@@ -41,7 +42,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         renderItem,
         getItemText: getItemTextProp = getDefaultItemText,
         getItemSelected = getDefaultItemSelected,
-        filterItems = createFilter(),
+        filterItems = defaultFilterItems,
         data = [],
         emptyText = 'No options',
         open: openProp,
@@ -51,6 +52,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         listProps = {
             maxHeight: 250
         },
+        listPlacement = 'bottom-start',
         onOpen = () => {},
         onClose = () => {},
         onChange = () => {},
@@ -60,16 +62,20 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
     } = props;
 
     const [popperStyle, setPopperStyle] = useState({});
+    const [highlightedIndex, setHeighlightedIndex] = useState(defaultHighlightedIndex);
     const [open, setOpen] = useControlled(openProp, false);
     const [value, setValue] = useControlled(valueProp, defaultValue);
     const [inputValue, setInputValue] = useControlled(inputValueProp, '');
+    const [listItemsNode, setListItemsNode] = useState(null);
+    const [listScrollbarNode, setListScrollbarNode] = useState(null);
+    const [exited, setExited] = useState(true);
 
     const anchorRef = useRef(null);
     const inputRef = useRef(null);
     const handleAnchorRef = useForkRef(anchorRef, ref);
-    const listItemsRef = useRef(null);
-    const listScrollbarRef = useRef(null);
-    const { referenceRef, popperRef, popperState, popperInstance } = usePopper();
+    const { referenceRef, popperRef, popperState, popperInstance } = usePopper({
+        placement: listPlacement
+    });
 
     const getItemText = getValidItemText(getItemTextProp);
     const inputValueIsSelectedValue = !!value && inputValue === getItemText(value);
@@ -79,6 +85,77 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
     });
 
     // Handlers
+
+    const handleHighlightIndex = useEventCallback((index = null) => {
+        if (index !== highlightedIndex) {
+            setHeighlightedIndex(typeof index === 'number' ? index : defaultHighlightedIndex);
+        }
+
+        // Scrolling item into view
+        if (listScrollbarNode && listScrollbarNode.scrollHeight > listScrollbarNode.clientWidth) {
+            const highlightedItemNode = listScrollbarNode.querySelector(`[data-index='${index}']`);
+
+            if (highlightedItemNode) {
+                highlightedItemNode.scrollIntoView({ block: 'nearest' });
+            } else {
+                listScrollbarNode.scrollTop = 0;
+            }
+        }
+    });
+
+    const updateHighlightedIndex = useEventCallback((offset = 1) => {
+        const itemsLenght = filteredItems.length;
+        let newIndex = defaultHighlightedIndex;
+
+        if (!open) {
+            return;
+        }
+
+        if (offset === 1) {
+            newIndex = (highlightedIndex + offset) % itemsLenght;
+        } else {
+            newIndex = highlightedIndex > 0 ? highlightedIndex + offset : itemsLenght - 1;
+        }
+
+        // Validate index
+        if (listItemsNode) {
+            let nextElement = listItemsNode.querySelector(`[data-index='${newIndex}']`);
+
+            while (nextElement) {
+                if (
+                    nextElement.getAttribute('role') !== 'button' ||
+                    nextElement.getAttribute('aria-disabled') === 'true'
+                ) {
+                    nextElement =
+                        offset === 1
+                            ? nextElement.nextElementSibling
+                            : nextElement.previousElementSibling;
+
+                    newIndex = offset === 1 ? newIndex + 1 : newIndex - 1;
+                } else {
+                    break;
+                }
+            }
+
+            if (nextElement) {
+                handleHighlightIndex(newIndex);
+            }
+        }
+    });
+
+    const resetHighlightedIndex = useEventCallback(() => {
+        let selectedIndex = defaultHighlightedIndex;
+
+        if (!open) {
+            return;
+        }
+
+        if (value) {
+            selectedIndex = filteredItems.findIndex((item) => getItemSelected(value, item));
+        }
+
+        handleHighlightIndex(selectedIndex);
+    });
 
     const handleOpen = useEventCallback((ev) => {
         if (open) {
@@ -100,6 +177,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
 
     const handleValue = useEventCallback((ev, newValue) => {
         setValue(newValue);
+
         defineEventTarget(ev, { value: newValue });
         onChange(ev);
     });
@@ -123,47 +201,43 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         handleClose(ev);
     });
 
-    const handleClick = useEventCallback((ev) => {
+    const handlePopperMouseDown = useCallback((ev) => {
+        ev.preventDefault();
+    }, []);
+
+    const handleInputMouseDown = useEventCallback((ev) => {
         handleOpen(ev);
-        inputRef.current.focus();
     });
 
-    const handleKeyDown = useEventCallback((ev) => {
+    const handleInputKeyDown = useEventCallback((ev) => {
         switch (ev.key) {
             case 'Escape':
                 handleClose(ev);
                 break;
             case 'ArrowDown':
                 ev.preventDefault();
+
                 handleOpen(ev);
+                updateHighlightedIndex(1);
                 break;
             case 'ArrowUp':
                 ev.preventDefault();
+
                 handleOpen(ev);
+                updateHighlightedIndex(-1);
+                break;
+            case 'Enter':
+                ev.preventDefault();
+
+                if (open && highlightedIndex !== defaultHighlightedIndex) {
+                    const newValue = filteredItems[highlightedIndex];
+                    setNewValue(ev, newValue);
+                }
                 break;
             default:
                 break;
         }
     });
-
-    const handleMouseDown = useCallback((ev) => {
-        ev.preventDefault();
-    }, []);
-
-    const handlePopperMouseDown = useCallback((ev) => {
-        ev.preventDefault();
-    }, []);
-
-    const handleInputKeyDown = useCallback((ev) => {
-        switch (ev.key) {
-            case 'ArrowUp':
-            case 'ArrowDown':
-                ev.preventDefault();
-                break;
-            default:
-                break;
-        }
-    }, []);
 
     const handleInputChange = useEventCallback((ev) => {
         const newValue = ev.target.value;
@@ -191,6 +265,14 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         setNewValue(ev, newValue);
     });
 
+    const handleTransitionEnter = useCallback((ev) => {
+        setExited(false);
+    }, []);
+
+    const handleTransitionExited = useCallback((ev) => {
+        setExited(true);
+    }, []);
+
     // Effects
 
     useEffect(() => {
@@ -209,6 +291,10 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         }
     }, []);
 
+    useEffect(() => {
+        resetHighlightedIndex();
+    }, [open, inputValue, listScrollbarNode, resetHighlightedIndex]);
+
     // Render
 
     if (!renderInput) {
@@ -220,6 +306,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         value: inputValue,
         defaultValue,
         ref: inputRef,
+        onMouseDown: handleInputMouseDown,
         onKeyDown: handleInputKeyDown,
         onChange: handleInputChange,
         onBlur: handleInputBlur
@@ -227,11 +314,14 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
 
     const items = filteredItems.map((item, index) => {
         const selected = !!value && getItemSelected(value, item);
+        const highlighted = index === highlightedIndex;
 
         const itemProps = {
             key: index,
             button: true,
             selected,
+            highlighted,
+            'data-index': index,
             onClick: handleItemClick(index)
         };
 
@@ -254,31 +344,41 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         </ListItem>
     );
 
+    const placement = popperState.placement || listPlacement;
+
     return (
         <ClickAwayListener onClickAway={handleClickAway}>
-            <div
-                role="presentation"
-                className={classNames('search-input')}
-                ref={handleAnchorRef}
-                onClick={handleClick}
-                onKeyDown={handleKeyDown}
-            >
+            <div role="presentation" className={classNames('search-input')} ref={handleAnchorRef}>
                 {inputElement}
-                {open && (
+                {(open || !exited) && (
                     <Portal>
                         <div
                             role="presentation"
-                            className="popper menu"
+                            className="popper"
                             style={popperStyle}
                             ref={popperRef}
                             onMouseDown={handlePopperMouseDown}
                         >
-                            <List {...listProps} scrollbarRef={listScrollbarRef}>
-                                <div ref={listItemsRef}>
-                                    {noItems}
-                                    {items}
-                                </div>
-                            </List>
+                            <CSSTransition
+                                in={open && !!popperInstance}
+                                classNames="menu"
+                                timeout={300}
+                                onEnter={handleTransitionEnter}
+                                onExited={handleTransitionExited}
+                            >
+                                <List
+                                    {...listProps}
+                                    className={classNames('menu', listProps.className, {
+                                        [`u-placement-${placement}`]: placement
+                                    })}
+                                    scrollbarRef={setListScrollbarNode}
+                                >
+                                    <div className="u-overflow-hidden" ref={setListItemsNode}>
+                                        {noItems}
+                                        {items}
+                                    </div>
+                                </List>
+                            </CSSTransition>
                         </div>
                     </Portal>
                 )}
@@ -300,6 +400,7 @@ Autocomplete.propTypes = {
     defaultValue: PropTypes.any,
     open: PropTypes.bool,
     listProps: PropTypes.object,
+    listPlacement: PropTypes.string,
     onOpen: PropTypes.func,
     onClose: PropTypes.func,
     onChange: PropTypes.func,

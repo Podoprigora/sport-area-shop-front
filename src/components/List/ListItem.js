@@ -14,6 +14,7 @@ const ListItem = React.forwardRef(function ListItem(props, ref) {
         autoFocus,
         selected,
         disabled,
+        highlighted,
         children,
         className,
         alignItems,
@@ -89,6 +90,7 @@ const ListItem = React.forwardRef(function ListItem(props, ref) {
         className: classNames('list__item', className, {
             'list__item--button': button,
             'list__item--selected': selected,
+            'list__item--highlighted': highlighted,
             'list__item--disabled': disabled,
             'list__item--focus-visible': focusVisible,
             [`u-flex-align-items-${alignItems}`]: alignItems
@@ -119,6 +121,7 @@ ListItem.propTypes = {
     autoFocus: PropTypes.bool,
     selected: PropTypes.bool,
     disabled: PropTypes.bool,
+    highlighted: PropTypes.bool,
     onClick: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,

@@ -34,6 +34,7 @@ const Input = forwardRef(function Input(props, ref) {
         onClick,
         onKeyDown,
         onKeyUp,
+        onMouseDown,
         ...other
     } = props;
 
@@ -95,6 +96,7 @@ const Input = forwardRef(function Input(props, ref) {
                 readOnly,
                 autoFocus,
                 autoComplete,
+                onMouseDown,
                 onClick,
                 onKeyDown,
                 onKeyUp
@@ -159,7 +161,8 @@ Input.propTypes = {
     onChange: PropTypes.func,
     onClick: PropTypes.func,
     onKeyDown: PropTypes.func,
-    onKeyUp: PropTypes.func
+    onKeyUp: PropTypes.func,
+    onMouseDown: PropTypes.func
 };
 
 Input.defaultProps = {
