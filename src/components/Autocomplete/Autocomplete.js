@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useState, useEffect } from 'react';
+import React, { useRef, useCallback, useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
@@ -24,6 +24,8 @@ const getValidItemText = (getItemText) => (item) => {
     return text;
 };
 
+const getDefaultValue = (item) => item;
+
 const getDefaultItemText = (item) => (typeof item === 'string' ? item : '');
 
 const getDefaultItemSelected = (value, item) => value === item;
@@ -43,6 +45,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
     const {
         renderInput,
         renderItem,
+        getValue = getDefaultValue,
         getItemText: getItemTextProp = getDefaultItemText,
         getItemSelected = getDefaultItemSelected,
         filterItems = defaultFilterItems,
@@ -51,6 +54,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         loadingText = 'Loading ...',
         open: openProp,
         loading = false,
+        name,
         value: valueProp,
         defaultValue,
         inputValue: inputValueProp,
@@ -59,9 +63,10 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         },
         listPlacement = 'bottom-start',
         defaultHighlightedIndex = -1,
-        openOnFocus = true,
+        openOnFocus = false,
         openButton = true,
         resetButton = true,
+        fullWidth = false,
         onOpen = () => {},
         onClose = () => {},
         onChange = () => {},
@@ -80,6 +85,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
     const [listScrollbarNode, setListScrollbarNode] = useState(null);
     const [exited, setExited] = useState(true);
 
+    const selectedInputValueRef = useRef(inputValueProp);
     const hadBlurRecently = useRef(false);
     const hadBlurRecentlyTimeout = useRef(null);
     const anchorRef = useRef(null);
@@ -89,12 +95,22 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         placement: listPlacement
     });
 
-    const getItemText = getValidItemText(getItemTextProp);
-    const inputValueIsSelectedValue = !!value && inputValue === getItemText(value);
-    const filteredItems = filterItems(data, {
-        inputValue: inputValueIsSelectedValue ? '' : inputValue,
-        getItemText
-    });
+    const getItemText = useMemo(() => getValidItemText(getItemTextProp), [getItemTextProp]);
+
+    const inputValueIsSelectedValue = useMemo(() => {
+        return (
+            !!value &&
+            ((typeof value === 'string' && inputValue === selectedInputValueRef.current) ||
+                inputValue === getItemText(value))
+        );
+    }, [value, inputValue, getItemText]);
+
+    const filteredItems = useMemo(() => {
+        return filterItems(data, {
+            inputValue: inputValueIsSelectedValue ? '' : inputValue,
+            getItemText
+        });
+    }, [inputValue, data, inputValueIsSelectedValue, getItemText, filterItems]);
 
     // Handlers
 
@@ -190,6 +206,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
     const handleValue = useEventCallback((ev, newValue) => {
         setValue(newValue);
 
+        defineEventTarget(ev, { name, value: newValue ? getValue(newValue) : '' });
         onChange(ev);
     });
 
@@ -197,14 +214,16 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         const inputNewValue = newValue ? getItemText(newValue) : '';
 
         setInputValue(inputNewValue);
+        selectedInputValueRef.current = inputNewValue;
 
+        defineEventTarget(ev, { value: inputNewValue });
         onInputChange(ev);
     });
 
     const setNewValue = useEventCallback((ev, newValue) => {
-        handleValue(ev, newValue);
+        // Sequence of calls is matter!
         handleInputValue(ev, newValue);
-        handleClose(ev);
+        handleValue(ev, newValue);
     });
 
     const handleClickAway = useEventCallback((ev) => {
@@ -242,6 +261,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
                 if (open && highlightedIndex !== -1) {
                     const newValue = filteredItems[highlightedIndex];
                     setNewValue(ev, newValue);
+                    handleClose(ev);
                 }
                 break;
             default:
@@ -269,9 +289,8 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
             handleOpen(ev);
         }
 
-        if (!open) {
-            onFocus(ev);
-        }
+        defineEventTarget(ev, { name, value });
+        onFocus(ev);
     });
 
     const handleInputBlur = useEventCallback((ev) => {
@@ -284,14 +303,17 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
             hadBlurRecently.current = false;
         }, 100);
 
-        onBlur(ev);
         handleClose(ev);
+
+        defineEventTarget(ev, { name, value });
+        onBlur(ev);
     });
 
     const handleItemClick = useEventCallback((index) => (ev) => {
         const newValue = filteredItems[index];
 
         setNewValue(ev, newValue);
+        handleClose(ev);
     });
 
     const handleTransitionEnter = useCallback((ev) => {
@@ -317,10 +339,8 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
     const handleResetButtonClick = useEventCallback((ev) => {
         ev.preventDefault();
 
+        setNewValue(ev, '');
         inputRef.current.focus();
-
-        handleInputValue(ev, '');
-        handleValue(ev, null);
     });
 
     // Effects
@@ -343,9 +363,55 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
 
     useEffect(() => {
         resetHighlightedIndex();
-    }, [open, inputValue, listScrollbarNode, resetHighlightedIndex]);
+    }, [filteredItems, listScrollbarNode, resetHighlightedIndex]);
 
     // Render
+
+    const items = useMemo(() => {
+        return (
+            !loading &&
+            filteredItems.map((item, index) => {
+                const selected = !!value && getItemSelected(value, item);
+                const highlighted = index === highlightedIndex;
+
+                const itemProps = {
+                    key: index,
+                    button: true,
+                    selected,
+                    highlighted,
+                    'data-index': index,
+                    onClick: handleItemClick(index)
+                };
+
+                if (renderItem) {
+                    return React.cloneElement(renderItem(item, { index }), itemProps);
+                }
+
+                const itemText = getItemText(item);
+
+                return (
+                    <ListItem {...itemProps}>
+                        <ListItemText>{itemText}</ListItemText>
+                    </ListItem>
+                );
+            })
+        );
+    }, [
+        filteredItems,
+        getItemSelected,
+        getItemText,
+        handleItemClick,
+        highlightedIndex,
+        loading,
+        renderItem,
+        value
+    ]);
+
+    const noItems = (!items || items.length === 0) && (
+        <ListItem disabled>
+            <ListItemText>{(loading && loadingText) || emptyText}</ListItemText>
+        </ListItem>
+    );
 
     if (!renderInput) {
         return null;
@@ -355,6 +421,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         ...other,
         value: inputValue,
         defaultValue,
+        fullWidth,
         ref: inputRef,
         onMouseDown: handleInputMouseDown,
         onKeyDown: handleInputKeyDown,
@@ -386,43 +453,17 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         })
     });
 
-    const items = filteredItems.map((item, index) => {
-        const selected = !!value && getItemSelected(value, item);
-        const highlighted = index === highlightedIndex;
-
-        const itemProps = {
-            key: index,
-            button: true,
-            selected,
-            highlighted,
-            'data-index': index,
-            onClick: handleItemClick(index)
-        };
-
-        if (renderItem) {
-            return React.cloneElement(renderItem(item, { index }), itemProps);
-        }
-
-        const itemText = getItemText(item);
-
-        return (
-            <ListItem {...itemProps}>
-                <ListItemText>{itemText}</ListItemText>
-            </ListItem>
-        );
-    });
-
-    const noItems = (items.length === 0 || loading) && (
-        <ListItem disabled>
-            <ListItemText>{(loading && loadingText) || loading}</ListItemText>
-        </ListItem>
-    );
-
     const placement = popperState.placement || listPlacement;
 
     return (
         <ClickAwayListener onClickAway={handleClickAway}>
-            <div role="presentation" className={classNames('search-input')} ref={handleAnchorRef}>
+            <div
+                role="presentation"
+                className={classNames('autocomplete-input', {
+                    'autocomplete-input--full-width': fullWidth
+                })}
+                ref={handleAnchorRef}
+            >
                 {inputElement}
                 {(open || !exited) && (
                     <Portal>
@@ -449,7 +490,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
                                 >
                                     <div className="u-overflow-hidden" ref={setListItemsNode}>
                                         {noItems}
-                                        {!loading && items}
+                                        {items}
                                     </div>
                                 </List>
                             </CSSTransition>
@@ -464,12 +505,14 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
 Autocomplete.propTypes = {
     renderInput: PropTypes.func.isRequired,
     renderItem: PropTypes.func,
+    getValue: PropTypes.func,
     getItemText: PropTypes.func,
     getItemSelected: PropTypes.func,
     filterItems: PropTypes.func,
     data: PropTypes.array,
     emptyText: PropTypes.string,
     inputValue: PropTypes.any,
+    name: PropTypes.string,
     value: PropTypes.any,
     defaultValue: PropTypes.any,
     open: PropTypes.bool,
@@ -481,6 +524,7 @@ Autocomplete.propTypes = {
     resetButton: PropTypes.bool,
     openButton: PropTypes.bool,
     openOnFocus: PropTypes.bool,
+    fullWidth: PropTypes.bool,
     onOpen: PropTypes.func,
     onClose: PropTypes.func,
     onChange: PropTypes.func,

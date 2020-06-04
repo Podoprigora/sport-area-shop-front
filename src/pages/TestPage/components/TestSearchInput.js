@@ -1,8 +1,14 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
+import axios from 'axios';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+
+import useMountedRef from '@components/hooks/useMountedRef';
 import Autocomplete from '@components/Autocomplete';
 import { ListItem, ListItemIcon, ListItemText } from '@components/List';
 import SearchIcon from '@svg-icons/feather/SearchIcon';
 import Input from '@components/Input';
+import AutocompleteField from '@components/FormikForm/AutocompleteField';
 
 const films = [
     { title: 'The Shawshank Redemption', year: 1994 },
@@ -110,7 +116,27 @@ const films = [
     { title: 'Monty Python and the Holy Grail', year: 1975 }
 ];
 
+const url = 'https://country.register.gov.uk/records.json?page-size=5000';
+
+const initialValues = {
+    countryCode: 'UA',
+    countryName: 'Ukraine'
+};
+// const initialValues = {
+//     countryCode: '',
+//     countryName: ''
+// };
+
+const validationShema = Yup.object({
+    countryCode: Yup.string().required('Required')
+});
+
 const TestSearchInput = () => {
+    const [data, setData] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const isMountedRef = useMountedRef();
+
     const handleChange = useCallback((ev) => {
         console.log('change', ev.target.value);
     }, []);
@@ -119,34 +145,80 @@ const TestSearchInput = () => {
         console.log('input change', ev.target.value);
     }, []);
 
+    useEffect(() => {
+        if (!open || data.length > 0) {
+            return;
+        }
+
+        (async () => {
+            setLoading(true);
+
+            const response = await axios.get(url).catch(() => {
+                setLoading(false);
+            });
+
+            await new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve();
+                }, 600);
+            });
+
+            if (isMountedRef.current && response) {
+                let responseData = response.data;
+
+                if (responseData) {
+                    responseData = Object.keys(responseData).map(
+                        (key) => responseData[key].item[0]
+                    );
+                    setData(responseData);
+                }
+                setLoading(false);
+            }
+        })();
+    }, [isMountedRef, open, data]);
+
     return (
-        <div style={{ width: '40rem', margin: '0 auto' }}>
-            <Autocomplete
-                data={films}
-                // disabled
-                defaultHighlightedIndex={0}
-                getItemText={(item) => item.title}
-                getItemSelected={(value, item) => value.title === item.title}
-                renderInput={(inputProps) => {
-                    return (
-                        <Input
-                            placeholder="What are you looking for?"
-                            fullWidth
-                            prependAdornment={() => <SearchIcon size="medium" />}
-                        />
-                    );
-                }}
-                renderItem={({ title, year }) => {
-                    return (
-                        <ListItem disabled={year > 2000}>
-                            <ListItemText>{title}</ListItemText>
-                        </ListItem>
-                    );
-                }}
-                onChange={handleChange}
-                onInputChange={handleInputChange}
-            />
-        </div>
+        <Formik initialValues={initialValues} validationSchema={validationShema}>
+            {(formikProps) => {
+                // console.log(formikProps);
+
+                return (
+                    <AutocompleteField
+                        name="countryCode"
+                        inputName="countryName"
+                        data={data}
+                        open={open}
+                        loading={loading}
+                        label="Country"
+                        required
+                        // fullWidth
+                        defaultHighlightedIndex={0}
+                        getValue={(item) => item.country}
+                        getItemText={(item) => item.name}
+                        getItemSelected={(value, item) => value === item.country}
+                        onOpen={() => {
+                            setOpen(true);
+                        }}
+                        onClose={() => {
+                            setOpen(false);
+                        }}
+                        renderInput={(inputProps) => {
+                            return <Input placeholder="Select country" />;
+                        }}
+                        renderItem={({ name, country }) => {
+                            return (
+                                <ListItem>
+                                    <ListItemText flex>{name}</ListItemText>
+                                    <ListItemText>{country}</ListItemText>
+                                </ListItem>
+                            );
+                        }}
+                        onChange={handleChange}
+                        onInputChange={handleInputChange}
+                    />
+                );
+            }}
+        </Formik>
     );
 };
 
