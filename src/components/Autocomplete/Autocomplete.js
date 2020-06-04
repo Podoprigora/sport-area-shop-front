@@ -15,6 +15,7 @@ import InputIconButton from '@components/Input/InputIconButton';
 import KeyboardArrowDownIcon from '@svg-icons/material/KeyboardArrowDown';
 import ClearCloseIcon from '@svg-icons/material/ClearCloseIcon';
 import KeyboardArrowUpIcon from '@svg-icons/material/KeyboardArrowUp';
+import CircularProgress from '@components/CircularProgress';
 
 const getValidItemText = (getItemText) => (item) => {
     let text = getItemText(item);
@@ -47,7 +48,9 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         filterItems = defaultFilterItems,
         data = [],
         emptyText = 'No options',
+        loadingText = 'Loading ...',
         open: openProp,
+        loading = false,
         value: valueProp,
         defaultValue,
         inputValue: inputValueProp,
@@ -208,10 +211,6 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         handleClose(ev);
     });
 
-    const handleMouseDown = useEventCallback((ev) => {
-        ev.preventDefault();
-    });
-
     const handlePopperMouseDown = useCallback((ev) => {
         ev.preventDefault();
     }, []);
@@ -362,16 +361,17 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         onChange: handleInputChange,
         onFocus: handleInputFocus,
         onBlur: handleInputBlur,
-        ...((resetButton || openButton) && {
+        ...((resetButton || openButton || loading) && {
             appendAdornment: () => {
                 return (
                     <>
-                        {resetButton && inputValue.length > 0 && (
+                        {loading && <CircularProgress preset="small" />}
+                        {resetButton && !loading && inputValue.length > 0 && (
                             <InputIconButton tabIndex="-1" onClick={handleResetButtonClick}>
                                 <ClearCloseIcon />
                             </InputIconButton>
                         )}
-                        {openButton && (
+                        {openButton && !loading && (
                             <InputIconButton tabIndex="-1" onClick={handleChevronButtonClick}>
                                 {open ? (
                                     <KeyboardArrowUpIcon size="medium" />
@@ -412,9 +412,9 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         );
     });
 
-    const noItems = items.length === 0 && (
+    const noItems = (items.length === 0 || loading) && (
         <ListItem disabled>
-            <ListItemText>{emptyText}</ListItemText>
+            <ListItemText>{(loading && loadingText) || loading}</ListItemText>
         </ListItem>
     );
 
@@ -422,12 +422,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
 
     return (
         <ClickAwayListener onClickAway={handleClickAway}>
-            <div
-                role="presentation"
-                className={classNames('search-input')}
-                ref={handleAnchorRef}
-                onMouseDown={handleMouseDown}
-            >
+            <div role="presentation" className={classNames('search-input')} ref={handleAnchorRef}>
                 {inputElement}
                 {(open || !exited) && (
                     <Portal>
@@ -454,7 +449,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
                                 >
                                     <div className="u-overflow-hidden" ref={setListItemsNode}>
                                         {noItems}
-                                        {items}
+                                        {!loading && items}
                                     </div>
                                 </List>
                             </CSSTransition>
@@ -478,6 +473,8 @@ Autocomplete.propTypes = {
     value: PropTypes.any,
     defaultValue: PropTypes.any,
     open: PropTypes.bool,
+    loading: PropTypes.bool,
+    loadingText: PropTypes.string,
     listProps: PropTypes.object,
     listPlacement: PropTypes.string,
     defaultHighlightedIndex: PropTypes.number,

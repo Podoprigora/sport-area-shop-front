@@ -18,6 +18,22 @@
 		}
 	}
 
+	&--align-bottom,
+	&--align-top {
+		flex-flow: column;
+		margin: 0;
+
+		#{$this}__text {
+			margin: 0;
+		}
+	}
+
+	&--align-top {
+		#{$this}__text {
+			order: 0;
+		}
+	}
+
 	&--disabled {
 		#{$this}__text {
 			opacity: $input-disabled-opacity;

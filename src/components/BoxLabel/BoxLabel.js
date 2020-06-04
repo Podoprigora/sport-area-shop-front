@@ -28,7 +28,7 @@ BoxLabel.propTypes = {
     children: PropTypes.element.isRequired,
     className: PropTypes.string,
     label: PropTypes.string,
-    labelAlign: PropTypes.oneOf(['left', 'right']),
+    labelAlign: PropTypes.oneOf(['left', 'right', 'top', 'bottom']),
     disabled: PropTypes.bool
 };
 
