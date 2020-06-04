@@ -11,6 +11,10 @@ import List, { ListItem, ListItemText } from '@components/List';
 import useEventCallback from '@components/hooks/useEventCallback';
 import useControlled from '@components/hooks/useControlled';
 import defineEventTarget from '@components/utils/defineEventTarget';
+import InputIconButton from '@components/Input/InputIconButton';
+import KeyboardArrowDownIcon from '@svg-icons/material/KeyboardArrowDown';
+import ClearCloseIcon from '@svg-icons/material/ClearCloseIcon';
+import KeyboardArrowUpIcon from '@svg-icons/material/KeyboardArrowUp';
 
 const getValidItemText = (getItemText) => (item) => {
     let text = getItemText(item);
@@ -34,8 +38,6 @@ const defaultFilterItems = (items, { inputValue = '', getItemText = getDefaultIt
     });
 };
 
-const defaultHighlightedIndex = -1;
-
 const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
     const {
         renderInput,
@@ -53,9 +55,14 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
             maxHeight: 250
         },
         listPlacement = 'bottom-start',
+        defaultHighlightedIndex = -1,
+        openOnFocus = true,
+        openButton = true,
+        resetButton = true,
         onOpen = () => {},
         onClose = () => {},
         onChange = () => {},
+        onFocus = () => {},
         onBlur = () => {},
         onInputChange = () => {},
         ...other
@@ -70,6 +77,8 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
     const [listScrollbarNode, setListScrollbarNode] = useState(null);
     const [exited, setExited] = useState(true);
 
+    const hadBlurRecently = useRef(false);
+    const hadBlurRecentlyTimeout = useRef(null);
     const anchorRef = useRef(null);
     const inputRef = useRef(null);
     const handleAnchorRef = useForkRef(anchorRef, ref);
@@ -178,16 +187,14 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
     const handleValue = useEventCallback((ev, newValue) => {
         setValue(newValue);
 
-        defineEventTarget(ev, { value: newValue });
         onChange(ev);
     });
 
     const handleInputValue = useEventCallback((ev, newValue) => {
-        const inputNewValue = getItemText(newValue);
+        const inputNewValue = newValue ? getItemText(newValue) : '';
 
         setInputValue(inputNewValue);
 
-        defineEventTarget(ev, { value: inputNewValue });
         onInputChange(ev);
     });
 
@@ -199,6 +206,10 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
 
     const handleClickAway = useEventCallback((ev) => {
         handleClose(ev);
+    });
+
+    const handleMouseDown = useEventCallback((ev) => {
+        ev.preventDefault();
     });
 
     const handlePopperMouseDown = useCallback((ev) => {
@@ -229,7 +240,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
             case 'Enter':
                 ev.preventDefault();
 
-                if (open && highlightedIndex !== defaultHighlightedIndex) {
+                if (open && highlightedIndex !== -1) {
                     const newValue = filteredItems[highlightedIndex];
                     setNewValue(ev, newValue);
                 }
@@ -254,7 +265,26 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         handleOpen(ev);
     });
 
+    const handleInputFocus = useEventCallback((ev) => {
+        if (openOnFocus && !hadBlurRecently.current) {
+            handleOpen(ev);
+        }
+
+        if (!open) {
+            onFocus(ev);
+        }
+    });
+
     const handleInputBlur = useEventCallback((ev) => {
+        hadBlurRecently.current = true;
+
+        clearTimeout(hadBlurRecentlyTimeout.current);
+
+        hadBlurRecentlyTimeout.current = null;
+        hadBlurRecentlyTimeout.current = setTimeout(() => {
+            hadBlurRecently.current = false;
+        }, 100);
+
         onBlur(ev);
         handleClose(ev);
     });
@@ -272,6 +302,27 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
     const handleTransitionExited = useCallback((ev) => {
         setExited(true);
     }, []);
+
+    const handleChevronButtonClick = useEventCallback((ev) => {
+        ev.preventDefault();
+
+        inputRef.current.focus();
+
+        if (open) {
+            handleClose(ev);
+        } else {
+            handleOpen(ev);
+        }
+    });
+
+    const handleResetButtonClick = useEventCallback((ev) => {
+        ev.preventDefault();
+
+        inputRef.current.focus();
+
+        handleInputValue(ev, '');
+        handleValue(ev, null);
+    });
 
     // Effects
 
@@ -309,7 +360,30 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         onMouseDown: handleInputMouseDown,
         onKeyDown: handleInputKeyDown,
         onChange: handleInputChange,
-        onBlur: handleInputBlur
+        onFocus: handleInputFocus,
+        onBlur: handleInputBlur,
+        ...((resetButton || openButton) && {
+            appendAdornment: () => {
+                return (
+                    <>
+                        {resetButton && inputValue.length > 0 && (
+                            <InputIconButton tabIndex="-1" onClick={handleResetButtonClick}>
+                                <ClearCloseIcon />
+                            </InputIconButton>
+                        )}
+                        {openButton && (
+                            <InputIconButton tabIndex="-1" onClick={handleChevronButtonClick}>
+                                {open ? (
+                                    <KeyboardArrowUpIcon size="medium" />
+                                ) : (
+                                    <KeyboardArrowDownIcon size="medium" />
+                                )}
+                            </InputIconButton>
+                        )}
+                    </>
+                );
+            }
+        })
     });
 
     const items = filteredItems.map((item, index) => {
@@ -348,7 +422,12 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
 
     return (
         <ClickAwayListener onClickAway={handleClickAway}>
-            <div role="presentation" className={classNames('search-input')} ref={handleAnchorRef}>
+            <div
+                role="presentation"
+                className={classNames('search-input')}
+                ref={handleAnchorRef}
+                onMouseDown={handleMouseDown}
+            >
                 {inputElement}
                 {(open || !exited) && (
                     <Portal>
@@ -401,10 +480,15 @@ Autocomplete.propTypes = {
     open: PropTypes.bool,
     listProps: PropTypes.object,
     listPlacement: PropTypes.string,
+    defaultHighlightedIndex: PropTypes.number,
+    resetButton: PropTypes.bool,
+    openButton: PropTypes.bool,
+    openOnFocus: PropTypes.bool,
     onOpen: PropTypes.func,
     onClose: PropTypes.func,
     onChange: PropTypes.func,
     onBlur: PropTypes.func,
+    onFocus: PropTypes.func,
     onInputChange: PropTypes.func
 };
 

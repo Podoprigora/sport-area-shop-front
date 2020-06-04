@@ -49,6 +49,11 @@
 
 		&--end {
 			margin-right: $input-padding-x;
+
+			& > *:not(:last-of-type) {
+				margin: 0;
+				margin-right: $input-padding-x;
+			}
 		}
 	}
 

@@ -124,6 +124,7 @@ const TestSearchInput = () => {
             <Autocomplete
                 data={films}
                 // disabled
+                defaultHighlightedIndex={0}
                 getItemText={(item) => item.title}
                 getItemSelected={(value, item) => value.title === item.title}
                 renderInput={(inputProps) => {
