@@ -3,27 +3,26 @@ import PropTypes from 'prop-types';
 import Scrollbars from 'react-custom-scrollbars';
 
 import setRef from '@components/utils/setRef';
+import useEventCallback from '@components/hooks/useEventCallback';
 
 const Scrollbar = React.forwardRef(function Scrollbar(props, ref) {
     const { children, disabled, onScroll, ...other } = props;
 
+    const handleRef = useEventCallback((node) => {
+        if (ref) {
+            setRef(ref, (node && node.view) || null);
+        }
+    });
+
+    const renderThumb = useEventCallback((renderProps) => {
+        return !disabled ? <div className="custom-scrollbars-thumb" {...renderProps} /> : <div />;
+    });
+
     return (
         <Scrollbars
-            ref={(node) => {
-                if (ref) {
-                    setRef(ref, (node && node.view) || null);
-                }
-            }}
-            {...(disabled && {
-                renderTrackHorizontal: () => <div />,
-                renderTrackVertical: () => <div />
-            })}
-            renderThumbHorizontal={(renderProps) => {
-                return <div className="custom-scrollbars-thumb" {...renderProps} />;
-            }}
-            renderThumbVertical={(renderProps) => {
-                return <div className="custom-scrollbars-thumb" {...renderProps} />;
-            }}
+            ref={handleRef}
+            renderThumbHorizontal={renderThumb}
+            renderThumbVertical={renderThumb}
             onScroll={onScroll}
             {...other}
         >

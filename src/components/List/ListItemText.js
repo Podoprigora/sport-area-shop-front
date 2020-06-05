@@ -26,4 +26,4 @@ ListItemText.propTypes = {
     flex: PropTypes.bool
 };
 
-export default React.memo(ListItemText);
+export default ListItemText;

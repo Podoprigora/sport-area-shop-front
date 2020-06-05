@@ -41,6 +41,11 @@ const defaultFilterItems = (items, { inputValue = '', getItemText = getDefaultIt
     });
 };
 
+const defaultListProps = {
+    maxHeight: 250,
+    placement: 'bottom-start'
+};
+
 const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
     const {
         renderInput,
@@ -58,10 +63,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         value: valueProp,
         defaultValue,
         inputValue: inputValueProp,
-        listProps = {
-            maxHeight: 250
-        },
-        listPlacement = 'bottom-start',
+        listProps: listPropsProp,
         defaultHighlightedIndex = -1,
         openOnFocus = false,
         openButton = true,
@@ -75,6 +77,11 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         onInputChange = () => {},
         ...other
     } = props;
+
+    const { placement: listPlacement, width: listWidth, ...listProps } = {
+        ...defaultListProps,
+        ...listPropsProp
+    };
 
     const [popperStyle, setPopperStyle] = useState({});
     const [highlightedIndex, setHeighlightedIndex] = useState(defaultHighlightedIndex);
@@ -99,18 +106,19 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
 
     const inputValueIsSelectedValue = useMemo(() => {
         return (
+            open &&
             !!value &&
             ((typeof value === 'string' && inputValue === selectedInputValueRef.current) ||
                 inputValue === getItemText(value))
         );
-    }, [value, inputValue, getItemText]);
+    }, [value, open, inputValue, getItemText]);
 
     const filteredItems = useMemo(() => {
         return filterItems(data, {
             inputValue: inputValueIsSelectedValue ? '' : inputValue,
             getItemText
         });
-    }, [inputValue, data, inputValueIsSelectedValue, getItemText, filterItems]);
+    }, [filterItems, data, inputValueIsSelectedValue, inputValue, getItemText]);
 
     // Handlers
 
@@ -356,10 +364,10 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
             const width = anchorRef.current.clientWidth;
 
             setPopperStyle((prevStyle) => {
-                return { ...prevStyle, width };
+                return { ...prevStyle, width: listWidth || width };
             });
         }
-    }, []);
+    }, [listWidth]);
 
     useEffect(() => {
         resetHighlightedIndex();
@@ -453,7 +461,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         })
     });
 
-    const placement = popperState.placement || listPlacement;
+    const placement = popperState.placment || listPlacement;
 
     return (
         <ClickAwayListener onClickAway={handleClickAway}>
@@ -520,6 +528,7 @@ Autocomplete.propTypes = {
     loadingText: PropTypes.string,
     listProps: PropTypes.object,
     listPlacement: PropTypes.string,
+    listWidth: PropTypes.number,
     defaultHighlightedIndex: PropTypes.number,
     resetButton: PropTypes.bool,
     openButton: PropTypes.bool,
