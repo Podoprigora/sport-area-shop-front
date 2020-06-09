@@ -62,52 +62,36 @@
 	}
 
 	&__search {
+		display: flex;
 		flex: 1;
 	}
 
-	&__search-field {
-		position: relative;
-		height: 100%;
+	&__search-input {
+		display: flex;
 
 		.input {
-			border-color: $input-focus-stripe-color;
+			border-color: $color-primary;
 			border-width: 2px;
 			border-left-width: 0;
 			border-radius: $border-radius;
 			border-top-left-radius: 0;
 			border-bottom-left-radius: 0;
-			height: 100%;
 
 			&::after {
 				height: 0px;
 			}
 		}
-
-		// TODO: refactoring
-		.input__el {
-			padding-left: 4.4rem;
-			font-size: 1.4rem;
-			height: 100%;
-		}
-	}
-
-	&__search-icon {
-		position: absolute;
-		top: 50%;
-		left: $spacing-scale-6;
-		color: $input-placeholder-color;
-		transform: translateY(-50%);
 	}
 
 	&__actions {
 		display: flex;
 		flex-flow: row nowrap;
 		align-items: center;
-		padding-left: $spacing-scale-6;
+		padding-left: $spacing-scale-9;
 		margin-left: auto;
 
 		& > .btn-icon {
-			margin-left: $spacing-scale-8;
+			margin: 0 $spacing-scale-8;
 		}
 	}
 }

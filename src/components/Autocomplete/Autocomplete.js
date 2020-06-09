@@ -69,12 +69,16 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         openButton = true,
         resetButton = true,
         fullWidth = false,
+        className,
+        style,
         onOpen = () => {},
         onClose = () => {},
         onChange = () => {},
         onFocus = () => {},
         onBlur = () => {},
         onInputChange = () => {},
+        onInputKeyDown = () => {},
+        onItemClick = () => {},
         ...other
     } = props;
 
@@ -128,7 +132,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         }
 
         // Scrolling item into view
-        if (listScrollbarNode && listScrollbarNode.scrollHeight > listScrollbarNode.clientWidth) {
+        if (listScrollbarNode && listScrollbarNode.scrollHeight > listScrollbarNode.clientHeight) {
             const highlightedItemNode = listScrollbarNode.querySelector(`[data-index='${index}']`);
 
             if (highlightedItemNode) {
@@ -188,6 +192,10 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
 
         if (value) {
             selectedIndex = filteredItems.findIndex((item) => getItemSelected(value, item));
+        }
+
+        if (selectedIndex === -1 && selectedIndex !== defaultHighlightedIndex) {
+            selectedIndex = defaultHighlightedIndex;
         }
 
         handleHighlightIndex(selectedIndex);
@@ -275,6 +283,8 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
             default:
                 break;
         }
+
+        onInputKeyDown(ev);
     });
 
     const handleInputChange = useEventCallback((ev) => {
@@ -317,12 +327,16 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         onBlur(ev);
     });
 
-    const handleItemClick = useEventCallback((index) => (ev) => {
-        const newValue = filteredItems[index];
+    const handleItemClick = useCallback(
+        (index) => (ev) => {
+            const newValue = filteredItems[index];
 
-        setNewValue(ev, newValue);
-        handleClose(ev);
-    });
+            setNewValue(ev, newValue);
+            handleClose(ev);
+            onItemClick(ev, newValue);
+        },
+        [filteredItems, setNewValue, handleClose, onItemClick]
+    );
 
     const handleTransitionEnter = useCallback((ev) => {
         setExited(false);
@@ -371,7 +385,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
 
     useEffect(() => {
         resetHighlightedIndex();
-    }, [filteredItems, listScrollbarNode, resetHighlightedIndex]);
+    }, [filteredItems, listScrollbarNode, resetHighlightedIndex, defaultHighlightedIndex]);
 
     // Render
 
@@ -467,9 +481,10 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         <ClickAwayListener onClickAway={handleClickAway}>
             <div
                 role="presentation"
-                className={classNames('autocomplete-input', {
+                className={classNames('autocomplete-input', className, {
                     'autocomplete-input--full-width': fullWidth
                 })}
+                style={style}
                 ref={handleAnchorRef}
             >
                 {inputElement}
@@ -527,19 +542,21 @@ Autocomplete.propTypes = {
     loading: PropTypes.bool,
     loadingText: PropTypes.string,
     listProps: PropTypes.object,
-    listPlacement: PropTypes.string,
-    listWidth: PropTypes.number,
     defaultHighlightedIndex: PropTypes.number,
     resetButton: PropTypes.bool,
     openButton: PropTypes.bool,
     openOnFocus: PropTypes.bool,
     fullWidth: PropTypes.bool,
+    className: PropTypes.string,
+    style: PropTypes.object,
     onOpen: PropTypes.func,
     onClose: PropTypes.func,
     onChange: PropTypes.func,
     onBlur: PropTypes.func,
     onFocus: PropTypes.func,
-    onInputChange: PropTypes.func
+    onInputKeyDown: PropTypes.func,
+    onInputChange: PropTypes.func,
+    onItemClick: PropTypes.func
 };
 
 export default Autocomplete;
