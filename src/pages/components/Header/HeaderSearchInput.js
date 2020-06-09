@@ -6,13 +6,9 @@ import Input from '@components/Input';
 import SearchIcon from '@svg-icons/feather/SearchIcon';
 import { ListItem, ListItemText, ListItemIcon } from '@components/List';
 import HistoryRestoreIcon from '@svg-icons/material/HistoryRestoreIcon';
+import useLocalStorage from '@components/hooks/useLocalStorage';
 
-const defaultQueriesHistory = [
-    { title: 'jeans', history: true },
-    { title: 'shirt', history: true },
-    { title: 'vans', history: true },
-    { title: 'Rell', history: true }
-];
+const defaultQueriesHistory = ['jeans', 'shirt'];
 
 const searchResult = [
     {
@@ -95,33 +91,36 @@ const HeaderSearchInput = (props) => {
 
     const [data, setData] = useState([]);
     const [query, setQuery] = useState('');
+    const [open, setOpen] = useState(false);
+    const [queriesHistory, setQueriesHistory] = useLocalStorage('queriesHistory', []);
 
-    const isHistoryData = useMemo(() => {
-        if (data && data.length > 0) {
-            return (data[0] || {}).history === true;
+    const queriesHistoryData = useMemo(() => {
+        let historyData = defaultQueriesHistory;
+        if (queriesHistory && queriesHistory.length > 0) {
+            historyData = queriesHistory;
         }
-        return false;
-    }, [data]);
+        return historyData.map((item) => ({ title: item, history: true }));
+    }, [queriesHistory]);
 
     const handleInputChange = useCallback((ev) => {
-        let value = ev.target.value;
-        if (value) {
-            value = value.trim();
-            setQuery(value);
-        }
+        setQuery(ev.target.value);
     }, []);
 
     const handleSelect = useCallback((value = null) => {
         console.log({ value });
+        setOpen(false);
     }, []);
 
     const handleInputKeyDown = useCallback(
         (ev) => {
-            if (query.length >= queryLength) {
+            if (ev.key === 'Enter' && query.length >= queryLength) {
                 handleSelect(query);
+
+                const filteredQueriesHistory = queriesHistory.filter((item) => item !== query);
+                setQueriesHistory([...filteredQueriesHistory, query]);
             }
         },
-        [query, queryLength, handleSelect]
+        [query, queryLength, queriesHistory, handleSelect, setQueriesHistory]
     );
 
     const handleItemClick = useCallback(
@@ -143,16 +142,35 @@ const HeaderSearchInput = (props) => {
         [query, queryLength]
     );
 
+    const handleOpen = useCallback(() => {
+        setOpen(true);
+    }, []);
+
+    const handleClose = useCallback(() => {
+        setOpen(false);
+    }, []);
+
     useEffect(() => {
+        if (!open) {
+            if (query.length === 0) {
+                setData([]);
+            }
+
+            return undefined;
+        }
+
         if (query.length >= queryLength) {
             setData(searchResult);
         } else {
-            setData(defaultQueriesHistory);
+            setData(queriesHistoryData);
         }
-    }, [query, queryLength]);
+
+        return undefined;
+    }, [open, query, queryLength, queriesHistoryData]);
 
     return (
         <Autocomplete
+            open={open}
             data={data}
             inputValue={query}
             filterItems={handleFilterItems}
@@ -161,7 +179,6 @@ const HeaderSearchInput = (props) => {
             openButton={false}
             getItemSelected={() => false}
             getItemText={({ title }) => title}
-            defaultHighlightedIndex={isHistoryData ? -1 : 0}
             renderInput={(inputProps) => {
                 return (
                     <Input
@@ -184,6 +201,8 @@ const HeaderSearchInput = (props) => {
                     </ListItem>
                 );
             }}
+            onOpen={handleOpen}
+            onClose={handleClose}
             onInputChange={handleInputChange}
             onInputKeyDown={handleInputKeyDown}
             onItemClick={handleItemClick}
