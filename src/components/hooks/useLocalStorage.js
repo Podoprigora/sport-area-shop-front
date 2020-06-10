@@ -2,9 +2,7 @@ import { useCallback, useEffect, useState, useMemo, useRef } from 'react';
 
 const localStorage = window.localStorage;
 
-const defaultValueMap = (item) => item;
-
-export default function useLocalStorage(key, defaultData = null, valueMap = defaultValueMap) {
+export default function useLocalStorage(key, defaultData = null) {
     const [storedValue, setStoredValue] = useState(() => {
         try {
             let item = localStorage.getItem(key);
@@ -15,7 +13,6 @@ export default function useLocalStorage(key, defaultData = null, valueMap = defa
             return defaultData;
         }
     });
-    const valueMapRef = useRef(valueMap);
 
     const setItem = useCallback(
         (item) => {
@@ -45,12 +42,5 @@ export default function useLocalStorage(key, defaultData = null, valueMap = defa
         }
     }, [key]);
 
-    const value = useMemo(() => {
-        if (storedValue) {
-            return valueMapRef.current(storedValue);
-        }
-        return storedValue;
-    }, [storedValue]);
-
-    return useMemo(() => [value, setItem, removeItem], [value, setItem, removeItem]);
+    return [storedValue, setItem, removeItem];
 }

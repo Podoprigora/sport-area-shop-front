@@ -6,7 +6,7 @@ import BrandsCarousel from '@pages/components/BrandsCarousel';
 import BrandnewCarousel from '@pages/components/BrandnewCarousel';
 import TopsellerCarousel from '@pages/components/TopsellerCarousel';
 
-import useMainPageBootstrapData from './hooks/useMainPageBootstrapData';
+import useMainPageBootstrapData from './useMainPageBootstrapData';
 
 const MainPage = (props) => {
     const {
