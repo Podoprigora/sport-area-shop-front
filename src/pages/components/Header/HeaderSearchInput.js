@@ -1,22 +1,16 @@
-import React, { useState, useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { useHistory, useParams, useLocation } from 'react-router-dom';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
-import debounce from 'lodash/debounce';
 
 import Autocomplete from '@components/Autocomplete';
 import Input from '@components/Input';
 import SearchIcon from '@svg-icons/feather/SearchIcon';
 import { ListItem, ListItemText, ListItemIcon, ListItemAction } from '@components/List';
 import HistoryRestoreIcon from '@svg-icons/material/HistoryRestoreIcon';
-import useLocalStorage from '@components/hooks/useLocalStorage';
+
 import IconButton from '@components/IconButton';
 import ClearCloseIcon from '@svg-icons/material/ClearCloseIcon';
-import QuickSearchService from '@services/QuickSearchService';
-import useMountedRef from '@components/hooks/useMountedRef';
-
-const defaultQueriesHistory = ['jeans', 'shirt'];
 
 const getItemText = ({ title }) => title;
 
@@ -31,97 +25,21 @@ const filterItems = (items, value) => {
     });
 };
 
-const HeaderSearchInput = (props) => {
-    const { queryMinLength = 3, historyMaxLength = 5, searchParamName = 'q' } = props;
-
-    const routerHistory = useHistory();
-    const routerLocation = useLocation();
-
-    const [data, setData] = useState([]);
-    const [query, setQuery] = useState('');
-    const [open, setOpen] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [queriesHistory, setQueriesHistory] = useLocalStorage('queriesHistory', []);
-
-    const mountedRef = useMountedRef();
-    const forcedOpenRef = useRef(false);
-    const queryRef = useRef(query);
-    const selectedQueryRef = useRef(false);
-
-    const queriesHistoryData = useMemo(() => {
-        const historyData =
-            queriesHistory && queriesHistory.length > 0 ? queriesHistory : defaultQueriesHistory;
-
-        return historyData.map((item) => ({
-            title: item,
-            history: true,
-            cleanable: queriesHistory && queriesHistory.length > 0
-        }));
-    }, [queriesHistory]);
-
-    const addToQueriesHistory = useCallback(
-        (newQuery) => {
-            setQueriesHistory((prevState = []) => {
-                const history = prevState.filter((item) => item !== newQuery);
-
-                if (history.length >= historyMaxLength) {
-                    history.pop();
-                }
-
-                return [newQuery, ...history];
-            });
-        },
-        [setQueriesHistory, historyMaxLength]
-    );
-
-    const handleInputChange = useCallback((ev) => {
-        setQuery(ev.target.value);
-    }, []);
-
-    const handleSelect = useCallback(
-        (value = null) => {
-            routerHistory.push(`/search/?${searchParamName}=${value}`);
-
-            setOpen(false);
-        },
-        [searchParamName, routerHistory]
-    );
-
-    const handleInputKeyDown = useCallback(
-        (ev) => {
-            if (selectedQueryRef.current) {
-                selectedQueryRef.current = false;
-                return;
-            }
-
-            if (ev.key === 'Enter' && query.length >= queryMinLength) {
-                handleSelect(query);
-                addToQueriesHistory(query);
-            }
-        },
-        [query, queryMinLength, handleSelect, addToQueriesHistory]
-    );
-
-    const handleItemClick = useCallback(
-        (ev, value) => {
-            if (value) {
-                handleSelect(value.title);
-            }
-        },
-        [handleSelect]
-    );
-
-    const handleChange = useCallback(
-        (ev) => {
-            const { title } = ev.target.value || {};
-
-            if (title && title.trim().length > 0) {
-                handleSelect(title);
-                selectedQueryRef.current = true;
-            }
-        },
-        [handleSelect]
-    );
+const HeaderSearchInput = React.forwardRef(function HeaderSearchInput(props, ref) {
+    const {
+        query,
+        queryMinLength,
+        open,
+        loading,
+        data,
+        onOpen,
+        onClose,
+        onChange,
+        onInputChange,
+        onInputKeyDown,
+        onDeleteHistoryItem,
+        onItemClick
+    } = props;
 
     const handleFilterItems = useCallback(
         (items) => {
@@ -133,78 +51,49 @@ const HeaderSearchInput = (props) => {
         [query, queryMinLength]
     );
 
-    const handleOpen = useCallback(() => {
-        setOpen(true);
-    }, []);
+    const renderInput = () => {
+        return (
+            <Input
+                placeholder="What are you looking for?"
+                prependAdornment={() => <SearchIcon size="medium" />}
+            />
+        );
+    };
 
-    const handleClose = useCallback((ev) => {
-        if (!forcedOpenRef.current) {
-            setOpen(false);
-        }
-        forcedOpenRef.current = false;
-    }, []);
+    const renderItem = (item, { index }) => {
+        const { title, history = false, cleanable = false } = item;
 
-    const handleDeleteQueryHistoryItem = useCallback(
-        (deletedIndex) => (ev) => {
-            ev.stopPropagation();
-            ev.preventDefault();
+        const matches = match(title, query);
+        const parts = parse(title, matches);
 
-            forcedOpenRef.current = true;
+        let highlightedText = title;
 
-            setQueriesHistory((prevState) => {
-                const newHistory = prevState.filter((_, index) => index !== deletedIndex);
-                return newHistory;
+        if (!history && parts && parts.length > 0) {
+            highlightedText = parts.map((part, partIndex) => {
+                return (
+                    <span key={partIndex} style={{ fontWeight: part.highlight ? 700 : 400 }}>
+                        {part.text}
+                    </span>
+                );
             });
-        },
-        [setQueriesHistory]
-    );
-
-    const requestData = useCallback(
-        debounce(async (q) => {
-            setLoading(true);
-            try {
-                const response = await QuickSearchService.fetch(q);
-
-                if (
-                    response &&
-                    mountedRef.current &&
-                    queryRef.current &&
-                    queryRef.current.length >= queryMinLength
-                ) {
-                    setData(response);
-                }
-            } catch (error) {
-                console.error(error);
-            }
-            setLoading(false);
-        }, 600),
-        []
-    );
-
-    const handleData = useCallback(() => {
-        if (open) {
-            queryRef.current = query;
-
-            if (query && query.length >= queryMinLength) {
-                requestData(query);
-            } else {
-                setData(queriesHistoryData);
-            }
         }
-    }, [open, query, queryMinLength, queriesHistoryData, requestData]);
 
-    useEffect(() => {
-        handleData();
-    }, [handleData]);
-
-    useEffect(() => {
-        const searchParam = new URLSearchParams(routerLocation.search);
-        const queryParam = searchParam.get(searchParamName) || '';
-
-        setQuery((prevQuery) => {
-            return prevQuery !== queryParam ? queryParam : prevQuery;
-        });
-    }, [routerLocation, searchParamName]);
+        return (
+            <ListItem>
+                <ListItemIcon>
+                    {history ? <HistoryRestoreIcon size="medium" /> : <SearchIcon size="medium" />}
+                </ListItemIcon>
+                <ListItemText flex>{highlightedText}</ListItemText>
+                {history && cleanable && (
+                    <ListItemAction tabIndex="-1">
+                        <IconButton size="small" onClick={onDeleteHistoryItem(index)}>
+                            <ClearCloseIcon />
+                        </IconButton>
+                    </ListItemAction>
+                )}
+            </ListItem>
+        );
+    };
 
     return (
         <Autocomplete
@@ -219,71 +108,39 @@ const HeaderSearchInput = (props) => {
             loadingText={null}
             emptyText={null}
             getItemSelected={() => false}
-            getItemText={({ title }) => title}
-            renderInput={() => {
-                return (
-                    <Input
-                        placeholder="What are you looking for?"
-                        prependAdornment={() => <SearchIcon size="medium" />}
-                    />
-                );
-            }}
-            renderItem={({ title, history = false, cleanable = false }, { index }) => {
-                const matches = match(title, query);
-                const parts = parse(title, matches);
-
-                let highlightedText = title;
-
-                if (!history && parts && parts.length > 0) {
-                    highlightedText = parts.map((part, partIndex) => {
-                        return (
-                            <span
-                                key={partIndex}
-                                style={{ fontWeight: part.highlight ? 700 : 400 }}
-                            >
-                                {part.text}
-                            </span>
-                        );
-                    });
-                }
-
-                return (
-                    <ListItem>
-                        <ListItemIcon>
-                            {history ? (
-                                <HistoryRestoreIcon size="medium" />
-                            ) : (
-                                <SearchIcon size="medium" />
-                            )}
-                        </ListItemIcon>
-                        <ListItemText flex>{highlightedText}</ListItemText>
-                        {history && cleanable && (
-                            <ListItemAction tabIndex="-1">
-                                <IconButton
-                                    size="small"
-                                    onClick={handleDeleteQueryHistoryItem(index)}
-                                >
-                                    <ClearCloseIcon />
-                                </IconButton>
-                            </ListItemAction>
-                        )}
-                    </ListItem>
-                );
-            }}
-            onOpen={handleOpen}
-            onClose={handleClose}
-            onChange={handleChange}
-            onInputKeyDown={handleInputKeyDown}
-            onInputChange={handleInputChange}
-            onItemClick={handleItemClick}
+            getItemText={getItemText}
+            renderInput={renderInput}
+            renderItem={renderItem}
+            ref={ref}
+            onOpen={onOpen}
+            onClose={onClose}
+            onChange={onChange}
+            onInputKeyDown={onInputKeyDown}
+            onInputChange={onInputChange}
+            onItemClick={onItemClick}
         />
     );
-};
+});
 
 HeaderSearchInput.propTypes = {
+    query: PropTypes.string,
     queryMinLength: PropTypes.number,
-    historyMaxLength: PropTypes.number,
-    searchParamName: PropTypes.string
+    open: PropTypes.bool,
+    loading: PropTypes.bool,
+    data: PropTypes.arrayOf(
+        PropTypes.shape({
+            title: PropTypes.string,
+            history: PropTypes.bool,
+            cleanable: PropTypes.bool
+        })
+    ),
+    onOpen: PropTypes.func,
+    onClose: PropTypes.func,
+    onChange: PropTypes.func,
+    onInputChange: PropTypes.func,
+    onInputKeyDown: PropTypes.func,
+    onDeleteHistoryItem: PropTypes.func,
+    onItemClick: PropTypes.func
 };
 
 export default HeaderSearchInput;

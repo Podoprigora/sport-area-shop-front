@@ -11,7 +11,7 @@ import UserIcon from '@svg-icons/feather/UserIcon';
 import LoginIcon from '@svg-icons/feather/LoginIcon';
 import MenuIcon from '@svg-icons/material/MenuIcon';
 import IconButton from '@components/IconButton';
-import HeaderSearchInput from './HeaderSearchInput';
+import HeaderSearch from './HeaderSearch';
 
 const Header = (props) => {
     return (
@@ -37,7 +37,7 @@ const Header = (props) => {
                         Shop by category
                     </Button>
                     <div className="header__search">
-                        <HeaderSearchInput />
+                        <HeaderSearch />
                     </div>
                     <div className="header__actions">
                         <IconButton primary size="large">
