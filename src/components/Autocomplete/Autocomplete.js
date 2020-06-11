@@ -447,7 +447,9 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         value
     ]);
 
-    const noItems = (emptyText || (loading && loadingText)) && (!items || items.length === 0) && (
+    const hasItems = items && items.length > 0;
+
+    const noItems = (emptyText || (loading && loadingText)) && !hasItems && (
         <ListItem disabled>
             <ListItemText>{(loading && loadingText) || emptyText}</ListItemText>
         </ListItem>
@@ -495,6 +497,8 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
 
     const placement = popperState.placment || listPlacement;
 
+    const showPopper = open && (hasItems || noItems);
+
     return (
         <ClickAwayListener onClickAway={handleClickAway}>
             <div
@@ -506,7 +510,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
                 ref={handleAnchorRef}
             >
                 {inputElement}
-                {(open || !exited) && (items.length > 0 || noItems) && (
+                {(showPopper || !exited) && (
                     <Portal>
                         <div
                             role="presentation"
@@ -516,7 +520,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
                             onMouseDown={handlePopperMouseDown}
                         >
                             <CSSTransition
-                                in={open && !!popperInstance}
+                                in={showPopper && !!popperInstance}
                                 classNames="menu"
                                 timeout={300}
                                 onEnter={handleTransitionEnter}

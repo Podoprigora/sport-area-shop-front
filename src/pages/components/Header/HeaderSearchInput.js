@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect, useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
 import debounce from 'lodash/debounce';
@@ -31,7 +32,10 @@ const filterItems = (items, value) => {
 };
 
 const HeaderSearchInput = (props) => {
-    const { queryMinLength = 3, historyMaxLength = 5 } = props;
+    const { queryMinLength = 3, historyMaxLength = 5, searchParamName = 'q' } = props;
+
+    const routerHistory = useHistory();
+    const routerLocation = useLocation();
 
     const [data, setData] = useState([]);
     const [query, setQuery] = useState('');
@@ -42,6 +46,7 @@ const HeaderSearchInput = (props) => {
     const mountedRef = useMountedRef();
     const forcedOpenRef = useRef(false);
     const queryRef = useRef(query);
+    const selectedQueryRef = useRef(false);
 
     const queriesHistoryData = useMemo(() => {
         const historyData =
@@ -73,13 +78,22 @@ const HeaderSearchInput = (props) => {
         setQuery(ev.target.value);
     }, []);
 
-    const handleSelect = useCallback((value = null) => {
-        console.log({ value });
-        setOpen(false);
-    }, []);
+    const handleSelect = useCallback(
+        (value = null) => {
+            routerHistory.push(`/search/?${searchParamName}=${value}`);
+
+            setOpen(false);
+        },
+        [searchParamName, routerHistory]
+    );
 
     const handleInputKeyDown = useCallback(
         (ev) => {
+            if (selectedQueryRef.current) {
+                selectedQueryRef.current = false;
+                return;
+            }
+
             if (ev.key === 'Enter' && query.length >= queryMinLength) {
                 handleSelect(query);
                 addToQueriesHistory(query);
@@ -92,6 +106,18 @@ const HeaderSearchInput = (props) => {
         (ev, value) => {
             if (value) {
                 handleSelect(value.title);
+            }
+        },
+        [handleSelect]
+    );
+
+    const handleChange = useCallback(
+        (ev) => {
+            const { title } = ev.target.value || {};
+
+            if (title && title.trim().length > 0) {
+                handleSelect(title);
+                selectedQueryRef.current = true;
             }
         },
         [handleSelect]
@@ -151,7 +177,7 @@ const HeaderSearchInput = (props) => {
                 console.error(error);
             }
             setLoading(false);
-        }, 300),
+        }, 600),
         []
     );
 
@@ -170,6 +196,15 @@ const HeaderSearchInput = (props) => {
     useEffect(() => {
         handleData();
     }, [handleData]);
+
+    useEffect(() => {
+        const searchParam = new URLSearchParams(routerLocation.search);
+        const queryParam = searchParam.get(searchParamName) || '';
+
+        setQuery((prevQuery) => {
+            return prevQuery !== queryParam ? queryParam : prevQuery;
+        });
+    }, [routerLocation, searchParamName]);
 
     return (
         <Autocomplete
@@ -237,8 +272,9 @@ const HeaderSearchInput = (props) => {
             }}
             onOpen={handleOpen}
             onClose={handleClose}
-            onInputChange={handleInputChange}
+            onChange={handleChange}
             onInputKeyDown={handleInputKeyDown}
+            onInputChange={handleInputChange}
             onItemClick={handleItemClick}
         />
     );
@@ -246,7 +282,8 @@ const HeaderSearchInput = (props) => {
 
 HeaderSearchInput.propTypes = {
     queryMinLength: PropTypes.number,
-    historyMaxLength: PropTypes.number
+    historyMaxLength: PropTypes.number,
+    searchParamName: PropTypes.string
 };
 
 export default HeaderSearchInput;
