@@ -2,6 +2,7 @@ import React, { useRef, useCallback, useState, useEffect, useMemo } from 'react'
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
+import throttle from 'lodash/throttle';
 
 import useForkRef from '@components/hooks/useForkRef';
 import { usePopper } from '@components/Popper';
@@ -396,14 +397,30 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
     }, [referenceRef]);
 
     useEffect(() => {
-        if (anchorRef.current) {
-            const width = anchorRef.current.clientWidth;
+        function updatePopperStyle() {
+            if (anchorRef.current && open) {
+                const width = anchorRef.current.clientWidth;
 
-            setPopperStyle((prevStyle) => {
-                return { ...prevStyle, width: listWidth || width };
-            });
+                setPopperStyle((prevStyle) => {
+                    return { ...prevStyle, width: listWidth || width };
+                });
+            }
         }
-    }, [listWidth]);
+
+        updatePopperStyle();
+
+        if (listWidth) {
+            return undefined;
+        }
+
+        const throttledCallback = throttle(updatePopperStyle, 166);
+
+        window.addEventListener('resize', throttledCallback, false);
+
+        return () => {
+            window.removeEventListener('resize', throttledCallback, false);
+        };
+    }, [open, listWidth]);
 
     useEffect(() => {
         resetHighlightedIndex();
@@ -447,14 +464,6 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         value
     ]);
 
-    const hasItems = items && items.length > 0;
-
-    const noItems = (emptyText || (loading && loadingText)) && !hasItems && (
-        <ListItem disabled>
-            <ListItemText>{(loading && loadingText) || emptyText}</ListItemText>
-        </ListItem>
-    );
-
     if (!renderInput) {
         return null;
     }
@@ -496,6 +505,14 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
     });
 
     const placement = popperState.placment || listPlacement;
+
+    const hasItems = items && items.length > 0;
+
+    const noItems = (emptyText || (loading && loadingText)) && !hasItems && (
+        <ListItem disabled>
+            <ListItemText>{(loading && loadingText) || emptyText}</ListItemText>
+        </ListItem>
+    );
 
     const showPopper = open && (hasItems || noItems);
 
