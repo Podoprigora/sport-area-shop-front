@@ -3,12 +3,12 @@ import axios from 'axios';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import useMountedRef from '@components/hooks/useMountedRef';
-import Autocomplete from '@components/Autocomplete';
-import { ListItem, ListItemIcon, ListItemText } from '@components/List';
+import useMountedRef from '@ui/hooks/useMountedRef';
+import Autocomplete from '@ui/Autocomplete';
+import { ListItem, ListItemIcon, ListItemText } from '@ui/List';
 import SearchIcon from '@svg-icons/feather/SearchIcon';
-import Input from '@components/Input';
-import AutocompleteField from '@components/FormikForm/AutocompleteField';
+import Input from '@ui/Input';
+import AutocompleteField from '@ui/FormikForm/AutocompleteField';
 
 const films = [
     { title: 'The Shawshank Redemption', year: 1994 },

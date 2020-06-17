@@ -2,16 +2,16 @@ import React, { useState, useCallback } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import Input from '@components/Input';
-import Checkbox from '@components/Checkbox';
-import CheckboxField from '@components/FormikForm/CheckboxField';
-import InputField from '@components/FormikForm/InputField';
-import Form from '@components/FormikForm/Form';
-import BoxLabel from '@components/BoxLabel';
-import Radio from '@components/Radio';
-import RadioGroup from '@components/RadioGroup';
-import RadioGroupField from '@components/FormikForm/RadioGroupField';
-import useEventCallback from '@components/hooks/useEventCallback';
+import Input from '@ui/Input';
+import Checkbox from '@ui/Checkbox';
+import CheckboxField from '@ui/FormikForm/CheckboxField';
+import InputField from '@ui/FormikForm/InputField';
+import Form from '@ui/FormikForm/Form';
+import BoxLabel from '@ui/BoxLabel';
+import Radio from '@ui/Radio';
+import RadioGroup from '@ui/RadioGroup';
+import RadioGroupField from '@ui/FormikForm/RadioGroupField';
+import useEventCallback from '@ui/hooks/useEventCallback';
 
 const initialValues = {
     checkbox1: '',

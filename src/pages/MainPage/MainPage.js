@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import AdwSlider from '@pages/components/AdwSlider';
-import BrandsCarousel from '@pages/components/BrandsCarousel';
-import BrandnewCarousel from '@pages/components/BrandnewCarousel';
-import TopsellerCarousel from '@pages/components/TopsellerCarousel';
+import AdwSlider from '@components/AdwSlider';
+import BrandsCarousel from '@components/BrandsCarousel';
+import BrandnewCarousel from '@components/BrandnewCarousel';
+import TopsellerCarousel from '@components/TopsellerCarousel';
 
 import useMainPageBootstrapData from './useMainPageBootstrapData';
 

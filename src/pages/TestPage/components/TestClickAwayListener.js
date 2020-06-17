@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import Button from '@components/Button';
-import ClickAwayListener from '@components/ClickAwayListener';
-import Portal from '@components/Portal';
+import Button from '@ui/Button';
+import ClickAwayListener from '@ui/ClickAwayListener';
+import Portal from '@ui/Portal';
 
 const TestClickAwayListener = () => {
     const [open, setOpen] = useState(false);

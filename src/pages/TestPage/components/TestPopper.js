@@ -2,10 +2,10 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 
-import Button from '@components/Button';
-import Portal from '@components/Portal';
-import usePopper from '@components/Popper/usePopper';
-import Popper from '@components/Popper';
+import Button from '@ui/Button';
+import Portal from '@ui/Portal';
+import usePopper from '@ui/Popper/usePopper';
+import Popper from '@ui/Popper';
 
 const TestPopper = () => {
     const [open, setOpen] = useState(false);

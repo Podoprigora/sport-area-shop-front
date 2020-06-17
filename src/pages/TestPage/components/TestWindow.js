@@ -2,12 +2,12 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import ShoppingCartIcon from '@svg-icons/feather/ShoppingCartIcon';
-import Button from '@components/Button';
-import Window from '@components/Window';
-import Tooltip from '@components/Tooltip';
-import WindowHeader from '@components/Window/WindowHeader';
-import WindowBody from '@components/Window/WindowBody';
-import WindowActions from '@components/Window/WindowActions';
+import Button from '@ui/Button';
+import Window from '@ui/Window';
+import Tooltip from '@ui/Tooltip';
+import WindowHeader from '@ui/Window/WindowHeader';
+import WindowBody from '@ui/Window/WindowBody';
+import WindowActions from '@ui/Window/WindowActions';
 import ShoppingBasketIcon from '@svg-icons/material/ShoppingBasketIcon';
 
 const TestWindow = (props) => {

@@ -32,7 +32,8 @@ module.exports = (env) => {
         },
         resolve: {
             alias: {
-                '@svg-icons': path.resolve(__dirname, './src/components/SvgIcons'),
+                '@svg-icons': path.resolve(__dirname, './src/ui/SvgIcons'),
+                '@ui': path.resolve(__dirname, './src/ui'),
                 '@components': path.resolve(__dirname, './src/components'),
                 '@pages': path.resolve(__dirname, './src/pages'),
                 '@resources': path.resolve(__dirname, './src/stylesheet/resources'),

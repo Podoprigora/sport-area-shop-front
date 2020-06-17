@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Panel from '@components/Panel';
-import Heading from '@components/Heading';
-import Input from '@components/Input';
+import Panel from '@ui/Panel';
+import Heading from '@ui/Heading';
+import Input from '@ui/Input';
 import TestButtons from './components/TestButtons';
 import TestWindow from './components/TestWindow';
 import TestPopper from './components/TestPopper';

@@ -4,9 +4,9 @@ import { Formik, Field } from 'formik';
 import MaskedInput from 'react-text-mask';
 import NumberFormat from 'react-number-format';
 
-import Input from '@components/Input';
-import InputField from '@components/FormikForm/InputField';
-import setRef from '@components/utils/setRef';
+import Input from '@ui/Input';
+import InputField from '@ui/FormikForm/InputField';
+import setRef from '@ui/utils/setRef';
 
 // Docs: https://github.com/text-mask/text-mask/blob/master/componentDocumentation.md#readme
 const PhoneMaskedInput = React.forwardRef(function(props, ref) {

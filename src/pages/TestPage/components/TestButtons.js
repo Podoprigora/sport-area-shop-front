@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import Button from '@components/Button';
+import Button from '@ui/Button';
 import UserIcon from '@svg-icons/feather/UserIcon';
 import StarIcon from '@svg-icons/feather/StarIcon';
 import ChevronLeftIcon from '@svg-icons/feather/ChevronLeftIcon';
 import ChevronRightIcon from '@svg-icons/feather/ChevronRightIcon';
 import ShoppingCartIcon from '@svg-icons/feather/ShoppingCartIcon';
-import Tooltip from '@components/Tooltip';
+import Tooltip from '@ui/Tooltip';
 
 const TestButtons = (props) => {
     const btnRef = useRef(null);

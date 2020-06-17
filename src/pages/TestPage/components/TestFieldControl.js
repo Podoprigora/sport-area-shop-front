@@ -1,17 +1,17 @@
 import React, { useRef, useEffect, useCallback } from 'react';
 
-import FieldControl from '@components/FieldControl';
-import Input, { InputIconButton } from '@components/Input';
-import Form from '@components/FormikForm/Form';
-import InputField from '@components/FormikForm/InputField';
+import FieldControl from '@ui/FieldControl';
+import Input, { InputIconButton } from '@ui/Input';
+import Form from '@ui/FormikForm/Form';
+import InputField from '@ui/FormikForm/InputField';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import FlexRow from '@components/FlexRow';
-import FlexCol from '@components/FlexCol';
+import FlexRow from '@ui/FlexRow';
+import FlexCol from '@ui/FlexCol';
 import LoginIcon from '@svg-icons/feather/LoginIcon';
 import UserIcon from '@svg-icons/feather/UserIcon';
 import SearchIcon from '@svg-icons/feather/SearchIcon';
-import IconButton from '@components/IconButton';
+import IconButton from '@ui/IconButton';
 import ClearCloseIcon from '@svg-icons/material/ClearCloseIcon';
 import PlusIcon from '@svg-icons/feather/PlusIcon';
 import FavoriteOutlineIcon from '@svg-icons/material/FavoriteOutlineIcon';
@@ -20,8 +20,8 @@ import CreatemodeEditIcon from '@svg-icons/material/CreatemodeEditIcon';
 import PlusCircleIcon from '@svg-icons/feather/PlusCircleIcon';
 import MinusCircleIcon from '@svg-icons/feather/MinusCircleIcon';
 import MinusIcon from '@svg-icons/feather/MinusIcon';
-import NumberInput from '@components/NumberInput';
-import NumberField from '@components/FormikForm/NumberField';
+import NumberInput from '@ui/NumberInput';
+import NumberField from '@ui/FormikForm/NumberField';
 
 const validationShema = Yup.object({
     name: Yup.string().required('Required'),

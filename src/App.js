@@ -3,9 +3,10 @@ import { HashRouter, Switch, Route } from 'react-router-dom';
 
 import './stylesheet/styles.scss';
 
-import Header from '@pages/components/Header';
-import Main from '@pages/components/Main';
-import Footer from '@pages/components/Footer';
+import Header from '@components/Header';
+import Main from '@components/Main';
+import Footer from '@components/Footer';
+
 import MainPage from '@pages/MainPage';
 import TestPage from '@pages/TestPage/TestPage';
 

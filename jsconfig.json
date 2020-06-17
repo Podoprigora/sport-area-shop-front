@@ -5,7 +5,8 @@
         "jsx": "preserve",
         "baseUrl": ".",
         "paths": { 
-            "@svg-icons/*": ["./src/components/SvgIcons/*"],
+            "@svg-icons/*": ["./src/ui/SvgIcons/*"],
+            "@ui/*": ["./src/ui/*"],
             "@components/*": ["./src/components/*"],
             "@pages/*": ["./src/pages/*"],
             "@services/*": ["./src/services/*"],

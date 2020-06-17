@@ -1,7 +1,7 @@
 import React from 'react';
-import useMediaQuery from '@components/hooks/useMediaQuery';
-import Hidden from '@components/Hidden';
-import Button from '@components/Button';
+import useMediaQuery from '@ui/hooks/useMediaQuery';
+import Hidden from '@ui/Hidden';
+import Button from '@ui/Button';
 
 const TestHidden = () => {
     return (

@@ -1,8 +1,8 @@
 import React, { useRef, useCallback, useState, useReducer } from 'react';
-import Button from '@components/Button';
-import Menu from '@components/Menu';
-import { ListItemText, ListItem } from '@components/List';
-import Divider from '@components/Divider';
+import Button from '@ui/Button';
+import Menu from '@ui/Menu';
+import { ListItemText, ListItem } from '@ui/List';
+import Divider from '@ui/Divider';
 
 const defaultState = {
     selected: [],

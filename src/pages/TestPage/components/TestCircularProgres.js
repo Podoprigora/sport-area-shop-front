@@ -1,6 +1,6 @@
 import React from 'react';
-import CircularProgress from '@components/CircularProgress';
-import BoxLabel from '@components/BoxLabel';
+import CircularProgress from '@ui/CircularProgress';
+import BoxLabel from '@ui/BoxLabel';
 
 const TestCircularProgres = () => {
     return (

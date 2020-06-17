@@ -1,6 +1,6 @@
 import React from 'react';
-import FlexRow from '@components/FlexRow';
-import FlexCol from '@components/FlexCol';
+import FlexRow from '@ui/FlexRow';
+import FlexCol from '@ui/FlexCol';
 
 const TestGrid = () => {
     return (

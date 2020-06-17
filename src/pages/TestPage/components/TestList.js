@@ -6,20 +6,20 @@ import List, {
     ListItemText,
     ListItemAction,
     ListSubheader
-} from '@components/List';
+} from '@ui/List';
 import ShoppingBasketIcon from '@svg-icons/material/ShoppingBasketIcon';
 import FavoriteOutlineIcon from '@svg-icons/material/FavoriteOutlineIcon';
-import Checkbox from '@components/Checkbox';
-import Divider from '@components/Divider';
-import Button from '@components/Button';
+import Checkbox from '@ui/Checkbox';
+import Divider from '@ui/Divider';
+import Button from '@ui/Button';
 import ShoppingCartIcon from '@svg-icons/feather/ShoppingCartIcon';
-import IconButton from '@components/IconButton';
+import IconButton from '@ui/IconButton';
 import CreatemodeEditIcon from '@svg-icons/material/CreatemodeEditIcon';
 import ClearCloseIcon from '@svg-icons/material/ClearCloseIcon';
 import SearchIcon from '@svg-icons/feather/SearchIcon';
-import Input from '@components/Input';
-import useEventListener from '@components/hooks/useEventListener';
-import Scrollbar from '@components/Scrollbar';
+import Input from '@ui/Input';
+import useEventListener from '@ui/hooks/useEventListener';
+import Scrollbar from '@ui/Scrollbar';
 
 const checkedItems = Array.from(Array(50)).map((item, i) => i + 1);
 

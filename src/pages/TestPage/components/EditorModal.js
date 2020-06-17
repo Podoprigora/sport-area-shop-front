@@ -4,7 +4,7 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 
-import Modal from '@components/Modal';
+import Modal from '@ui/Modal';
 
 let modals = 0;
 

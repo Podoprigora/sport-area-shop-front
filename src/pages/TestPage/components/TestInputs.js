@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
-import Input from '@components/Input';
-import Button from '@components/Button';
-import IconButton from '@components/IconButton';
+import Input from '@ui/Input';
+import Button from '@ui/Button';
+import IconButton from '@ui/IconButton';
 import CreatemodeEditIcon from '@svg-icons/material/CreatemodeEditIcon';
 import PlusIcon from '@svg-icons/feather/PlusIcon';
 import MenuIcon from '@svg-icons/material/MenuIcon';

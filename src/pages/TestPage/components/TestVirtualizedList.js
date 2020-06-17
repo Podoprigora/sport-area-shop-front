@@ -8,9 +8,9 @@ import React, { useState, useCallback, useMemo, useRef } from 'react';
 import { FixedSizeList, VariableSizeList, areEqual } from 'react-window';
 import memoize from 'memoize-one';
 
-import { ListItem, ListItemAction, ListItemText } from '@components/List';
-import Checkbox from '@components/Checkbox';
-import Scrollbar from '@components/Scrollbar';
+import { ListItem, ListItemAction, ListItemText } from '@ui/List';
+import Checkbox from '@ui/Checkbox';
+import Scrollbar from '@ui/Scrollbar';
 
 const listData = Array.from(Array(1000)).map((item, i) => ({
     id: i + 1,
