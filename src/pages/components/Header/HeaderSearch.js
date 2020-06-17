@@ -149,7 +149,7 @@ const HeaderSearch = React.forwardRef(function HeaderSearch(props, ref) {
                 console.error(error);
             }
             setLoading(false);
-        }, 600),
+        }, 300),
         []
     );
 
@@ -179,21 +179,23 @@ const HeaderSearch = React.forwardRef(function HeaderSearch(props, ref) {
     }, [routerLocation]);
 
     return (
-        <HeaderSearchInput
-            query={query}
-            queryMinLength={queryMinLength}
-            open={open}
-            data={data}
-            loading={loading}
-            onOpen={handleOpen}
-            onClose={handleClose}
-            onChange={handleChange}
-            onInputChange={handleInputChange}
-            onInputKeyDown={handleInputKeyDown}
-            onDeleteHistoryItem={handleDeleteQueryHistoryItem}
-            onItemClick={handleItemClick}
-            ref={ref}
-        />
+        <div className="header__search">
+            <HeaderSearchInput
+                query={query}
+                queryMinLength={queryMinLength}
+                open={open}
+                data={data}
+                loading={loading}
+                onOpen={handleOpen}
+                onClose={handleClose}
+                onChange={handleChange}
+                onInputChange={handleInputChange}
+                onInputKeyDown={handleInputKeyDown}
+                onDeleteHistoryItem={handleDeleteQueryHistoryItem}
+                onItemClick={handleItemClick}
+                ref={ref}
+            />
+        </div>
     );
 });
 
