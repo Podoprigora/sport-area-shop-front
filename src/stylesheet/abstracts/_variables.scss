@@ -15,9 +15,12 @@ $border-color-dark: $grey-lighten-1;
 
 // Font
 $font-family: 'Roboto', sans-serif;
-$font-size: 1.4rem;
 $font-weight: 400;
 $line-height: 1.4;
+$font-size-small: 1.2rem;
+$font-size-medium: 1.4rem;
+$font-size-large: 1.6rem;
+$font-size: $font-size-medium;
 
 // Z-index
 $modal-z-index: 2000;
@@ -123,9 +126,9 @@ $icon-hover-color: $color-primary;
 $btn-color: $grey-darken-3;
 $btn-bg-color: $grey-lighten-3;
 $btn-hover-bg-color: $white;
-$btn-small-font-size: 1.2rem;
-$btn-medium-font-size: 1.4rem;
-$btn-large-font-size: 1.6rem;
+$btn-small-font-size: $font-size-small;
+$btn-medium-font-size: $font-size-medium;
+$btn-large-font-size: $font-size-large;
 $btn-font-size: $btn-medium-font-size;
 $btn-font-weight: 500;
 $btn-text-transform: none;
@@ -155,7 +158,7 @@ $icon-btn-disabled-opacity: .6;
 // Tooltip
 $tooltip-bg-color: $grey-darken-1;
 $tooltip-color: $white;
-$tooltip-font-size: 1.2rem;
+$tooltip-font-size: $font-size-small;
 $tooltip-font-weight: 400;
 $tooltip-letter-spacing: .4px;
 $tooltip-padding: .8rem 1.2rem;
@@ -165,9 +168,9 @@ $tooltip-border-radius: $border-radius-lg;
 // Link
 $link-color: $grey-darken-2;
 $link-hover-color: $color-secondary;
-$link-small-font-size: 1.2rem;
-$link-medium-font-size: 1.4rem;
-$link-large-font-size: 2rem;
+$link-small-font-size: $font-size-small;
+$link-medium-font-size: $font-size-medium;
+$link-large-font-size: $font-size-large;
 $link-font-weight: 400;
 $link-text-decoration: underline;
 
@@ -192,13 +195,13 @@ $checkbox-hover-padding: $spacing-scale-4;
 
 // Field
 $field-label-color: $grey-darken-3;
-$field-label-font-size: 1.2rem;
+$field-label-font-size: $font-size-small;
 $field-label-line-height: 1.6;
 $field-label-font-weight: 500;
 $field-label-letter-spacing: .3px;
 $field-label-width: 12rem;
 $field-helper-text-color: $grey;
-$field-helper-text-font-size: 1.2rem;
+$field-helper-text-font-size: $font-size-small;
 $field-helper-text-font-weight: 400;
 $field-helper-text-letter-spacing: .3px;
 
@@ -223,7 +226,7 @@ $list-item-padding-x: $spacing-scale-6;
 $list-item-text-padding-y: .25rem;
 $list-item-text-padding-x: 0;
 $list-item-disabled-opacity: .6;
-$list-subheader-font-size: 1.2rem;
+$list-subheader-font-size: $font-size-small;
 $list-subheader-font-weight: 500;
 $list-subheader-letter-spacing: .3px;
 $list-subheader-color: $grey-darken-3;

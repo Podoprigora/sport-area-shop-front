@@ -47,6 +47,7 @@ const LoginForm = React.forwardRef(function LoginForm(props, ref) {
                         placeholder="example@mail.com"
                         required
                         fullWidth
+                        autoFocus
                     />
                 </FormRow>
                 <FormRow>
@@ -76,20 +77,20 @@ const LoginForm = React.forwardRef(function LoginForm(props, ref) {
                 </FormRow>
                 <FormRow>
                     <FlexRow justify="center">
-                        <Button primary centered autoFocus icon={LoginIcon} maxWidth={140}>
+                        <Button primary centered icon={LoginIcon} maxWidth={140}>
                             Sign In
                         </Button>
                     </FlexRow>
                 </FormRow>
                 <FlexRow justify="center" alignItems="center">
-                    <div>
-                        <span style={{ marginRight: '.6rem', fontSize: '1.2rem' }}>
+                    <span>
+                        <span className="u-text-small u-color-grey-darken-2 u-margin-r-3">
                             New customer?
                         </span>
                         <Link primary tabIndex="0">
                             Sign Up
                         </Link>
-                    </div>
+                    </span>
                 </FlexRow>
             </Form>
         </Formik>

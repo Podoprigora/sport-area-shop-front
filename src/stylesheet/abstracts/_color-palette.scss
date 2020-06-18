@@ -296,3 +296,33 @@ $blue-grey-darken-1: #546e7a;
 $blue-grey-darken-2: #455a64;
 $blue-grey-darken-3: #37474f;
 $blue-grey-darken-4: #263238;
+
+$colors: (
+	"black": $black,
+	"white": $white,
+	"red-lighten-5":$red-lighten-5,
+	"red-lighten-4":$red-lighten-4,
+	"red-lighten-3":$red-lighten-3,
+	"red-lighten-2":$red-lighten-2,
+	"red-lighten-1":$red-lighten-1,
+	"red":$red,
+	"red-darken-1":$red-darken-1,
+	"red-darken-2":$red-darken-2,
+	"red-darken-3":$red-darken-3,
+	"red-darken-4":$red-darken-4,
+	"red-accent-1":$red-accent-1,
+	"red-accent-2":$red-accent-2,
+	"red-accent-3":$red-accent-3,
+	"red-accent-4":$red-accent-4,
+	"grey-lighten-6":$grey-lighten-6,
+	"grey-lighten-5":$grey-lighten-5,
+	"grey-lighten-4":$grey-lighten-4,
+	"grey-lighten-3":$grey-lighten-3,
+	"grey-lighten-2":$grey-lighten-2,
+	"grey-lighten-1":$grey-lighten-1,
+	"grey":$grey,
+	"grey-darken-1":$grey-darken-1,
+	"grey-darken-2":$grey-darken-2,
+	"grey-darken-3":$grey-darken-3,
+	"grey-darken-4":$grey-darken-4
+);
