@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import useMountedRef from '@ui/hooks/useMountedRef';
 import BrandsService from '@services/BrandsService';
 import ProductsService from '@services/ProductsService';
 
@@ -8,6 +9,8 @@ export default function useMainPageBootstrapData() {
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState({});
 
+    const isMountedRef = useMountedRef();
+
     useEffect(() => {
         const promises = [
             BrandsService.fetchAdwSliders(),
@@ -15,14 +18,13 @@ export default function useMainPageBootstrapData() {
             ProductsService.fetchBrandnew(),
             ProductsService.fetchTopseller()
         ].map(async (pr) => pr.catch((e) => setError(e)));
-        let isMounted = true;
 
         (async () => {
             const [adwSlidersData, brandsData, brandnewData, topsellerData] = await Promise.all(
                 promises
             );
 
-            if (isMounted) {
+            if (isMountedRef.current) {
                 setData({
                     adwSlidersData,
                     brandsData,
@@ -33,11 +35,7 @@ export default function useMainPageBootstrapData() {
                 setIsLoading(false);
             }
         })();
-
-        return () => {
-            isMounted = false;
-        };
-    }, []);
+    }, [isMountedRef]);
 
     return {
         isLoading,

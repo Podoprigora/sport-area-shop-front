@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import Heading from '@ui/Heading';
 import IconButton from '@ui/IconButton';
 import ClearCloseIcon from '@svg-icons/material/ClearCloseIcon';
+import { useWindowContext } from './WindowContext';
 
 const WindowHeader = (props) => {
     const {
@@ -11,7 +12,6 @@ const WindowHeader = (props) => {
         icon,
         children,
         className,
-        draggable,
         headingProps,
         onClose,
         renderCloseIcon,
@@ -19,6 +19,8 @@ const WindowHeader = (props) => {
         renderTitle,
         ...other
     } = props;
+
+    const { draggable } = useWindowContext();
 
     const iconContent =
         (icon || renderIcon) &&
@@ -45,6 +47,7 @@ const WindowHeader = (props) => {
         >
             {iconContent}
             {titleContent}
+            {children}
             {onClose && (
                 <IconButton className="window__btn-close" onClick={onClose}>
                     {renderCloseIcon ? renderCloseIcon(props) : <ClearCloseIcon size="medium" />}

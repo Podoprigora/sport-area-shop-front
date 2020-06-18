@@ -1,8 +1,10 @@
-import React, { useEffect, useImperativeHandle, useRef } from 'react';
+import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import useForkRef from '@ui/hooks/useForkRef';
 import KeyboardArrowDownIcon from '@svg-icons/material/KeyboardArrowDown';
+import useEventCallback from '@ui/hooks/useEventCallback';
+import useIsFocusVisible from '@ui/hooks/useIsFocusVisible';
 
 const Button = React.forwardRef(function Button(props, ref) {
     const {
@@ -17,20 +19,40 @@ const Button = React.forwardRef(function Button(props, ref) {
         disabled,
         plain,
         autoWidth,
-        autoFocus,
+        maxWidth,
         arrow,
         arrowSize = 'medium',
+        style,
+        onFocus,
+        onBlur,
         ...other
     } = props;
 
-    const buttonRef = useRef(null);
-    const handleRef = useForkRef(buttonRef, ref);
+    const [focusVisible, setFocusVisible] = useState(false);
+    const { isFocusVisible, onBlurVisible, ref: focusVisibleRef } = useIsFocusVisible();
 
-    useEffect(() => {
-        if (autoFocus) {
-            buttonRef.current.focus();
+    const handleRef = useForkRef(focusVisibleRef, ref);
+
+    const handleFocus = useEventCallback((ev) => {
+        if (isFocusVisible(ev)) {
+            setFocusVisible(true);
         }
-    }, [autoFocus]);
+
+        if (onFocus) {
+            onFocus(ev);
+        }
+    });
+
+    const handleBlur = useEventCallback((ev) => {
+        if (focusVisible) {
+            onBlurVisible(ev);
+            setFocusVisible(false);
+        }
+
+        if (onBlur) {
+            onBlur(ev);
+        }
+    });
 
     const sizeClassnames = {
         small: 'btn--small',
@@ -45,6 +67,11 @@ const Button = React.forwardRef(function Button(props, ref) {
         right: 'btn--icon-align-right'
     };
 
+    const componentStyle = {
+        ...(maxWidth && { width: '100%', maxWidth }),
+        ...style
+    };
+
     return (
         <button
             type="button"
@@ -57,13 +84,17 @@ const Button = React.forwardRef(function Button(props, ref) {
                     'btn--primary': primary,
                     'btn--plain': plain,
                     'btn--centered': centered,
+                    'btn--focus-visible': focusVisible,
                     'btn--disabled': disabled,
                     'btn--empty-text': !children,
                     'btn--auto-width': autoWidth
                 }
             )}
+            style={componentStyle}
             disabled={disabled}
             ref={handleRef}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
             {...other}
         >
             {!!Icon && <Icon className="btn__icon" size={iconSize || size} />}
@@ -85,9 +116,13 @@ Button.propTypes = {
     disabled: PropTypes.bool,
     plain: PropTypes.bool,
     autoWidth: PropTypes.bool,
+    maxWidth: PropTypes.number,
     autoFocus: PropTypes.bool,
     arrow: PropTypes.bool,
-    arrowSize: PropTypes.oneOf(['small', 'medium', 'large', null])
+    arrowSize: PropTypes.oneOf(['small', 'medium', 'large', null]),
+    style: PropTypes.object,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func
 };
 
 export default Button;

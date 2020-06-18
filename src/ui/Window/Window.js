@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
 
 import Modal, { propTypes as modalPropTypes } from '@ui/Modal';
 import DraggableWrap from '@ui/DraggableWrap';
+import { WindowContext } from './WindowContext';
 
 const Window = React.forwardRef(function Window(props, ref) {
     const {
@@ -25,6 +26,13 @@ const Window = React.forwardRef(function Window(props, ref) {
         ...(maxWidth && { maxWidth })
     };
 
+    const contextValue = useMemo(
+        () => ({
+            draggable
+        }),
+        [draggable]
+    );
+
     return (
         <Modal open={open} onClose={onClose} {...modalProps}>
             <CSSTransition
@@ -43,12 +51,9 @@ const Window = React.forwardRef(function Window(props, ref) {
                         style={{ ...customStyles, ...style }}
                         ref={ref}
                     >
-                        {children &&
-                            React.Children.map(children, (child) => {
-                                return React.cloneElement(child, {
-                                    draggable
-                                });
-                            })}
+                        <WindowContext.Provider value={contextValue}>
+                            {children}
+                        </WindowContext.Provider>
                     </div>
                 </DraggableWrap>
             </CSSTransition>

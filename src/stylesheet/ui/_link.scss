@@ -10,14 +10,22 @@
 		font-size: $link-small-font-size;
 		font-weight: $link-font-weight;
 		text-decoration: $link-text-decoration;
-		outline: none;
 		cursor: pointer;
-		transition: color .15s ease-out;
+		transition: all .15s ease-out;
 	}
 
 	&:hover {
 		color: $link-hover-color;
 		text-decoration: none;
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	&--focus-visible {
+		border-radius: $btn-border-radius;
+		box-shadow: $btn-focus-box-shadow;
 	}
 
 	&--small {

@@ -26,6 +26,9 @@
 
 	&:focus {
 		outline: none;
+	}
+
+	&--focus-visible {
 		box-shadow: $btn-focus-box-shadow;
 	}
 
@@ -49,7 +52,7 @@
 			background-color: lighten($btn-primary-bg-color, 5%);
 		}
 
-		&:focus {
+		&#{$this}--focus-visible {
 			box-shadow: $btn-primary-focus-box-shadow;
 		}
 

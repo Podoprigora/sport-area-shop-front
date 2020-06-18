@@ -1,11 +1,12 @@
 .form {
 	display: block;
+	padding: $spacing-scale-9;
 
-	.field {
+	&__row {
 		margin-bottom: $spacing-scale-6;
 	}
 
-	& > .field:last-of-type {
+	&__row :last-child {
 		margin-bottom: 0;
 	}
 }
