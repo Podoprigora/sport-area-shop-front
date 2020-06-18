@@ -209,7 +209,7 @@ $field-helper-text-letter-spacing: .3px;
 $menu-bg-color: $white;
 $menu-border-radius: $border-radius;
 $menu-box-shadow: $box-shadow;
-$menu-min-width: 18rem;
+$menu-min-width: 2rem;
 
 // Window
 $window-bg-color: $white;
@@ -226,6 +226,8 @@ $list-item-padding-x: $spacing-scale-6;
 $list-item-text-padding-y: .25rem;
 $list-item-text-padding-x: 0;
 $list-item-disabled-opacity: .6;
+$list-item-empty-color: $grey-darken-1;
+$list-item-empty-font-style: italic;
 $list-subheader-font-size: $font-size-small;
 $list-subheader-font-weight: 500;
 $list-subheader-letter-spacing: .3px;

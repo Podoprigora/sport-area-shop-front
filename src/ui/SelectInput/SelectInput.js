@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback, useEffect } from 'react';
+import React, { useRef, useState, useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -12,6 +12,7 @@ import KeyboardArrowDownIcon from '@svg-icons/material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@svg-icons/material/KeyboardArrowUp';
 import ClearCloseIcon from '@svg-icons/material/ClearCloseIcon';
 import defineEventTarget from '@ui/utils/defineEventTarget';
+import { ListItem, ListItemText } from '@ui/List';
 
 const getNestedPropsChildrenString = (component) => {
     if (Array.isArray(component) && component.length > 0) {
@@ -56,6 +57,9 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
                 maxHeight: 250
             }
         },
+        emptyItem = false,
+        emptyItemText = 'None',
+        emptyItemValue = '',
         onBlur = () => {},
         onFocus = () => {},
         onChange = () => {},
@@ -184,7 +188,17 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
 
     // Render
 
-    const items = React.Children.map(children, (child, index) => {
+    const childrenArray = React.Children.toArray(children);
+
+    if (emptyItem) {
+        childrenArray.unshift(
+            <ListItem key="-1" button value={emptyItemValue}>
+                <ListItemText className="list__text--empty">{emptyItemText}</ListItemText>
+            </ListItem>
+        );
+    }
+
+    const items = childrenArray.map((child, index) => {
         const selected = !isEmptyString(value) && String(value) === String(child.props.value);
 
         if (selected) {
@@ -272,6 +286,9 @@ SelectInput.propTypes = {
     resetButton: PropTypes.bool,
     style: PropTypes.object,
     menuProps: PropTypes.object,
+    emptyItem: PropTypes.bool,
+    emptyItemText: PropTypes.string,
+    emptyItemValue: PropTypes.any,
     onBlur: PropTypes.func,
     onFocus: PropTypes.func,
     onChange: PropTypes.func

@@ -30,6 +30,7 @@ module.exports = {
         'no-extend-native': 0,
         'no-param-reassign': 0,
         'no-prototype-builtins': 0,
+        'no-template-curly-in-string': 0, // For Formik error message template
         'func-names': 0,
         'linebreak-style': ['error', 'windows'],
         'arrow-body-style': 0,

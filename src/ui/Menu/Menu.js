@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, useRef } from 'react';
+import React, { useEffect, useCallback, useState, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
@@ -10,6 +10,7 @@ import { usePopper } from '@ui/Popper';
 import List from '@ui/List';
 import Portal from '@ui/Portal';
 import ClickAwayListener from '@ui/ClickAwayListener';
+import { throttle } from 'lodash';
 
 const moveFocus = (menuElement, offset = 1) => {
     const activeElement = document.activeElement;
@@ -172,20 +173,30 @@ const Menu = React.forwardRef(function Menu(props, ref) {
 
     // Update menu width according to the anchor element width
     useEffect(() => {
+        function updateStyle() {
+            if (anchorRef.current && open && autoWidth) {
+                const anchorWidth = anchorRef.current.clientWidth;
+
+                setMenuStyle((prevStyle) => {
+                    return { ...prevStyle, width: anchorWidth };
+                });
+            }
+        }
+
         if (width) {
             return undefined;
         }
 
-        if (anchorRef.current && autoWidth) {
-            const anchorWidth = anchorRef.current.clientWidth;
+        updateStyle();
 
-            setMenuStyle((prevStyle) => {
-                return { ...prevStyle, width: anchorWidth };
-            });
-        }
+        const throttledCallback = throttle(updateStyle, 166);
 
-        return undefined;
-    }, [anchorRef, autoWidth, width]);
+        window.addEventListener('resize', throttledCallback, false);
+
+        return () => {
+            window.removeEventListener('resize', throttledCallback, false);
+        };
+    }, [anchorRef, autoWidth, open, width]);
 
     // Render
 

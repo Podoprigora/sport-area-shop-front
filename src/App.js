@@ -10,6 +10,7 @@ import LoginWindow from '@components/Login';
 
 import MainPage from '@pages/MainPage';
 import TestPage from '@pages/TestPage/TestPage';
+import RegisterWindow from '@components/Register';
 
 const App = () => {
     return (
@@ -25,6 +26,7 @@ const App = () => {
                     </Route>
                 </Switch>
                 <LoginWindow />
+                <RegisterWindow />
             </Main>
             <Footer />
         </HashRouter>

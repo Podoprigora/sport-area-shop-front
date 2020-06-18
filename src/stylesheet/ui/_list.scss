@@ -17,7 +17,7 @@
 
 		&--button {
 			cursor: pointer;
-			transition: background-color .15s ease-out;
+			// transition: background-color .2s ease;
 
 			&:focus {
 				outline: none;
@@ -58,6 +58,11 @@
 
 		&--flex {
 			flex: 1;
+		}
+
+		&--empty {
+			color: $list-item-empty-color;
+			font-style: $list-item-empty-font-style;
 		}
 	}
 
