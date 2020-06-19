@@ -1,0 +1,49 @@
+.linear-progress {
+	$this: &;
+
+	position: relative;
+	overflow: hidden;
+	height: .4rem;
+	width: 100%;
+	background-color: rgba($icon-color, 0.2);
+
+	&__bar {
+		position: absolute;
+		width: auto;
+		top: 0;
+		bottom: 0;
+		background-color: $icon-color;
+		animation: linear-progress-bar-animation 1.8s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+	}
+
+	&--primary {
+		background-color: rgba($color-primary, 0.2);
+
+		#{$this}__bar {
+			background-color: $color-primary;
+		}
+	}
+
+	&--secondary {
+		background-color: rgba($color-secondary, 0.2);
+
+		#{$this}__bar {
+			background-color: $color-secondary;
+		}
+	}
+}
+
+@keyframes linear-progress-bar-animation {
+	0% {
+		left: -35%;
+		right: 100%;
+	}
+	60% {
+		left: 100%;
+		right: -90%;
+	}
+	100% {
+		left: 100%;
+		right: -90%;
+	}
+}

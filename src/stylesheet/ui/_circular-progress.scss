@@ -9,6 +9,12 @@
 		}
 	}
 
+	&--secondary {
+		#{$this}__svg-circle {
+			stroke: $color-secondary;
+		}
+	}
+
 	&__svg {
 		animation: circular-progress-rotate-animation 1.2s linear infinite;
 	}

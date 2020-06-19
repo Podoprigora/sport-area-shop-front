@@ -9,10 +9,13 @@
 	cursor: wait;
 
 	&__progress {
+		$progress: &;
+
 		position: absolute;
 		display: flex;
 		flex-flow: row wrap;
 		justify-content: center;
+		width: 100%;
 
 		&--center {
 			top: 50%;
@@ -26,16 +29,32 @@
 
 		&--bottom {
 			bottom: 0;
-		}
-	}
 
-	&__title {
-		padding: $mask-title-padding;
-		color: $mask-title-color;
-		text-align: center;
-		font-weight: $mask-title-font-weight;
-		letter-spacing: $mask-title-letter-spacing;
-		width: 100%;
+			#{$progress}-title {
+				order: -1;
+			}
+		}
+
+		&--primary {
+			#{$progress}-title {
+				color: $color-primary;
+			}
+		}
+
+		&--secondary {
+			#{$progress}-title {
+				color: $color-secondary;
+			}
+		}
+
+		&-title {
+			padding: $mask-title-padding;
+			color: $mask-title-color;
+			text-align: center;
+			font-weight: $mask-title-font-weight;
+			letter-spacing: $mask-title-letter-spacing;
+			width: 100%;
+		}
 	}
 
 	&-enter {

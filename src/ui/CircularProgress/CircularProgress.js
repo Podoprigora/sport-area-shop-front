@@ -5,7 +5,7 @@ import classNames from 'classnames';
 const circleSize = 50;
 
 const CircularProgress = React.forwardRef(function CircularProgress(
-    { preset = 'medium', size, strokeWidth, primary, className, style },
+    { preset = 'medium', size, strokeWidth, primary, secondary, className, style },
     ref
 ) {
     let containerSize = size;
@@ -32,7 +32,8 @@ const CircularProgress = React.forwardRef(function CircularProgress(
     return (
         <div
             className={classNames('circular-progress', className, {
-                'circular-progress--primary': primary
+                'circular-progress--primary': primary,
+                'circular-progress--secondary': secondary
             })}
             style={{ ...style, width: containerSize, height: containerSize }}
             ref={ref}
@@ -56,7 +57,8 @@ CircularProgress.propTypes = {
     strokeWidth: PropTypes.number,
     style: PropTypes.object,
     className: PropTypes.string,
-    primary: PropTypes.bool
+    primary: PropTypes.bool,
+    secondary: PropTypes.bool
 };
 
 export default CircularProgress;
