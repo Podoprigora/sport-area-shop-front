@@ -22,7 +22,7 @@ const initialValues = {
     rememberMe: true
 };
 
-const validationShema = Yup.object({
+const validationShcema = Yup.object({
     login: Yup.string()
         .required('This field is required!')
         .email('Invalid email address!'),
@@ -30,7 +30,7 @@ const validationShema = Yup.object({
 });
 
 const LoginForm = React.forwardRef(function LoginForm(props, ref) {
-    const { onSingUp, ...other } = props;
+    const { onSingUp, onForgotPassword, ...other } = props;
 
     const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -44,8 +44,14 @@ const LoginForm = React.forwardRef(function LoginForm(props, ref) {
         }
     });
 
+    const handleForgotPasswordClick = useEventCallback((ev) => {
+        if (onForgotPassword) {
+            onForgotPassword(ev);
+        }
+    });
+
     return (
-        <Formik initialValues={initialValues} validationSchema={validationShema}>
+        <Formik initialValues={initialValues} validationSchema={validationShcema}>
             <Form centered maxWidth={340} ref={ref}>
                 <FormRow>
                     <InputField
@@ -69,7 +75,7 @@ const LoginForm = React.forwardRef(function LoginForm(props, ref) {
                         fullWidth
                         appendAdornment={() => {
                             return (
-                                <InputIconButton tabIndex="-1" onClick={handlePasswordVisibility}>
+                                <InputIconButton onClick={handlePasswordVisibility}>
                                     {passwordVisible ? <EyeIcon /> : <EyeOffIcon />}
                                 </InputIconButton>
                             );
@@ -79,7 +85,9 @@ const LoginForm = React.forwardRef(function LoginForm(props, ref) {
                 <FormRow>
                     <FlexRow justify="space-between" alignItems="center">
                         <CheckboxField name="rememberMe" boxLabel="Remember Me" />
-                        <Link size="small">Forgot your Password?</Link>
+                        <Link size="small" onClick={handleForgotPasswordClick}>
+                            Forgot your Password?
+                        </Link>
                     </FlexRow>
                 </FormRow>
                 <FormRow>
@@ -105,7 +113,8 @@ const LoginForm = React.forwardRef(function LoginForm(props, ref) {
 });
 
 LoginForm.propTypes = {
-    onSingUp: PropTypes.func
+    onSingUp: PropTypes.func,
+    onForgotPassword: PropTypes.func
 };
 
 export default memo(LoginForm);

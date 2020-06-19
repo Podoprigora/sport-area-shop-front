@@ -41,7 +41,7 @@ const initialValues = {
     isSubscribed: false
 };
 
-const validationShema = Yup.object({
+const validationSchema = Yup.object({
     firstName: Yup.string().required('This field is required!'),
     lastName: Yup.string().required('This field is required!'),
     email: Yup.string()
@@ -88,7 +88,7 @@ const RegisterForm = (props) => {
     return (
         <Formik
             initialValues={initialValues}
-            validationSchema={validationShema}
+            validationSchema={validationSchema}
             validate={validate}
         >
             <Form centered>

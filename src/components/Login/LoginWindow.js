@@ -21,13 +21,28 @@ const LoginWindow = (props) => {
         openWindow('RegisterWindow');
     });
 
+    const handleForgotPasswordClick = useEventCallback(() => {
+        handleClose();
+        openWindow('ForgotPasswordWindow');
+    });
+
     const open = isOpenWindow('LoginWindow');
 
     return (
-        <Window open={open} centered draggable maxWidth={480} onClose={handleClose}>
+        <Window
+            open={open}
+            centered
+            draggable
+            disableEscapeKeyDown
+            maxWidth={480}
+            onClose={handleClose}
+        >
             <WindowHeader title="Sign In to SportArea" onClose={handleClose} />
             <WindowBody painted>
-                <LoginForm onSingUp={handleSignUpClick} />
+                <LoginForm
+                    onSingUp={handleSignUpClick}
+                    onForgotPassword={handleForgotPasswordClick}
+                />
             </WindowBody>
         </Window>
     );

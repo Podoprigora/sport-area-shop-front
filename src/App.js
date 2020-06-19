@@ -7,10 +7,11 @@ import Header from '@components/Header';
 import Main from '@components/Main';
 import Footer from '@components/Footer';
 import LoginWindow from '@components/Login';
+import RegisterWindow from '@components/Register';
+import ForgotPasswordWindow from '@components/ForgotPassword';
 
 import MainPage from '@pages/MainPage';
 import TestPage from '@pages/TestPage/TestPage';
-import RegisterWindow from '@components/Register';
 import AppContext from './context/AppContext';
 
 const App = () => {
@@ -27,8 +28,10 @@ const App = () => {
                             <TestPage />
                         </Route>
                     </Switch>
+
                     <LoginWindow />
                     <RegisterWindow />
+                    <ForgotPasswordWindow />
                 </Main>
                 <Footer />
             </AppContext>

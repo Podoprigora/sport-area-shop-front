@@ -24,7 +24,7 @@ const RegisterWindow = (props) => {
     const open = isOpenWindow('RegisterWindow');
 
     return (
-        <Window open={open} centered maxWidth={560} onClose={handleClose}>
+        <Window open={open} centered maxWidth={560} disableEscapeKeyDown onClose={handleClose}>
             <WindowHeader title="Sign Up for SportArea" onClose={handleClose} />
             <WindowBody painted>
                 <RegisterForm onSignIn={handleSignIn} />
