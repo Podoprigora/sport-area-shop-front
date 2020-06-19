@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+const circleSize = 50;
+
 const CircularProgress = React.forwardRef(function CircularProgress(
     { preset = 'medium', size, strokeWidth, primary, className, style },
     ref
 ) {
-    const circleSize = 50;
-
     let containerSize = size;
     let circleStrokeWidth = strokeWidth;
 
@@ -21,8 +21,8 @@ const CircularProgress = React.forwardRef(function CircularProgress(
             circleStrokeWidth = 3;
             break;
         case 'large':
-            containerSize = 48;
-            circleStrokeWidth = 3.2;
+            containerSize = 60;
+            circleStrokeWidth = 2.25;
             break;
         default:
             containerSize = size;

@@ -25,6 +25,7 @@ $font-size: $font-size-medium;
 // Z-index
 $modal-z-index: 2000;
 $popper-z-index: 3000;
+$mask-z-index: 9999;
 
 // Grid
 $grid-columns: 12;
@@ -233,3 +234,10 @@ $list-subheader-font-weight: 500;
 $list-subheader-letter-spacing: .3px;
 $list-subheader-color: $grey-darken-3;
 $list-subheader-padding-y: $spacing-scale-2;
+
+// Mask
+$mask-bg-color: rgba(#fff, .5);
+$mask-title-color: $color-primary;
+$mask-title-padding: $spacing-scale-6;
+$mask-title-letter-spacing: .4px;
+$mask-title-font-weight: 700;
