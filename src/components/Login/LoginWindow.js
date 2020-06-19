@@ -1,20 +1,33 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, memo } from 'react';
 import PropTypes from 'prop-types';
 
 import Window from '@ui/Window';
 import WindowHeader from '@ui/Window/WindowHeader';
 import WindowBody from '@ui/Window/WindowBody';
+import { useWindowManager } from '@ui/WindowManager';
+import useEventCallback from '@ui/hooks/useEventCallback';
 
 import LoginForm from './LoginForm';
 
 const LoginWindow = (props) => {
-    const handleClose = useCallback((ev) => {}, []);
+    const { isOpenWindow, openWindow, closeWindow } = useWindowManager();
+
+    const handleClose = useEventCallback((ev) => {
+        closeWindow('LoginWindow');
+    });
+
+    const handleSignUpClick = useEventCallback(() => {
+        handleClose();
+        openWindow('RegisterWindow');
+    });
+
+    const open = isOpenWindow('LoginWindow');
 
     return (
-        <Window open={false} centered draggable maxWidth={480}>
+        <Window open={open} centered draggable maxWidth={480} onClose={handleClose}>
             <WindowHeader title="Sign In to SportArea" onClose={handleClose} />
             <WindowBody painted>
-                <LoginForm />
+                <LoginForm onSingUp={handleSignUpClick} />
             </WindowBody>
         </Window>
     );
@@ -22,4 +35,4 @@ const LoginWindow = (props) => {
 
 LoginWindow.propTypes = {};
 
-export default LoginWindow;
+export default memo(LoginWindow);

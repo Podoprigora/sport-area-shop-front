@@ -11,24 +11,27 @@ import LoginWindow from '@components/Login';
 import MainPage from '@pages/MainPage';
 import TestPage from '@pages/TestPage/TestPage';
 import RegisterWindow from '@components/Register';
+import AppContext from './context/AppContext';
 
 const App = () => {
     return (
         <HashRouter>
-            <Header />
-            <Main>
-                <Switch>
-                    <Route exact path="/">
-                        <MainPage />
-                    </Route>
-                    <Route path="/test">
-                        <TestPage />
-                    </Route>
-                </Switch>
-                <LoginWindow />
-                <RegisterWindow />
-            </Main>
-            <Footer />
+            <AppContext>
+                <Header />
+                <Main>
+                    <Switch>
+                        <Route exact path="/">
+                            <MainPage />
+                        </Route>
+                        <Route path="/test">
+                            <TestPage />
+                        </Route>
+                    </Switch>
+                    <LoginWindow />
+                    <RegisterWindow />
+                </Main>
+                <Footer />
+            </AppContext>
         </HashRouter>
     );
 };

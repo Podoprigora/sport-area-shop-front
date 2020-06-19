@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -12,11 +12,15 @@ import CheckboxField from '@ui/FormikForm/CheckboxField';
 import Button from '@ui/Button';
 import Link from '@ui/Link';
 import SelectField from '@ui/FormikForm/SelectField';
-import { ListItem, ListItemText } from '@ui/List';
 import { MenuItem } from '@ui/Menu';
 import RadioGroupField from '@ui/FormikForm/RadioGroupField';
 import Radio from '@ui/Radio';
 import BoxLabel from '@ui/BoxLabel';
+import { InputIconButton } from '@ui/Input';
+import EyeIcon from '@svg-icons/feather/EyeIcon';
+import EyeOffIcon from '@svg-icons/feather/EyeOffIcon';
+import UserPlusIcon from '@svg-icons/feather/UserPlusIcon';
+import useEventCallback from '@ui/hooks/useEventCallback';
 
 const days = Array.from(Array(31)).map((_, index) => {
     const day = index + 1;
@@ -45,10 +49,10 @@ const validationShema = Yup.object({
         .email('Invalid email address!'),
     password: Yup.string()
         .required('This field is required!')
-        .min(6, 'You should enter at least ${min} characters!'),
+        .min(8, 'At least ${min} characters long required!'),
     confirmPassword: Yup.string()
         .required('This field is required!')
-        .min(6, 'You should enter at least ${min} characters!')
+        .min(8, 'At least ${min} characters long required!')
 });
 
 const validate = (values) => {
@@ -62,6 +66,25 @@ const validate = (values) => {
 };
 
 const RegisterForm = (props) => {
+    const { onSignIn, ...other } = props;
+
+    const [passwordVisible, setPasswordVisible] = useState(false);
+    const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+
+    const handlePasswordVisibility = useCallback((ev) => {
+        setPasswordVisible((prevState) => !prevState);
+    }, []);
+
+    const handleConfirmPasswordVisibility = useCallback((ev) => {
+        setConfirmPasswordVisible((prevState) => !prevState);
+    }, []);
+
+    const handleSignInClick = useEventCallback((ev) => {
+        if (onSignIn) {
+            onSignIn(ev);
+        }
+    });
+
     return (
         <Formik
             initialValues={initialValues}
@@ -78,6 +101,7 @@ const RegisterForm = (props) => {
                                 labelAlign="top"
                                 required
                                 fullWidth
+                                autoFocus
                             />
                         </FlexCol>
                         <FlexCol sm>
@@ -106,24 +130,38 @@ const RegisterForm = (props) => {
                     <FlexRow>
                         <FlexCol sm className="u-margin-r-sm-6 u-padding-b-down-sm-6">
                             <InputField
-                                type="password"
+                                type={passwordVisible ? 'text' : 'password'}
                                 name="password"
                                 label="Password"
                                 labelAlign="top"
-                                placeholder="(6 - 20) characters"
+                                helperText="At least 8 characters long."
                                 required
                                 fullWidth
+                                appendAdornment={() => {
+                                    return (
+                                        <InputIconButton onClick={handlePasswordVisibility}>
+                                            {passwordVisible ? <EyeIcon /> : <EyeOffIcon />}
+                                        </InputIconButton>
+                                    );
+                                }}
                             />
                         </FlexCol>
                         <FlexCol sm>
                             <InputField
-                                type="password"
+                                type={confirmPasswordVisible ? 'text' : 'password'}
                                 name="confirmPassword"
                                 label="Confirm Password"
                                 labelAlign="top"
-                                placeholder="(6 - 20) characters"
+                                helperText="At least 8 characters long."
                                 required
                                 fullWidth
+                                appendAdornment={() => {
+                                    return (
+                                        <InputIconButton onClick={handleConfirmPasswordVisibility}>
+                                            {confirmPasswordVisible ? <EyeIcon /> : <EyeOffIcon />}
+                                        </InputIconButton>
+                                    );
+                                }}
                             />
                         </FlexCol>
                     </FlexRow>
@@ -184,7 +222,7 @@ const RegisterForm = (props) => {
                 </FormRow>
                 <FormRow>
                     <FlexRow justify="center">
-                        <Button primary centered maxWidth={160}>
+                        <Button primary centered maxWidth={160} icon={UserPlusIcon}>
                             Sign Up
                         </Button>
                     </FlexRow>
@@ -194,7 +232,7 @@ const RegisterForm = (props) => {
                         <span className="u-text-small u-color-grey-darken-2 u-margin-r-3">
                             Already a customer?
                         </span>
-                        <Link primary tabIndex="0">
+                        <Link primary onClick={handleSignInClick}>
                             Sign In
                         </Link>
                     </span>
@@ -204,6 +242,8 @@ const RegisterForm = (props) => {
     );
 };
 
-RegisterForm.propTypes = {};
+RegisterForm.propTypes = {
+    onSignIn: PropTypes.func
+};
 
-export default RegisterForm;
+export default memo(RegisterForm);

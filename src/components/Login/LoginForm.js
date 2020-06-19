@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, memo } from 'react';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -14,6 +14,7 @@ import LoginIcon from '@svg-icons/feather/LoginIcon';
 import FormRow from '@ui/FormikForm/FormRow';
 import EyeIcon from '@svg-icons/feather/EyeIcon';
 import EyeOffIcon from '@svg-icons/feather/EyeOffIcon';
+import useEventCallback from '@ui/hooks/useEventCallback';
 
 const initialValues = {
     login: '',
@@ -29,11 +30,19 @@ const validationShema = Yup.object({
 });
 
 const LoginForm = React.forwardRef(function LoginForm(props, ref) {
+    const { onSingUp, ...other } = props;
+
     const [passwordVisible, setPasswordVisible] = useState(false);
 
     const handlePasswordVisibility = useCallback((ev) => {
         setPasswordVisible((prevState) => !prevState);
     }, []);
+
+    const handleSingUpClick = useEventCallback((ev) => {
+        if (onSingUp) {
+            onSingUp(ev);
+        }
+    });
 
     return (
         <Formik initialValues={initialValues} validationSchema={validationShema}>
@@ -70,9 +79,7 @@ const LoginForm = React.forwardRef(function LoginForm(props, ref) {
                 <FormRow>
                     <FlexRow justify="space-between" alignItems="center">
                         <CheckboxField name="rememberMe" boxLabel="Remember Me" />
-                        <Link size="small" tabIndex="0">
-                            Forgot your Password?
-                        </Link>
+                        <Link size="small">Forgot your Password?</Link>
                     </FlexRow>
                 </FormRow>
                 <FormRow>
@@ -87,7 +94,7 @@ const LoginForm = React.forwardRef(function LoginForm(props, ref) {
                         <span className="u-text-small u-color-grey-darken-2 u-margin-r-3">
                             New customer?
                         </span>
-                        <Link primary tabIndex="0">
+                        <Link primary onClick={handleSingUpClick}>
                             Sign Up
                         </Link>
                     </span>
@@ -97,6 +104,8 @@ const LoginForm = React.forwardRef(function LoginForm(props, ref) {
     );
 });
 
-LoginForm.propTypes = {};
+LoginForm.propTypes = {
+    onSingUp: PropTypes.func
+};
 
-export default LoginForm;
+export default memo(LoginForm);
