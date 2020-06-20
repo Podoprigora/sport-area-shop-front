@@ -6,7 +6,7 @@ import WindowHeader from '@ui/Window/WindowHeader';
 import WindowBody from '@ui/Window/WindowBody';
 import Mask, { MaskProgress } from '@ui/Mask';
 import CircularProgress from '@ui/CircularProgress';
-import LinearProgress from '@ui/LinearProgress.js';
+import LinearProgress from '@ui/LinearProgress';
 import { useWindowManager } from '@ui/WindowManager';
 import useEventCallback from '@ui/hooks/useEventCallback';
 
@@ -32,17 +32,17 @@ const LoginWindow = (props) => {
         openWindow('ForgotPasswordWindow');
     });
 
-    // useEffect(() => {
-    //     if (open) {
-    //         setTimeout(() => {
-    //             setMask(true);
-    //         }, 250);
-    //     }
+    useEffect(() => {
+        if (open) {
+            setTimeout(() => {
+                setMask(true);
+            }, 250);
+        }
 
-    //     return () => {
-    //         setMask(false);
-    //     };
-    // }, [open]);
+        return () => {
+            setMask(false);
+        };
+    }, [open]);
 
     return (
         <Window
@@ -54,7 +54,7 @@ const LoginWindow = (props) => {
             onClose={handleClose}
         >
             <Mask open={mask}>
-                <MaskProgress position="top" secondary>
+                <MaskProgress position="top" primary title="Signing in ...">
                     {/* <CircularProgress preset="large" /> */}
                     <LinearProgress />
                 </MaskProgress>
