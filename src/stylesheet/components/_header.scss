@@ -86,6 +86,20 @@
 			&::after {
 				height: 0px;
 			}
+
+			&__el {
+				padding-left: $list-item-padding-x;
+				padding-right: $list-item-padding-x;
+			}
+
+			&__adornment {
+				&--start {
+					margin-left: $list-item-padding-x;
+				}
+				&--end {
+					margin-right: $list-item-padding-x;
+				}
+			}
 		}
 	}
 

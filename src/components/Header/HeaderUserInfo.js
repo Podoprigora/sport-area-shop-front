@@ -38,7 +38,7 @@ const HeaderUserInfo = () => {
         return (
             <div className="header__user-info">
                 <ButtonMenu transparent primary arrow icon={UserIcon} text="Demo Customer">
-                    <Menu modal={false} width={220}>
+                    <Menu width={220}>
                         <ListItem button>
                             <ListItemIcon>
                                 <UserIcon size="medium" />
