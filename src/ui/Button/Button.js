@@ -18,6 +18,7 @@ const Button = React.forwardRef(function Button(props, ref) {
         centered,
         disabled,
         plain,
+        transparent,
         autoWidth,
         maxWidth,
         arrow,
@@ -83,6 +84,7 @@ const Button = React.forwardRef(function Button(props, ref) {
                 {
                     'btn--primary': primary,
                     'btn--plain': plain,
+                    'btn--transparent': transparent,
                     'btn--centered': centered,
                     'btn--focus-visible': focusVisible,
                     'btn--disabled': disabled,
@@ -115,6 +117,7 @@ Button.propTypes = {
     centered: PropTypes.bool,
     disabled: PropTypes.bool,
     plain: PropTypes.bool,
+    transparent: PropTypes.bool,
     autoWidth: PropTypes.bool,
     maxWidth: PropTypes.number,
     autoFocus: PropTypes.bool,

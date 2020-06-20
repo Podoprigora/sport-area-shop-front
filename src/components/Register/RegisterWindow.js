@@ -13,7 +13,7 @@ import CircularProgress from '@ui/CircularProgress';
 import RegisterForm from './RegisterForm';
 
 const RegisterWindow = (props) => {
-    const [mask, setMask] = useState(true);
+    const [mask, setMask] = useState(false);
 
     const { isOpenWindow, openWindow, closeWindow } = useWindowManager();
 
@@ -29,7 +29,7 @@ const RegisterWindow = (props) => {
     const open = isOpenWindow('RegisterWindow');
 
     return (
-        <Window open={open} centered maxWidth={560} disableEscapeKeyDown onClose={handleClose}>
+        <Window open={open} centered maxWidth={560} onClose={handleClose}>
             <Mask open={mask}>
                 <MaskProgress position="center" primary title="Please wait ...">
                     <CircularProgress preset="large" />

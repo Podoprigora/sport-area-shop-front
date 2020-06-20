@@ -1,4 +1,6 @@
 .header {
+	$this: &;
+
 	&__top-part {
 		display: flex;
 		flex-flow: row nowrap;
@@ -10,6 +12,10 @@
 
 	&__nav-part {
 		padding: $spacing-scale-6 0;
+
+		#{$this}__container {
+			align-items: stretch;
+		}
 	}
 
 	&__nav-btn {
@@ -38,7 +44,7 @@
 		display: flex;
 		flex-flow: row nowrap;
 		justify-content: space-between;
-		align-items: stretch;
+		align-items: center;
 	}
 
 	&__logo-link {

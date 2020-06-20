@@ -47,7 +47,7 @@ const TestButtons = (props) => {
                     Save & Close
                 </Button>
                 <Tooltip title="Test tooltip">
-                    <Button primary icon={StarIcon} style={{ marginRight: '1.4rem' }}>
+                    <Button primary transparent icon={StarIcon} style={{ marginRight: '1.4rem' }}>
                         Save & Close
                     </Button>
                 </Tooltip>

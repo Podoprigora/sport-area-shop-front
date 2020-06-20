@@ -23,7 +23,7 @@ const ForgotPasswordWindow = (props) => {
     const open = isOpenWindow('ForgotPasswordWindow');
 
     return (
-        <Window open={open} centered disableEscapeKeyDown maxWidth={480} onClose={handleClose}>
+        <Window open={open} centered maxWidth={480} onClose={handleClose}>
             <WindowHeader title="Forgot Password" onClose={handleClose} />
             <WindowBody painted>
                 <ForgotPasswordForm onSignIn={handleSignInClick} />

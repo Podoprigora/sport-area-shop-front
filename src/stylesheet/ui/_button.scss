@@ -64,6 +64,30 @@
 				color: $btn-primary-bg-color;
 			}
 		}
+
+		&#{$this}--transparent {
+			color: $color-primary;
+		}
+	}
+
+	&--transparent {
+		background-color: transparent;
+		border-color: transparent;
+		box-shadow: none;
+
+		&:hover:not(#{$this}--disabled),
+		&#{$this}--focus-visible {
+			background-color: lighten($btn-bg-color, 5%);
+		}
+
+		&#{$this}--focus-visible {
+			@debug &;
+			box-shadow: none;
+		}
+
+		#{$this}__text {
+			letter-spacing: normal;
+		}
 	}
 
 	&--small {
@@ -147,7 +171,7 @@
 
 	&__text {
 		display: block;
-		letter-spacing: .6px;
+		letter-spacing: $btn-text-letter-spacing;
 	}
 
 	&__icon {

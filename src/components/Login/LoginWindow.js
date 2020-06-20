@@ -32,27 +32,20 @@ const LoginWindow = (props) => {
         openWindow('ForgotPasswordWindow');
     });
 
-    useEffect(() => {
-        if (open) {
-            setTimeout(() => {
-                setMask(true);
-            }, 250);
-        }
+    // useEffect(() => {
+    //     if (open) {
+    //         setTimeout(() => {
+    //             setMask(true);
+    //         }, 250);
+    //     }
 
-        return () => {
-            setMask(false);
-        };
-    }, [open]);
+    //     return () => {
+    //         setMask(false);
+    //     };
+    // }, [open]);
 
     return (
-        <Window
-            open={open}
-            centered
-            draggable
-            disableEscapeKeyDown
-            maxWidth={480}
-            onClose={handleClose}
-        >
+        <Window open={open} centered draggable maxWidth={480} onClose={handleClose}>
             <Mask open={mask}>
                 <MaskProgress position="top" primary title="Signing in ...">
                     {/* <CircularProgress preset="large" /> */}
