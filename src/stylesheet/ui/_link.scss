@@ -29,15 +29,27 @@
 	}
 
 	&--small {
-		font-size: $link-small-font-size;
+		&,
+		&:link,
+		&:visited {
+			font-size: $link-small-font-size;
+		}
 	}
 
 	&--medium {
-		font-size: $link-medium-font-size;
+		&,
+		&:link,
+		&:visited {
+			font-size: $link-medium-font-size;
+		}
 	}
 
 	&--large {
-		font-size: $link-large-font-size;
+		&,
+		&:link,
+		&:visited {
+			font-size: $link-large-font-size;
+		}
 	}
 
 	&--primary {

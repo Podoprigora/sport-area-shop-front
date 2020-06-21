@@ -5,8 +5,8 @@ import Logo from '@resources/images/sport-area-logo.svg';
 import Button from '@ui/Button';
 import MenuIcon from '@svg-icons/material/MenuIcon';
 import HeaderSearch from './HeaderSearch';
-import HeaderUserInfo from './HeaderUserInfo';
 import HeaderActions from './HeaderActions';
+import HeaderUser from './HeaderUser';
 
 const Header = (props) => {
     return (
@@ -16,7 +16,7 @@ const Header = (props) => {
                     <a href="#" className="header__logo-link">
                         <img src={Logo} alt="" className="header__logo-img" />
                     </a>
-                    <HeaderUserInfo />
+                    <HeaderUser />
                 </div>
             </div>
             <div className="header__nav-part">
