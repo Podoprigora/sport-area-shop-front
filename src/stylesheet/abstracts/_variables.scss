@@ -81,7 +81,8 @@ $breakpoints: (
 
 // Layout
 $container-max-width: 120rem;
-$container-padding: 0 $spacing-scale-9;
+$container-spacing-x: $spacing-scale-9;
+$container-padding: 0 $container-spacing-x;
 
 // Skeleton
 $skeleton-bg-color: $blue-grey-lighten-5;

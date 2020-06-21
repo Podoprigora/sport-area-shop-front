@@ -23,6 +23,7 @@ const Modal = React.forwardRef(function Modal(props, ref) {
         className,
         centered,
         backdrop = true,
+        disableRestoreFocus = false,
         disableFocusBounding = false,
         disableBackdropClick = false,
         disableEscapeKeyDown = false,
@@ -142,10 +143,10 @@ const Modal = React.forwardRef(function Modal(props, ref) {
     useEffect(() => {
         if (open) {
             triggerRef.current = document.activeElement;
-        } else if (!open && triggerRef.current) {
+        } else if (!disableRestoreFocus && !open && triggerRef.current) {
             triggerRef.current.focus();
         }
-    }, [open]);
+    }, [open, disableRestoreFocus]);
 
     useEffect(() => {
         if (modalNode) {
@@ -220,6 +221,7 @@ const propTypes = {
     disableEscapeKeyDown: PropTypes.bool,
     disableBackdropClick: PropTypes.bool,
     disableFocusBounding: PropTypes.bool,
+    disableRestoreFocus: PropTypes.bool,
     onEscapeKeyDown: PropTypes.func,
     onClose: PropTypes.func,
     onOpen: PropTypes.func

@@ -2,11 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Logo from '@resources/images/sport-area-logo.svg';
-import Button from '@ui/Button';
-import MenuIcon from '@svg-icons/material/MenuIcon';
 import HeaderSearch from './HeaderSearch';
 import HeaderActions from './HeaderActions';
 import HeaderUser from './HeaderUser';
+import HeaderCategoryMenu from './HeaderCategoryMenu';
 
 const Header = (props) => {
     return (
@@ -21,9 +20,7 @@ const Header = (props) => {
             </div>
             <div className="header__nav-part">
                 <div className="container header__container">
-                    <Button primary className="header__nav-btn" icon={MenuIcon} size="large">
-                        Shop by category
-                    </Button>
+                    <HeaderCategoryMenu />
                     <HeaderSearch />
                     <HeaderActions />
                 </div>
