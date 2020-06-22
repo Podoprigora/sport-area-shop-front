@@ -5,8 +5,10 @@ import MenuIcon from '@svg-icons/material/MenuIcon';
 import CategoryMenu from '@components/CategoryMenu';
 import useForkRef from '@ui/hooks/useForkRef';
 
+import data from '@remote/json/categories.json';
+
 const HeaderCategoryMenu = React.forwardRef(function HeaderCategoryMenu(props, ref) {
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
     const buttonRef = useRef(null);
     const handleRef = useForkRef(buttonRef, ref);
 
@@ -30,7 +32,7 @@ const HeaderCategoryMenu = React.forwardRef(function HeaderCategoryMenu(props, r
             >
                 Shop by category
             </Button>
-            <CategoryMenu open={open} anchorRef={buttonRef} onClose={handleMenuClose} />
+            <CategoryMenu open={open} anchorRef={buttonRef} data={data} onClose={handleMenuClose} />
         </>
     );
 });

@@ -1,12 +1,8 @@
 .category-menu {
 	position: absolute;
-	// display: flex;
-	// flex-flow: row nowrap;
-	// background-color: $red;
 	width: 100%;
 
 	&__container {
-		// background-color: $green;
 		max-width: $container-max-width;
 		padding: 0 $container-spacing-x;
 		margin: 0 auto;
@@ -15,32 +11,58 @@
 	}
 
 	&__body {
-		display: inline-block;
 		position: relative;
-		background-color: #fff;
+		display: inline-block;
 		border-radius: 0 0 $border-radius-lg $border-radius-lg;
 		box-shadow: $box-shadow-lg;
-		height: 100%;
+		height: auto;
+		// min-height: 0;
+		// height: 100%;
+		overflow: hidden;
+		// transition: all .3s ease-out;
+
+		&::before {
+			position: absolute;
+			content: '';
+			top: 0;
+			left: 26rem;
+			right: 0;
+			bottom: 0;
+			background-color: $body-bg-color;
+			z-index: -1;
+		}
+
+		&--show-hidden-groups {
+			display: block;
+		}
 	}
 
 	&__list {
 		width: 26rem;
-		height: 100%;
 		padding: $spacing-scale-5 0;
+
+		&::before {
+			position: absolute;
+			content: '';
+			top: 0;
+			left: 0;
+			bottom: 0;
+			width: 26rem;
+			background-color: #fff;
+			z-index: -1;
+		}
 	}
 
 	&__item {
 		$item: &;
-
 		display: flex;
 		flex-flow: row nowrap;
 		align-items: center;
 		padding: $spacing-scale-5 $spacing-scale-8;
 		width: 100%;
-		min-height: 4.4rem;
 
-		&:hover {
-			background-color: $grey-lighten-5;
+		&--active {
+			background-color: $body-bg-color;
 
 			& #{$item}-icon,
 			& #{$item}-text {
@@ -57,6 +79,7 @@
 			font-family: $font-family;
 			font-size: $font-size;
 			font-weight: 500;
+			letter-spacing: .4px;
 			text-align: left;
 			color: $body-color;
 		}
@@ -71,13 +94,25 @@
 		}
 	}
 
-	&__sub {
+	&__hidden-groups {
 		position: absolute;
+		display: none;
 		right: 0;
 		top: 0;
-		width: calc(100% - 26rem);
-		height: 80rem;
+		flex-flow: column nowrap;
+		justify-content: flex-start;
+		align-items: flex-start;
+		align-content: flex-start;
 		padding: $spacing-scale-5;
-		text-align: left;
+		width: calc(100% - 26rem);
+		overflow: hidden;
+
+		&--active {
+			display: flex;
+		}
+	}
+
+	&__group {
+		padding: $spacing-scale-5;
 	}
 }

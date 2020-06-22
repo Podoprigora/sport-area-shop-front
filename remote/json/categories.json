@@ -6,7 +6,7 @@
             {
                 "id": 2,
                 "title": "Jackets",
-                "picture": "data/images/categories/streetwear-jackets.jpg",
+                "picture": "remote/images/categories/streetwear-jackets.jpg",
                 "items": [
                     {
                         "id": 3,
@@ -64,7 +64,7 @@
             },
             {
                 "title": "Jumpers",
-                "picture": "data/images/categories/streetwear-jumpers.jpg",
+                "picture": "remote/images/categories/streetwear-jumpers.jpg",
                 "items": [
                     {
                         "title": "Hoodies"
@@ -88,7 +88,7 @@
             },
             {
                 "title": "Trousers",
-                "picture": "data/images/categories/streetwear-trousers.jpg",
+                "picture": "remote/images/categories/streetwear-trousers.jpg",
                 "items": [
                     {
                         "title": "Chinos"
@@ -127,7 +127,7 @@
             },
             {
                 "title": "Jeans",
-                "picture": "data/images/categories/streetwear-jeans.jpg",
+                "picture": "remote/images/categories/streetwear-jeans.jpg",
                 "items": [
                     {
                         "title": "Skinny Jeans"
@@ -166,7 +166,7 @@
             },
             {
                 "title": "Shirts",
-                "picture": "data/images/categories/streetwear-shirts.jpg",
+                "picture": "remote/images/categories/streetwear-shirts.jpg",
                 "items": [
                     {
                         "title": "Flannel Shirts"
@@ -184,7 +184,7 @@
             },
             {
                 "title": "Knitwear",
-                "picture": "data/images/categories/streetwear-knitwear.jpg",
+                "picture": "remote/images/categories/streetwear-knitwear.jpg",
                 "items": [
                     {
                         "title": "Knitted Jumpers"
@@ -196,7 +196,7 @@
             },
             {
                 "title": "Dresses",
-                "picture": "data/images/categories/streetwear-dresses.jpg",
+                "picture": "remote/images/categories/streetwear-dresses.jpg",
                 "items": [
                     {
                         "title": "Long Sleeve Dresses"
@@ -220,7 +220,7 @@
             },
             {
                 "title": "Skirts",
-                "picture": "data/images/categories/streetwear-skirts.jpg",
+                "picture": "remote/images/categories/streetwear-skirts.jpg",
                 "items": [
                     {
                         "title": "Mini Skirts"
@@ -238,7 +238,7 @@
             },
             {
                 "title": "T-Shirts",
-                "picture": "data/images/categories/streetwear-t-shirts.jpg",
+                "picture": "remote/images/categories/streetwear-t-shirts.jpg",
                 "items": [
                     {
                         "title": "T-Shirts"
@@ -265,7 +265,7 @@
             },
             {
                 "title": "Shorts",
-                "picture": "data/images/categories/streetwear-shorts.jpg",
+                "picture": "remote/images/categories/streetwear-shorts.jpg",
                 "items": [
                     {
                         "title": "Hot Pants"
@@ -286,7 +286,7 @@
             },
             {
                 "title": "Underwear",
-                "picture": "data/images/categories/streetwear-underwear.jpg",
+                "picture": "remote/images/categories/streetwear-underwear.jpg",
                 "items": [
                     {
                         "title": "Boxer Shorts"
@@ -304,7 +304,7 @@
             },
             {
                 "title": "Blouse-Tunics",
-                "picture": "data/images/categories/streetwear-blouse-tunics.jpg",
+                "picture": "remote/images/categories/streetwear-blouse-tunics.jpg",
                 "items": [
                     {
                         "title": "Blouse"
@@ -321,7 +321,7 @@
         "items": [
             {
                 "title": "Trainers",
-                "picture": "data/images/categories/shoes-trainers.jpg",
+                "picture": "remote/images/categories/shoes-trainers.jpg",
                 "items": [
                     {
                         "title": "Low-top Trainers"
@@ -336,7 +336,7 @@
             },
             {
                 "title": "Winter Shoes",
-                "picture": "data/images/categories/shoes-winter-shoes.jpg",
+                "picture": "remote/images/categories/shoes-winter-shoes.jpg",
                 "items": [
                     {
                         "title": "Winter Boots"
@@ -345,7 +345,7 @@
             },
             {
                 "title": "Boots",
-                "picture": "data/images/categories/shoes-boots.jpg",
+                "picture": "remote/images/categories/shoes-boots.jpg",
                 "items": [
                     {
                         "title": "Fashion Boots"
@@ -357,7 +357,7 @@
             },
             {
                 "title": "Skate Shoes",
-                "picture": "data/images/categories/shoes-skate-shoes.jpg",
+                "picture": "remote/images/categories/shoes-skate-shoes.jpg",
                 "items": [
                     {
                         "title": "Skate Shoes Low"
@@ -369,12 +369,12 @@
             },
             {
                 "title": "Ballet Pumps",
-                "picture": "data/images/categories/shoes-ballet-pumps.jpg",
+                "picture": "remote/images/categories/shoes-ballet-pumps.jpg",
                 "items": []
             },
             {
                 "title": "Sandals",
-                "picture": "data/images/categories/shoes-sandals.jpg",
+                "picture": "remote/images/categories/shoes-sandals.jpg",
                 "items": [
                     {
                         "title": "Toe Separator"
@@ -386,7 +386,7 @@
             },
             {
                 "title": "Shoes Accessories",
-                "picture": "data/images/categories/shoes-shoes-accessories.jpg",
+                "picture": "remote/images/categories/shoes-shoes-accessories.jpg",
                 "items": [
                     {
                         "title": "Shoelaces"
@@ -406,7 +406,7 @@
         "items": [
             {
                 "title": "Backpacks",
-                "picture": "data/images/categories/accessories-backpacks.jpg",
+                "picture": "remote/images/categories/accessories-backpacks.jpg",
                 "items": [
                     {
                         "title": "Canvas Backpacks"
@@ -436,7 +436,7 @@
             },
             {
                 "title": "Caps",
-                "picture": "data/images/categories/accessories-caps.jpg",
+                "picture": "remote/images/categories/accessories-caps.jpg",
                 "items": [
                     {
                         "title": "Snapback Caps"
@@ -457,7 +457,7 @@
             },
             {
                 "title": "Beanies",
-                "picture": "data/images/categories/accessories-beanies.jpg",
+                "picture": "remote/images/categories/accessories-beanies.jpg",
                 "items": [
                     {
                         "title": "Beanies"
@@ -484,7 +484,7 @@
             },
             {
                 "title": "Scarves",
-                "picture": "data/images/categories/accessories-scarves.jpg",
+                "picture": "remote/images/categories/accessories-scarves.jpg",
                 "items": [
                     {
                         "title": "Neck Warmers"
@@ -505,7 +505,7 @@
             },
             {
                 "title": "Gloves",
-                "picture": "data/images/categories/accessories-gloves.jpg",
+                "picture": "remote/images/categories/accessories-gloves.jpg",
                 "items": [
                     {
                         "title": "Fingerless Gloves"
@@ -520,7 +520,7 @@
             },
             {
                 "title": "Socks",
-                "picture": "data/images/categories/accessories-socks.jpg",
+                "picture": "remote/images/categories/accessories-socks.jpg",
                 "items": [
                     {
                         "title": "Long Socks"
@@ -535,7 +535,7 @@
             },
             {
                 "title": "Belts",
-                "picture": "data/images/categories/accessories-belts.jpg",
+                "picture": "remote/images/categories/accessories-belts.jpg",
                 "items": [
                     {
                         "title": "Fabric Belts"
@@ -553,7 +553,7 @@
             },
             {
                 "title": "Bags",
-                "picture": "data/images/categories/accessories-bags.jpg",
+                "picture": "remote/images/categories/accessories-bags.jpg",
                 "items": [
                     {
                         "title": "Purses"
@@ -583,7 +583,7 @@
             },
             {
                 "title": "Wallets",
-                "picture": "data/images/categories/accessories-wallets.jpg",
+                "picture": "remote/images/categories/accessories-wallets.jpg",
                 "items": [
                     {
                         "title": "Leather Wallets"
@@ -598,7 +598,7 @@
             },
             {
                 "title": "Sunglasses",
-                "picture": "data/images/categories/accessories-sunglasses.jpg",
+                "picture": "remote/images/categories/accessories-sunglasses.jpg",
                 "items": [
                     {
                         "title": "Fashion Glasses"
@@ -610,7 +610,7 @@
             },
             {
                 "title": "Watches",
-                "picture": "data/images/categories/accessories-watches.jpg",
+                "picture": "remote/images/categories/accessories-watches.jpg",
                 "items": [
                     {
                         "title": "Analog Watches"
@@ -630,7 +630,7 @@
         "items": [
             {
                 "title": "Swimwear",
-                "picture": "data/images/categories/water-sports-swimwear.jpg",
+                "picture": "remote/images/categories/water-sports-swimwear.jpg",
                 "items": [
                     {
                         "title": "Bikinis"
@@ -663,7 +663,7 @@
             },
             {
                 "title": "Wetsuits",
-                "picture": "data/images/categories/water-sports-wetsuits.jpg",
+                "picture": "remote/images/categories/water-sports-wetsuits.jpg",
                 "items": [
                     {
                         "title": "Wetsuits"
@@ -687,7 +687,7 @@
             },
             {
                 "title": "Wakeboarding",
-                "picture": "data/images/categories/water-sports-wakeboarding.jpg",
+                "picture": "remote/images/categories/water-sports-wakeboarding.jpg",
                 "items": [
                     {
                         "title": "Wakeboards"
@@ -708,7 +708,7 @@
             },
             {
                 "title": "Surfboards",
-                "picture": "data/images/categories/water-sports-surfboard.jpg",
+                "picture": "remote/images/categories/water-sports-surfboard.jpg",
                 "items": [
                     {
                         "title": "Shortboard Surf"
@@ -726,7 +726,7 @@
             },
             {
                 "title": "Stand Up Paddling",
-                "picture": "data/images/categories/water-sports-stand-up-paddling.jpg",
+                "picture": "remote/images/categories/water-sports-stand-up-paddling.jpg",
                 "items": [
                     {
                         "title": "SUP Boards"
@@ -741,12 +741,12 @@
             },
             {
                 "title": "Rash Vests",
-                "picture": "data/images/categories/water-sports-rash-vests.jpg",
+                "picture": "remote/images/categories/water-sports-rash-vests.jpg",
                 "items": []
             },
             {
                 "title": "Surfing Accessories",
-                "picture": "data/images/categories/water-sports-surfing-accessories.jpg",
+                "picture": "remote/images/categories/water-sports-surfing-accessories.jpg",
                 "items": [
                     {
                         "title": "Surfboard Bag"
@@ -775,7 +775,7 @@
         "items": [
             {
                 "title": "Skateboards",
-                "picture": "data/images/categories/skate-skateboards.jpg",
+                "picture": "remote/images/categories/skate-skateboards.jpg",
                 "items": [
                     {
                         "title": "Complete Boards"
@@ -808,7 +808,7 @@
             },
             {
                 "title": "Longboards",
-                "picture": "data/images/categories/skate-longboards.jpg",
+                "picture": "remote/images/categories/skate-longboards.jpg",
                 "items": [
                     {
                         "title": "Longboard Complete"
@@ -826,7 +826,7 @@
             },
             {
                 "title": "Cruiser Skateboards",
-                "picture": "data/images/categories/skate-cruiser-skateboards.jpg",
+                "picture": "remote/images/categories/skate-cruiser-skateboards.jpg",
                 "items": [
                     {
                         "title": "Complete Cruisers"
@@ -844,7 +844,7 @@
             },
             {
                 "title": "Skate Protector",
-                "picture": "data/images/categories/skate-skate-protector.jpg",
+                "picture": "remote/images/categories/skate-skate-protector.jpg",
                 "items": [
                     {
                         "title": "Skate Gloves"
@@ -864,7 +864,7 @@
         "items": [
             {
                 "title": "Snowboards",
-                "picture": "data/images/categories/snowboard-shop-snowboards.jpg",
+                "picture": "remote/images/categories/snowboard-shop-snowboards.jpg",
                 "items": [
                     {
                         "title": "Freeride Snowboards"
@@ -882,7 +882,7 @@
             },
             {
                 "title": "Snowboard Clothing",
-                "picture": "data/images/categories/snowboard-shop-snowboard-clothing.jpg",
+                "picture": "remote/images/categories/snowboard-shop-snowboard-clothing.jpg",
                 "items": [
                     {
                         "title": "Snowboard Jackets"
@@ -909,7 +909,7 @@
             },
             {
                 "title": "Snowboard Bindings",
-                "picture": "data/images/categories/snowboard-shop-snowboard-bindings.jpg",
+                "picture": "remote/images/categories/snowboard-shop-snowboard-bindings.jpg",
                 "items": [
                     {
                         "title": "Soft Bindings"
@@ -924,7 +924,7 @@
             },
             {
                 "title": "Snowboard Boots",
-                "picture": "data/images/categories/snowboard-shop-snowboard-boots.jpg",
+                "picture": "remote/images/categories/snowboard-shop-snowboard-boots.jpg",
                 "items": [
                     {
                         "title": "Freestyle Snowboard Boots"
@@ -939,7 +939,7 @@
             },
             {
                 "title": "Snowboard Helmets",
-                "picture": "data/images/categories/snowboard-shop-snowboard-helmets.jpg",
+                "picture": "remote/images/categories/snowboard-shop-snowboard-helmets.jpg",
                 "items": [
                     {
                         "title": "Snowboard Helmets"
@@ -951,7 +951,7 @@
             },
             {
                 "title": "Snowboard Goggles",
-                "picture": "data/images/categories/snowboard-shop-snowboard-goggles.jpg",
+                "picture": "remote/images/categories/snowboard-shop-snowboard-goggles.jpg",
                 "items": [
                     {
                         "title": "Snowboard Goggles"
@@ -963,7 +963,7 @@
             },
             {
                 "title": "Snowboard Backpacks",
-                "picture": "data/images/categories/snowboard-shop-snowboard-backpacks.jpg",
+                "picture": "remote/images/categories/snowboard-shop-snowboard-backpacks.jpg",
                 "items": [
                     {
                         "title": "Avalanche Backpacks"
@@ -975,22 +975,22 @@
             },
             {
                 "title": "Snowboard Protectors",
-                "picture": "data/images/categories/snowboard-shop-snowboard-protectors.jpg",
+                "picture": "remote/images/categories/snowboard-shop-snowboard-protectors.jpg",
                 "items": []
             },
             {
                 "title": "Snowboard Bags",
-                "picture": "data/images/categories/snowboard-shop-snowboard-bags.jpg",
+                "picture": "remote/images/categories/snowboard-shop-snowboard-bags.jpg",
                 "items": []
             },
             {
                 "title": "Snowboard Boot Bags",
-                "picture": "data/images/categories/snowboard-shop-snowboard-boot-bags.jpg",
+                "picture": "remote/images/categories/snowboard-shop-snowboard-boot-bags.jpg",
                 "items": []
             },
             {
                 "title": "Snowboarding Safety",
-                "picture": "data/images/categories/snowboard-shop-snowboarding-safety.jpg",
+                "picture": "remote/images/categories/snowboard-shop-snowboarding-safety.jpg",
                 "items": [
                     {
                         "title": "Avalanche Transceiver"
@@ -1011,7 +1011,7 @@
             },
             {
                 "title": "Snowboarding Accessories",
-                "picture": "data/images/categories/snowboard-shop-snowboarding-accessories.jpg",
+                "picture": "remote/images/categories/snowboard-shop-snowboarding-accessories.jpg",
                 "items": [
                     {
                         "title": "Snowboard Crampons"
@@ -1031,7 +1031,7 @@
         "items": [
             {
                 "title": "Ski Clothing",
-                "picture": "data/images/categories/ski-shop-ski-clothing.jpg",
+                "picture": "remote/images/categories/ski-shop-ski-clothing.jpg",
                 "items": [
                     {
                         "title": "Ski Jackets"
@@ -1061,7 +1061,7 @@
             },
             {
                 "title": "Ski Goggles",
-                "picture": "data/images/categories/ski-shop-ski-goggles.jpg",
+                "picture": "remote/images/categories/ski-shop-ski-goggles.jpg",
                 "items": [
                     {
                         "title": "Ski Goggles"
@@ -1073,12 +1073,12 @@
             },
             {
                 "title": "Ski Helmets",
-                "picture": "data/images/categories/ski-shop-ski-helmets.jpg",
+                "picture": "remote/images/categories/ski-shop-ski-helmets.jpg",
                 "items": []
             },
             {
                 "title": "Ski Poles",
-                "picture": "data/images/categories/ski-shop-ski-poles.jpg",
+                "picture": "remote/images/categories/ski-shop-ski-poles.jpg",
                 "items": [
                     {
                         "title": "Ski Poles"
@@ -1090,7 +1090,7 @@
             },
             {
                 "title": "Ski Boots",
-                "picture": "data/images/categories/ski-shop-ski-boots.jpg",
+                "picture": "remote/images/categories/ski-shop-ski-boots.jpg",
                 "items": [
                     {
                         "title": "Freeride Ski Boots"
@@ -1102,7 +1102,7 @@
             },
             {
                 "title": "Ski Bindings",
-                "picture": "data/images/categories/ski-shop-ski-bindings.jpg",
+                "picture": "remote/images/categories/ski-shop-ski-bindings.jpg",
                 "items": [
                     {
                         "title": "Freeride Ski Bindings"
@@ -1114,7 +1114,7 @@
             },
             {
                 "title": "Ski Backpacks",
-                "picture": "data/images/categories/ski-shop-ski-backpacks.jpg",
+                "picture": "remote/images/categories/ski-shop-ski-backpacks.jpg",
                 "items": [
                     {
                         "title": "Protector Backpacks"
@@ -1126,17 +1126,17 @@
             },
             {
                 "title": "Ski Protector",
-                "picture": "data/images/categories/ski-shop-ski-protector.jpg",
+                "picture": "remote/images/categories/ski-shop-ski-protector.jpg",
                 "items": []
             },
             {
                 "title": "Ski Bootbags",
-                "picture": "data/images/categories/ski-shop-ski-bootbags.jpg",
+                "picture": "remote/images/categories/ski-shop-ski-bootbags.jpg",
                 "items": []
             },
             {
                 "title": "Ski Safety",
-                "picture": "data/images/categories/ski-shop-ski-safety.jpg",
+                "picture": "remote/images/categories/ski-shop-ski-safety.jpg",
                 "items": [
                     {
                         "title": "Avalanche Transceiver"
@@ -1154,7 +1154,7 @@
             },
             {
                 "title": "Ski Accessories",
-                "picture": "data/images/categories/ski-shop-ski-accessories.jpg",
+                "picture": "remote/images/categories/ski-shop-ski-accessories.jpg",
                 "items": [
                     {
                         "title": "Ski Skins"
@@ -1174,7 +1174,7 @@
         "items": [
             {
                 "title": "Outdoor Clothing",
-                "picture": "data/images/categories/outdoor-outdoor-clothing.jpg",
+                "picture": "remote/images/categories/outdoor-outdoor-clothing.jpg",
                 "items": [
                     {
                         "title": "Outdoor Jackets"
@@ -1204,7 +1204,7 @@
             },
             {
                 "title": "Outdoorshoes",
-                "picture": "data/images/categories/outdoor-outdoorshoes.jpg",
+                "picture": "remote/images/categories/outdoor-outdoorshoes.jpg",
                 "items": [
                     {
                         "title": "Trekking Shoes"
@@ -1219,7 +1219,7 @@
             },
             {
                 "title": "Outdoor Equipment",
-                "picture": "data/images/categories/outdoor-outdoor-equipment.jpg",
+                "picture": "remote/images/categories/outdoor-outdoor-equipment.jpg",
                 "items": [
                     {
                         "title": "Backpacks"
@@ -1245,5 +1245,8 @@
                 ]
             }
         ]
+    },
+    {
+        "title": "Outlet"
     }
 ]
