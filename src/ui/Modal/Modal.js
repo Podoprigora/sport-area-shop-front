@@ -23,6 +23,7 @@ const Modal = React.forwardRef(function Modal(props, ref) {
         className,
         centered,
         backdrop = true,
+        overflow,
         disableRestoreFocus = false,
         disableFocusBounding = false,
         disableBackdropClick = false,
@@ -189,7 +190,8 @@ const Modal = React.forwardRef(function Modal(props, ref) {
                 role="presentation"
                 className={classNames('modal', className, {
                     'modal--hidden': !open && exited,
-                    'modal--centered': centered
+                    'modal--centered': centered,
+                    'modal--overflow': overflow
                 })}
                 onClick={handleClick}
                 ref={setModalNode}
@@ -218,6 +220,7 @@ const propTypes = {
     className: PropTypes.string,
     centered: PropTypes.bool,
     backdrop: PropTypes.bool,
+    overflow: PropTypes.bool,
     disableEscapeKeyDown: PropTypes.bool,
     disableBackdropClick: PropTypes.bool,
     disableFocusBounding: PropTypes.bool,

@@ -6,6 +6,8 @@ import CategoryMenu from '@components/CategoryMenu';
 import useForkRef from '@ui/hooks/useForkRef';
 
 import data from '@remote/json/categories.json';
+import Hidden from '@ui/Hidden';
+import useEventCallback from '@ui/hooks/useEventCallback';
 
 const HeaderCategoryMenu = React.forwardRef(function HeaderCategoryMenu(props, ref) {
     const [open, setOpen] = useState(false);
@@ -20,19 +22,32 @@ const HeaderCategoryMenu = React.forwardRef(function HeaderCategoryMenu(props, r
         setOpen(false);
     }, []);
 
+    const handleItemClick = useEventCallback((ev, item) => {
+        console.log(item);
+    });
+
     return (
         <>
-            <Button
-                primary
-                className="header__nav-btn"
-                icon={MenuIcon}
-                size="large"
-                ref={handleRef}
-                onClick={handleMenuButtonClick}
-            >
-                Shop by category
-            </Button>
-            <CategoryMenu open={open} anchorRef={buttonRef} data={data} onClose={handleMenuClose} />
+            <Hidden mdDown>
+                <Button
+                    primary
+                    className="header__nav-btn"
+                    icon={MenuIcon}
+                    size="large"
+                    ref={handleRef}
+                    onClick={handleMenuButtonClick}
+                >
+                    Shop by category
+                </Button>
+            </Hidden>
+            <CategoryMenu
+                open={open}
+                anchorRef={buttonRef}
+                data={data}
+                maxGroupItemsLength={5}
+                onClose={handleMenuClose}
+                onItemClick={handleItemClick}
+            />
         </>
     );
 });

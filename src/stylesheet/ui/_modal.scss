@@ -6,6 +6,10 @@
 	bottom: 0;
 	z-index: $modal-z-index;
 
+	&--overflow {
+		overflow: auto;
+	}
+
 	&--hidden {
 		visibility: hidden;
 	}

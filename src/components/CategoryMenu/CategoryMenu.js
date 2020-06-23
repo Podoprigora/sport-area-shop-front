@@ -1,8 +1,11 @@
 import React, { useRef, useState, useEffect, useLayoutEffect, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { CSSTransition } from 'react-transition-group';
+import { throttle } from 'lodash';
 
 import Modal from '@ui/Modal';
+import ClickAwayListener from '@ui/ClickAwayListener';
 import useEventCallback from '@ui/hooks/useEventCallback';
 import useForkRef from '@ui/hooks/useForkRef';
 import CategoryMenuItem from './CategoryMenuItem';
@@ -11,7 +14,16 @@ import { CategoryMenuContext } from './CategoryMenuContext';
 const defaultActiveIndex = 0;
 
 const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
-    const { open, onClose, anchorRef, data = [], style = {}, ...other } = props;
+    const {
+        open,
+        anchorRef,
+        data = [],
+        maxGroupItemsLength = 5,
+        style = {},
+        onItemClick,
+        onClose,
+        ...other
+    } = props;
 
     const [showHiddenGroups, setShowHiddenGroups] = useState(false);
     const [activeItemIndex, setActiveItemIndex] = useState(-1);
@@ -39,9 +51,15 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
         }
     }, []);
 
-    useEffect(() => {
+    const handleItemClick = useEventCallback((ev, item) => {
+        if (onItemClick) {
+            onItemClick(ev, item);
+        }
+    });
+
+    useLayoutEffect(() => {
         const updateMenuStyle = () => {
-            if (anchorRef && anchorRef.current) {
+            if (open && anchorRef && anchorRef.current) {
                 const { y, height } = anchorRef.current.getBoundingClientRect();
                 const offset = y + height;
 
@@ -51,9 +69,7 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
             }
         };
 
-        if (open) {
-            updateMenuStyle();
-        }
+        updateMenuStyle();
 
         document.addEventListener('scroll', updateMenuStyle, false);
 
@@ -62,32 +78,54 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
         };
     }, [anchorRef, open]);
 
-    useEffect(() => {
-        if (
-            open &&
-            menuHiddenGroupsRef &&
-            menuHiddenGroupsRef.current &&
-            menuRef &&
-            menuRef.current &&
-            menuListRef &&
-            menuListRef.current
-        ) {
-            const newStyle = { height: 'auto' };
+    useLayoutEffect(() => {
+        const updateMenuBodyStyle = () => {
+            if (
+                open &&
+                menuHiddenGroupsRef &&
+                menuHiddenGroupsRef.current &&
+                menuRef &&
+                menuRef.current &&
+                menuListRef &&
+                menuListRef.current
+            ) {
+                const newStyle = { height: 'auto' };
 
-            if (menuHiddenGroupsRef.current.offsetHeight > menuListRef.current.clientHeight) {
-                newStyle.height = menuHiddenGroupsRef.current.offsetHeight;
+                if (menuHiddenGroupsRef.current.offsetHeight > menuListRef.current.clientHeight) {
+                    newStyle.height = menuHiddenGroupsRef.current.offsetHeight;
+                }
+                setMenuBodyStyle(newStyle);
             }
-            setMenuBodyStyle(newStyle);
-        }
+        };
+
+        updateMenuBodyStyle();
+
+        const throttledCallback = throttle(updateMenuBodyStyle, 500);
+
+        window.addEventListener('resize', throttledCallback, false);
+
+        return () => {
+            window.removeEventListener('resize', throttledCallback, false);
+        };
     }, [menuHiddenGroupsRef, open]);
 
     useEffect(() => {
         return () => {
             if (activeItemIndex && !open) {
                 setActiveItemIndex(-1);
+                setShowHiddenGroups(false);
+                setMenuHiddenGroupsRef(null);
             }
         };
     }, [activeItemIndex, open]);
+
+    const contextValue = useMemo(
+        () => ({
+            onItemClick: handleItemClick,
+            maxGroupItemsLength
+        }),
+        [maxGroupItemsLength, handleItemClick]
+    );
 
     if (!data || data.length === 0) {
         return null;
@@ -114,22 +152,28 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
     }
 
     return (
-        <Modal open={open} onClose={handleClose}>
-            <div className="category-menu" ref={handleMenuRef} style={menuStyle}>
-                <div className="category-menu__container">
-                    <div
-                        className={classNames('category-menu__body', {
-                            'category-menu__body--show-hidden-groups': showHiddenGroups
-                        })}
-                        style={menuBodyStyle}
-                        ref={menuBodyRef}
-                    >
-                        <div className="category-menu__list" ref={menuListRef}>
-                            {items}
-                        </div>
+        <Modal open={open} overflow disableBackdropClick onClose={handleClose}>
+            <CSSTransition in={open} classNames="category-menu" timeout={300} appear>
+                <div className="category-menu" ref={handleMenuRef} style={menuStyle}>
+                    <div className="category-menu__container">
+                        <ClickAwayListener onClickAway={handleClose}>
+                            <div
+                                className={classNames('category-menu__body', {
+                                    'category-menu__body--show-hidden-groups': showHiddenGroups
+                                })}
+                                style={menuBodyStyle}
+                                ref={menuBodyRef}
+                            >
+                                <div className="category-menu__list" ref={menuListRef}>
+                                    <CategoryMenuContext.Provider value={contextValue}>
+                                        {items}
+                                    </CategoryMenuContext.Provider>
+                                </div>
+                            </div>
+                        </ClickAwayListener>
                     </div>
                 </div>
-            </div>
+            </CSSTransition>
         </Modal>
     );
 });
@@ -139,7 +183,9 @@ CategoryMenu.propTypes = {
     anchorRef: PropTypes.object,
     data: PropTypes.array,
     style: PropTypes.object,
-    onClose: PropTypes.func
+    maxGroupItemsLength: PropTypes.number,
+    onClose: PropTypes.func,
+    onItemClick: PropTypes.func
 };
 
 export default CategoryMenu;

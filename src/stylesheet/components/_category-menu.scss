@@ -16,16 +16,14 @@
 		border-radius: 0 0 $border-radius-lg $border-radius-lg;
 		box-shadow: $box-shadow-lg;
 		height: auto;
-		// min-height: 0;
-		// height: 100%;
 		overflow: hidden;
-		// transition: all .3s ease-out;
+		transition: height .15s ease;
 
 		&::before {
 			position: absolute;
 			content: '';
 			top: 0;
-			left: 26rem;
+			left: $category-menu-btn-width;
 			right: 0;
 			bottom: 0;
 			background-color: $body-bg-color;
@@ -38,7 +36,7 @@
 	}
 
 	&__list {
-		width: 26rem;
+		width: $category-menu-btn-width;
 		padding: $spacing-scale-5 0;
 
 		&::before {
@@ -47,7 +45,7 @@
 			top: 0;
 			left: 0;
 			bottom: 0;
-			width: 26rem;
+			width: $category-menu-btn-width;
 			background-color: #fff;
 			z-index: -1;
 		}
@@ -99,13 +97,12 @@
 		display: none;
 		right: 0;
 		top: 0;
-		flex-flow: column nowrap;
+		flex-flow: row wrap;
 		justify-content: flex-start;
 		align-items: flex-start;
 		align-content: flex-start;
 		padding: $spacing-scale-5;
-		width: calc(100% - 26rem);
-		overflow: hidden;
+		width: calc(100% - #{$category-menu-btn-width});
 
 		&--active {
 			display: flex;
@@ -113,6 +110,95 @@
 	}
 
 	&__group {
-		padding: $spacing-scale-5;
+		$group: &;
+
+		display: flex;
+		flex-flow: column wrap;
+		justify-content: flex-start;
+		align-items: flex-start;
+		padding: $spacing-scale-5 $spacing-scale-7;
+		width: 20rem;
+
+		&:hover {
+			& #{$group}-img-box {
+				box-shadow: 0 0 0 2.5px $color-primary;
+			}
+		}
+
+		&-img-box {
+			background-color: #fff;
+			height: 8rem;
+			width: 8rem;
+			padding: $spacing-scale-2;
+			border-radius: 50%;
+			margin-bottom: $spacing-scale-5;
+			overflow: hidden;
+			transition: all .3s ease-out;
+		}
+
+		&-img {
+			display: block;
+			width: auto;
+			height: 100%;
+			margin: 0 auto;
+		}
+
+		&-link {
+			&,
+			&:link,
+			&:visited {
+				color: $link-color;
+				text-decoration: none;
+			}
+
+			&:hover {
+				color: $color-primary;
+				text-decoration: underline;
+			}
+
+			&:focus {
+				outline: none;
+				border-radius: $btn-border-radius;
+				box-shadow: $btn-focus-box-shadow;
+			}
+		}
+
+		&-title {
+			font-weight: 500;
+			margin-bottom: $spacing-scale-6;
+		}
+
+		&-item {
+			text-align: left;
+			line-height: 1;
+			margin-bottom: $spacing-scale-4;
+		}
+
+		&-all-link {
+			display: flex;
+			flex-flow: row nowrap;
+			font-size: $font-size-small;
+			font-weight: bold;
+			margin-left: -$spacing-scale-2;
+		}
+	}
+
+	// Transitions
+	&-appear {
+		opacity: 0;
+
+		&-active {
+			opacity: 1;
+			transition: opacity .3s ease-out;
+		}
+	}
+
+	&-exit {
+		opacity: 1;
+
+		&-active {
+			opacity: 0;
+			transition: opacity .3s ease-out;
+		}
 	}
 }

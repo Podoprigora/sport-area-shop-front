@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback, memo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { throttle } from 'lodash';
 
 import useEventCallback from '@ui/hooks/useEventCallback';
 import ChevronRightIcon from '@svg-icons/feather/ChevronRightIcon';
@@ -16,6 +15,8 @@ const CategoryMenuItem = (props) => {
     const timerRef = useRef(null);
     const mousePositionX = useRef(0);
     const mousePositionY = useRef(0);
+
+    const { onItemClick } = useCategoryMenu() || {};
 
     const { title, items = [] } = data || {};
 
@@ -36,23 +37,38 @@ const CategoryMenuItem = (props) => {
 
         timerRef.current = setTimeout(() => {
             if (
-                Math.abs(clientX - mousePositionX.current) < 4 ||
-                Math.abs(clientY - mousePositionY.current) < 4
+                Math.abs(clientX - mousePositionX.current) < 5 ||
+                Math.abs(clientY - mousePositionY.current) < 5
             ) {
                 handleActive(ev);
+
+                if (nodeRef && nodeRef.current) {
+                    nodeRef.current.focus();
+                }
             }
         }, 25);
     });
 
     const handleMouseLeave = useEventCallback((ev) => {
         clearTimeout(timerRef.current);
+
         timerRef.current = null;
         mousePositionX.current = 0;
         mousePositionY.current = 0;
     });
 
     const handleFocus = useEventCallback((ev) => {
-        handleActive(ev);
+        if (!active) {
+            handleActive(ev);
+        }
+    });
+
+    const handleClick = useEventCallback((ev) => {
+        ev.preventDefault();
+
+        if (onItemClick) {
+            onItemClick(ev, data);
+        }
     });
 
     useEffect(() => {
@@ -76,6 +92,7 @@ const CategoryMenuItem = (props) => {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onFocus={handleFocus}
+            onClick={handleClick}
         >
             <div className="category-menu__item-text">{title}</div>
 
