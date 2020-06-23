@@ -1,0 +1,76 @@
+.mask {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: $mask-bg-color;
+	z-index: $mask-z-index;
+	cursor: wait;
+
+	&__progress {
+		$progress: &;
+
+		position: absolute;
+		display: flex;
+		flex-flow: column wrap;
+		align-items: center;
+		width: 100%;
+
+		&--center {
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+
+		&--top {
+			top: 0;
+		}
+
+		&--bottom {
+			bottom: 0;
+
+			#{$progress}-title {
+				order: -1;
+			}
+		}
+
+		&--primary {
+			#{$progress}-title {
+				color: $color-primary;
+			}
+		}
+
+		&--secondary {
+			#{$progress}-title {
+				color: $color-secondary;
+			}
+		}
+
+		&-title {
+			padding: $mask-title-padding;
+			color: $mask-title-color;
+			text-align: center;
+			font-weight: $mask-title-font-weight;
+			letter-spacing: $mask-title-letter-spacing;
+		}
+	}
+
+	&-enter {
+		opacity: 0;
+
+		&-active {
+			opacity: 1;
+			transition: opacity .15s ease;
+		}
+	}
+
+	&-exit {
+		opacity: 1;
+
+		&-active {
+			opacity: 0;
+			transition: opacity .15s ease;
+		}
+	}
+}

@@ -1,0 +1,12 @@
+.tooltip {
+	background-color: $tooltip-bg-color;
+	color: $tooltip-color;
+	font-size: $tooltip-font-size;
+	font-weight: $tooltip-font-weight;
+	letter-spacing: $tooltip-letter-spacing;
+	padding: $tooltip-padding;
+	max-width: $tooltip-max-width;
+	border-radius: $tooltip-border-radius;
+
+	@include scale-transition;
+}

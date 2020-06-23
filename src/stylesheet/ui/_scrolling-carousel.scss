@@ -1,0 +1,57 @@
+.scrolling-carousel {
+	$this: &;
+
+	position: relative;
+	display: flex;
+	flex-flow: row nowrap;
+
+	&__control {
+		position: relative;
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: center;
+		align-items: center;
+		width: $spacing-scale-11;
+		transition: box-shadow .15s ease-out;
+		z-index: 1;
+
+		&--next:not(&--disabled) {
+			box-shadow: -6px 0 6px -5px rgba(#000, .15);
+		}
+
+		&--prev:not(&--disabled) {
+			box-shadow: 6px 0 6px -5px rgba(#000, .15);
+		}
+	}
+
+	&__body {
+		position: relative;
+		display: block;
+		overflow: hidden;
+		flex: 1;
+	}
+
+	&__scroller-content {
+		display: block;
+
+		#{$this}--scrollable & {
+			display: inline-block;
+			// Only for non touch screens
+			@media screen and (hover: hover) {
+				padding-bottom: 7px;
+				background: $grey-lighten-4;
+			}
+		}
+	}
+
+	&__items {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: flex-start;
+		align-items: stretch;
+	}
+
+	&__item {
+		min-height: 2rem;
+	}
+}

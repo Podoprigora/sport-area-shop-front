@@ -1,15 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Skeleton from '@components/Skeleton';
-import AdwSlider from '@pages/components/AdwSlider';
-import BrandsCarousel from '@pages/components/BrandsCarousel';
-import BrandnewCarousel from '@pages/components/BrandnewCarousel';
-import TopsellerCarousel from '@pages/components/TopsellerCarousel';
-import ProductSkeleton from '@pages/components/Skeletons/ProductSkeleton';
-import ProductsCarouselSkeleton from '@pages/components/Skeletons/ProductsCarouselSkeleton';
+import AdwSlider from '@components/AdwSlider';
+import BrandsCarousel from '@components/BrandsCarousel';
+import BrandnewCarousel from '@components/BrandnewCarousel';
+import TopsellerCarousel from '@components/TopsellerCarousel';
 
-import useMainPageBootstrapData from './hooks/useMainPageBootstrapData';
+import useMainPageBootstrapData from './useMainPageBootstrapData';
 
 const MainPage = (props) => {
     const {

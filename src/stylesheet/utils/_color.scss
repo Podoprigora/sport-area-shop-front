@@ -1,0 +1,5 @@
+@each $color-key, $color in $colors {
+	.u-color-#{$color-key} {
+		color: $color;
+	}
+}

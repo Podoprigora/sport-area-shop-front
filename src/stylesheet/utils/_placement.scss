@@ -1,0 +1,47 @@
+.u-placement-bottom {
+	transform-origin: top;
+}
+
+.u-placement-top {
+	transform-origin: bottom;
+}
+
+.u-placement-right {
+	transform-origin: center left;
+}
+
+.u-placement-left {
+	transform-origin: center right;
+}
+
+.u-placement-bottom-start {
+	transform-origin: top left;
+}
+
+.u-placement-top-start {
+	transform-origin: bottom left;
+}
+
+.u-placement-bottom-end {
+	transform-origin: top right;
+}
+
+.u-placement-top-end {
+	transform-origin: bottom right;
+}
+
+.u-placement-right-start {
+	transform-origin: top left;
+}
+
+.u-placement-right-end {
+	transform-origin: bottom left;
+}
+
+.u-placement-left-start {
+	transform-origin: top right;
+}
+
+.u-placement-left-end {
+	transform-origin: bottom right;
+}

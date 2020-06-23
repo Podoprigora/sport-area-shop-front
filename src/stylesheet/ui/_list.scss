@@ -1,0 +1,95 @@
+.list {
+	display: block;
+	position: relative;
+	padding: $list-padding-y $list-padding-x;
+	overflow: auto;
+
+	&__item {
+		$item-selector: &;
+		position: relative;
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: flex-start;
+		align-items: center;
+		width: 100%;
+		padding: $list-item-padding-y $list-item-padding-x;
+		z-index: 0;
+
+		&--button {
+			cursor: pointer;
+			// transition: background-color .2s ease;
+
+			&:focus {
+				outline: none;
+			}
+
+			&:not(#{$item-selector}--disabled) {
+				&:hover {
+					background-color: $color-hover;
+				}
+
+				&#{$item-selector}--highlighted {
+					background-color: $color-hover;
+				}
+
+				&#{$item-selector}--selected,
+				&#{$item-selector}--focus-visible {
+					background-color: $color-focus;
+				}
+			}
+		}
+
+		&--disabled {
+			opacity: $list-item-disabled-opacity;
+			cursor: auto;
+		}
+	}
+
+	&__text {
+		padding: $list-item-text-padding-y $list-item-text-padding-x;
+
+		&:not(:last-child) {
+			margin-right: $list-item-padding-x;
+		}
+
+		&--truncate {
+			@include truncation;
+		}
+
+		&--flex {
+			flex: 1;
+		}
+
+		&--empty {
+			color: $list-item-empty-color;
+			font-style: $list-item-empty-font-style;
+		}
+	}
+
+	&__icon,
+	&__action {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: $icon-color;
+
+		&:not(:last-child) {
+			margin-right: $list-item-padding-x;
+		}
+	}
+
+	&__action {
+		.checkbox,
+		.btn-icon {
+			margin: 0;
+		}
+	}
+
+	&__subheader {
+		font-size: $list-subheader-font-size;
+		font-weight: $list-subheader-font-weight;
+		letter-spacing: $list-subheader-letter-spacing;
+		color: $list-subheader-color;
+		padding: $list-subheader-padding-y $list-item-padding-x;
+	}
+}

@@ -1,0 +1,35 @@
+.heading {
+	display: block;
+	font-weight: $heading-font-weight;
+	line-height: $heading-line-height;
+	color: $heading-color;
+	margin-bottom: $heading-gutter-bottom;
+
+	&--no-gutter-bottom {
+		margin-bottom: 0;
+	}
+
+	&--size-1 {
+		font-size: $heading-1-font-size;
+	}
+
+	&--size-2 {
+		font-size: $heading-2-font-size;
+	}
+
+	&--size-3 {
+		font-size: $heading-3-font-size;
+	}
+
+	&--size-4 {
+		font-size: $heading-4-font-size;
+	}
+
+	&--size-5 {
+		font-size: $heading-5-font-size;
+	}
+
+	&--size-6 {
+		font-size: $heading-6-font-size;
+	}
+}

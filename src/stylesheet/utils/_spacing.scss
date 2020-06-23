@@ -1,0 +1,112 @@
+@each $spacer-key, $spacer in $spacing-scale {
+	@each $bp-key, $bp in $breakpoints {
+		$infix: "";
+		@if $bp != 0 {
+			$infix: "-#{$bp-key}";
+		}
+
+		@include media-breakpoint-up($bp-key) {
+			.u-margin#{$infix}-#{$spacer-key} {
+				margin: $spacer;
+			}
+			.u-margin-x#{$infix}-#{$spacer-key} {
+				margin: 0 $spacer;
+			}
+			.u-margin-y#{$infix}-#{$spacer-key} {
+				margin: $spacer 0;
+			}
+			.u-margin-l#{$infix}-#{$spacer-key} {
+				margin-left: $spacer;
+			}
+			.u-margin-r#{$infix}-#{$spacer-key} {
+				margin-right: $spacer;
+			}
+			.u-margin-t#{$infix}-#{$spacer-key} {
+				margin-top: $spacer;
+			}
+			.u-margin-b#{$infix}-#{$spacer-key} {
+				margin-bottom: $spacer;
+			}
+			.u-padding#{$infix}-#{$spacer-key} {
+				padding: $spacer;
+			}
+			.u-padding-x#{$infix}-#{$spacer-key} {
+				padding: 0 $spacer;
+			}
+			.u-padding-y#{$infix}-#{$spacer-key} {
+				padding: $spacer 0;
+			}
+			.u-padding-t#{$infix}-#{$spacer-key} {
+				padding-top: $spacer;
+			}
+			.u-padding-b#{$infix}-#{$spacer-key} {
+				padding-bottom: $spacer;
+			}
+			.u-width#{$infix}-#{$spacer-key} {
+				width: $spacer;
+			}
+			.u-height#{$infix}-#{$spacer-key} {
+				height: $spacer;
+			}
+		}
+
+		@include media-breakpoint-down($bp-key) {
+			.u-margin-down#{$infix}-#{$spacer-key} {
+				margin: $spacer;
+			}
+			.u-margin-x-down#{$infix}-#{$spacer-key} {
+				margin: 0 $spacer;
+			}
+			.u-margin-y-down#{$infix}-#{$spacer-key} {
+				margin: $spacer 0;
+			}
+			.u-margin-l-down#{$infix}-#{$spacer-key} {
+				margin-left: $spacer;
+			}
+			.u-margin-r-down#{$infix}-#{$spacer-key} {
+				margin-right: $spacer;
+			}
+			.u-margin-t-down#{$infix}-#{$spacer-key} {
+				margin-top: $spacer;
+			}
+			.u-margin-b-down#{$infix}-#{$spacer-key} {
+				margin-bottom: $spacer;
+			}
+			.u-padding-down#{$infix}-#{$spacer-key} {
+				padding: $spacer;
+			}
+			.u-padding-x-down#{$infix}-#{$spacer-key} {
+				padding: 0 $spacer;
+			}
+			.u-padding-y-down#{$infix}-#{$spacer-key} {
+				padding: $spacer 0;
+			}
+			.u-padding-t-down#{$infix}-#{$spacer-key} {
+				padding-top: $spacer;
+			}
+			.u-padding-b-down#{$infix}-#{$spacer-key} {
+				padding-bottom: $spacer;
+			}
+			.u-width-down#{$infix}-#{$spacer-key} {
+				width: $spacer;
+			}
+			.u-height-down#{$infix}-#{$spacer-key} {
+				height: $spacer;
+			}
+		}
+	}
+}
+
+.u-width-full {
+	width: 100%;
+}
+
+.u-margin-auto {
+	margin: 0 auto;
+}
+.u-margin-l-auto {
+	margin-left: auto;
+}
+.u-margin-r-auto {
+	margin-right: auto;
+}
