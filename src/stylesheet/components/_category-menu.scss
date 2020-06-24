@@ -31,48 +31,29 @@
 	}
 
 	&__body {
-		position: relative;
 		display: inline-block;
 		border-radius: 0 0 $border-radius-lg $border-radius-lg;
 		box-shadow: $box-shadow-lg;
-		height: auto;
+		max-height: 100vh;
 		overflow: hidden;
-		transition: height .15s ease;
-
-		&::before {
-			position: absolute;
-			content: '';
-			top: 0;
-			left: $category-menu-btn-width;
-			right: 0;
-			bottom: 0;
-			background-color: $body-bg-color;
-			z-index: -1;
-		}
 
 		&--show-hidden-groups {
-			display: block;
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: flex-start;
+			align-items: stretch;
 		}
 	}
 
 	&__list {
 		width: $category-menu-btn-width;
 		padding: $spacing-scale-5 0;
-
-		&::before {
-			position: absolute;
-			content: '';
-			top: 0;
-			left: 0;
-			bottom: 0;
-			width: $category-menu-btn-width;
-			background-color: #fff;
-			z-index: -1;
-		}
+		background-color: #fff;
 	}
 
 	&__item {
 		$item: &;
+
 		display: flex;
 		flex-flow: row nowrap;
 		align-items: center;
@@ -113,20 +94,15 @@
 	}
 
 	&__hidden-groups {
-		position: absolute;
-		display: none;
-		right: 0;
-		top: 0;
+		flex: 1;
+		display: flex;
 		flex-flow: row wrap;
 		justify-content: flex-start;
 		align-items: flex-start;
 		align-content: flex-start;
 		padding: $spacing-scale-5;
-		width: calc(100% - #{$category-menu-btn-width});
-
-		&--active {
-			display: flex;
-		}
+		background-color: $body-bg-color;
+		overflow: auto;
 	}
 
 	&__group {

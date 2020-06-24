@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+
 import Heading from '@ui/Heading';
 import IconButton from '@ui/IconButton';
+import useEventCallback from '@ui/hooks/useEventCallback';
 import ClearCloseIcon from '@svg-icons/material/ClearCloseIcon';
 import { useWindowContext } from './WindowContext';
 
@@ -21,6 +23,22 @@ const WindowHeader = (props) => {
     } = props;
 
     const { draggable } = useWindowContext();
+
+    const handleClose = useEventCallback((ev) => {
+        if (onClose) {
+            onClose(ev);
+        }
+    });
+
+    const handleCloseClick = useEventCallback((ev) => {
+        handleClose(ev);
+    });
+
+    const handleCloseTouchEnd = useEventCallback((ev) => {
+        ev.preventDefault();
+
+        handleClose(ev);
+    });
 
     const iconContent =
         (icon || renderIcon) &&
@@ -49,7 +67,11 @@ const WindowHeader = (props) => {
             {titleContent}
             {children}
             {onClose && (
-                <IconButton className="window__btn-close" onClick={onClose}>
+                <IconButton
+                    className="window__btn-close"
+                    onClick={handleCloseClick}
+                    onTouchEnd={handleCloseTouchEnd}
+                >
                     {renderCloseIcon ? renderCloseIcon(props) : <ClearCloseIcon size="medium" />}
                 </IconButton>
             )}

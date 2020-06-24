@@ -10,8 +10,10 @@ import useEventCallback from '@ui/hooks/useEventCallback';
 import useForkRef from '@ui/hooks/useForkRef';
 import CategoryMenuItem from './CategoryMenuItem';
 import { CategoryMenuContext } from './CategoryMenuContext';
+import CategoryMenuHiddenGroups from './CategoryMenuHiddenGroups';
+import CategoryMenuList from './CategoryMenuList';
 
-const defaultActiveIndex = 0;
+const defaultActiveItemIndex = 0;
 
 const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
     const {
@@ -25,16 +27,10 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
         ...other
     } = props;
 
-    const [showHiddenGroups, setShowHiddenGroups] = useState(false);
     const [activeItemIndex, setActiveItemIndex] = useState(-1);
-    const [menuHiddenGroupsRef, setMenuHiddenGroupsRef] = useState(null);
-
     const [menuStyle, setMenuStyle] = useState({ ...style });
-    const [menuBodyStyle, setMenuBodyStyle] = useState(null);
 
     const menuRef = useRef(null);
-    const menuBodyRef = useRef(null);
-    const menuListRef = useRef(null);
     const handleMenuRef = useForkRef(menuRef, ref);
 
     const handleClose = useEventCallback((ev) => {
@@ -43,13 +39,8 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
         }
     });
 
-    const handleActiveItem = useCallback((ev, { index, hasItems, hiddenGroupsRef }) => {
+    const handleItemActive = useCallback((ev, { index }) => {
         setActiveItemIndex(index);
-        setShowHiddenGroups(hasItems);
-
-        if (hiddenGroupsRef) {
-            setMenuHiddenGroupsRef(hiddenGroupsRef);
-        }
     }, []);
 
     const handleItemClick = useEventCallback((ev, item) => {
@@ -80,84 +71,35 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
     }, [anchorRef, open]);
 
     useEffect(() => {
-        const updateMenuBodyStyle = () => {
-            if (
-                open &&
-                menuHiddenGroupsRef &&
-                menuHiddenGroupsRef.current &&
-                menuRef &&
-                menuRef.current &&
-                menuListRef &&
-                menuListRef.current
-            ) {
-                const newStyle = { height: 'auto' };
-
-                if (menuHiddenGroupsRef.current.offsetHeight > menuListRef.current.clientHeight) {
-                    newStyle.height = menuHiddenGroupsRef.current.offsetHeight;
-                }
-                setMenuBodyStyle(newStyle);
-            }
-        };
-
-        updateMenuBodyStyle();
-
-        const throttledCallback = throttle(updateMenuBodyStyle, 500);
-
-        window.addEventListener('resize', throttledCallback, false);
+        if (open && activeItemIndex === -1) {
+            setActiveItemIndex(defaultActiveItemIndex);
+        }
 
         return () => {
-            window.removeEventListener('resize', throttledCallback, false);
-        };
-    }, [menuHiddenGroupsRef, open]);
-
-    useEffect(() => {
-        return () => {
-            if (activeItemIndex && !open) {
+            if (!open) {
                 setActiveItemIndex(-1);
-                setShowHiddenGroups(false);
-                setMenuHiddenGroupsRef(null);
             }
         };
-    }, [activeItemIndex, open]);
+    }, [open, activeItemIndex]);
 
     const contextValue = useMemo(
         () => ({
             onItemClick: handleItemClick,
+            onItemActive: handleItemActive,
             maxGroupItemsLength
         }),
-        [maxGroupItemsLength, handleItemClick]
+        [maxGroupItemsLength, handleItemActive, handleItemClick]
     );
 
     if (!data || data.length === 0) {
         return null;
     }
 
-    const items = data.map((item, index) => {
-        const isActive = activeItemIndex === index;
-
-        return (
-            <CategoryMenuItem
-                key={index}
-                index={index}
-                data={item}
-                active={isActive}
-                onClick={handleItemClick}
-                onActiveItem={handleActiveItem}
-            />
-        );
-    });
-
-    if (activeItemIndex === -1 && typeof defaultActiveIndex === 'number') {
-        items[defaultActiveIndex] = React.cloneElement(items[defaultActiveIndex], {
-            autoFocus: true
-        });
-    }
+    const hiddenGroupsData = (data[activeItemIndex] || {}).items;
 
     return (
         <Modal
             open={open}
-            overflow
-            // backdrop={false}
             disableBackdropClick
             backdropTransitionProps={{ timeout: 150, classNames: 'category-menu-backdrop' }}
             onClose={handleClose}
@@ -168,16 +110,14 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
                         <ClickAwayListener onClickAway={handleClose}>
                             <div
                                 className={classNames('category-menu__body', {
-                                    'category-menu__body--show-hidden-groups': showHiddenGroups
+                                    'category-menu__body--show-hidden-groups':
+                                        hiddenGroupsData && hiddenGroupsData.length > 0
                                 })}
-                                style={menuBodyStyle}
-                                ref={menuBodyRef}
                             >
-                                <div className="category-menu__list" ref={menuListRef}>
-                                    <CategoryMenuContext.Provider value={contextValue}>
-                                        {items}
-                                    </CategoryMenuContext.Provider>
-                                </div>
+                                <CategoryMenuContext.Provider value={contextValue}>
+                                    <CategoryMenuList activeIndex={activeItemIndex} data={data} />
+                                    <CategoryMenuHiddenGroups data={hiddenGroupsData} />
+                                </CategoryMenuContext.Provider>
                             </div>
                         </ClickAwayListener>
                     </div>
@@ -190,7 +130,13 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
 CategoryMenu.propTypes = {
     open: PropTypes.bool,
     anchorRef: PropTypes.object,
-    data: PropTypes.array,
+    data: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number,
+            title: PropTypes.string,
+            items: PropTypes.array
+        })
+    ),
     style: PropTypes.object,
     maxGroupItemsLength: PropTypes.number,
     onClose: PropTypes.func,

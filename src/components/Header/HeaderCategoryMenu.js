@@ -31,18 +31,18 @@ const HeaderCategoryMenu = React.forwardRef(function HeaderCategoryMenu(props, r
 
     return (
         <>
-            <Hidden mdDown>
-                <Button
-                    primary
-                    className="header__nav-btn"
-                    icon={MenuIcon}
-                    size="large"
-                    ref={handleRef}
-                    onClick={handleMenuButtonClick}
-                >
-                    Shop by category
-                </Button>
-            </Hidden>
+            {/* <Hidden mdDown> */}
+            <Button
+                primary
+                className="header__nav-btn"
+                icon={MenuIcon}
+                size="large"
+                ref={handleRef}
+                onClick={handleMenuButtonClick}
+            >
+                Shop by category
+            </Button>
+            {/* </Hidden> */}
             <CategoryMenu
                 open={open}
                 anchorRef={buttonRef}

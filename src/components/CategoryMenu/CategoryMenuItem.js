@@ -4,40 +4,37 @@ import classNames from 'classnames';
 
 import useEventCallback from '@ui/hooks/useEventCallback';
 import ChevronRightIcon from '@svg-icons/feather/ChevronRightIcon';
-import CategoryMenuHiddenGroups from './CategoryMenuHiddenGroups';
 import { useCategoryMenu } from './CategoryMenuContext';
 
 const CategoryMenuItem = (props) => {
-    const { data, index, active, autoFocus, onActiveItem, onClick, ...other } = props;
+    const { data, index, active, autoFocus, ...other } = props;
+
+    const { onItemActive, onItemClick } = useCategoryMenu() || {};
 
     const nodeRef = useRef(null);
-    const hiddenGroupsRef = useRef(null);
     const timerRef = useRef(null);
     const mousePositionX = useRef(0);
-    const mousePositionY = useRef(0);
 
     const { title, items = [] } = data || {};
+    const hasItems = items.length > 0;
 
     const handleActive = useEventCallback((ev) => {
-        if (onActiveItem) {
-            onActiveItem(ev, { index, hasItems: items.length > 0, hiddenGroupsRef });
+        if (onItemActive) {
+            onItemActive(ev, { index, hasItems });
         }
     });
 
     const handleMouseMove = useEventCallback((ev) => {
         mousePositionX.current = ev.clientX;
-        mousePositionY.current = ev.clientY;
     });
 
     const handleMouseEnter = useEventCallback((ev) => {
         const clientX = ev.clientX;
-        const clientY = ev.clientY;
 
         timerRef.current = setTimeout(() => {
-            if (
-                Math.abs(clientX - mousePositionX.current) < 5 ||
-                Math.abs(clientY - mousePositionY.current) < 5
-            ) {
+            const diffX = mousePositionX.current - clientX;
+
+            if (diffX < 2) {
                 handleActive(ev);
 
                 if (nodeRef && nodeRef.current) {
@@ -52,7 +49,6 @@ const CategoryMenuItem = (props) => {
 
         timerRef.current = null;
         mousePositionX.current = 0;
-        mousePositionY.current = 0;
     });
 
     const handleFocus = useEventCallback((ev) => {
@@ -64,16 +60,16 @@ const CategoryMenuItem = (props) => {
     const handleClick = useEventCallback((ev) => {
         ev.preventDefault();
 
-        if (onClick) {
-            onClick(ev, data);
+        if (onItemClick) {
+            onItemClick(ev, data);
         }
     });
 
-    useEffect(() => {
-        if (autoFocus && nodeRef && nodeRef.current) {
-            nodeRef.current.focus();
-        }
-    }, [autoFocus, handleActive]);
+    const handleTouchEnd = useEventCallback((ev) => {
+        ev.preventDefault();
+
+        handleActive(ev);
+    });
 
     if (!title) {
         return null;
@@ -91,16 +87,13 @@ const CategoryMenuItem = (props) => {
             onMouseLeave={handleMouseLeave}
             onFocus={handleFocus}
             onClick={handleClick}
+            onTouchEnd={handleTouchEnd}
         >
             <div className="category-menu__item-text">{title}</div>
-
-            {items && items.length > 0 && (
-                <>
-                    <div className="category-menu__item-icon category-menu__item-icon--right">
-                        <ChevronRightIcon size="medium" />
-                    </div>
-                    <CategoryMenuHiddenGroups active={active} data={items} ref={hiddenGroupsRef} />
-                </>
+            {hasItems && (
+                <div className="category-menu__item-icon category-menu__item-icon--right">
+                    <ChevronRightIcon size="medium" />
+                </div>
             )}
         </button>
     );
@@ -115,7 +108,7 @@ CategoryMenuItem.propTypes = {
         title: PropTypes.string,
         items: PropTypes.array
     }),
-    onActiveItem: PropTypes.func,
+    onActive: PropTypes.func,
     onClick: PropTypes.func
 };
 
