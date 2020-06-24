@@ -100,6 +100,7 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
     return (
         <Modal
             open={open}
+            overflow
             disableBackdropClick
             backdropTransitionProps={{ timeout: 150, classNames: 'category-menu-backdrop' }}
             onClose={handleClose}
