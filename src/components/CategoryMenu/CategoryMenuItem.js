@@ -8,15 +8,13 @@ import CategoryMenuHiddenGroups from './CategoryMenuHiddenGroups';
 import { useCategoryMenu } from './CategoryMenuContext';
 
 const CategoryMenuItem = (props) => {
-    const { data, index, active, autoFocus, onActiveItem, ...other } = props;
+    const { data, index, active, autoFocus, onActiveItem, onClick, ...other } = props;
 
     const nodeRef = useRef(null);
     const hiddenGroupsRef = useRef(null);
     const timerRef = useRef(null);
     const mousePositionX = useRef(0);
     const mousePositionY = useRef(0);
-
-    const { onItemClick } = useCategoryMenu() || {};
 
     const { title, items = [] } = data || {};
 
@@ -66,8 +64,8 @@ const CategoryMenuItem = (props) => {
     const handleClick = useEventCallback((ev) => {
         ev.preventDefault();
 
-        if (onItemClick) {
-            onItemClick(ev, data);
+        if (onClick) {
+            onClick(ev, data);
         }
     });
 
@@ -117,7 +115,8 @@ CategoryMenuItem.propTypes = {
         title: PropTypes.string,
         items: PropTypes.array
     }),
-    onActiveItem: PropTypes.func
+    onActiveItem: PropTypes.func,
+    onClick: PropTypes.func
 };
 
 export default memo(CategoryMenuItem);

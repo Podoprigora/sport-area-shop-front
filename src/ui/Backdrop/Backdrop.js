@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
@@ -33,4 +33,4 @@ Backdrop.propTypes = {
     className: PropTypes.string
 };
 
-export default Backdrop;
+export default memo(Backdrop);

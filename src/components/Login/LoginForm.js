@@ -62,7 +62,6 @@ const LoginForm = React.forwardRef(function LoginForm(props, ref) {
                         placeholder="example@mail.com"
                         required
                         fullWidth
-                        autoFocus
                     />
                 </FormRow>
                 <FormRow>

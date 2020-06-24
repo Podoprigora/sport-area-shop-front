@@ -42,7 +42,6 @@ const ForgotPasswordForm = (props) => {
                         helperText="Please enter your email address and we will send you an email about how to reset your password."
                         required
                         fullWidth
-                        autoFocus
                     />
                 </FormRow>
                 <FormRow>

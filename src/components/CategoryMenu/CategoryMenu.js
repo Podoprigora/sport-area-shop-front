@@ -27,6 +27,8 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
 
     const [showHiddenGroups, setShowHiddenGroups] = useState(false);
     const [activeItemIndex, setActiveItemIndex] = useState(-1);
+    const [menuHiddenGroupsRef, setMenuHiddenGroupsRef] = useState(null);
+
     const [menuStyle, setMenuStyle] = useState({ ...style });
     const [menuBodyStyle, setMenuBodyStyle] = useState(null);
 
@@ -34,7 +36,6 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
     const menuBodyRef = useRef(null);
     const menuListRef = useRef(null);
     const handleMenuRef = useForkRef(menuRef, ref);
-    const [menuHiddenGroupsRef, setMenuHiddenGroupsRef] = useState(null);
 
     const handleClose = useEventCallback((ev) => {
         if (onClose) {
@@ -57,7 +58,7 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
         }
     });
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const updateMenuStyle = () => {
             if (open && anchorRef && anchorRef.current) {
                 const { y, height } = anchorRef.current.getBoundingClientRect();
@@ -78,7 +79,7 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
         };
     }, [anchorRef, open]);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const updateMenuBodyStyle = () => {
             if (
                 open &&
@@ -140,6 +141,7 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
                 index={index}
                 data={item}
                 active={isActive}
+                onClick={handleItemClick}
                 onActiveItem={handleActiveItem}
             />
         );
@@ -152,8 +154,15 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
     }
 
     return (
-        <Modal open={open} overflow disableBackdropClick onClose={handleClose}>
-            <CSSTransition in={open} classNames="category-menu" timeout={300} appear>
+        <Modal
+            open={open}
+            overflow
+            // backdrop={false}
+            disableBackdropClick
+            backdropTransitionProps={{ timeout: 150, classNames: 'category-menu-backdrop' }}
+            onClose={handleClose}
+        >
+            <CSSTransition in={open} classNames="category-menu" timeout={150} appear>
                 <div className="category-menu" ref={handleMenuRef} style={menuStyle}>
                     <div className="category-menu__container">
                         <ClickAwayListener onClickAway={handleClose}>

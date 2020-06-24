@@ -14,9 +14,11 @@ const HeaderCategoryMenu = React.forwardRef(function HeaderCategoryMenu(props, r
     const buttonRef = useRef(null);
     const handleRef = useForkRef(buttonRef, ref);
 
-    const handleMenuButtonClick = useCallback((ev) => {
-        setOpen(true);
-    }, []);
+    const handleMenuButtonClick = useEventCallback((ev) => {
+        if (!open) {
+            setOpen(true);
+        }
+    });
 
     const handleMenuClose = useCallback((ev) => {
         setOpen(false);
@@ -24,6 +26,7 @@ const HeaderCategoryMenu = React.forwardRef(function HeaderCategoryMenu(props, r
 
     const handleItemClick = useEventCallback((ev, item) => {
         console.log(item);
+        handleMenuClose(ev);
     });
 
     return (

@@ -7,7 +7,7 @@ import CategoryMenuGroup from './CategoryMenuGroup';
 const CategoryMenuHiddenGroups = React.forwardRef(function CategoryMenuHiddenGroups(props, ref) {
     const { data = [], active = false, ...other } = props;
 
-    if (!data || data.length === 0) {
+    if (!data || data.length === 0 || !active) {
         return null;
     }
 
