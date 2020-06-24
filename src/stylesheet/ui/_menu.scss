@@ -1,8 +1,0 @@
-.menu {
-	background-color: $menu-bg-color;
-	min-width: $menu-min-width;
-	border-radius: $menu-border-radius;
-	box-shadow: $menu-box-shadow;
-
-	@include scale-transition;
-}
