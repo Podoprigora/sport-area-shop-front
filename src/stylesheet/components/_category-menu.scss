@@ -1,3 +1,23 @@
+@mixin category-menu-css-transition {
+	&-appear {
+		opacity: 0;
+
+		&-active {
+			opacity: 1;
+			transition: opacity .15s ease-out;
+		}
+	}
+
+	&-exit {
+		opacity: 1;
+
+		&-active {
+			opacity: 0;
+			transition: opacity .15s ease-out;
+		}
+	}
+}
+
 .category-menu {
 	position: absolute;
 	width: 100%;
@@ -183,22 +203,9 @@
 		}
 	}
 
-	// Transitions
-	&-appear {
-		opacity: 0;
+	@include category-menu-css-transition;
+}
 
-		&-active {
-			opacity: 1;
-			transition: opacity .3s ease-out;
-		}
-	}
-
-	&-exit {
-		opacity: 1;
-
-		&-active {
-			opacity: 0;
-			transition: opacity .3s ease-out;
-		}
-	}
+.category-menu-backdrop {
+	@include category-menu-css-transition;
 }

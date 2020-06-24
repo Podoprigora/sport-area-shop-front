@@ -101,7 +101,6 @@ const RegisterForm = (props) => {
                                 labelAlign="top"
                                 required
                                 fullWidth
-                                autoFocus
                             />
                         </FlexCol>
                         <FlexCol sm>

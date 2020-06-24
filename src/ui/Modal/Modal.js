@@ -28,6 +28,7 @@ const Modal = React.forwardRef(function Modal(props, ref) {
         disableFocusBounding = false,
         disableBackdropClick = false,
         disableEscapeKeyDown = false,
+        backdropTransitionProps,
         onEscapeKeyDown,
         onClose,
         onOpen,
@@ -202,6 +203,7 @@ const Modal = React.forwardRef(function Modal(props, ref) {
                         open={open}
                         transition={hasTransition}
                         className="modal__backdrop"
+                        transitionProps={backdropTransitionProps}
                         ref={backdropRef}
                         onClick={handleBackdropClick}
                     />
@@ -221,6 +223,7 @@ const propTypes = {
     centered: PropTypes.bool,
     backdrop: PropTypes.bool,
     overflow: PropTypes.bool,
+    backdropTransitionProps: PropTypes.object,
     disableEscapeKeyDown: PropTypes.bool,
     disableBackdropClick: PropTypes.bool,
     disableFocusBounding: PropTypes.bool,

@@ -7,11 +7,15 @@
 	background-color: $window-bg-color;
 	border-radius: $window-border-radius;
 	box-shadow: $window-box-shadow;
+	max-height: 100%;
 	// Responsiveness
-	margin: $window-margin;
 	width: 100%;
-	max-height: calc(100% - #{$window-margin * 2});
 	overflow: hidden;
+
+	@include media-breakpoint-up('md') {
+		margin: $window-margin;
+		max-height: calc(100% - #{$window-margin * 2});
+	}
 
 	&:focus {
 		outline: none;
