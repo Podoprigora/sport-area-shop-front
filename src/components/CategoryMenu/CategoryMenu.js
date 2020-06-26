@@ -1,14 +1,20 @@
-import React, { useRef, useState, useEffect, useLayoutEffect, useMemo, useCallback } from 'react';
+import React, {
+    useRef,
+    useState,
+    useEffect,
+    useLayoutEffect,
+    useMemo,
+    useCallback,
+    memo
+} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
-import { throttle } from 'lodash';
 
 import Modal from '@ui/Modal';
 import ClickAwayListener from '@ui/ClickAwayListener';
 import useEventCallback from '@ui/hooks/useEventCallback';
 import useForkRef from '@ui/hooks/useForkRef';
-import CategoryMenuItem from './CategoryMenuItem';
 import { CategoryMenuContext } from './CategoryMenuContext';
 import CategoryMenuHiddenGroups from './CategoryMenuHiddenGroups';
 import CategoryMenuList from './CategoryMenuList';
@@ -32,6 +38,8 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
 
     const menuRef = useRef(null);
     const handleMenuRef = useForkRef(menuRef, ref);
+    const hiddenGroupsRef = useRef(null);
+    const activeItemRef = useRef(null);
 
     const handleClose = useEventCallback((ev) => {
         if (onClose) {
@@ -39,13 +47,20 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
         }
     });
 
-    const handleItemActive = useCallback((ev, { index }) => {
+    const handleItemActive = useCallback((ev, { index, itemRef }) => {
         setActiveItemIndex(index);
+        activeItemRef.current = itemRef.current;
     }, []);
 
     const handleItemClick = useEventCallback((ev, item) => {
         if (onItemClick) {
             onItemClick(ev, item);
+        }
+    });
+
+    const handleHiddenGroupsBoundFocus = useEventCallback((ev) => {
+        if (activeItemRef && activeItemRef.current) {
+            activeItemRef.current.focus();
         }
     });
 
@@ -69,6 +84,12 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
             document.removeEventListener('scroll', updateMenuStyle, false);
         };
     }, [anchorRef, open]);
+
+    useEffect(() => {
+        if (open && activeItemIndex !== -1 && hiddenGroupsRef.current) {
+            hiddenGroupsRef.current.focus();
+        }
+    }, [activeItemIndex, open]);
 
     useEffect(() => {
         if (open && activeItemIndex === -1) {
@@ -110,6 +131,7 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
                     <div className="category-menu__container">
                         <ClickAwayListener onClickAway={handleClose}>
                             <div
+                                role="presentation"
                                 className={classNames('category-menu__body', {
                                     'category-menu__body--show-hidden-groups':
                                         hiddenGroupsData && hiddenGroupsData.length > 0
@@ -117,7 +139,11 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
                             >
                                 <CategoryMenuContext.Provider value={contextValue}>
                                     <CategoryMenuList activeIndex={activeItemIndex} data={data} />
-                                    <CategoryMenuHiddenGroups data={hiddenGroupsData} />
+                                    <CategoryMenuHiddenGroups
+                                        data={hiddenGroupsData}
+                                        ref={hiddenGroupsRef}
+                                        onBoundFocus={handleHiddenGroupsBoundFocus}
+                                    />
                                 </CategoryMenuContext.Provider>
                             </div>
                         </ClickAwayListener>
@@ -144,4 +170,4 @@ CategoryMenu.propTypes = {
     onItemClick: PropTypes.func
 };
 
-export default CategoryMenu;
+export default memo(CategoryMenu);

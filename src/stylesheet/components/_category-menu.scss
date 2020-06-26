@@ -68,10 +68,6 @@
 			}
 		}
 
-		&:focus {
-			outline: none;
-		}
-
 		&-text {
 			flex: 1;
 			font-family: $font-family;
@@ -94,13 +90,16 @@
 
 	&__hidden-groups {
 		flex: 1;
+		background-color: $body-bg-color;
+	}
+
+	&__hidden-groups-body {
 		display: flex;
 		flex-flow: row wrap;
 		justify-content: flex-start;
 		align-items: flex-start;
 		align-content: flex-start;
 		padding: $spacing-scale-5;
-		background-color: $body-bg-color;
 		overflow: auto;
 	}
 

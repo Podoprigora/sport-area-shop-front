@@ -29,16 +29,16 @@
 		width: $category-menu-btn-width;
 		z-index: 2;
 
-		.btn__icon {
-			margin-right: $spacing-scale-6;
-		}
-
 		.btn__text {
 			text-transform: none;
 		}
 
 		&--focus-visible {
 			box-shadow: none;
+		}
+
+		&--mobile {
+			width: auto;
 		}
 	}
 
@@ -111,7 +111,7 @@
 		display: flex;
 		flex-flow: row nowrap;
 		align-items: center;
-		padding-left: $spacing-scale-9;
+		padding-left: $spacing-scale-8;
 		margin-left: auto;
 
 		& > .btn-icon {

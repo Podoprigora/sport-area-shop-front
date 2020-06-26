@@ -20,7 +20,7 @@ const CategoryMenuItem = (props) => {
 
     const handleActive = useEventCallback((ev) => {
         if (onItemActive) {
-            onItemActive(ev, { index, hasItems });
+            onItemActive(ev, { index, hasItems, itemRef: nodeRef });
         }
     });
 
@@ -36,12 +36,8 @@ const CategoryMenuItem = (props) => {
 
             if (diffX < 2) {
                 handleActive(ev);
-
-                if (nodeRef && nodeRef.current) {
-                    nodeRef.current.focus();
-                }
             }
-        }, 25);
+        }, 20);
     });
 
     const handleMouseLeave = useEventCallback((ev) => {
@@ -78,9 +74,10 @@ const CategoryMenuItem = (props) => {
     return (
         <button
             type="button"
-            className={classNames('category-menu__item', {
+            className={classNames('category-menu__item u-focus-outline-0', {
                 'category-menu__item--active': active
             })}
+            tabIndex="0"
             ref={nodeRef}
             onMouseMove={handleMouseMove}
             onMouseEnter={handleMouseEnter}

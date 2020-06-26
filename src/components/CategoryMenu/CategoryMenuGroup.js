@@ -73,6 +73,7 @@ const CategoryMenuGroup = (props) => {
                 <a
                     href="#"
                     className="category-menu__group-link category-menu__group-all-link"
+                    tabIndex="0"
                     onMouseDown={handleLinkMouseDown}
                     onClick={handleClick}
                 >
