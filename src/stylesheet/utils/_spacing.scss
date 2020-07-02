@@ -42,6 +42,12 @@
 			.u-padding-b#{$infix}-#{$spacer-key} {
 				padding-bottom: $spacer;
 			}
+			.u-padding-l#{$infix}-#{$spacer-key} {
+				padding-left: $spacer;
+			}
+			.u-padding-r#{$infix}-#{$spacer-key} {
+				padding-right: $spacer;
+			}
 			.u-width#{$infix}-#{$spacer-key} {
 				width: $spacer;
 			}
@@ -86,6 +92,12 @@
 			}
 			.u-padding-b-down#{$infix}-#{$spacer-key} {
 				padding-bottom: $spacer;
+			}
+			.u-padding-l-down#{$infix}-#{$spacer-key} {
+				padding-left: $spacer;
+			}
+			.u-padding-r-down#{$infix}-#{$spacer-key} {
+				padding-right: $spacer;
 			}
 			.u-width-down#{$infix}-#{$spacer-key} {
 				width: $spacer;

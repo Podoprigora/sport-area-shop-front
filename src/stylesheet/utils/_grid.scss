@@ -9,6 +9,18 @@
 	@include generate-grid("u-");
 }
 
+.u-flex-col-1 {
+	flex: 1;
+}
+
+.u-flex-col-auto {
+	flex: auto;
+}
+
+.u-flex-col-none {
+	flex: none;
+}
+
 .u-flex-direction-row {
 	flex-direction: row;
 }

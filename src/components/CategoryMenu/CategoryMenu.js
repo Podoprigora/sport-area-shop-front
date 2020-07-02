@@ -1,12 +1,4 @@
-import React, {
-    useRef,
-    useState,
-    useEffect,
-    useLayoutEffect,
-    useMemo,
-    useCallback,
-    memo
-} from 'react';
+import React, { useRef, useState, useEffect, useMemo, useCallback, memo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
@@ -59,7 +51,7 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
     });
 
     const handleHiddenGroupsBoundFocus = useEventCallback((ev) => {
-        if (activeItemRef && activeItemRef.current) {
+        if (activeItemRef.current) {
             activeItemRef.current.focus();
         }
     });

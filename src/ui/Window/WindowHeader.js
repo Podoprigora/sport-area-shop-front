@@ -7,6 +7,7 @@ import IconButton from '@ui/IconButton';
 import useEventCallback from '@ui/hooks/useEventCallback';
 import ClearCloseIcon from '@svg-icons/material/ClearCloseIcon';
 import { useWindowContext } from './WindowContext';
+import WindowTitle from './WindowTitle';
 
 const WindowHeader = (props) => {
     const {
@@ -51,9 +52,7 @@ const WindowHeader = (props) => {
         );
 
     const titleContent = (title || renderTitle) && (
-        <Heading size="5" gutterBottom={false} className="window__header-title" {...headingProps}>
-            {title || renderTitle(props)}
-        </Heading>
+        <WindowTitle {...headingProps}>{title || renderTitle(props)}</WindowTitle>
     );
 
     return (
