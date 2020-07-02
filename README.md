@@ -1,6 +1,8 @@
 ## SportArea shop front-end
 
-Experimintal e-comerce front-end built with [React](https://github.com/facebook/react/).
+Experimental e-comerce front-end built with [React](https://github.com/facebook/react/).
+
+The main purpose of this project is mastering of [React](https://github.com/facebook/react/) and receive hands-on experience to build complex components to facilitate development upcoming projects. Another point of this project is preparing library of reusable components.
 
 All images and data have been taken from [https://www.planet-sports.com/](https://www.planet-sports.com/).
 
@@ -17,7 +19,3 @@ $ npm run start
 # or
 $ npm run build
 ```
-
-# License
-
-MIT
