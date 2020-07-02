@@ -83,6 +83,13 @@ const Carousel = React.forwardRef(function Carousel(
     );
 
     const handleMouseEnter = useEventCallback((ev) => {
+        if (isMouseEntered) {
+            return;
+        }
+
+        clearTimeout(mouseEnterTimerId.current);
+        mouseEnterTimerId.current = null;
+
         stop();
         mouseEnterTimerId.current = setTimeout(() => {
             setIsMouseEntered(true);
@@ -90,6 +97,10 @@ const Carousel = React.forwardRef(function Carousel(
     });
 
     const handleMouseLeave = useEventCallback((ev) => {
+        if (!isMouseEntered) {
+            return;
+        }
+
         clearTimeout(mouseEnterTimerId.current);
         setIsMouseEntered(false);
         play();
@@ -110,14 +121,6 @@ const Carousel = React.forwardRef(function Carousel(
             stop();
         };
     }, [play, stop]);
-
-    useEffect(() => {
-        return () => {
-            setTimeout(() => {
-                nextSlide();
-            }, 1000);
-        };
-    }, [nextSlide]);
 
     useEventListener('visibilitychange', (ev) => {
         if (document.hidden) {
@@ -156,8 +159,11 @@ const Carousel = React.forwardRef(function Carousel(
     return (
         <div
             className={classNames('carousel', className)}
+            onMouseOver={handleMouseEnter}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
+            onFocus={handleMouseEnter}
+            onBlur={handleMouseLeave}
             ref={ref}
             {...props}
         >
