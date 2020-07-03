@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { createSelector } from 'reselect';
 
 import Button from '@ui/Button';
 import Hidden from '@ui/Hidden';
@@ -8,7 +9,7 @@ import MobileCategoryMenu from '@components/MobileCategoryMenu';
 import useEventCallback from '@ui/hooks/useEventCallback';
 import { plainArrayToNestedArray, nestedArrayToPlainArray } from '@ui/utils/convertingData';
 
-import data from '@remote/json/categories.json';
+import categoriesData from '@remote/json/categories.json';
 
 const HeaderMobileCategoryMenu = (props) => {
     const [open, setOpen] = useState(false);
@@ -22,11 +23,10 @@ const HeaderMobileCategoryMenu = (props) => {
     });
 
     useEffect(() => {
-        const plainArray = nestedArrayToPlainArray(data);
-
-        const nestedArray = plainArrayToNestedArray(plainArray);
-
-        console.log(nestedArray);
+        // const plainArray = nestedArrayToPlainArray(categoriesData);
+        // console.log(JSON.stringify(plainArray));
+        // const nestedArray = plainArrayToNestedArray(plainArray);
+        // console.log(nestedArray);
     }, []);
 
     return (

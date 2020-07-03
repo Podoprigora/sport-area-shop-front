@@ -8,11 +8,13 @@ import useForkRef from '@ui/hooks/useForkRef';
 
 import Hidden from '@ui/Hidden';
 import useEventCallback from '@ui/hooks/useEventCallback';
-
-import data from '@remote/json/categories.json';
+import { useCategoriesState, categoriesTreeSelector } from '@contexts/CategoriesContext';
 
 const HeaderDesktopCategoryMenu = React.forwardRef(function HeaderDesktopCategoryMenu(props, ref) {
     const [open, setOpen] = useState(false);
+    const { items } = useCategoriesState();
+    const categoriesTree = categoriesTreeSelector(items);
+
     const buttonRef = useRef(null);
     const handleRef = useForkRef(buttonRef, ref);
 
@@ -48,7 +50,7 @@ const HeaderDesktopCategoryMenu = React.forwardRef(function HeaderDesktopCategor
             <CategoryMenu
                 open={open}
                 anchorRef={buttonRef}
-                data={data}
+                data={categoriesTree}
                 maxGroupItemsLength={5}
                 onClose={handleMenuClose}
                 onItemClick={handleItemClick}

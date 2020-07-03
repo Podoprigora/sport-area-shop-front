@@ -88,6 +88,7 @@
         "react-text-mask": "^5.4.3",
         "react-transition-group": "^4.4.1",
         "react-window": "^1.8.5",
+        "reselect": "^4.0.0",
         "scroll": "^3.0.1",
         "yup": "^0.29.1"
     }

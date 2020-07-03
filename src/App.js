@@ -12,7 +12,7 @@ import ForgotPasswordWindow from '@components/ForgotPassword';
 
 import MainPage from '@pages/MainPage';
 import TestPage from '@pages/TestPage/TestPage';
-import AppContext from './context/AppContext';
+import AppContext from './contexts/AppContext';
 
 const App = () => {
     return (
