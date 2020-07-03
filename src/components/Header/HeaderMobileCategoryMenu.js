@@ -6,6 +6,7 @@ import Hidden from '@ui/Hidden';
 import MenuIcon from '@svg-icons/material/MenuIcon';
 import MobileCategoryMenu from '@components/MobileCategoryMenu';
 import useEventCallback from '@ui/hooks/useEventCallback';
+import { plainArrayToNestedArray, nestedArrayToPlainArray } from '@ui/utils/convertingData';
 
 import data from '@remote/json/categories.json';
 
@@ -19,6 +20,14 @@ const HeaderMobileCategoryMenu = (props) => {
     const handleMenuClose = useEventCallback((ev) => {
         setOpen(false);
     });
+
+    useEffect(() => {
+        const plainArray = nestedArrayToPlainArray(data);
+
+        const nestedArray = plainArrayToNestedArray(plainArray);
+
+        console.log(nestedArray);
+    }, []);
 
     return (
         <>

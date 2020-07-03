@@ -97,10 +97,6 @@ const Carousel = React.forwardRef(function Carousel(
     });
 
     const handleMouseLeave = useEventCallback((ev) => {
-        if (!isMouseEntered) {
-            return;
-        }
-
         clearTimeout(mouseEnterTimerId.current);
         setIsMouseEntered(false);
         play();
