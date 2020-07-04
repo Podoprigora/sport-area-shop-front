@@ -41,7 +41,7 @@ const HeaderMobileCategoryMenu = (props) => {
             <MobileCategoryMenu
                 open={open}
                 data={data}
-                selectedId={16}
+                // selectedId={16}
                 onItemClick={handleItemClick}
                 onClose={handleMenuClose}
             />

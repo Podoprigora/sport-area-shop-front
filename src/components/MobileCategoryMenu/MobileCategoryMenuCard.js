@@ -10,7 +10,7 @@ const MobileCategoryMenuCard = (props) => {
     const parentId = path.length > 0 ? path[path.length - 1] : 0;
 
     return (
-        <CSSTransition classNames="mobile-category-menu__card" timeout={500} {...other}>
+        <CSSTransition classNames="mobile-category-menu__card" timeout={300} {...other}>
             <div className="mobile-category-menu__card">
                 <MobileCategoryMenuGroup path={path} />
                 <MobileCategoryMenuList parentId={parentId} />
