@@ -8,7 +8,6 @@ const CategoriesContextProvider = ({ children }) => {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        // Simulate async request
         setTimeout(() => {
             setItems(categoriesData);
         }, 200);

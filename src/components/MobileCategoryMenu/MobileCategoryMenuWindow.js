@@ -33,7 +33,7 @@ const MobileCategoryMenuWindow = (props) => {
                     <ClearCloseIcon />
                 </IconButton>
             </WindowHeader>
-            <WindowBody>{children}</WindowBody>
+            <WindowBody className="mobile-category-menu">{children}</WindowBody>
         </Window>
     );
 };

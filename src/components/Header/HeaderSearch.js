@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo, useCallback, useEffect, memo } from 'react';
+import React, { useState, useRef, useMemo, useCallback, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import debounce from 'lodash/debounce';
 
@@ -199,4 +199,4 @@ const HeaderSearch = React.forwardRef(function HeaderSearch(props, ref) {
     );
 });
 
-export default memo(HeaderSearch);
+export default HeaderSearch;

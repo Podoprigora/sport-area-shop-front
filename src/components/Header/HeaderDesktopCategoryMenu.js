@@ -1,22 +1,21 @@
-import React, { useState, useCallback, useRef, memo } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import Button from '@ui/Button';
 import MenuIcon from '@svg-icons/material/MenuIcon';
 import CategoryMenu from '@components/CategoryMenu';
-import useForkRef from '@ui/hooks/useForkRef';
 
 import Hidden from '@ui/Hidden';
 import useEventCallback from '@ui/hooks/useEventCallback';
 import { useCategoriesState, categoriesTreeSelector } from '@contexts/CategoriesContext';
 
-const HeaderDesktopCategoryMenu = React.forwardRef(function HeaderDesktopCategoryMenu(props, ref) {
+const HeaderDesktopCategoryMenu = (props) => {
     const [open, setOpen] = useState(false);
+
     const { items } = useCategoriesState();
     const categoriesTree = categoriesTreeSelector(items);
 
     const buttonRef = useRef(null);
-    const handleRef = useForkRef(buttonRef, ref);
 
     const handleMenuButtonClick = useEventCallback((ev) => {
         if (!open) {
@@ -41,7 +40,7 @@ const HeaderDesktopCategoryMenu = React.forwardRef(function HeaderDesktopCategor
                     className="header__nav-btn"
                     icon={MenuIcon}
                     size="large"
-                    ref={handleRef}
+                    ref={buttonRef}
                     onClick={handleMenuButtonClick}
                 >
                     Shop by category
@@ -57,8 +56,6 @@ const HeaderDesktopCategoryMenu = React.forwardRef(function HeaderDesktopCategor
             />
         </>
     );
-});
+};
 
-HeaderDesktopCategoryMenu.propTypes = {};
-
-export default memo(HeaderDesktopCategoryMenu);
+export default HeaderDesktopCategoryMenu;

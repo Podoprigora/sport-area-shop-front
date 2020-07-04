@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import useEventCallback from '@ui/hooks/useEventCallback';
@@ -72,6 +72,4 @@ const HeaderUser = (props) => {
     );
 };
 
-HeaderUser.propTypes = {};
-
-export default memo(HeaderUser);
+export default HeaderUser;

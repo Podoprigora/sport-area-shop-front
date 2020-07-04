@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, memo } from 'react';
 import PropTypes from 'prop-types';
-import { createSelector } from 'reselect';
 
 import Button from '@ui/Button';
 import Hidden from '@ui/Hidden';
 import MenuIcon from '@svg-icons/material/MenuIcon';
 import MobileCategoryMenu from '@components/MobileCategoryMenu';
 import useEventCallback from '@ui/hooks/useEventCallback';
-import { plainArrayToNestedArray, nestedArrayToPlainArray } from '@ui/utils/convertingData';
-
-import categoriesData from '@remote/json/categories.json';
+import { useCategoriesState } from '@contexts/CategoriesContext';
+import { categoriesWithHasItemsSelector } from '@contexts/CategoriesContext/CategoriesContextSelectors';
 
 const HeaderMobileCategoryMenu = (props) => {
     const [open, setOpen] = useState(false);
+
+    const { items } = useCategoriesState();
+    const data = categoriesWithHasItemsSelector(items);
 
     const handleButtonClick = useEventCallback((ev) => {
         setOpen(true);
@@ -22,12 +23,9 @@ const HeaderMobileCategoryMenu = (props) => {
         setOpen(false);
     });
 
-    useEffect(() => {
-        // const plainArray = nestedArrayToPlainArray(categoriesData);
-        // console.log(JSON.stringify(plainArray));
-        // const nestedArray = plainArrayToNestedArray(plainArray);
-        // console.log(nestedArray);
-    }, []);
+    const handleItemClick = useEventCallback((ev, item) => {
+        console.log(item);
+    });
 
     return (
         <>
@@ -40,11 +38,15 @@ const HeaderMobileCategoryMenu = (props) => {
                     onClick={handleButtonClick}
                 />
             </Hidden>
-            <MobileCategoryMenu open={open} onClose={handleMenuClose} />
+            <MobileCategoryMenu
+                open={open}
+                data={data}
+                selectedId={16}
+                onItemClick={handleItemClick}
+                onClose={handleMenuClose}
+            />
         </>
     );
 };
-
-HeaderMobileCategoryMenu.propTypes = {};
 
 export default HeaderMobileCategoryMenu;

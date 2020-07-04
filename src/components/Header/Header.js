@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import Logo from '@resources/images/sport-area-logo.svg';
@@ -29,6 +29,4 @@ const Header = (props) => {
     );
 };
 
-Header.propTypes = {};
-
-export default Header;
+export default memo(Header);

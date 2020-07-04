@@ -13,6 +13,4 @@ const HeaderCategoryMenu = (props) => {
     );
 };
 
-HeaderCategoryMenu.propTypes = {};
-
 export default HeaderCategoryMenu;
