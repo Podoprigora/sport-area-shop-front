@@ -14,7 +14,12 @@ const MobileCategoryMenuGroup = (props) => {
     }
 
     return (
-        <div role="presentation" className="mobile-category-menu__group" onClick={onGroupClick}>
+        <div
+            role="presentation"
+            className="mobile-category-menu__group"
+            onClick={onGroupClick}
+            onTouchEnd={onGroupClick}
+        >
             <div className="mobile-category-menu__group-image">
                 <FolderIcon className="mobile-category-menu__group-icon" />
             </div>

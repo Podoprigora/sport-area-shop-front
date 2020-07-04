@@ -16,6 +16,8 @@ const HeaderMobileCategoryMenu = (props) => {
     const data = categoriesWithHasItemsSelector(items);
 
     const handleButtonClick = useEventCallback((ev) => {
+        ev.preventDefault();
+
         setOpen(true);
     });
 
@@ -35,6 +37,7 @@ const HeaderMobileCategoryMenu = (props) => {
                     className="header__nav-btn header__nav-btn--mobile"
                     icon={MenuIcon}
                     size="large"
+                    onTouchEnd={handleButtonClick}
                     onClick={handleButtonClick}
                 />
             </Hidden>

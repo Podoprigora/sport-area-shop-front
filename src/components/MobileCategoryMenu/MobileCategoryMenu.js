@@ -34,12 +34,16 @@ const MobileCategoryMenu = (props) => {
     });
 
     const handleGroupClick = useEventCallback((ev) => {
+        ev.preventDefault();
+
         setPath((prevState) => {
             return prevState.slice(0, prevState.length - 1);
         });
     });
 
     const handleBack = useEventCallback((ev) => {
+        ev.preventDefault();
+
         if (path.length === 0) {
             handleClose(ev);
         } else {
@@ -48,6 +52,8 @@ const MobileCategoryMenu = (props) => {
     });
 
     const handleItemClick = useEventCallback((item) => (ev) => {
+        ev.preventDefault();
+
         const { id, hasItems } = item;
 
         if (!hasItems) {

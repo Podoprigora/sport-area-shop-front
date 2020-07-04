@@ -25,11 +25,11 @@ const MobileCategoryMenuWindow = (props) => {
     return (
         <Window open={open} draggable={false} fullScreen onClose={handleClose}>
             <WindowHeader>
-                <IconButton onClick={handleBack}>
+                <IconButton onClick={handleBack} onTouchEnd={handleBack}>
                     <ChevronLeftIcon />
                 </IconButton>
                 <WindowTitle>Shop by category</WindowTitle>
-                <IconButton onClick={handleClose}>
+                <IconButton onClick={handleClose} onTouchEnd={handleClose}>
                     <ClearCloseIcon />
                 </IconButton>
             </WindowHeader>
