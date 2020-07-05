@@ -97,7 +97,6 @@ const ListItem = React.forwardRef(function ListItem(props, ref) {
         }),
         ...other,
         onClick: handleClick,
-        onTouchEnd: handleClick,
         onFocus: handleFocus,
         onBlur: handleBlur,
         onKeyDown: handleKeyDown

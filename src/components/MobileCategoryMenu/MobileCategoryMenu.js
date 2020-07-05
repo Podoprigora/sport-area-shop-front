@@ -83,10 +83,6 @@ const MobileCategoryMenu = (props) => {
         };
     }, [data, selectedId, open]);
 
-    // useEffect(() => {
-
-    // }, [open, selectedId]);
-
     const contextValue = useMemo(
         () => ({
             data,

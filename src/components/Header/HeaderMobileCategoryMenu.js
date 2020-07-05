@@ -22,10 +22,14 @@ const HeaderMobileCategoryMenu = (props) => {
     });
 
     const handleMenuClose = useEventCallback((ev) => {
+        ev.preventDefault();
+
         setOpen(false);
     });
 
     const handleItemClick = useEventCallback((ev, item) => {
+        ev.preventDefault();
+
         console.log(item);
     });
 

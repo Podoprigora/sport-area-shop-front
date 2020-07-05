@@ -27,7 +27,6 @@ const MobileCategoryMenuList = (props) => {
                         key={id}
                         button
                         className="mobile-category-menu__item"
-                        onTouchEnd={onItemClick(item)}
                         onClick={onItemClick(item)}
                     >
                         <ListItemText flex>{title}</ListItemText>

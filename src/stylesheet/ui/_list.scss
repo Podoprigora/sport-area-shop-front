@@ -17,15 +17,16 @@
 
 		&--button {
 			cursor: pointer;
-			// transition: background-color .2s ease;
 
 			&:focus {
 				outline: none;
 			}
 
 			&:not(#{$item-selector}--disabled) {
-				&:hover {
-					background-color: $color-hover;
+				@include media-hover {
+					&:hover {
+						background-color: $color-hover;
+					}
 				}
 
 				&#{$item-selector}--highlighted {

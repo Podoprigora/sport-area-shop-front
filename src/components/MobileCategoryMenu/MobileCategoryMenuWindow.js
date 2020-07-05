@@ -8,7 +8,7 @@ import ChevronLeftIcon from '@svg-icons/feather/ChevronLeftIcon';
 import ClearCloseIcon from '@svg-icons/material/ClearCloseIcon';
 
 const MobileCategoryMenuWindow = (props) => {
-    const { open, children, onClose, onBack, ...other } = props;
+    const { open, children, onClose, onBack } = props;
 
     const handleClose = useEventCallback((ev) => {
         if (onClose) {
@@ -23,7 +23,7 @@ const MobileCategoryMenuWindow = (props) => {
     });
 
     return (
-        <Window open={open} draggable={false} fullScreen onClose={handleClose}>
+        <Window open={open} draggable={false} backdrop={false} fullScreen onClose={handleClose}>
             <WindowHeader>
                 <IconButton onClick={handleBack} onTouchEnd={handleBack}>
                     <ChevronLeftIcon />

@@ -1,3 +1,21 @@
+@mixin mobile-category-menu-card-transition {
+	&-enter {
+		opacity: 0.2;
+		&-active {
+			opacity: 1;
+			transition: all .3s ease;
+		}
+	}
+
+	&-exit {
+		opacity: 1;
+		&-active {
+			opacity: 0;
+			transition: all .3s ease;
+		}
+	}
+}
+
 .mobile-category-menu {
 	position: relative;
 	display: flex;
@@ -20,22 +38,7 @@
 		background-color: $white;
 		box-shadow: -4px 0 16px -3px rgba(0, 0, 0, .2);
 
-		&-enter {
-			transform: translate3d(100%, 0, 0);
-			&-active {
-				transform: translate3d(0, 0, 0);
-				transition: transform .3s ease-out;
-			}
-		}
-
-		&-exit {
-			transform: translate3d(0, 0, 0);
-
-			&-active {
-				transform: translate3d(100%, 0, 0);
-				transition: transform .3s ease-in;
-			}
-		}
+		@include mobile-category-menu-card-transition;
 	}
 
 	&__group {
@@ -96,6 +99,8 @@
 	}
 
 	&__item {
+		font-weight: 400;
+		font-size: 1.6rem;
 		padding: $spacing-scale-6 $spacing-scale-9;
 
 		&:not(:last-of-type) {

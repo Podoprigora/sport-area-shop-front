@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { scrollbarSize } from 'dom-helpers';
 
 import Portal from '@ui/Portal';
 import Backdrop from '@ui/Backdrop';
@@ -9,6 +10,13 @@ import useEventCallback from '@ui/hooks/useEventCallback';
 import setRef from '@ui/utils/setRef';
 import useEventListener from '@ui/hooks/useEventListener';
 import ModalManager from './ModalManager';
+
+const setBodyOverflow = (overflow = true) => {
+    const { style } = document.body;
+
+    style['overflow'] = overflow ? 'auto' : 'hidden';
+    style['paddingRight'] = overflow ? '0' : `${scrollbarSize()}px`;
+};
 
 const getHasTransition = (props) => {
     return props.children && props.children.props.hasOwnProperty('in');
@@ -161,6 +169,19 @@ const Modal = React.forwardRef(function Modal(props, ref) {
 
         return undefined;
     }, [modalNode]);
+
+    // Toggle the body scrollbar visibility
+    useEffect(() => {
+        if (open && modalNode) {
+            setBodyOverflow(false);
+        }
+
+        return () => {
+            if (manager.modals.length === 0) {
+                setBodyOverflow(true);
+            }
+        };
+    }, [modalNode, open]);
 
     useEventListener('keydown', handleDocumentKeyDown);
 

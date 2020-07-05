@@ -44,6 +44,18 @@
 	}
 }
 
+@mixin media-hover {
+	@media (hover: hover) and (pointer: fine) {
+		@content;
+	}
+}
+
+@mixin media-not-hover {
+	@media (hover: none) {
+		@content;
+	}
+}
+
 // Grid system
 @mixin make-col-default {
 	width: 100%;
