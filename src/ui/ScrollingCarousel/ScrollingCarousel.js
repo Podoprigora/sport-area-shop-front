@@ -27,6 +27,8 @@ const ScrollingCarousel = ({
     const isActivatedDrag = useRef(false);
     const startScrollPositionX = useRef(0);
 
+    // Handlers
+
     const updateDisplayControlsState = useEventCallback(() => {
         const { clientWidth, scrollWidth, scrollLeft } = scrollerNode.current;
         const displayControlPrev = scrollLeft > 0;
@@ -45,22 +47,6 @@ const ScrollingCarousel = ({
             });
         }
     }, []);
-
-    useEffect(() => {
-        updateDisplayControlsState();
-    }, [updateDisplayControlsState]);
-
-    useEffect(() => {
-        const handleResizeWindow = throttle(() => {
-            updateDisplayControlsState();
-        }, 166);
-
-        window.addEventListener('resize', handleResizeWindow);
-
-        return () => {
-            window.removeEventListener('resize', handleResizeWindow);
-        };
-    }, [updateDisplayControlsState]);
 
     const handleScrollerContentMouseDown = (ev) => {
         ev.preventDefault();
@@ -119,6 +105,26 @@ const ScrollingCarousel = ({
     const handleScroll = debounce((ev) => {
         updateDisplayControlsState();
     }, 166);
+
+    // Effects
+
+    useEffect(() => {
+        updateDisplayControlsState();
+    }, [updateDisplayControlsState]);
+
+    useEffect(() => {
+        const handleResizeWindow = throttle(() => {
+            updateDisplayControlsState();
+        }, 166);
+
+        window.addEventListener('resize', handleResizeWindow);
+
+        return () => {
+            window.removeEventListener('resize', handleResizeWindow);
+        };
+    }, [updateDisplayControlsState]);
+
+    // Render
 
     const items = React.Children.map(children, (child, i) => {
         const handleItemClick = (ev) => {

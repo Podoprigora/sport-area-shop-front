@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect, useMemo, useCallback, memo } from '
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
+import { scrollbarSize } from 'dom-helpers';
 
 import Modal from '@ui/Modal';
 import ClickAwayListener from '@ui/ClickAwayListener';
@@ -60,9 +61,9 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
         const updateMenuStyle = () => {
             if (open && anchorRef && anchorRef.current) {
                 const { y, height } = anchorRef.current.getBoundingClientRect();
-                const offset = y + height;
+                const offsetY = y + height;
 
-                const newStyle = { transform: `translate3d(0, ${offset}px, 0)` };
+                const newStyle = { transform: `translate3d(0, ${offsetY}px, 0)` };
 
                 setMenuStyle(newStyle);
             }
@@ -88,11 +89,13 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
             setActiveItemIndex(defaultActiveItemIndex);
         }
 
-        return () => {
-            if (!open) {
+        if (!open) {
+            return () => {
                 setActiveItemIndex(-1);
-            }
-        };
+            };
+        }
+
+        return undefined;
     }, [open, activeItemIndex]);
 
     const contextValue = useMemo(
@@ -115,6 +118,7 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
             open={open}
             overflow
             disableBackdropClick
+            disableScrollLock
             backdropTransitionProps={{ timeout: 150, classNames: 'category-menu-backdrop' }}
             onClose={handleClose}
         >

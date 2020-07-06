@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react';
+import React, { useState, memo, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import Button from '@ui/Button';
@@ -22,14 +22,10 @@ const HeaderMobileCategoryMenu = (props) => {
     });
 
     const handleMenuClose = useEventCallback((ev) => {
-        ev.preventDefault();
-
         setOpen(false);
     });
 
     const handleItemClick = useEventCallback((ev, item) => {
-        ev.preventDefault();
-
         console.log(item);
     });
 

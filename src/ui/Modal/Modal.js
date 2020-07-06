@@ -11,6 +11,10 @@ import setRef from '@ui/utils/setRef';
 import useEventListener from '@ui/hooks/useEventListener';
 import ModalManager from './ModalManager';
 
+const isOverflowing = () => {
+    return window.innerWidth > document.documentElement.clientWidth;
+};
+
 const setBodyOverflow = (overflow = true) => {
     const { style } = document.body;
 
@@ -36,6 +40,7 @@ const Modal = React.forwardRef(function Modal(props, ref) {
         disableFocusBounding = false,
         disableBackdropClick = false,
         disableEscapeKeyDown = false,
+        disableScrollLock = false,
         backdropTransitionProps,
         onEscapeKeyDown,
         onClose,
@@ -143,19 +148,29 @@ const Modal = React.forwardRef(function Modal(props, ref) {
     useEffect(() => {
         if (open && modalNode) {
             setRef(ref, modalNode);
+
+            return () => {
+                setRef(ref, null);
+            };
         }
 
-        return () => {
-            setRef(ref, null);
-        };
+        return undefined;
     }, [open, modalNode, ref]);
 
     useEffect(() => {
+        if (disableRestoreFocus) {
+            return undefined;
+        }
+
         if (open) {
             triggerRef.current = document.activeElement;
-        } else if (!disableRestoreFocus && !open && triggerRef.current) {
-            triggerRef.current.focus();
+
+            return () => {
+                triggerRef.current.focus();
+            };
         }
+
+        return undefined;
     }, [open, disableRestoreFocus]);
 
     useEffect(() => {
@@ -172,16 +187,20 @@ const Modal = React.forwardRef(function Modal(props, ref) {
 
     // Toggle the body scrollbar visibility
     useEffect(() => {
-        if (open && modalNode) {
-            setBodyOverflow(false);
+        if (!disableScrollLock) {
+            if (open && modalNode && isOverflowing()) {
+                setBodyOverflow(false);
+            }
+
+            return () => {
+                if (manager.modals.length === 0) {
+                    setBodyOverflow(true);
+                }
+            };
         }
 
-        return () => {
-            if (manager.modals.length === 0) {
-                setBodyOverflow(true);
-            }
-        };
-    }, [modalNode, open]);
+        return undefined;
+    }, [modalNode, open, disableScrollLock]);
 
     useEventListener('keydown', handleDocumentKeyDown);
 
@@ -249,6 +268,7 @@ const propTypes = {
     disableBackdropClick: PropTypes.bool,
     disableFocusBounding: PropTypes.bool,
     disableRestoreFocus: PropTypes.bool,
+    disableScrollLock: PropTypes.bool,
     onEscapeKeyDown: PropTypes.func,
     onClose: PropTypes.func,
     onOpen: PropTypes.func

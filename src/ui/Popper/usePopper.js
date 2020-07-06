@@ -35,21 +35,21 @@ const usePopper = (props = {}) => {
     }, []);
 
     useEffect(() => {
-        if (!referenceNode || !popperNode) {
-            return undefined;
+        if (referenceNode && popperNode) {
+            popperInstance.current = createPopper(referenceNode, popperNode, {
+                ...popperOptions,
+                onFirstUpdate: (state) => {
+                    setPopperState(state);
+                }
+            });
+
+            return () => {
+                popperInstance.current.destroy();
+                popperInstance.current = null;
+            };
         }
 
-        popperInstance.current = createPopper(referenceNode, popperNode, {
-            ...popperOptions,
-            onFirstUpdate: (state) => {
-                setPopperState(state);
-            }
-        });
-
-        return () => {
-            popperInstance.current.destroy();
-            popperInstance.current = null;
-        };
+        return undefined;
     }, [referenceNode, popperNode, popperOptions]);
 
     return {

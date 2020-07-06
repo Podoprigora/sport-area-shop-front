@@ -11,12 +11,18 @@ const MobileCategoryMenuWindow = (props) => {
     const { open, children, onClose, onBack } = props;
 
     const handleClose = useEventCallback((ev) => {
+        if (ev) {
+            ev.preventDefault();
+        }
+
         if (onClose) {
             onClose(ev);
         }
     });
 
     const handleBack = useEventCallback((ev) => {
+        ev.preventDefault();
+
         if (onBack) {
             onBack(ev);
         }

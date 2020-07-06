@@ -72,15 +72,17 @@ const MobileCategoryMenu = (props) => {
     });
 
     useEffect(() => {
-        if (selectedId) {
+        if (open && selectedId) {
             setPath(getPathById(data, selectedId));
         }
 
-        return () => {
-            if (!open && !selectedId) {
+        if (open) {
+            return () => {
                 setPath([]);
-            }
-        };
+            };
+        }
+
+        return undefined;
     }, [data, selectedId, open]);
 
     const contextValue = useMemo(

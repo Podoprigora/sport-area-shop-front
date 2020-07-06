@@ -21,8 +21,10 @@
 .category-menu {
 	position: absolute;
 	width: 100%;
+	// padding-left: -2rem;
 
 	&__container {
+		position: relative;
 		max-width: $container-max-width;
 		padding: 0 $container-spacing-x;
 		margin: 0 auto;

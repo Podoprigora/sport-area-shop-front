@@ -200,6 +200,10 @@ const Menu = React.forwardRef(function Menu(props, ref) {
 
     // Render
 
+    if (!open && exited) {
+        return null;
+    }
+
     React.Children.forEach(children, (child, index) => {
         if (child.props.selected && !child.props.disabled) {
             activeIndexRef.current = index;
@@ -256,14 +260,15 @@ const Menu = React.forwardRef(function Menu(props, ref) {
 
     if (modal) {
         return (
-            <Modal open={open || !exited} backdrop={false} onClose={handleModalClose}>
+            <Modal
+                open={open || !exited}
+                backdrop={false}
+                disableScrollLock
+                onClose={handleModalClose}
+            >
                 {popperContent}
             </Modal>
         );
-    }
-
-    if (!open && exited) {
-        return null;
     }
 
     return (
