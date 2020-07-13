@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ScrollingCarousel from '@ui/ScrollingCarousel';
-import Format from '@pages/utils/Format';
+import Format from '@utils/Format';
 import Panel from '@ui/Panel';
 import PanelHeader from '@ui/Panel/PanelHeader';
 import PanelBody from '@ui/Panel/PanelBody';

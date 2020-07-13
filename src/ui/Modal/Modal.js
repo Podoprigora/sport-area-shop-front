@@ -18,8 +18,8 @@ const isOverflowing = () => {
 const setBodyOverflow = (overflow = true) => {
     const { style } = document.body;
 
-    style['overflow'] = overflow ? 'auto' : 'hidden';
-    style['paddingRight'] = overflow ? '0' : `${scrollbarSize()}px`;
+    style['overflow'] = overflow ? null : 'hidden';
+    style['paddingRight'] = overflow ? null : `${scrollbarSize()}px`;
 };
 
 const getHasTransition = (props) => {

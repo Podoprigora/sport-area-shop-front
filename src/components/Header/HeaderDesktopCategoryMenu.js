@@ -1,19 +1,18 @@
 import React, { useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import Button from '@ui/Button';
 import MenuIcon from '@svg-icons/material/MenuIcon';
 import CategoryMenu from '@components/CategoryMenu';
-
 import Hidden from '@ui/Hidden';
 import useEventCallback from '@ui/hooks/useEventCallback';
-import { useCategoriesState, categoriesTreeSelector } from '@contexts/CategoriesContext';
+
+import { categoriesTreeSelector } from '@store/categories';
 
 const HeaderDesktopCategoryMenu = (props) => {
     const [open, setOpen] = useState(false);
-
-    const { items } = useCategoriesState();
-    const categoriesTree = categoriesTreeSelector(items);
+    const data = useSelector(categoriesTreeSelector);
 
     const buttonRef = useRef(null);
 
@@ -49,7 +48,7 @@ const HeaderDesktopCategoryMenu = (props) => {
             <CategoryMenu
                 open={open}
                 anchorRef={buttonRef}
-                data={categoriesTree}
+                data={data}
                 maxGroupItemsLength={5}
                 onClose={handleMenuClose}
                 onItemClick={handleItemClick}

@@ -1,19 +1,19 @@
 import React, { useState, memo, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import Button from '@ui/Button';
 import Hidden from '@ui/Hidden';
 import MenuIcon from '@svg-icons/material/MenuIcon';
 import MobileCategoryMenu from '@components/MobileCategoryMenu';
 import useEventCallback from '@ui/hooks/useEventCallback';
-import { useCategoriesState } from '@contexts/CategoriesContext';
-import { categoriesWithHasItemsSelector } from '@contexts/CategoriesContext/CategoriesContextSelectors';
+
+import { categoriesSelector } from '@store/categories';
 
 const HeaderMobileCategoryMenu = (props) => {
     const [open, setOpen] = useState(false);
 
-    const { items } = useCategoriesState();
-    const data = categoriesWithHasItemsSelector(items);
+    const data = useSelector(categoriesSelector);
 
     const handleButtonClick = useEventCallback((ev) => {
         ev.preventDefault();

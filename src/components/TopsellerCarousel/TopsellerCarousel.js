@@ -9,8 +9,8 @@ import Link from '@ui/Link';
 import PanelBody from '@ui/Panel/PanelBody';
 import StarIcon from '@svg-icons/feather/StarIcon';
 import ChevronRightIcon from '@svg-icons/feather/ChevronRightIcon';
-import Calc from '@pages/utils/Calc';
-import Format from '@pages/utils/Format';
+import Calc from '@utils/Calc';
+import Format from '@utils/Format';
 import ProductsCarouselSkeleton from '../Skeletons/ProductsCarouselSkeleton';
 
 const TopsellerCarousel = ({ data, className, isLoading, onItemClick, ...props }) => {

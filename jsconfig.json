@@ -7,7 +7,9 @@
         "paths": { 
             "@svg-icons/*": ["./src/ui/SvgIcons/*"],
             "@ui/*": ["./src/ui/*"],
+            "@utils/*": ["./src/utils/*"],
             "@contexts/*": ["./src/contexts/*"],
+            "@store/*": ["./src/store/*"],
             "@components/*": ["./src/components/*"],
             "@pages/*": ["./src/pages/*"],
             "@services/*": ["./src/services/*"],
