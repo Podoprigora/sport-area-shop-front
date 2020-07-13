@@ -8,16 +8,19 @@ export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
 export default function useCategoriesActions() {
     const dispatch = useDispatch();
 
-    const onAsyncCategoriesFetch = useCallback(async () => {
-        return CategoriesService.fetchAll().then((response) => {
-            dispatch({
-                type: RECEIVE_CATEGORIES,
-                payload: {
-                    data: response
-                }
+    const onAsyncCategoriesFetch = useCallback(
+        async (success) => {
+            return CategoriesService.fetchAll(success).then((response) => {
+                dispatch({
+                    type: RECEIVE_CATEGORIES,
+                    payload: {
+                        data: response
+                    }
+                });
             });
-        });
-    }, [dispatch]);
+        },
+        [dispatch]
+    );
 
     return {
         onAsyncCategoriesFetch

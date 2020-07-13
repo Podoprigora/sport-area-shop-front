@@ -1,0 +1,28 @@
+.loading-screen {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+	align-items: center;
+	background-color: $body-bg-color;
+
+	&__content {
+		display: flex;
+		flex-flow: column nowrap;
+		align-items: center;
+	}
+
+	&__logo {
+		display: inline-block;
+		width: $logo-image-width;
+		height: auto;
+	}
+
+	&__progress {
+		margin-top: $spacing-scale-8;
+	}
+}

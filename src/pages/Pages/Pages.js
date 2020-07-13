@@ -12,12 +12,13 @@ import MainPage from '@pages/MainPage';
 import TestPage from '@pages/TestPage/TestPage';
 
 import usePagesBootsrap from './usePagesBootsrap';
+import PagesLoadingScreen from './PagesLoadingScreen';
 
 const Pages = (props) => {
     const { loading, error } = usePagesBootsrap();
 
     if (loading || !!error) {
-        return null;
+        return <PagesLoadingScreen />;
     }
 
     return (
