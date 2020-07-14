@@ -17,7 +17,7 @@ const windowReducer = (state = [], { type, payload }) => {
     }
 };
 
-const WindowManager = (props) => {
+const WindowManagerProvider = (props) => {
     const { children } = props;
 
     const [state, dispatch] = useReducer(windowReducer, []);
@@ -57,8 +57,8 @@ const WindowManager = (props) => {
     );
 };
 
-WindowManager.propTypes = {
+WindowManagerProvider.propTypes = {
     children: PropTypes.node
 };
 
-export default WindowManager;
+export default WindowManagerProvider;

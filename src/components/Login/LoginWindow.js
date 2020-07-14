@@ -5,16 +5,21 @@ import Window from '@ui/Window';
 import WindowHeader from '@ui/Window/WindowHeader';
 import WindowBody from '@ui/Window/WindowBody';
 import Mask, { MaskProgress } from '@ui/Mask';
-import CircularProgress from '@ui/CircularProgress';
 import LinearProgress from '@ui/LinearProgress';
 import { useWindowManager } from '@ui/WindowManager';
 import useEventCallback from '@ui/hooks/useEventCallback';
+import useMountedRef from '@ui/hooks/useMountedRef';
+
+import UserService from '@services/UserService';
+import { useIdentityActions } from '@store/identity';
 
 import LoginForm from './LoginForm';
 
 const LoginWindow = (props) => {
     const [mask, setMask] = useState(false);
+    const isMountedRef = useMountedRef();
     const { isOpenWindow, openWindow, closeWindow } = useWindowManager();
+    const { onAsyncLogin } = useIdentityActions();
 
     const open = isOpenWindow('LoginWindow');
 
@@ -32,23 +37,36 @@ const LoginWindow = (props) => {
         openWindow('ForgotPasswordWindow');
     });
 
-    // useEffect(() => {
-    //     if (open) {
-    //         setTimeout(() => {
-    //             setMask(true);
-    //         }, 250);
-    //     }
+    const handleSubmit = useCallback(
+        async (values) => {
+            try {
+                setMask(true);
 
-    //     return () => {
-    //         setMask(false);
-    //     };
-    // }, [open]);
+                await onAsyncLogin(values);
+
+                if (isMountedRef.current) {
+                    setMask(false);
+                    handleClose();
+                }
+            } catch (e) {
+                if (isMountedRef.current) {
+                    setMask(false);
+                }
+
+                if (typeof e === 'object') {
+                    throw e;
+                } else {
+                    console.error(e);
+                }
+            }
+        },
+        [isMountedRef, handleClose, onAsyncLogin]
+    );
 
     return (
         <Window open={open} centered draggable maxWidth={480} onClose={handleClose}>
             <Mask open={mask}>
-                <MaskProgress position="top" primary title="Signing in ...">
-                    {/* <CircularProgress preset="large" /> */}
+                <MaskProgress position="top" primary>
                     <LinearProgress />
                 </MaskProgress>
             </Mask>
@@ -56,6 +74,7 @@ const LoginWindow = (props) => {
             <WindowHeader title="Sign In to SportArea" onClose={handleClose} />
             <WindowBody painted>
                 <LoginForm
+                    onSubmit={handleSubmit}
                     onSingUp={handleSignUpClick}
                     onForgotPassword={handleForgotPasswordClick}
                 />

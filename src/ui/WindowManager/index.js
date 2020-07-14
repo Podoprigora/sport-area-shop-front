@@ -1,2 +1,2 @@
-export { default } from './WindowManager';
+export { default } from './WindowManagerProvider';
 export { useWindowManager } from './WindowManagerContext';

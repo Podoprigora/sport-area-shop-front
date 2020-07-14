@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import useEventCallback from '@ui/hooks/useEventCallback';
+import useMountedRef from '@ui/hooks/useMountedRef';
 import ButtonMenu from '@ui/ButtonMenu';
 import Menu from '@ui/Menu';
 import { ListItem, ListItemIcon, ListItemText } from '@ui/List';
@@ -14,13 +16,31 @@ import CreditCardIcon from '@svg-icons/feather/CreditCardIcon';
 import KeyIcon from '@svg-icons/feather/KeyIcon';
 import LogOutIcon from '@svg-icons/feather/LogOutIcon';
 
+import { authSelector, useIdentityActions } from '@store/identity';
+import useScreenMask from '@contexts/ScreenMaskContext';
+
 import HeaderUserAuthActions from './HeaderUserAuthActions';
 
-const auth = false;
-
 const HeaderUser = (props) => {
-    const handleSignOutClick = useEventCallback((ev) => {
-        console.log('sign out ...');
+    const auth = useSelector(authSelector);
+
+    const { onAsyncLogout } = useIdentityActions();
+    const { toggleMask } = useScreenMask();
+    const isMountedRef = useMountedRef();
+
+    const handleSignOutClick = useEventCallback(async (ev) => {
+        if (onAsyncLogout) {
+            try {
+                toggleMask(true);
+                await onAsyncLogout(true);
+            } catch (e) {
+                console.error(e);
+            } finally {
+                if (isMountedRef.current) {
+                    toggleMask(false);
+                }
+            }
+        }
     });
 
     if (!auth) {

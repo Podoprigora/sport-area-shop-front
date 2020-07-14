@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 
 import { useCategoriesActions } from '@store/categories';
+import { useIdentityActions } from '@store/identity';
+
 import useMountedRef from '@ui/hooks/useMountedRef';
 
 export default function usePagesBootsrap() {
@@ -10,24 +12,27 @@ export default function usePagesBootsrap() {
     const isMountedRef = useMountedRef();
 
     const { onAsyncCategoriesFetch } = useCategoriesActions();
+    const { onAsyncIdentityFetch } = useIdentityActions();
 
     useEffect(() => {
-        const promises = [onAsyncCategoriesFetch].map((promise) => {
-            let validPromise = promise;
+        const promises = [onAsyncCategoriesFetch(true), onAsyncIdentityFetch(false)].map(
+            (promise) => {
+                let validPromise = promise;
 
-            if (typeof promise === 'function') {
-                validPromise = promise();
+                if (typeof promise === 'function') {
+                    validPromise = promise();
+                }
+
+                if (validPromise instanceof Promise) {
+                    return validPromise.catch((e) => {
+                        setError(e);
+                        console.error(e);
+                    });
+                }
+
+                return null;
             }
-
-            if (validPromise instanceof Promise) {
-                return validPromise.catch((e) => {
-                    setError(e);
-                    console.error(e);
-                });
-            }
-
-            return null;
-        });
+        );
 
         (async () => {
             await Promise.all(promises);
@@ -36,7 +41,7 @@ export default function usePagesBootsrap() {
                 setLoading(false);
             }
         })();
-    }, [isMountedRef, onAsyncCategoriesFetch]);
+    }, [isMountedRef, onAsyncCategoriesFetch, onAsyncIdentityFetch]);
 
     return {
         loading,

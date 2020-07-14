@@ -8,6 +8,10 @@
 	z-index: $mask-z-index;
 	cursor: wait;
 
+	&--fixed {
+		position: fixed;
+	}
+
 	&__progress {
 		$progress: &;
 

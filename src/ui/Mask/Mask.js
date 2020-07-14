@@ -4,11 +4,17 @@ import classNames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
 
 const Mask = React.forwardRef(function Mask(props, ref) {
-    const { open, className, children, ...other } = props;
+    const { open, fixed, className, children, ...other } = props;
 
     return (
         <CSSTransition in={open} timeout={150} classNames="mask" unmountOnExit>
-            <div className={classNames('mask', className)} {...other} ref={ref}>
+            <div
+                className={classNames('mask', className, {
+                    'mask--fixed': fixed
+                })}
+                {...other}
+                ref={ref}
+            >
                 {children}
             </div>
         </CSSTransition>
@@ -17,6 +23,7 @@ const Mask = React.forwardRef(function Mask(props, ref) {
 
 Mask.propTypes = {
     open: PropTypes.bool,
+    fixed: PropTypes.bool,
     className: PropTypes.string,
     children: PropTypes.element
 };
