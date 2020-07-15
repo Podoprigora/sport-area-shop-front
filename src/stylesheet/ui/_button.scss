@@ -77,7 +77,7 @@
 
 		&:hover:not(#{$this}--disabled),
 		&#{$this}--focus-visible {
-			background-color: lighten($btn-bg-color, 5%);
+			background-color: rgba(0, 0, 0, 0.08);
 		}
 
 		&#{$this}--focus-visible {

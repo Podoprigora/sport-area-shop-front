@@ -20,10 +20,14 @@ import TestSelect from './components/TestSelect';
 import TestClickAwayListener from './components/TestClickAwayListener';
 import TestSearchInput from './components/TestSearchInput';
 import TestCircularProgres from './components/TestCircularProgres';
+import TestAlerts from './components/TestAlerts';
 
 const TestPage = (props) => {
     return (
         <div className="page">
+            <Panel title="Test Alerts">
+                <TestAlerts />
+            </Panel>
             {/* <Panel title="Test CircularProgress">
                 <TestCircularProgres />
             </Panel> */}

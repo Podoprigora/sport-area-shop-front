@@ -1,0 +1,88 @@
+.alert {
+	$this: &;
+
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: flex-start;
+	padding: $alert-padding-y $alert-padding-x;
+	border-radius: $alert-border-radius;
+
+	&--error {
+		background-color: lighten($alert-error-color, 35%);
+		color: darken($alert-error-color, 45%);
+
+		& #{$this}__icon {
+			color: $alert-error-color;
+		}
+	}
+
+	&--warning {
+		background-color: lighten($alert-warning-color, 42%);
+		color: darken($alert-warning-color, 35%);
+
+		& #{$this}__icon {
+			color: $alert-warning-color;
+		}
+	}
+
+	&--info {
+		background-color: lighten($alert-info-color, 38%);
+		color: darken($alert-info-color, 35%);
+
+		& #{$this}__icon {
+			color: $alert-info-color;
+		}
+	}
+
+	&--success {
+		background-color: lighten($alert-success-color, 42%);
+		color: darken($alert-success-color, 30%);
+
+		& #{$this}__icon {
+			color: $alert-success-color;
+		}
+	}
+
+	& &__icon {
+		padding: $alert-padding-y 0;
+		margin-right: $alert-padding-x;
+	}
+
+	& &__message {
+		flex: 1;
+		color: inherit;
+		padding: $alert-padding-y 0;
+	}
+
+	& &__action {
+		margin-left: $spacing-scale-3;
+
+		& .btn-icon {
+			margin: $spacing-scale-3 0;
+			color: inherit;
+		}
+	}
+
+	& &__title {
+		color: inherit;
+	}
+
+	& &__actions {
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: center;
+		margin-top: $spacing-scale-3;
+
+		& > * {
+			color: inherit;
+		}
+
+		& > *:not(:first-child) {
+			margin-left: $spacing-scale-2;
+		}
+
+		& .btn:not(:last-child) {
+			margin-left: -$btn-padding-x;
+		}
+	}
+}
