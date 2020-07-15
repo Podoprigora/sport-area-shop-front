@@ -1,15 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import WindowManagerProvider from '@ui/WindowManager';
+import { NotificationProvider } from '@ui/Notification';
 import { ScreenMaskProvider } from './ScreenMaskContext';
 
 const AppContext = (props) => {
-    const { children, ...other } = props;
+    const { children } = props;
 
     return (
-        <WindowManagerProvider>
-            <ScreenMaskProvider>{children}</ScreenMaskProvider>
-        </WindowManagerProvider>
+        <NotificationProvider position="top-center">
+            <WindowManagerProvider>
+                <ScreenMaskProvider>{children}</ScreenMaskProvider>
+            </WindowManagerProvider>
+        </NotificationProvider>
     );
 };
 

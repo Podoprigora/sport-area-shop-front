@@ -21,10 +21,14 @@ import TestClickAwayListener from './components/TestClickAwayListener';
 import TestSearchInput from './components/TestSearchInput';
 import TestCircularProgres from './components/TestCircularProgres';
 import TestAlerts from './components/TestAlerts';
+import TestNotification from './components/TestNotification';
 
 const TestPage = (props) => {
     return (
         <div className="page">
+            <Panel title="Test Notification">
+                <TestNotification />
+            </Panel>
             <Panel title="Test Alerts">
                 <TestAlerts />
             </Panel>

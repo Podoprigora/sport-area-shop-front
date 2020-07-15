@@ -7,7 +7,7 @@ import InfoIcon from '@svg-icons/feather/InfoIcon';
 import CheckCircleIcon from '@svg-icons/feather/CheckCircleIcon';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
-    const { type = 'error', children, action, className, ...other } = props;
+    const { type = 'error', children, action, frame, className, ...other } = props;
 
     const icons = {
         error: <AlertCircleIcon />,
@@ -24,7 +24,8 @@ const Alert = React.forwardRef(function Alert(props, ref) {
     return (
         <div
             className={classNames('alert', className, {
-                [`alert--${type}`]: type
+                [`alert--${type}`]: type,
+                'alert--frame': frame
             })}
             {...other}
             ref={ref}
@@ -40,6 +41,7 @@ Alert.propTypes = {
     type: PropTypes.oneOf(['error', 'warning', 'info', 'success']),
     children: PropTypes.node.isRequired,
     action: PropTypes.node,
+    frame: PropTypes.bool,
     className: PropTypes.string
 };
 

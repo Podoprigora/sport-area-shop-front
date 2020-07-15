@@ -1,0 +1,98 @@
+@mixin notification-item-transition {
+	&-appear {
+		opacity: 0;
+		transform: scale3d(.6, .6, 1);
+
+		&-active {
+			opacity: 1;
+			transform: scale3d(1, 1, 1);
+			transition: opacity .15s, transform .2s ease-out;
+		}
+	}
+
+	&-enter {
+		opacity: 0;
+		max-height: 0;
+		transform: scale3d(.6, .6, 1);
+
+		&-active {
+			opacity: 1;
+			transform: scale3d(1, 1, 1);
+			max-height: 100rem;
+			transition: max-height .2s linear, .2s opacity .15s, .2s transform .2s ease-out;
+		}
+	}
+
+	&-exit {
+		opacity: 1;
+		max-height: 100rem;
+
+		&-active {
+			opacity: 0;
+			max-height: 0;
+			transition: opacity .2s ease, max-height .2s ease .2s;
+		}
+	}
+}
+
+.notification {
+	$this: &;
+
+	position: fixed;
+	margin: $container-spacing-x;
+	width: 100%;
+	max-width: 60rem;
+	z-index: 9999;
+
+	&--top-left {
+		top: 0;
+		left: 0;
+	}
+
+	&--top-right {
+		top: 0;
+		right: 0;
+	}
+
+	&--top-center {
+		top: 0;
+		left: 50%;
+		transform: translate3d(-50%, 0, 0);
+	}
+
+	&--bottom-left {
+		left: 0;
+		bottom: 0;
+
+		#{$this}__item {
+			transform-origin: bottom;
+		}
+	}
+
+	&--bottom-right {
+		bottom: 0;
+		right: 0;
+
+		#{$this}__item {
+			transform-origin: bottom;
+		}
+	}
+
+	&--bottom-center {
+		bottom: 0;
+		left: 50%;
+		transform: translate3d(-50%, 0, 0);
+
+		#{$this}__item {
+			transform-origin: bottom;
+		}
+	}
+
+	&__item {
+		margin-bottom: $spacing-scale-6;
+		box-shadow: $box-shadow-lg;
+		transform-origin: top;
+
+		@include notification-item-transition;
+	}
+}
