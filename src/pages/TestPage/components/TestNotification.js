@@ -12,13 +12,13 @@ const TestNotification = (props) => {
         showAlert({
             type: 'success',
             autoClose: false,
-            // frame: true,
+            frame: true,
             render: (renderProps) => {
                 const { id: alertId } = renderProps;
 
                 return (
                     <>
-                        <AlertTitle>Success</AlertTitle>
+                        {/* <AlertTitle>Success</AlertTitle> */}
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium quasi
                         quibusdam possimus eos eum reiciendis unde veniam, commodi distinctio autem
                         sit nulla quidem ea minima non dolorem. Fugit, placeat voluptate.

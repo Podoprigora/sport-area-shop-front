@@ -19,7 +19,7 @@
 			opacity: 1;
 			transform: scale3d(1, 1, 1);
 			max-height: 100rem;
-			transition: max-height .2s linear, .2s opacity .15s, .2s transform .2s ease-out;
+			transition: max-height .2s ease-out, .2s opacity .15s, .2s transform .2s ease-out;
 		}
 	}
 
@@ -35,62 +35,64 @@
 	}
 }
 
+%notification-placement-top {
+	top: 0;
+}
+
+%notification-placement-bottom {
+	bottom: 0;
+}
+
 .notification {
 	$this: &;
 
 	position: fixed;
-	margin: $container-spacing-x;
+	padding: $notification-padding;
 	width: 100%;
-	max-width: 60rem;
-	z-index: 9999;
+	max-width: $notification-max-width;
+	z-index: $notification-z-index;
 
 	&--top-left {
-		top: 0;
+		@extend %notification-placement-top;
+
 		left: 0;
 	}
 
 	&--top-right {
-		top: 0;
+		@extend %notification-placement-top;
+
 		right: 0;
 	}
 
 	&--top-center {
-		top: 0;
+		@extend %notification-placement-top;
+
 		left: 50%;
 		transform: translate3d(-50%, 0, 0);
 	}
 
 	&--bottom-left {
-		left: 0;
-		bottom: 0;
+		@extend %notification-placement-bottom;
 
-		#{$this}__item {
-			transform-origin: bottom;
-		}
+		left: 0;
 	}
 
 	&--bottom-right {
-		bottom: 0;
-		right: 0;
+		@extend %notification-placement-bottom;
 
-		#{$this}__item {
-			transform-origin: bottom;
-		}
+		right: 0;
 	}
 
 	&--bottom-center {
-		bottom: 0;
+		@extend %notification-placement-bottom;
+
 		left: 50%;
 		transform: translate3d(-50%, 0, 0);
-
-		#{$this}__item {
-			transform-origin: bottom;
-		}
 	}
 
 	&__item {
-		margin-bottom: $spacing-scale-6;
-		box-shadow: $box-shadow-lg;
+		margin-bottom: $notification-item-margin-bottom;
+		box-shadow: $notification-item-box-shadow;
 		transform-origin: top;
 
 		@include notification-item-transition;

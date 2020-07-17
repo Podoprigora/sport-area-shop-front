@@ -4,7 +4,7 @@ import { NotificationContext } from './NorificationContext';
 import NotificationList from './NotificationList';
 
 const NotificationProvider = (props) => {
-    const { children, position, maxStackSize = 3 } = props;
+    const { children, position = 'top-center', maxStackSize = 4 } = props;
 
     const [items, setItems] = useState([]);
     const [entering, setEntering] = useState(false);
@@ -30,6 +30,7 @@ const NotificationProvider = (props) => {
             const lastItem = isBottomPositionRef.current
                 ? prevState[0]
                 : prevState[prevState.length - 1];
+
             const deletedId = id || (lastItem || {}).id;
 
             const newState = prevState.filter((item) => item.id !== deletedId);

@@ -26,7 +26,8 @@ $font-size: $font-size-medium;
 // Z-index
 $modal-z-index: 2000;
 $popper-z-index: 3000;
-$mask-z-index: 9999;
+$mask-z-index: 8000;
+$notification-z-index: 9000;
 
 // Grid
 $grid-columns: 12;
@@ -246,6 +247,12 @@ $alert-success-color: $green;
 $alert-padding-x: $spacing-scale-7;
 $alert-padding-y: $spacing-scale-4;
 $alert-border-radius: $border-radius-lg;
+
+// Notification
+$notification-max-width: 60rem;
+$notification-padding: $container-spacing-x;
+$notification-item-margin-bottom: $spacing-scale-6;
+$notification-item-box-shadow: $box-shadow-lg;
 
 // Mask
 $mask-bg-color: rgba(#fff, .5);

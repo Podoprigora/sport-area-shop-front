@@ -14,7 +14,7 @@ const NotificationItem = (props) => {
         closable = true,
         message,
         autoClose = false,
-        autoCloseDelay = 5000,
+        autoCloseDelay = 10000,
         render,
         ...other
     } = props;

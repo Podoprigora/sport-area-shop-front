@@ -8,7 +8,7 @@ const AppContext = (props) => {
     const { children } = props;
 
     return (
-        <NotificationProvider position="top-center">
+        <NotificationProvider>
             <WindowManagerProvider>
                 <ScreenMaskProvider>{children}</ScreenMaskProvider>
             </WindowManagerProvider>
