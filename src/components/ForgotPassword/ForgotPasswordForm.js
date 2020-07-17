@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -22,7 +22,7 @@ const validationSchema = Yup.object({
 });
 
 const ForgotPasswordForm = (props) => {
-    const { onSignIn, ...other } = props;
+    const { onSignIn, onFormSubmit } = props;
 
     const handleSingInClick = useEventCallback((ev) => {
         if (onSignIn) {
@@ -30,40 +30,70 @@ const ForgotPasswordForm = (props) => {
         }
     });
 
+    const handleFormikSubmit = useCallback(
+        async (values, actions) => {
+            const { setErrors, resetForm } = actions;
+
+            if (onFormSubmit) {
+                try {
+                    await onFormSubmit(values);
+                } catch (e) {
+                    const errors = (e || {}).errors;
+
+                    if (errors) {
+                        setErrors(errors);
+                    }
+                }
+            }
+        },
+        [onFormSubmit]
+    );
+
     return (
-        <Formik initialValues={initialValues} validationSchema={validationSchema}>
-            <Form centered maxWidth={340}>
-                <FormRow>
-                    <InputField
-                        name="email"
-                        label="Email"
-                        labelAlign="top"
-                        placeholder="example@mail.com"
-                        helperText="Please enter your email address and we will send you an email about how to reset your password."
-                        required
-                        fullWidth
-                    />
-                </FormRow>
-                <FormRow>
-                    <FlexRow justify="center">
-                        <Button primary centered maxWidth={140}>
-                            Reset Password
-                        </Button>
-                    </FlexRow>
-                </FormRow>
-                <FlexRow justify="center" alignItems="center">
-                    <span className="u-text-small u-color-grey-darken-2 u-margin-r-3">Back to</span>
-                    <Link primary onClick={handleSingInClick}>
-                        Sign In
-                    </Link>
-                </FlexRow>
-            </Form>
+        <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleFormikSubmit}
+        >
+            {({ handleSubmit }) => {
+                return (
+                    <Form centered maxWidth={340}>
+                        <FormRow>
+                            <InputField
+                                name="email"
+                                label="Email"
+                                labelAlign="top"
+                                placeholder="demo@mail.com"
+                                helperText="Please enter your email address and we'll send you an email with a new password."
+                                required
+                                fullWidth
+                            />
+                        </FormRow>
+                        <FormRow>
+                            <FlexRow justify="center">
+                                <Button primary centered maxWidth={140} onClick={handleSubmit}>
+                                    Reset Password
+                                </Button>
+                            </FlexRow>
+                        </FormRow>
+                        <FlexRow justify="center" alignItems="center">
+                            <span className="u-text-small u-color-grey-darken-2 u-margin-r-3">
+                                Back to
+                            </span>
+                            <Link primary onClick={handleSingInClick}>
+                                Sign In
+                            </Link>
+                        </FlexRow>
+                    </Form>
+                );
+            }}
         </Formik>
     );
 };
 
 ForgotPasswordForm.propTypes = {
-    onSignIn: PropTypes.func
+    onSignIn: PropTypes.func,
+    onFormSubmit: PropTypes.func
 };
 
 export default memo(ForgotPasswordForm);

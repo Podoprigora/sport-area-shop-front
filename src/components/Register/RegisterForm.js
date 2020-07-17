@@ -66,7 +66,7 @@ const validate = (values) => {
 };
 
 const RegisterForm = (props) => {
-    const { onSignIn, ...other } = props;
+    const { onSignIn, onFormSubmit } = props;
 
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
@@ -85,163 +85,200 @@ const RegisterForm = (props) => {
         }
     });
 
+    const handleFormikFormSubmit = useCallback(
+        async (values, actions) => {
+            const { setErrors, resetForm } = actions;
+
+            if (onFormSubmit) {
+                try {
+                    await onFormSubmit(values);
+                } catch (e) {
+                    const errors = (e || {}).errors;
+
+                    if (errors) {
+                        setErrors(errors);
+                    }
+                }
+            }
+        },
+        [onFormSubmit]
+    );
+
     return (
         <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
             validate={validate}
+            onSubmit={handleFormikFormSubmit}
         >
-            <Form centered>
-                <FormRow>
-                    <FlexRow>
-                        <FlexCol sm className="u-margin-r-sm-6 u-padding-b-down-sm-6">
-                            <InputField
-                                name="firstName"
-                                label="First Name"
-                                labelAlign="top"
-                                required
-                                fullWidth
-                            />
-                        </FlexCol>
-                        <FlexCol sm>
-                            <InputField
-                                name="lastName"
-                                label="Last Name"
-                                labelAlign="top"
-                                required
-                                fullWidth
-                            />
-                        </FlexCol>
-                    </FlexRow>
-                </FormRow>
-                <FormRow>
-                    <InputField
-                        type="email"
-                        name="email"
-                        label="Email"
-                        labelAlign="top"
-                        placeholder="example@mail.com"
-                        required
-                        fullWidth
-                    />
-                </FormRow>
-                <FormRow>
-                    <FlexRow>
-                        <FlexCol sm className="u-margin-r-sm-6 u-padding-b-down-sm-6">
-                            <InputField
-                                type={passwordVisible ? 'text' : 'password'}
-                                name="password"
-                                label="Password"
-                                labelAlign="top"
-                                helperText="At least 8 characters long."
-                                required
-                                fullWidth
-                                appendAdornment={() => {
-                                    return (
-                                        <InputIconButton onClick={handlePasswordVisibility}>
-                                            {passwordVisible ? <EyeIcon /> : <EyeOffIcon />}
-                                        </InputIconButton>
-                                    );
-                                }}
-                            />
-                        </FlexCol>
-                        <FlexCol sm>
-                            <InputField
-                                type={confirmPasswordVisible ? 'text' : 'password'}
-                                name="confirmPassword"
-                                label="Confirm Password"
-                                labelAlign="top"
-                                helperText="At least 8 characters long."
-                                required
-                                fullWidth
-                                appendAdornment={() => {
-                                    return (
-                                        <InputIconButton onClick={handleConfirmPasswordVisibility}>
-                                            {confirmPasswordVisible ? <EyeIcon /> : <EyeOffIcon />}
-                                        </InputIconButton>
-                                    );
-                                }}
-                            />
-                        </FlexCol>
-                    </FlexRow>
-                </FormRow>
-                <FormRow>
-                    <FlexRow>
-                        <FlexCol sm className="u-margin-r-sm-6 u-padding-b-down-sm-6">
-                            <RadioGroupField name="gender" label="Gender" labelAlign="top">
-                                <BoxLabel label="Male">
-                                    <Radio value="male" />
-                                </BoxLabel>
-                                <BoxLabel label="Female">
-                                    <Radio value="female" />
-                                </BoxLabel>
-                            </RadioGroupField>
-                        </FlexCol>
-                        <FlexCol sm>
-                            <FlexRow alignItems="flex-end" noWrap>
-                                <FlexCol className="u-margin-r-6">
-                                    <SelectField
-                                        name="birthdayMonth"
-                                        label="Birthday"
+            {({ handleSubmit }) => {
+                return (
+                    <Form centered>
+                        <FormRow>
+                            <FlexRow>
+                                <FlexCol sm className="u-margin-r-sm-6 u-padding-b-down-sm-6">
+                                    <InputField
+                                        name="firstName"
+                                        label="First Name"
                                         labelAlign="top"
-                                        placeholder="Month"
-                                        emptyItem
+                                        required
                                         fullWidth
-                                    >
-                                        {months.map((item, index) => (
-                                            <MenuItem key={index} value={item + 1}>
-                                                {item}
-                                            </MenuItem>
-                                        ))}
-                                    </SelectField>
+                                    />
                                 </FlexCol>
-                                <FlexCol>
-                                    <SelectField
-                                        name="birthdayDay"
-                                        placeholder="Day"
-                                        emptyItem
+                                <FlexCol sm>
+                                    <InputField
+                                        name="lastName"
+                                        label="Last Name"
+                                        labelAlign="top"
+                                        required
                                         fullWidth
-                                    >
-                                        {days.map((item, index) => (
-                                            <MenuItem key={index} value={item}>
-                                                {item}
-                                            </MenuItem>
-                                        ))}
-                                    </SelectField>
+                                    />
                                 </FlexCol>
                             </FlexRow>
-                        </FlexCol>
-                    </FlexRow>
-                </FormRow>
-                <FormRow>
-                    <CheckboxField
-                        name="isSubsribed"
-                        boxLabel="I would like to receive emails about promotions, new products and events."
-                    />
-                </FormRow>
-                <FormRow>
-                    <FlexRow justify="center">
-                        <Button primary centered maxWidth={160} icon={UserPlusIcon}>
-                            Sign Up
-                        </Button>
-                    </FlexRow>
-                </FormRow>
-                <FlexRow justify="center" alignItems="center">
-                    <span>
-                        <span className="u-text-small u-color-grey-darken-2 u-margin-r-3">
-                            Already a customer?
-                        </span>
-                        <Link primary onClick={handleSignInClick}>
-                            Sign In
-                        </Link>
-                    </span>
-                </FlexRow>
-            </Form>
+                        </FormRow>
+                        <FormRow>
+                            <InputField
+                                type="email"
+                                name="email"
+                                label="Email"
+                                labelAlign="top"
+                                placeholder="example@mail.com"
+                                required
+                                fullWidth
+                            />
+                        </FormRow>
+                        <FormRow>
+                            <FlexRow>
+                                <FlexCol sm className="u-margin-r-sm-6 u-padding-b-down-sm-6">
+                                    <InputField
+                                        type={passwordVisible ? 'text' : 'password'}
+                                        name="password"
+                                        label="Password"
+                                        labelAlign="top"
+                                        helperText="At least 8 characters long."
+                                        required
+                                        fullWidth
+                                        appendAdornment={() => {
+                                            return (
+                                                <InputIconButton onClick={handlePasswordVisibility}>
+                                                    {passwordVisible ? <EyeIcon /> : <EyeOffIcon />}
+                                                </InputIconButton>
+                                            );
+                                        }}
+                                    />
+                                </FlexCol>
+                                <FlexCol sm>
+                                    <InputField
+                                        type={confirmPasswordVisible ? 'text' : 'password'}
+                                        name="confirmPassword"
+                                        label="Confirm Password"
+                                        labelAlign="top"
+                                        helperText="At least 8 characters long."
+                                        required
+                                        fullWidth
+                                        appendAdornment={() => {
+                                            return (
+                                                <InputIconButton
+                                                    onClick={handleConfirmPasswordVisibility}
+                                                >
+                                                    {confirmPasswordVisible ? (
+                                                        <EyeIcon />
+                                                    ) : (
+                                                        <EyeOffIcon />
+                                                    )}
+                                                </InputIconButton>
+                                            );
+                                        }}
+                                    />
+                                </FlexCol>
+                            </FlexRow>
+                        </FormRow>
+                        <FormRow>
+                            <FlexRow>
+                                <FlexCol sm className="u-margin-r-sm-6 u-padding-b-down-sm-6">
+                                    <RadioGroupField name="gender" label="Gender" labelAlign="top">
+                                        <BoxLabel label="Male">
+                                            <Radio value="male" />
+                                        </BoxLabel>
+                                        <BoxLabel label="Female">
+                                            <Radio value="female" />
+                                        </BoxLabel>
+                                    </RadioGroupField>
+                                </FlexCol>
+                                <FlexCol sm>
+                                    <FlexRow alignItems="flex-end" noWrap>
+                                        <FlexCol className="u-margin-r-6">
+                                            <SelectField
+                                                name="birthdayMonth"
+                                                label="Birthday"
+                                                labelAlign="top"
+                                                placeholder="Month"
+                                                emptyItem
+                                                fullWidth
+                                            >
+                                                {months.map((item, index) => (
+                                                    <MenuItem key={index} value={item + 1}>
+                                                        {item}
+                                                    </MenuItem>
+                                                ))}
+                                            </SelectField>
+                                        </FlexCol>
+                                        <FlexCol>
+                                            <SelectField
+                                                name="birthdayDay"
+                                                placeholder="Day"
+                                                emptyItem
+                                                fullWidth
+                                            >
+                                                {days.map((item, index) => (
+                                                    <MenuItem key={index} value={item}>
+                                                        {item}
+                                                    </MenuItem>
+                                                ))}
+                                            </SelectField>
+                                        </FlexCol>
+                                    </FlexRow>
+                                </FlexCol>
+                            </FlexRow>
+                        </FormRow>
+                        <FormRow>
+                            <CheckboxField
+                                name="isSubsribed"
+                                boxLabel="I would like to receive emails about promotions, new products and events."
+                            />
+                        </FormRow>
+                        <FormRow>
+                            <FlexRow justify="center">
+                                <Button
+                                    primary
+                                    centered
+                                    maxWidth={160}
+                                    icon={UserPlusIcon}
+                                    onClick={handleSubmit}
+                                >
+                                    Sign Up
+                                </Button>
+                            </FlexRow>
+                        </FormRow>
+                        <FlexRow justify="center" alignItems="center">
+                            <span>
+                                <span className="u-text-small u-color-grey-darken-2 u-margin-r-3">
+                                    Already a customer?
+                                </span>
+                                <Link primary onClick={handleSignInClick}>
+                                    Sign In
+                                </Link>
+                            </span>
+                        </FlexRow>
+                    </Form>
+                );
+            }}
         </Formik>
     );
 };
 
 RegisterForm.propTypes = {
+    onFormSubmit: PropTypes.func,
     onSignIn: PropTypes.func
 };
 

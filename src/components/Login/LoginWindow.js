@@ -10,7 +10,6 @@ import { useWindowManager } from '@ui/WindowManager';
 import useEventCallback from '@ui/hooks/useEventCallback';
 import useMountedRef from '@ui/hooks/useMountedRef';
 
-import UserService from '@services/UserService';
 import { useIdentityActions } from '@store/identity';
 
 import LoginForm from './LoginForm';
@@ -18,10 +17,12 @@ import LoginForm from './LoginForm';
 const LoginWindow = (props) => {
     const [mask, setMask] = useState(false);
     const isMountedRef = useMountedRef();
-    const { isOpenWindow, openWindow, closeWindow } = useWindowManager();
+    const { isOpenWindow, getWindowParams, openWindow, closeWindow } = useWindowManager();
     const { onAsyncLogin } = useIdentityActions();
 
     const open = isOpenWindow('LoginWindow');
+    const { resetPasswordAlert = false, registrationAlert = false } =
+        getWindowParams('LoginWindow') || {};
 
     const handleClose = useEventCallback((ev) => {
         closeWindow('LoginWindow');
@@ -64,7 +65,15 @@ const LoginWindow = (props) => {
     );
 
     return (
-        <Window open={open} centered draggable maxWidth={480} onClose={handleClose}>
+        <Window
+            open={open}
+            centered
+            draggable
+            maxWidth={480}
+            disableEscapeKeyDown={mask}
+            disableBackdropClick={mask}
+            onClose={handleClose}
+        >
             <Mask open={mask}>
                 <MaskProgress position="top" primary>
                     <LinearProgress />
@@ -74,6 +83,8 @@ const LoginWindow = (props) => {
             <WindowHeader title="Sign In to SportArea" onClose={handleClose} />
             <WindowBody painted>
                 <LoginForm
+                    resetPasswordAlert={resetPasswordAlert}
+                    registrationAlert={registrationAlert}
                     onSubmit={handleSubmit}
                     onSingUp={handleSignUpClick}
                     onForgotPassword={handleForgotPasswordClick}

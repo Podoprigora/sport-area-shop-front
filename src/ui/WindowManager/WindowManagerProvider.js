@@ -1,53 +1,64 @@
-import React, { useMemo, useCallback, useReducer } from 'react';
+import React, { useMemo, useCallback, useReducer, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { WindowManagerContext } from './WindowManagerContext';
 
-const windowReducer = (state = [], { type, payload }) => {
-    switch (type) {
-        case 'OPEN': {
-            const newState = state.filter((item) => item !== payload);
-            return [...newState, payload];
-        }
-        case 'CLOSE': {
-            return state.filter((item) => item !== payload);
-        }
-        default:
-            return state;
-    }
-};
+const formatKey = (key) => String(key).toLocaleLowerCase();
 
 const WindowManagerProvider = (props) => {
     const { children } = props;
 
-    const [state, dispatch] = useReducer(windowReducer, []);
+    const [windows, setWindows] = useState({});
 
-    const handleOpen = useCallback((key) => {
-        dispatch({ type: 'OPEN', payload: key });
+    const handleOpen = useCallback((key, params) => {
+        setWindows((prevState) => {
+            if (key) {
+                const formatedKey = formatKey(key);
+
+                return { ...prevState, [formatedKey]: { ...params } };
+            }
+
+            return prevState;
+        });
     }, []);
 
     const handleClose = useCallback((key) => {
-        dispatch({ type: 'CLOSE', payload: key });
+        setWindows((prevState) => {
+            const newState = { ...prevState };
+            const formatedKey = formatKey(key);
+
+            delete newState[formatedKey];
+
+            return newState;
+        });
     }, []);
 
     const handleIsOpen = useCallback(
         (key) => {
-            return (
-                state.findIndex(
-                    (item) => String(item).toLocaleLowerCase() === String(key).toLocaleLowerCase()
-                ) !== -1
-            );
+            const formatedKey = formatKey(key);
+
+            return !!windows[formatedKey];
         },
-        [state]
+        [windows]
+    );
+
+    const handleGetParams = useCallback(
+        (key) => {
+            const formatedKey = formatKey(key);
+
+            return windows[formatedKey] || {};
+        },
+        [windows]
     );
 
     const contextValue = useMemo(
         () => ({
             isOpenWindow: handleIsOpen,
+            getWindowParams: handleGetParams,
             openWindow: handleOpen,
             closeWindow: handleClose
         }),
-        [handleClose, handleIsOpen, handleOpen]
+        [handleClose, handleIsOpen, handleOpen, handleGetParams]
     );
 
     return (

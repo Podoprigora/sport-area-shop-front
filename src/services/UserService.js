@@ -26,4 +26,26 @@ export default class UserService {
     static async logout(success = true) {
         return fakeRequest({ success }, { success, delay: 1500 });
     }
+
+    static async resetPassword(values) {
+        if (values.email === 'demo@mail.com') {
+            return fakeRequest({ success: true }, { success: true, dalay: 1500 });
+        }
+
+        return fakeRequest(
+            { errors: { email: 'Email not found!' } },
+            { success: false, delay: 2000 }
+        );
+    }
+
+    static async register(values) {
+        if (values.email === 'demo@mail.com') {
+            return fakeRequest(
+                { errors: { email: 'Email already in use!' } },
+                { success: false, delay: 1500 }
+            );
+        }
+
+        return fakeRequest({ success: true }, { success: true, dalay: 2500 });
+    }
 }
