@@ -1,0 +1,8 @@
+{
+    "auth": true,
+    "user": {
+        "id": 1,
+        "firstName": "Demo",
+        "lastName": "User"
+    }
+}
