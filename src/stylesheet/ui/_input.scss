@@ -30,12 +30,16 @@
 		&:focus {
 			outline: none;
 		}
-	}
 
-	&__el::placeholder {
-		font-weight: 400;
-		color: $input-placeholder-color;
-		opacity: 1;
+		&::placeholder {
+			font-weight: 400;
+			color: $input-placeholder-color;
+			opacity: 1;
+		}
+
+		&:-webkit-autofill {
+			box-shadow: 0 0 0 100rem $input-autofill-bg-color inset;
+		}
 	}
 
 	&__adornment {
