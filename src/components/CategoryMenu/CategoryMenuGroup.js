@@ -15,6 +15,7 @@ const CategoryMenuGroup = (props) => {
     }, []);
 
     const handleClick = useEventCallback((ev) => {
+        ev.preventDefault();
         ev.stopPropagation();
 
         if (onItemClick) {
@@ -23,6 +24,7 @@ const CategoryMenuGroup = (props) => {
     });
 
     const handleItemClick = useEventCallback((item) => (ev) => {
+        ev.preventDefault();
         ev.stopPropagation();
 
         if (onItemClick) {

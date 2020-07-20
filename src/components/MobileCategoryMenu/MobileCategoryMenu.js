@@ -12,7 +12,17 @@ const getPathById = (items = [], id, acc = []) => {
         return [];
     }
 
-    const result = [id, ...acc];
+    const result = acc.slice();
+    const item = items.find((currentItem) => currentItem.id === id);
+
+    if (!item) {
+        return [];
+    }
+
+    if (item.hasItems) {
+        result.unshift(id);
+    }
+
     const nextItem = items.find((parentItem) => parentItem.id === id);
 
     if (nextItem && nextItem.parentId) {

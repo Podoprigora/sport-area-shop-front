@@ -8,12 +8,18 @@ import MenuIcon from '@svg-icons/material/MenuIcon';
 import MobileCategoryMenu from '@components/MobileCategoryMenu';
 import useEventCallback from '@ui/hooks/useEventCallback';
 
-import { categoriesSelector } from '@store/categories';
+import {
+    categoriesSelector,
+    useCategoriesActions,
+    selectedCategoryIdSelector
+} from '@store/categories';
 
 const HeaderMobileCategoryMenu = (props) => {
     const [open, setOpen] = useState(false);
 
     const data = useSelector(categoriesSelector);
+    const selectedId = useSelector(selectedCategoryIdSelector);
+    const { onCategorySelect } = useCategoriesActions();
 
     const handleButtonClick = useEventCallback((ev) => {
         ev.preventDefault();
@@ -26,7 +32,8 @@ const HeaderMobileCategoryMenu = (props) => {
     });
 
     const handleItemClick = useEventCallback((ev, item) => {
-        console.log(item);
+        handleMenuClose();
+        onCategorySelect(item.id);
     });
 
     return (
@@ -44,7 +51,7 @@ const HeaderMobileCategoryMenu = (props) => {
             <MobileCategoryMenu
                 open={open}
                 data={data}
-                // selectedId={16}
+                selectedId={selectedId}
                 onItemClick={handleItemClick}
                 onClose={handleMenuClose}
             />

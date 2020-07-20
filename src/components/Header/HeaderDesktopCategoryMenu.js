@@ -8,11 +8,14 @@ import CategoryMenu from '@components/CategoryMenu';
 import Hidden from '@ui/Hidden';
 import useEventCallback from '@ui/hooks/useEventCallback';
 
-import { categoriesTreeSelector } from '@store/categories';
+import { categoriesTreeSelector, useCategoriesActions } from '@store/categories';
+import { useLocation, useHistory, useRouteMatch } from 'react-router-dom';
 
 const HeaderDesktopCategoryMenu = (props) => {
     const [open, setOpen] = useState(false);
+
     const data = useSelector(categoriesTreeSelector);
+    const { onCategorySelect } = useCategoriesActions();
 
     const buttonRef = useRef(null);
 
@@ -27,8 +30,8 @@ const HeaderDesktopCategoryMenu = (props) => {
     }, []);
 
     const handleItemClick = useEventCallback((ev, item) => {
-        console.log(item);
         handleMenuClose(ev);
+        onCategorySelect(item.id);
     });
 
     return (

@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { HashRouter, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import Mask, { MaskProgress } from '@ui/Mask';
 import LinearProgress from '@ui/LinearProgress';
@@ -13,7 +13,8 @@ import ForgotPasswordWindow from '@components/ForgotPassword';
 import PagesLoadingScreen from '@components/PagesLoadingScreen';
 
 import MainPage from '@pages/MainPage';
-import TestPage from '@pages/TestPage/TestPage';
+import ProductsPage from '@pages/ProductsPage';
+import TestPage from '@pages/TestPage';
 
 import useScreenMask from '@contexts/ScreenMaskContext';
 import usePagesBootsrap from './usePagesBootsrap';
@@ -27,7 +28,7 @@ const Pages = (props) => {
     }
 
     return (
-        <HashRouter>
+        <>
             <Mask open={isMaskShown} fixed>
                 <MaskProgress position="top" primary>
                     <LinearProgress />
@@ -42,6 +43,16 @@ const Pages = (props) => {
                     <Route path="/test">
                         <TestPage />
                     </Route>
+
+                    <Route exact path="/:category">
+                        <ProductsPage />
+                    </Route>
+                    <Route exact path="/:category/:subCategory">
+                        <ProductsPage />
+                    </Route>
+                    <Route exact path="/:category/:subCategory/:subCategoryItem">
+                        <ProductsPage />
+                    </Route>
                 </Switch>
 
                 <LoginWindow />
@@ -49,7 +60,7 @@ const Pages = (props) => {
                 <ForgotPasswordWindow />
             </Main>
             <Footer />
-        </HashRouter>
+        </>
     );
 };
 
