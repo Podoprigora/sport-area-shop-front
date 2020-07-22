@@ -29,18 +29,18 @@ const CatalogPage = (props) => {
             <PageSection>
                 <StickyContainer>
                     <FlexRow noWrap>
-                        <PageAside>
+                        <PageAside paper>
                             <StickyItem overflow minHeight={500}>
                                 <CatalogPageFilters />
                             </StickyItem>
                         </PageAside>
-                        <PageContent>
+                        <PageContent paper>
                             <CatalogPageGrid />
                         </PageContent>
                     </FlexRow>
                 </StickyContainer>
             </PageSection>
-            <PageSection>
+            <PageSection paper>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium blanditiis
                 natus accusamus, fugiat nam rem ratione nemo quam exercitationem reprehenderit esse
                 quia, commodi repellat deleniti quasi aliquam debitis qui molestias.

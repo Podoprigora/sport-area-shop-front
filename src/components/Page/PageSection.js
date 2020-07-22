@@ -3,10 +3,16 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 const PageSection = React.forwardRef(function PageSection(props, ref) {
-    const { children, className, ...other } = props;
+    const { children, className, paper, ...other } = props;
 
     return (
-        <div className={classNames('page__section', className)} {...other} ref={ref}>
+        <div
+            className={classNames('page__section', className, {
+                paper
+            })}
+            {...other}
+            ref={ref}
+        >
             {children}
         </div>
     );
@@ -14,7 +20,8 @@ const PageSection = React.forwardRef(function PageSection(props, ref) {
 
 PageSection.propTypes = {
     children: PropTypes.node,
-    className: PropTypes.string
+    className: PropTypes.string,
+    paper: PropTypes.bool
 };
 
 export default PageSection;

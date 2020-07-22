@@ -1,13 +1,4 @@
 .page {
-	display: block;
-
-	%page-paper {
-		background-color: $white;
-		border-radius: $border-radius-lg;
-		box-shadow: $box-shadow-sm;
-		overflow: hidden;
-	}
-
 	&__section {
 		margin-bottom: $spacing-scale-6;
 	}
@@ -15,7 +6,7 @@
 	&__aside {
 		display: flex;
 		flex-shrink: 0;
-		width: 25rem;
+		width: $page-aside-width;
 
 		&:first-child {
 			margin-right: $spacing-scale-6;
@@ -24,18 +15,10 @@
 		&:last-child {
 			margin-left: $spacing-scale-6;
 		}
-
-		&--paper {
-			@extend %page-paper;
-		}
 	}
 
 	&__content {
 		display: flex;
 		width: 100%;
-
-		&--paper {
-			@extend %page-paper;
-		}
 	}
 }
