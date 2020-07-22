@@ -2,4 +2,7 @@
 	.u-color-#{$color-key} {
 		color: $color;
 	}
+	.u-bg-color-#{$color-key} {
+		background-color: $color;
+	}
 }

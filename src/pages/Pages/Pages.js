@@ -13,7 +13,7 @@ import ForgotPasswordWindow from '@components/ForgotPassword';
 import PagesLoadingScreen from '@components/PagesLoadingScreen';
 
 import MainPage from '@pages/MainPage';
-import ProductsPage from '@pages/ProductsPage';
+import CatalogPage from '@pages/CatalogPage';
 import TestPage from '@pages/TestPage';
 
 import useScreenMask from '@contexts/ScreenMaskContext';
@@ -45,13 +45,13 @@ const Pages = (props) => {
                     </Route>
 
                     <Route exact path="/:category">
-                        <ProductsPage />
+                        <CatalogPage />
                     </Route>
                     <Route exact path="/:category/:subCategory">
-                        <ProductsPage />
+                        <CatalogPage />
                     </Route>
                     <Route exact path="/:category/:subCategory/:subCategoryItem">
-                        <ProductsPage />
+                        <CatalogPage />
                     </Route>
                 </Switch>
 

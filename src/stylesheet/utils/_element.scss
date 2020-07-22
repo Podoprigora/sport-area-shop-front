@@ -7,3 +7,10 @@
 .u-overflow-hidden {
 	overflow: hidden;
 }
+
+.u-absolute-overflow {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	overflow: auto;
+}
