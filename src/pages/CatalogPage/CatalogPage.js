@@ -8,8 +8,8 @@ import { StickyContainer, StickyItem } from '@ui/Sticky';
 import { selectedCategoryIdSelector, useCategoriesActions } from '@store/categories';
 
 import { Page, PageSection, PageAside, PageContent } from '@components/Page';
-import CatalogPageFilters from './CatalogPageFilters';
-import CatalogPageGrid from './CatalogPageGrid';
+import CatalogFilters from './components/CatalogFilters';
+import CatalogGrid from './components/CatalogGrid';
 
 const CatalogPage = (props) => {
     const routeParams = useParams();
@@ -29,18 +29,22 @@ const CatalogPage = (props) => {
             <PageSection>
                 <StickyContainer>
                     <FlexRow noWrap>
-                        <PageAside paper>
-                            <StickyItem overflow minHeight={500}>
-                                <CatalogPageFilters />
+                        <PageAside>
+                            <StickyItem
+                                scrollbar
+                                scrollbarProps={{ autoHide: true }}
+                                minHeight={500}
+                            >
+                                <CatalogFilters />
                             </StickyItem>
                         </PageAside>
-                        <PageContent paper>
-                            <CatalogPageGrid />
+                        <PageContent>
+                            <CatalogGrid />
                         </PageContent>
                     </FlexRow>
                 </StickyContainer>
             </PageSection>
-            <PageSection paper>
+            <PageSection>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium blanditiis
                 natus accusamus, fugiat nam rem ratione nemo quam exercitationem reprehenderit esse
                 quia, commodi repellat deleniti quasi aliquam debitis qui molestias.

@@ -10,7 +10,14 @@ const defaultStyle = {
 };
 
 const StickyItem = (props) => {
-    const { children, style, overflow = true, minHeight = 300, ...other } = props;
+    const {
+        children,
+        style,
+        scrollbar = true,
+        scrollbarProps = {},
+        minHeight = 300,
+        ...other
+    } = props;
 
     const { stickyStyle, setMinHeight } = useSticky();
 
@@ -24,7 +31,7 @@ const StickyItem = (props) => {
 
     return (
         <div style={mergedStyles} {...other}>
-            {overflow ? <Scrollbar>{children}</Scrollbar> : children}
+            {scrollbar ? <Scrollbar {...scrollbarProps}>{children}</Scrollbar> : children}
         </div>
     );
 };
@@ -32,7 +39,8 @@ const StickyItem = (props) => {
 StickyItem.propTypes = {
     children: PropTypes.node,
     style: PropTypes.object,
-    overflow: PropTypes.bool,
+    scrollbar: PropTypes.bool,
+    scrollbarProps: PropTypes.object,
     minHeight: PropTypes.number
 };
 

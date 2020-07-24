@@ -1,0 +1,72 @@
+.catalog-grid {
+	display: block;
+
+	&__body {
+		display: flex;
+		flex-flow: row wrap;
+		border-top: 1px solid $border-color-light;
+		border-left: 1px solid $border-color-light;
+	}
+
+	&__item {
+		$item: &;
+
+		width: 25%;
+		height: 38rem;
+		padding: 0;
+		border-right: 1px solid $border-color-light;
+		border-bottom: 1px solid $border-color-light;
+
+		&-inner {
+			padding: $spacing-scale-8;
+			height: 100%;
+			overflow: hidden;
+
+			&::before {
+				position: absolute;
+				content: "";
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+
+				background-color: $white;
+				border: 2px solid $color-primary;
+				box-shadow: $box-shadow-lg;
+				border-radius: $border-radius-lg;
+				opacity: 0;
+
+				z-index: -1;
+			}
+		}
+
+		&:hover {
+			#{$item}-inner {
+				position: relative;
+				overflow: initial;
+				height: auto;
+				z-index: 10;
+
+				&::before {
+					top: -.8rem;
+					left: -.8rem;
+					width: calc(100% + 1.6rem);
+					height: calc(100% + 1.6rem);
+					opacity: 1;
+					transition: all .15s linear, opacity 0s;
+				}
+			}
+
+			#{$item}-hidden-content {
+				display: block;
+			}
+		}
+
+		&-hidden-content {
+			display: none;
+			margin-top: $spacing-scale-6;
+			padding-top: $spacing-scale-6;
+			border-top: 1px solid $border-color;
+		}
+	}
+}

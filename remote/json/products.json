@@ -1,0 +1,389 @@
+[
+    {
+        "id": 1,
+        "name": "Fleece Ripple - Hooded Sweatshirt for Men - Black",
+        "brand": "Rusty",
+        "image": "remote/images/products/rusty-fleece-ripple-hooded-sweatshirt-men-black.jpg",
+        "price": 79.95,
+        "currency": "EUR",
+        "sizes": [
+            "M",
+            "L",
+            "XL",
+            "XXL"
+        ],
+        "rating": 4,
+        "comments": 2,
+        "isNew": true
+    },
+    {
+        "id": 2,
+        "name": "Gripy C Organic - Hooded Sweatshirt for Women - Beige",
+        "brand": "ragwear",
+        "image": "remote/images/products/ragwear-gripy-c-organic-hooded-sweatshirt-women-beige.jpg",
+        "price": 79.95,
+        "currency": "EUR",
+        "sizes": [
+            "XS",
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "rating": 5,
+        "comments": 1,
+        "isNew": true
+    },
+    {
+        "id": 3,
+        "name": "Quinn - Sweat Jacket for Men - Black",
+        "brand": "ragwear",
+        "image": "remote/images/products/ragwear-quinn-sweat-jacket-men-black.jpg",
+        "price": 69.95,
+        "currency": "EUR",
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+        ],
+        "rating": 4,
+        "comments": 1,
+        "isNew": true
+    },
+    {
+        "id": 4,
+        "name": "Walkabout - Hooded Sweatshirt for Men - Blue",
+        "brand": "EZEKIEL",
+        "image": "remote/images/products/ezekiel-walkabout-hooded-sweatshirt-men-blue.jpg",
+        "price": 69.95,
+        "currency": "EUR",
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+        ],
+        "isNew": true
+    },
+    {
+        "id": 5,
+        "name": "Viola Block Zip - Hooded Sweatshirt for Women - Blue",
+        "brand": "ragwear",
+        "image": "remote/images/products/ragwear-viola-block-zip-hooded-sweatshirt-women-blue.jpg",
+        "price": 79.95,
+        "currency": "EUR",
+        "sizes": [
+            "M",
+            "L",
+            "XL",
+            "XXL"
+        ],
+        "isNew": true
+    },
+    {
+        "id": 6,
+        "name": "Gripy C Organic - Hooded Sweatshirt for Women - Beige",
+        "brand": "ragwear",
+        "image": "remote/images/products/ezekiel-pepe-crewneck-sweatshirt-men-blue.jpg",
+        "price": 79.95,
+        "currency": "EUR",
+        "sizes": [
+            "XS",
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "isNew": true
+    },
+    {
+        "id": 7,
+        "name": "Pepe Crewneck - Sweatshirt for Men - Blue",
+        "brand": "EZEKIEL",
+        "image": "remote/images/products/ragwear-quinn-sweat-jacket-men-black.jpg",
+        "price": 69.95,
+        "currency": "EUR",
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "isNew": true
+    },
+    {
+        "id": 8,
+        "name": "Pepe Crewneck - Sweatshirt for Men - Grey",
+        "brand": "EZEKIEL",
+        "image": "remote/images/products/ezekiel-pepe-crewneck-sweatshirt-men-grey.jpg",
+        "price": 64.95,
+        "currency": "EUR",
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "isNew": true
+    },
+    {
+        "id": 9,
+        "name": "Beat Organic - Hooded Sweatshirt for Women - Blue",
+        "brand": "ragwear",
+        "image": "remote/images/products/ragwear-beat-organic-hooded-sweatshirt-women-blue.jpg",
+        "price": 69.95,
+        "currency": "EUR",
+        "sizes": [
+            "XS",
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "isNew": true
+    },
+    {
+        "id": 10,
+        "name": "Ladybird - Hooded Sweatshirt for Women - Blue",
+        "brand": "EZEKIEL",
+        "image": "remote/images/products/ezekiel-ladybird-hooded-sweatshirt-women-blue.jpg",
+        "price": 64.95,
+        "currency": "EUR",
+        "sizes": [
+            "XS",
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "isNew": true
+    },
+    {
+        "id": 11,
+        "name": "Modern Crew - Sweatshirt for Women - Black",
+        "brand": "NIKE SPORTSWEAR",
+        "image": "remote/images/products/nike-sportswear-modern-crew-sweatshirt-women-black.jpg",
+        "price": 59.95,
+        "currency": "EUR",
+        "sizes": [
+            "XS",
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "isNew": true
+    },
+    {
+        "id": 12,
+        "name": "Chelsea Dots Zip - Hooded Jacket for Women - Blue",
+        "brand": "ragwear",
+        "image": "remote/images/products/ragwear-chelsea-dots-zip-hooded-jacket-women-blue.jpg",
+        "price": 59.95,
+        "currency": "EUR",
+        "sizes": [
+            "XS",
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "isNew": true
+    },
+    {
+        "id": 13,
+        "name": "Duke - Hooded Sweatshirt for Men - Blue",
+        "brand": "EZEKIEL",
+        "image": "remote/images/products/ezekiel-duke-hooded-sweatshirt-men-blue.jpg",
+        "price": 69.95,
+        "currency": "EUR",
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "rating": 2,
+        "comments": 2
+    },
+    {
+        "id": 14,
+        "name": "Wings - Hooded Jacket for Men - Grey",
+        "brand": "ragwear",
+        "image": "remote/images/products/ragwear-wings-hooded-jacket-men-grey.jpg",
+        "price": 69.95,
+        "currency": "EUR",
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+        ],
+        "rating": 3.5,
+        "comments": 3
+    },
+    {
+        "id": 15,
+        "name": "Ramon - Sweatshirt for Men - Green",
+        "brand": "ragwear",
+        "image": "remote/images/products/ragwear-ramon-sweatshirt-men-green.jpg",
+        "price": 59.95,
+        "currency": "EUR",
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+        ],
+        "rating": 2.5,
+        "comments": 5
+    },
+    {
+        "id": 16,
+        "name": "Jocelyn - Sweatshirt for Women - Pink",
+        "brand": "ragwear",
+        "image": "remote/images/products/ragwear-jocelyn-sweatshirt-women-pink.jpg",
+        "price": 49.95,
+        "currency": "EUR",
+        "sizes": [
+            "XS",
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "rating": 4,
+        "comments": 2
+    },
+    {
+        "id": 17,
+        "name": "Rodeck - Sweatshirt for Women - Blue",
+        "brand": "FORVERT",
+        "image": "remote/images/products/forvert-rodeck-sweatshirt-women-blue.jpg",
+        "oldPrice": 69.95,
+        "price": 38.95,
+        "currency": "EUR",
+        "sizes": [
+            "XS"
+        ],
+        "rating": 5,
+        "comments": 10
+    },
+    {
+        "id": 18,
+        "name": "Sinner - Sweatshirt for Men - Blue",
+        "brand": "Light",
+        "image": "remote/images/products/light-sinner-sweatshirt-men-blue.jpg",
+        "oldPrice": 49.95,
+        "price": 36.95,
+        "currency": "EUR",
+        "sizes": [
+            "S",
+            "M",
+            "L"
+        ],
+        "rating": 3.5,
+        "comments": 8
+    },
+    {
+        "id": 19,
+        "name": "Icon Logo Crew - Sweatshirt for Men - Grey",
+        "brand": "PLANET SPORTS",
+        "image": "remote/images/products/planet-sports-icon-logo-crew-sweatshirt-men-grey.jpg",
+        "oldPrice": 44.95,
+        "price": 30.95,
+        "currency": "EUR",
+        "sizes": [
+            "XS",
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+        ],
+        "rating": 4.5,
+        "comments": 11
+    },
+    {
+        "id": 20,
+        "name": "Burial - Hooded Jacket for Women - White",
+        "brand": "WLD",
+        "image": "remote/images/products/wld-burial-hooded-jacket-women-white.jpg",
+        "oldPrice": 59.95,
+        "price": 35.95,
+        "currency": "EUR",
+        "sizes": [
+            "XS",
+            "S"
+        ],
+        "rating": 3,
+        "comments": 5
+    },
+    {
+        "id": 21,
+        "name": "Darth VII - Hooded Sweatshirt for Women - Red",
+        "brand": "NAKETANO",
+        "image": "remote/images/products/naketano-darth-vii-hooded-sweatshirt-women-red.jpg",
+        "oldPrice": 69.9,
+        "price": 65.95,
+        "currency": "EUR",
+        "sizes": [
+            "XS",
+            "L",
+            "M"
+        ],
+        "rating": 3.5,
+        "comments": 3
+    },
+    {
+        "id": 22,
+        "name": "Afterhour - Sweatshirt for Men - Grey",
+        "brand": "Light",
+        "image": "remote/images/products/light-afterhour-sweatshirt-men-grey.jpg",
+        "price": 44.95,
+        "currency": "EUR",
+        "sizes": [
+            "M",
+            "L"
+        ],
+        "rating": 3.5,
+        "comments": 1
+    },
+    {
+        "id": 23,
+        "name": "Darth Long VII - Hooded Sweatshirt for Women - Black",
+        "brand": "NAKETANO",
+        "image": "remote/images/products/naketano-darth-long-vii-hooded-sweatshirt-women-black.jpg",
+        "oldPrice": 74.9,
+        "price": 70.95,
+        "currency": "EUR",
+        "sizes": [
+            "XS",
+            "S",
+            "M",
+            "L"
+        ],
+        "rating": 5,
+        "comments": 8
+    },
+    {
+        "id": 24,
+        "name": "Zoe - Sweatshirt for Women - Blue",
+        "brand": "HORSEFEATHERS",
+        "image": "remote/images/products/horsefeathers-zoe-sweatshirt-women-blue.jpg",
+        "oldPrice": 64.95,
+        "price": 38.95,
+        "currency": "EUR",
+        "sizes": [
+            "XS",
+            "S"
+        ],
+        "rating": 3.5,
+        "comments": 4
+    }
+]

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Heading from '@ui/Heading';
 
-const CatalogPageFilters = (props) => {
+const CatalogFilters = (props) => {
     return (
         <div className="catalog-filters">
             <Heading>Filters</Heading>
@@ -69,8 +69,8 @@ const CatalogPageFilters = (props) => {
     );
 };
 
-CatalogPageFilters.propTypes = {
+CatalogFilters.propTypes = {
     style: PropTypes.object
 };
 
-export default CatalogPageFilters;
+export default CatalogFilters;

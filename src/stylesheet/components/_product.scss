@@ -1,7 +1,6 @@
 .product {
 	display: block;
 	position: relative;
-	padding: $spacing-scale-6 $spacing-scale-6 $spacing-scale-9;
 	text-decoration: none;
 	color: inherit;
 	background: #fff;
@@ -20,6 +19,7 @@
 		left: 50%;
 		transform: translate(-50%, -50%);
 		height: 100%;
+		z-index: 1;
 	}
 
 	&__title {
@@ -33,7 +33,7 @@
 	&__brand {
 		display: block;
 		font-weight: 500;
-		padding-bottom: .4rem;
+		margin-bottom: .4rem;
 	}
 
 	&__name {
@@ -78,7 +78,7 @@
 		text-transform: uppercase;
 		padding: .4rem .6rem;
 		background: #fff;
-		z-index: 1;
+		z-index: 2;
 
 		&--new {
 			color: $color-primary;
@@ -89,6 +89,48 @@
 			color: $red;
 			border: 1px solid $red;
 			border-radius: 3px;
+		}
+	}
+
+	&__sizes {
+		margin-bottom: -$spacing-scale-4;
+
+		&-label {
+			font-size: $font-size-small;
+			color: $grey-darken-3;
+			font-weight: 500;
+			margin-bottom: .4rem;
+		}
+
+		&-body {
+			display: flex;
+			flex-flow: row wrap;
+		}
+	}
+
+	&__size-link {
+		&,
+		&:link,
+		&:visited,
+		&:active {
+			font-size: $font-size-small;
+			font-weight: 500;
+			color: inherit;
+			text-decoration: none;
+			padding: $spacing-scale-2 $spacing-scale-4;
+			margin-bottom: $spacing-scale-4;
+			border: 1px solid $border-color-light;
+			border-radius: $border-radius-sm;
+
+			&:not(:last-of-type) {
+				margin-right: $spacing-scale-4;
+			}
+		}
+
+		&:hover {
+			color: $color-primary;
+			border-color: $color-primary;
+			transition: all .25s ease;
 		}
 	}
 }
