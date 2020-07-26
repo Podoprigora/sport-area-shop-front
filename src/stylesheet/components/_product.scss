@@ -24,20 +24,38 @@
 
 	&__title {
 		display: block;
-		height: 6.2rem;
+		height: 6rem;
 		font-size: $font-size;
-		margin-bottom: $spacing-scale-6;
 		overflow: hidden;
 	}
 
 	&__brand {
 		display: block;
 		font-weight: 500;
-		margin-bottom: .4rem;
+		margin-bottom: $spacing-scale-2;
 	}
 
 	&__name {
 		font-weight: 400;
+	}
+
+	&__stat {
+		display: flex;
+		flex-flow: row wrap;
+		align-items: center;
+		margin-top: $spacing-scale-4;
+	}
+
+	&__comments-link {
+		margin-left: $spacing-scale-4;
+		color: $grey-darken-3;
+		font-weight: 500;
+
+		.icon {
+			color: lighten($icon-color, 15%);
+			margin: 0;
+			margin-right: $spacing-scale-2;
+		}
 	}
 
 	&__prices-container {
@@ -50,6 +68,7 @@
 		font-size: 1.8rem;
 		font-weight: 500;
 		line-height: 1;
+		margin-top: $spacing-scale-6;
 
 		&--old {
 			font-size: 1.6rem;
@@ -99,7 +118,7 @@
 			font-size: $font-size-small;
 			color: $grey-darken-3;
 			font-weight: 500;
-			margin-bottom: .4rem;
+			margin-bottom: $spacing-scale-2;
 		}
 
 		&-body {
@@ -131,6 +150,18 @@
 			color: $color-primary;
 			border-color: $color-primary;
 			transition: all .25s ease;
+		}
+	}
+
+	&__action {
+		position: absolute;
+		top: $spacing-scale-6;
+		right: $spacing-scale-6;
+		z-index: 3;
+
+		&--favorite .btn-icon {
+			margin: 0;
+			color: $amber;
 		}
 	}
 }

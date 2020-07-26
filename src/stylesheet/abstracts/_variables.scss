@@ -200,11 +200,11 @@ $checkbox-margin-x: $spacing-scale-3;
 $checkbox-hover-padding: $spacing-scale-4;
 
 // Rating
-$rating-size-small: 1.8rem;
+$rating-size-small: 1.6rem;
 $rating-size-medium: 2.4rem;
 $rating-size-large: 3.6rem;
 $rating-disabled-opacity: .4;
-$rating-icon-color: $grey-lighten-1;
+$rating-icon-color: lighten($grey, 15%);
 $rating-icon-selected-color: $orange-accent-2;
 
 // Field

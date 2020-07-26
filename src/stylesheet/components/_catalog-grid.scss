@@ -12,7 +12,7 @@
 		$item: &;
 
 		width: 25%;
-		height: 38rem;
+		height: 40rem;
 		padding: 0;
 		border-right: 1px solid $border-color-light;
 		border-bottom: 1px solid $border-color-light;
@@ -35,7 +35,7 @@
 				box-shadow: $box-shadow-lg;
 				border-radius: $border-radius-lg;
 				opacity: 0;
-
+				transition: opacity 0s, width .15s linear, height .15s linear, top .15s linear, left .15s linear;
 				z-index: -1;
 			}
 		}
@@ -53,7 +53,6 @@
 					width: calc(100% + 1.6rem);
 					height: calc(100% + 1.6rem);
 					opacity: 1;
-					transition: all .15s linear, opacity 0s;
 				}
 			}
 

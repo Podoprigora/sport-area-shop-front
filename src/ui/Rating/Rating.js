@@ -14,7 +14,7 @@ const Rating = React.forwardRef(function Rating(props, ref) {
         defaultValue: defaultValueProp,
         disabled,
         readOnly,
-        max = 10,
+        max = 5,
         size,
         className,
         style,

@@ -223,7 +223,7 @@
             "XL",
             "XXL"
         ],
-        "rating": 3.5,
+        "rating": 4,
         "comments": 3
     },
     {
@@ -240,7 +240,7 @@
             "XL",
             "XXL"
         ],
-        "rating": 2.5,
+        "rating": 3,
         "comments": 5
     },
     {
@@ -287,7 +287,7 @@
             "M",
             "L"
         ],
-        "rating": 3.5,
+        "rating": 4,
         "comments": 8
     },
     {
@@ -306,7 +306,7 @@
             "XL",
             "XXL"
         ],
-        "rating": 4.5,
+        "rating": 5,
         "comments": 11
     },
     {
@@ -351,7 +351,7 @@
             "M",
             "L"
         ],
-        "rating": 3.5,
+        "rating": 4,
         "comments": 1
     },
     {
@@ -383,7 +383,7 @@
             "XS",
             "S"
         ],
-        "rating": 3.5,
+        "rating": 4,
         "comments": 4
     }
 ]
