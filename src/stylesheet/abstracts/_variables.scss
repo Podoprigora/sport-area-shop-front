@@ -199,6 +199,14 @@ $input-default-width: 22rem;
 $checkbox-margin-x: $spacing-scale-3;
 $checkbox-hover-padding: $spacing-scale-4;
 
+// Rating
+$rating-size-small: 1.8rem;
+$rating-size-medium: 2.4rem;
+$rating-size-large: 3.6rem;
+$rating-disabled-opacity: .4;
+$rating-icon-color: $grey-lighten-1;
+$rating-icon-selected-color: $orange-accent-2;
+
 // Field
 $field-label-color: $grey-darken-3;
 $field-label-font-size: $font-size-small;

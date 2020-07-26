@@ -1,6 +1,6 @@
 import React from 'react';
 
-import RadioGroup from '@ui/RadioGroup/RadioGroup';
+import RadioGroup from '@ui/RadioGroup';
 import FormikField from '../FormikField';
 
 const RadioGroupField = React.forwardRef(function RadioGroupField(props, ref) {

@@ -22,10 +22,14 @@ import TestSearchInput from './components/TestSearchInput';
 import TestCircularProgres from './components/TestCircularProgres';
 import TestAlerts from './components/TestAlerts';
 import TestNotification from './components/TestNotification';
+import TestRating from './components/TestRating';
 
 const TestPage = (props) => {
     return (
         <div className="page">
+            <Panel title="Test Rating">
+                <TestRating />
+            </Panel>
             <Panel title="Test Notification">
                 <TestNotification />
             </Panel>
