@@ -1,5 +1,6 @@
 .catalog-grid {
 	display: block;
+	flex: 1;
 
 	&__body {
 		display: flex;
@@ -68,6 +69,11 @@
 			.product__img-container {
 				height: 24rem;
 			}
+		}
+
+		&--skeleton {
+			padding: $spacing-scale-8;
+			height: auto;
 		}
 
 		&-inner {

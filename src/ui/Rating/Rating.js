@@ -71,31 +71,29 @@ const Rating = React.forwardRef(function Rating(props, ref) {
         [onBlur]
     );
 
-    const items = Array(max)
-        .fill(0)
-        .map((_, index) => {
-            const selected = hoveredItemValue > 0 ? index < hoveredItemValue : index < value;
-            const itemValue = index + 1;
-            const checked = itemValue === value;
+    const items = [...Array(max)].map((_, index) => {
+        const selected = hoveredItemValue > 0 ? index < hoveredItemValue : index < value;
+        const itemValue = index + 1;
+        const checked = itemValue === value;
 
-            return (
-                <RatingItem
-                    key={index}
-                    name={name}
-                    value={itemValue}
-                    selected={selected}
-                    checked={checked}
-                    size={size}
-                    disabled={disabled}
-                    readOnly={readOnly}
-                    tabIndex={tabIndex}
-                    onChange={handleItemChange}
-                    onMouseEnter={handleItemMouseEnter}
-                    onFocus={handleItemFocus}
-                    onBlur={handleItemBlur}
-                />
-            );
-        });
+        return (
+            <RatingItem
+                key={index}
+                name={name}
+                value={itemValue}
+                selected={selected}
+                checked={checked}
+                size={size}
+                disabled={disabled}
+                readOnly={readOnly}
+                tabIndex={tabIndex}
+                onChange={handleItemChange}
+                onMouseEnter={handleItemMouseEnter}
+                onFocus={handleItemFocus}
+                onBlur={handleItemBlur}
+            />
+        );
+    });
 
     return (
         <div

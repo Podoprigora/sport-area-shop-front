@@ -7,6 +7,10 @@ const AdwSliderSkeleton = () => {
     const elRef = useRef(null);
 
     const updateStyle = useCallback(() => {
+        if (!elRef.current) {
+            return;
+        }
+
         const ratio = 1 / 3.5;
         const width = elRef.current.clientWidth;
         const height = Math.ceil(width * ratio);

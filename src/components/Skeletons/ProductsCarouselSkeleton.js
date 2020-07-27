@@ -13,6 +13,10 @@ const ProductsCarouselSkeleton = (props) => {
     const itemRef = useRef(null);
 
     const calcLength = useCallback(() => {
+        if (!containerRef.current) {
+            return;
+        }
+
         const containerWidth = containerRef.current.clientWidth;
         const itemWidth = itemRef.current.clientWidth;
 
@@ -30,7 +34,7 @@ const ProductsCarouselSkeleton = (props) => {
         []
     );
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         calcLength();
 
         window.addEventListener('resize', handleWindowResize, false);

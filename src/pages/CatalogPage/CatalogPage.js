@@ -26,10 +26,10 @@ const CatalogPage = (props) => {
     }, [routeParams, selectedId, onCategorySelect]);
 
     return (
-        <Page>
+        <Page className="catalog-page">
             <PageSection>
                 <StickyContainer>
-                    <FlexRow noWrap>
+                    <FlexRow noWrap className="catalog-page__layout">
                         <Hidden lgDown component={null}>
                             <PageAside>
                                 <StickyItem scrollbar minHeight={300}>

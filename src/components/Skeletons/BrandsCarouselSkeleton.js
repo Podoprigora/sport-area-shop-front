@@ -9,6 +9,10 @@ const BrandsCarouselSkeleton = () => {
     const [itemsLength, setItemsLength] = useState(0);
 
     const calcLength = useCallback(() => {
+        if (!containerRef.current) {
+            return;
+        }
+
         const containerWidth = containerRef.current.clientWidth;
         const itemWidth = itemRef.current.clientWidth;
 

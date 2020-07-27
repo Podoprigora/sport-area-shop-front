@@ -1,3 +1,9 @@
 .catalog-filters {
 	display: block;
 }
+
+.catalog-page {
+	&__layout {
+		min-height: 60rem;
+	}
+}
