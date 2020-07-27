@@ -40,15 +40,19 @@ const CatalogGridItem = (props) => {
                         {favorite ? <FavoriteIcon /> : <FavoriteOutlineIcon />}
                     </IconButton>
                 </div>
+
                 {discount && <div className="product__flag product__flag--hot">-{discount}%</div>}
                 {!discount && isNew && <div className="product__flag product__flag--new">New</div>}
+
                 <div className="product__img-container">
                     <img src={image} alt={name} className="product__img" />
                 </div>
+
                 <h4 className="product__title">
                     {brand && <span className="product__brand">{brand}</span>}
                     <span className="product__name">{name}</span>
                 </h4>
+
                 <div className="product__stat">
                     <Rating
                         className="product__rating"

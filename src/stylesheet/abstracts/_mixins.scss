@@ -21,11 +21,15 @@
 }
 
 // Breakpoints
-@mixin media-breakpoint-up($key) {
+@mixin media-breakpoint-up($key, $offset: 0) {
 	$value: map-get($breakpoints, $key);
 
 	@if $value != null {
 		@if $value != 0 {
+			@if $offset != 0 {
+				$value: $value + $offset / 16;
+			}
+
 			@media only screen and (min-width: $value) {
 				@content;
 			}
@@ -37,6 +41,7 @@
 
 @mixin media-breakpoint-down($key) {
 	$value: map-get($breakpoints, $key);
+
 	@if $value != null {
 		@media only screen and (max-width: $value) {
 			@content;

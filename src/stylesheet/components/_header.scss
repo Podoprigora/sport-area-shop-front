@@ -63,6 +63,7 @@
 		display: flex;
 		flex-flow: row nowrap;
 		align-items: center;
+		flex-shrink: 0;
 	}
 
 	&__link {

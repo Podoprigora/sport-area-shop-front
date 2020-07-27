@@ -1,5 +1,5 @@
 @each $bp-key, $bp in $breakpoints {
-	@include media-breakpoint-up($bp-key) {
+	@include media-breakpoint-up($bp-key, 1) {
 		.u-hidden-#{$bp-key}-up {
 			display: none;
 		}

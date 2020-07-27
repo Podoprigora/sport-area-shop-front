@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import Hidden from '@ui/Hidden';
 import FlexRow from '@ui/FlexRow';
 import { StickyContainer, StickyItem } from '@ui/Sticky';
 import { selectedCategoryIdSelector, useCategoriesActions } from '@store/categories';
@@ -29,15 +30,13 @@ const CatalogPage = (props) => {
             <PageSection>
                 <StickyContainer>
                     <FlexRow noWrap>
-                        <PageAside>
-                            <StickyItem
-                                scrollbar
-                                scrollbarProps={{ autoHide: true }}
-                                minHeight={500}
-                            >
-                                <CatalogFilters />
-                            </StickyItem>
-                        </PageAside>
+                        <Hidden lgDown component={null}>
+                            <PageAside>
+                                <StickyItem scrollbar minHeight={300}>
+                                    <CatalogFilters />
+                                </StickyItem>
+                            </PageAside>
+                        </Hidden>
                         <PageContent>
                             <CatalogGrid />
                         </PageContent>

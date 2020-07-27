@@ -12,10 +12,51 @@
 		$item: &;
 
 		width: 25%;
-		height: 40rem;
 		padding: 0;
 		border-right: 1px solid $border-color-light;
 		border-bottom: 1px solid $border-color-light;
+
+		@include media-hover {
+			height: 40rem;
+
+			&:hover {
+				#{$item}-inner {
+					position: relative;
+					overflow: initial;
+					height: auto;
+					z-index: 10;
+
+					&::before {
+						top: -.8rem;
+						left: -.8rem;
+						width: calc(100% + 1.6rem);
+						height: calc(100% + 1.6rem);
+						opacity: 1;
+					}
+				}
+
+				#{$item}-hidden-content {
+					display: block;
+				}
+			}
+
+			&-hidden-content {
+				display: none;
+			}
+		}
+
+		@include media-breakpoint-down('xl') {
+			width: 50%;
+			height: auto;
+
+			&-hidden-content {
+				display: block;
+			}
+		}
+
+		@include media-breakpoint-down('sm') {
+			width: 100%;
+		}
 
 		&-inner {
 			padding: $spacing-scale-8;
@@ -40,32 +81,8 @@
 			}
 		}
 
-		&:hover {
-			#{$item}-inner {
-				position: relative;
-				overflow: initial;
-				height: auto;
-				z-index: 10;
-
-				&::before {
-					top: -.8rem;
-					left: -.8rem;
-					width: calc(100% + 1.6rem);
-					height: calc(100% + 1.6rem);
-					opacity: 1;
-				}
-			}
-
-			#{$item}-hidden-content {
-				display: block;
-			}
-		}
-
 		&-hidden-content {
-			display: none;
-			margin-top: $spacing-scale-6;
 			padding-top: $spacing-scale-6;
-			border-top: 1px solid $border-color;
 		}
 	}
 }
