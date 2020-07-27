@@ -52,10 +52,22 @@
 			&-hidden-content {
 				display: block;
 			}
+
+			.product__img-container {
+				height: 28rem;
+			}
+
+			.product__title {
+				height: auto;
+			}
 		}
 
 		@include media-breakpoint-down('sm') {
 			width: 100%;
+
+			.product__img-container {
+				height: 24rem;
+			}
 		}
 
 		&-inner {

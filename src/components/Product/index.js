@@ -1,0 +1,9 @@
+export { default as Product } from './Product';
+export { default as ProductActionAddToFavorite } from './ProductActionAddToFavorite';
+export { default as ProductFlag } from './ProductFlag';
+export { default as ProductLink } from './ProductLink';
+export { default as ProductImage } from './ProductImage';
+export { default as ProductTitle } from './ProductTitle';
+export { default as ProductStat } from './ProductStat';
+export { default as ProductPrice } from './ProductPrice';
+export { default as ProductSizes } from './ProductSizes';

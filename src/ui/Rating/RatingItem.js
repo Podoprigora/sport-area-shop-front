@@ -36,14 +36,19 @@ const RatingItem = (props) => {
         }
     });
 
-    const handleMouseDown = useCallback((ev) => {
-        ev.preventDefault();
+    const handleMouseDown = useCallback(
+        (ev) => {
+            if (!readOnly) {
+                ev.preventDefault();
 
-        if (inputRef.current) {
-            hiddenFocusRef.current = true;
-            inputRef.current.focus();
-        }
-    }, []);
+                if (inputRef.current) {
+                    hiddenFocusRef.current = true;
+                    inputRef.current.focus();
+                }
+            }
+        },
+        [readOnly]
+    );
 
     const handleFocus = useCallback(
         (ev) => {

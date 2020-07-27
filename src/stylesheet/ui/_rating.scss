@@ -17,7 +17,7 @@
 
 		&--disabled,
 		&--read-only {
-			cursor: auto;
+			cursor: inherit;
 		}
 
 		&--disabled {
