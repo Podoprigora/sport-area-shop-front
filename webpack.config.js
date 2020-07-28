@@ -134,6 +134,7 @@ module.exports = (env) => {
                         }
                     ]
                 },
+
                 {
                     test: /.(png|jpe?g|gif|svg)$/i,
                     loader: 'url-loader',
@@ -148,6 +149,9 @@ module.exports = (env) => {
                     test: /.svg$/i,
                     loader: '@svgr/webpack',
                     include: [path.resolve(__dirname, 'src/stylesheet/resources/icons')],
+                    issuer: {
+                        test: /\.js?$/
+                    },
                     options: {
                         dimensions: false
                     }

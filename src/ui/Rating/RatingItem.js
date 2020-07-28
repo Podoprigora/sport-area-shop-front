@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useEffect, useState } from 'react';
+import React, { useCallback, useRef, useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import StarGradeIcon from '@svg-icons/material/StarGradeIcon';
@@ -88,27 +88,29 @@ const RatingItem = (props) => {
                 [`rating__item--${size}`]: size
             })}
         >
-            <StarGradeIcon
+            <div
                 className={classNames('rating__icon', {
                     'rating__icon--selected': selected
                 })}
             />
-            <input
-                type="radio"
-                name={name}
-                value={value}
-                checked={checked}
-                className="rating__input"
-                disabled={disabled}
-                readOnly={readOnly}
-                tabIndex={readOnly ? -1 : tabIndex}
-                ref={inputRef}
-                onChange={handleChange}
-                onMouseEnter={handleMouseEnter}
-                onMouseDown={handleMouseDown}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-            />
+
+            {!readOnly && (
+                <input
+                    type="radio"
+                    name={name}
+                    value={value}
+                    checked={checked}
+                    className="rating__input"
+                    disabled={disabled}
+                    tabIndex={readOnly ? -1 : tabIndex}
+                    ref={inputRef}
+                    onChange={handleChange}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseDown={handleMouseDown}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                />
+            )}
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import CatalogGridItemsSkeleton from '@components/Skeletons/CatalogGridItemsSkeleton';
@@ -11,8 +11,9 @@ const CatalogGrid = (props) => {
 
     let items = data.map((item) => {
         const { id } = item;
+        const randomId = Math.round(Math.random() * 10000000000000);
 
-        return <CatalogGridItem key={id} {...item} />;
+        return <CatalogGridItem key={randomId} {...item} />;
     });
 
     if (loading) {
@@ -31,4 +32,4 @@ CatalogGrid.propTypes = {
     loading: PropTypes.bool
 };
 
-export default CatalogGrid;
+export default memo(CatalogGrid);

@@ -12,8 +12,8 @@ const ProductImage = (props) => {
             src={image}
             alt={name}
             className="product__img"
-            containerProps={{ className: 'product__img-container' }}
             placehoder={<ProductImagePlaceholder />}
+            containerProps={{ className: 'product__img-container' }}
         />
     );
 };
