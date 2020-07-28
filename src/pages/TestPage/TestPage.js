@@ -23,10 +23,14 @@ import TestCircularProgres from './components/TestCircularProgres';
 import TestAlerts from './components/TestAlerts';
 import TestNotification from './components/TestNotification';
 import TestRating from './components/TestRating';
+import TestIntersectionObserver from './components/TestIntersectionObserver';
 
 const TestPage = (props) => {
     return (
         <div className="page">
+            <Panel title="Test Intersection Observer">
+                <TestIntersectionObserver />
+            </Panel>
             <Panel title="Test Rating">
                 <TestRating />
             </Panel>
