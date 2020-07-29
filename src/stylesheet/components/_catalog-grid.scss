@@ -2,6 +2,15 @@
 	display: block;
 	flex: 1;
 
+	&__tbar {
+		display: flex;
+		padding: $spacing-scale-8 0;
+
+		& > *:not(:last-child) {
+			margin-right: $spacing-scale-8;
+		}
+	}
+
 	&__body {
 		display: flex;
 		flex-flow: row wrap;
