@@ -1,6 +1,6 @@
 import { normalize } from 'normalizr';
 import { categoriesSchema } from './categoriesSchemas';
-import { RECEIVE_CATEGORIES, SELECT_CATEGORY } from './categoriesActions';
+import { RECEIVE_CATEGORIES, SELECT_CATEGORY, RESET_SELECTED_CATEGORY } from './categoriesActions';
 
 const defaultState = {
     byId: {},
@@ -17,6 +17,7 @@ const categories = (state = defaultState, { type, payload = {} }) => {
                 const { result, entities } = normalize(data, categoriesSchema);
 
                 return {
+                    ...defaultState,
                     allIds: result,
                     byId: entities.categories
                 };
@@ -30,8 +31,11 @@ const categories = (state = defaultState, { type, payload = {} }) => {
             if (id) {
                 return { ...state, selectedId: id };
             }
+
             return state;
         }
+        case RESET_SELECTED_CATEGORY:
+            return { ...state, selectedId: null };
         default:
             return state;
     }

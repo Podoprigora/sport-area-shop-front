@@ -1,5 +1,5 @@
-import { useCallback } from 'react';
-import { useLocation, useHistory, useRouteMatch } from 'react-router-dom';
+import { useCallback, useMemo } from 'react';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import useEventCallback from '@ui/hooks/useEventCallback';
@@ -12,6 +12,7 @@ import {
 
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
 export const SELECT_CATEGORY = 'SELECT_CATEGORY';
+export const RESET_SELECTED_CATEGORY = 'RESET_SELECTED_CATEGORY';
 
 export default function useCategoriesActions() {
     const dispatch = useDispatch();
@@ -34,8 +35,8 @@ export default function useCategoriesActions() {
         [dispatch]
     );
 
-    const onCategorySelect = useEventCallback((id, path = []) => {
-        if (!id && !path.length === 0) {
+    const onCategorySelect = useEventCallback((id = null, path = []) => {
+        if (!id && path.length === 0) {
             return;
         }
 
@@ -56,8 +57,15 @@ export default function useCategoriesActions() {
         });
     });
 
+    const onSelectedCategoryReset = useEventCallback(() => {
+        dispatch({
+            type: RESET_SELECTED_CATEGORY
+        });
+    });
+
     return {
         onAsyncCategoriesFetch,
-        onCategorySelect
+        onCategorySelect,
+        onSelectedCategoryReset
     };
 }

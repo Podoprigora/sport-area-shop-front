@@ -1,4 +1,4 @@
-import { RECEIVE_IDENTITY, LOGOUT } from './identityActons';
+import { RECEIVE_IDENTITY, LOGOUT } from './identityActions';
 
 const defaultState = {
     auth: false,

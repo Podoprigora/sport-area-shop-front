@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect, memo } from 'react';
-import PropTypes, { number } from 'prop-types';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import PropTypes from 'prop-types';
+import { TransitionGroup } from 'react-transition-group';
 
 import useEventCallback from '@ui/hooks/useEventCallback';
 import MobileCategoryMenuWindow from './MobileCategoryMenuWindow';
