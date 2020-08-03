@@ -1,3 +1,4 @@
+import reducerFactory from '@ui/utils/reducerFactory';
 import { RECEIVE_IDENTITY, LOGOUT } from './identityActions';
 
 const defaultState = {
@@ -5,23 +6,23 @@ const defaultState = {
     user: null
 };
 
-const identity = (state = defaultState, { type, payload = {} }) => {
-    switch (type) {
-        case RECEIVE_IDENTITY: {
-            const { data } = payload;
-
-            if (data) {
-                return { ...defaultState, ...data };
-            }
-
-            return defaultState;
-        }
-        case LOGOUT: {
-            return defaultState;
-        }
-        default:
-            return state;
-    }
+const strategies = {
+    [RECEIVE_IDENTITY]: receiveIdentityStrategy,
+    [LOGOUT]: logoutStrategy
 };
 
-export default identity;
+function receiveIdentityStrategy(state, { payload }) {
+    const { data } = payload;
+
+    if (data) {
+        return { ...defaultState, ...data };
+    }
+
+    return state;
+}
+
+function logoutStrategy() {
+    return defaultState;
+}
+
+export default reducerFactory(strategies, defaultState);

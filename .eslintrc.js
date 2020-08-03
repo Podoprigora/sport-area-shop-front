@@ -41,6 +41,7 @@ module.exports = {
         'jsx-a11y/tabindex-no-positive': 0,
         'jsx-a11y/no-noninteractive-tabindex': 0,
         'prefer-destructuring': 0,
+        'no-use-before-define': ['error', { functions: false, classes: true }],
 
         'react/no-danger': 0,
         'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],

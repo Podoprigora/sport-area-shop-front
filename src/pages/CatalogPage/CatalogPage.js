@@ -19,9 +19,13 @@ const CatalogPage = (props) => {
         }
     }, [routeParams, selectedId, onCategorySelect]);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         return () => {
-            // Fix useSelector updating,
+            // https://reactrouter.com/web/guides/deep-redux-integration
+            // https://github.com/ReactTraining/react-router/issues/6972
+            // https://github.com/reduxjs/react-redux/issues/1510
+
+            // Fix updating of useSelector in components that depend on selectedId and routeParams,
             // when route location and redux state are changing at the same time.
             // TODO: Find the better solution
             setTimeout(() => {
