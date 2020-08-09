@@ -24,10 +24,14 @@ import TestAlerts from './components/TestAlerts';
 import TestNotification from './components/TestNotification';
 import TestRating from './components/TestRating';
 import TestIntersectionObserver from './components/TestIntersectionObserver';
+import TestPagination from './components/TestPagination';
 
 const TestPage = (props) => {
     return (
         <div className="page">
+            <Panel title="Test Pagination">
+                <TestPagination />
+            </Panel>
             <Panel title="Test Intersection Observer">
                 <TestIntersectionObserver />
             </Panel>
@@ -40,9 +44,9 @@ const TestPage = (props) => {
             <Panel title="Test Alerts">
                 <TestAlerts />
             </Panel>
-            {/* <Panel title="Test CircularProgress">
+            <Panel title="Test CircularProgress">
                 <TestCircularProgres />
-            </Panel> */}
+            </Panel>
             <Panel title="Test SearchInput">
                 <TestSearchInput />
             </Panel>

@@ -1,0 +1,62 @@
+.pagination {
+	$this: &;
+
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	width: 100%;
+
+	&__control,
+	&__item {
+		background-color: $white;
+
+		border: 1px solid $border-color-light;
+		border-radius: $border-radius-lg;
+		border-color: transparent;
+		box-shadow: $box-shadow-sm;
+
+		&:hover:not(#{$this}__item--selected) {
+			color: darken($color-primary, 10%);
+			border-color: $color-primary;
+			box-shadow: inset 0 0 0 1px $color-primary;
+			transition: all .15s;
+		}
+	}
+
+	&__control {
+		color: $icon-color;
+		padding: 0 $btn-padding-x;
+		min-height: $btn-min-height;
+	}
+
+	&__list {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin: 0 $spacing-scale-4;
+
+		@include media-breakpoint-down("sm") {
+			display: none;
+		}
+	}
+
+	&__item {
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		font-weight: 500;
+		padding: $spacing-scale-3;
+		min-width: $btn-min-height;
+		min-height: $btn-min-height;
+
+		&:not(:last-child) {
+			margin-right: $spacing-scale-4;
+		}
+
+		&--selected {
+			background-color: $color-primary;
+			border-color: transparent;
+			color: $white;
+		}
+	}
+}

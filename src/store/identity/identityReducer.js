@@ -11,7 +11,7 @@ const strategies = {
     [LOGOUT]: logoutStrategy
 };
 
-function receiveIdentityStrategy(state, { payload }) {
+function receiveIdentityStrategy(state, payload) {
     const { data } = payload;
 
     if (data) {

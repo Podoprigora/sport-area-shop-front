@@ -16,7 +16,7 @@ const strategies = {
     [RESET_SELECTED_CATEGORY]: resetSelectedCategoryStrategy
 };
 
-function receiveCategoriesStrategy(state, { payload }) {
+function receiveCategoriesStrategy(state, payload) {
     const { data = [] } = payload;
 
     if (data.length > 0) {
@@ -32,7 +32,7 @@ function receiveCategoriesStrategy(state, { payload }) {
     return state;
 }
 
-function selectCategoryStrategy(state, { payload }) {
+function selectCategoryStrategy(state, payload) {
     const { id = null } = payload;
 
     if (id) {
