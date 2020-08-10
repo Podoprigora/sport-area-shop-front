@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { Pagination } from '@ui/Pagination';
+import Pagination from '@ui/Pagination';
 
 const TestPagination = (props) => {
     const [page, setPage] = useState(2);
@@ -12,7 +12,7 @@ const TestPagination = (props) => {
     return (
         <div>
             {/* <Pagination total={10} page={page} onChange={handlePageChange} /> */}
-            <Pagination total={100} siblingCount={2} defaultPage={1} />
+            <Pagination count={8} />
         </div>
     );
 };

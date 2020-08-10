@@ -6,11 +6,7 @@
 	&__list {
 		display: inline-flex;
 		align-items: center;
-		margin: 0 $spacing-scale-4;
-
-		@include media-breakpoint-down("sm") {
-			display: none;
-		}
+		margin: 0 $spacing-scale-8;
 	}
 
 	&__item {
@@ -37,13 +33,14 @@
 			transition: all .15s;
 		}
 
-		&:not(:last-child) {
+		&:not(:last-child):not(#{$item}--control) {
 			margin-right: $spacing-scale-4;
 		}
 
 		&--control {
 			color: $icon-color;
 			padding: 0 $btn-padding-x;
+			min-width: auto;
 		}
 
 		&--selected {

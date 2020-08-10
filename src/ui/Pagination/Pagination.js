@@ -17,7 +17,7 @@ const range = (start, end) => {
 
 const Pagination = React.forwardRef(function Pagination(props, ref) {
     const {
-        total = 1,
+        count = 1,
         defaultPage = 1,
         page: pageProp,
         siblingCount = 1,
@@ -50,38 +50,55 @@ const Pagination = React.forwardRef(function Pagination(props, ref) {
     });
 
     const handleNextControlClick = useEventCallback((ev) => {
-        const nextPage = page < total ? page + 1 : total;
+        const nextPage = page < count ? page + 1 : count;
 
         handlePageChange(nextPage, ev);
     });
 
     const items = useMemo(() => {
-        const startPages = range(1, Math.min(boundaryCount, total));
-        const endPages = range(Math.max(total - boundaryCount + 1, boundaryCount + 1), total);
+        const startPages = range(1, Math.min(boundaryCount, count));
+        const endPages = range(Math.max(count - boundaryCount + 1, boundaryCount + 1), count);
+        let startElipsis = [];
+        let mainPages = [];
+        let endElipsis = [];
 
         const siblingsStart = Math.max(
-            Math.min(page - siblingCount, total - boundaryCount - siblingCount * 2 - 1),
+            Math.min(page - siblingCount, count - boundaryCount - siblingCount * 2 - 1),
             boundaryCount + 2
         );
 
         const siblingsEnd = Math.min(
             Math.max(page + siblingCount, boundaryCount + siblingCount * 2 + 2),
-            endPages.length > 0 ? endPages[0] - 2 : total - 1
+            endPages.length > 0 ? endPages[0] - 2 : count - 1
         );
 
-        const startElipsis =
-            siblingsStart > boundaryCount + 2
-                ? { text: '...', num: siblingsStart - 1 }
-                : boundaryCount + 1;
+        if (siblingsStart <= count) {
+            startElipsis = [
+                siblingsStart > boundaryCount + 2
+                    ? { text: '...', num: siblingsStart - 1 }
+                    : boundaryCount + 1
+            ];
+        }
 
-        const mainPages = range(siblingsStart, siblingsEnd);
+        mainPages = range(siblingsStart, siblingsEnd);
 
-        const endElipsis =
-            siblingsEnd < total - boundaryCount - 1
-                ? { text: '...', num: siblingsEnd + 1 }
-                : total - boundaryCount;
+        if (siblingsEnd > boundaryCount && siblingsEnd < count - boundaryCount) {
+            endElipsis = [
+                siblingsEnd < count - boundaryCount - 1
+                    ? { text: '...', num: siblingsEnd + 1 }
+                    : count - boundaryCount
+            ];
+        }
 
-        return [...startPages, startElipsis, ...mainPages, endElipsis, ...endPages].map((item) => {
+        const pagesItems = [
+            ...startPages,
+            ...startElipsis,
+            ...mainPages,
+            ...endElipsis,
+            ...endPages
+        ];
+
+        return pagesItems.map((item) => {
             const num = item instanceof Object ? item.num : item;
             const text = item instanceof Object ? item.text : item;
 
@@ -93,10 +110,10 @@ const Pagination = React.forwardRef(function Pagination(props, ref) {
                 </PaginationItem>
             );
         });
-    }, [boundaryCount, handleItemClick, page, siblingCount, total]);
+    }, [page, boundaryCount, siblingCount, count, handleItemClick]);
 
     const isDisabledPrevControl = page === 1;
-    const isDisabledNextControl = page === total;
+    const isDisabledNextControl = page === count;
 
     return (
         <div className={classNames('pagination', className)} ref={ref}>
@@ -120,7 +137,7 @@ const Pagination = React.forwardRef(function Pagination(props, ref) {
 });
 
 Pagination.propTypes = {
-    total: PropTypes.number,
+    count: PropTypes.number,
     page: PropTypes.number,
     defaultPage: PropTypes.number,
     siblingCount: PropTypes.number,

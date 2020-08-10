@@ -18,6 +18,16 @@
 		border-left: 1px solid $border-color-light;
 	}
 
+	&__pagination {
+		padding: $spacing-scale-8 0;
+
+		.pagination__list {
+			@include media-breakpoint-down("sm") {
+				display: none;
+			}
+		}
+	}
+
 	&__item {
 		$item: &;
 
