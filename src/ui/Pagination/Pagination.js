@@ -58,9 +58,6 @@ const Pagination = React.forwardRef(function Pagination(props, ref) {
     const items = useMemo(() => {
         const startPages = range(1, Math.min(boundaryCount, count));
         const endPages = range(Math.max(count - boundaryCount + 1, boundaryCount + 1), count);
-        let startElipsis = [];
-        let mainPages = [];
-        let endElipsis = [];
 
         const siblingsStart = Math.max(
             Math.min(page - siblingCount, count - boundaryCount - siblingCount * 2 - 1),
@@ -72,6 +69,8 @@ const Pagination = React.forwardRef(function Pagination(props, ref) {
             endPages.length > 0 ? endPages[0] - 2 : count - 1
         );
 
+        let startElipsis = [];
+
         if (siblingsStart <= count) {
             startElipsis = [
                 siblingsStart > boundaryCount + 2
@@ -80,9 +79,11 @@ const Pagination = React.forwardRef(function Pagination(props, ref) {
             ];
         }
 
-        mainPages = range(siblingsStart, siblingsEnd);
+        const mainPages = range(siblingsStart, siblingsEnd);
 
-        if (siblingsEnd > boundaryCount && siblingsEnd < count - boundaryCount) {
+        let endElipsis = [];
+
+        if (boundaryCount + 1 < count - boundaryCount) {
             endElipsis = [
                 siblingsEnd < count - boundaryCount - 1
                     ? { text: '...', num: siblingsEnd + 1 }

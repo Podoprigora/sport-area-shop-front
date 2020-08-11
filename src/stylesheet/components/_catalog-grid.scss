@@ -28,6 +28,16 @@
 		}
 	}
 
+	&__load-more {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: $white;
+		padding: $spacing-scale-8 0;
+		border: 1px solid $border-color-light;
+		border-top-width: 0;
+	}
+
 	&__item {
 		$item: &;
 

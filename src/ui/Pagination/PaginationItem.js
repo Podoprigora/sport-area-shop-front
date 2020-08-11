@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -31,6 +31,12 @@ const PaginationItem = (props) => {
             setFocusVisible(false);
         }
     };
+
+    useEffect(() => {
+        if (disabled) {
+            setFocusVisible(false);
+        }
+    }, [disabled]);
 
     return (
         <button

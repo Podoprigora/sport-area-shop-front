@@ -112,7 +112,7 @@ Button.propTypes = {
     icon: PropTypes.elementType,
     className: PropTypes.string,
     size: PropTypes.oneOf(['small', 'medium', 'large']),
-    iconSize: PropTypes.oneOf(['small', 'medium', 'large', null]),
+    iconSize: PropTypes.oneOf(['small', 'medium', 'large', 'xlarge', null]),
     iconAlign: PropTypes.oneOf(['left', 'top', 'bottom', 'right']),
     primary: PropTypes.bool,
     centered: PropTypes.bool,

@@ -9,7 +9,7 @@ import CatalogGridItem from './CatalogGridItem';
 const CatalogGridBody = (props) => {
     const { loading = false } = props;
 
-    let items = data.map((item) => {
+    let items = data.slice(0, 8).map((item) => {
         const { id } = item;
         // const randomId = Math.round(Math.random() * 10000000000);
 
