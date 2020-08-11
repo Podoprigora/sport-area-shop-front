@@ -43,4 +43,10 @@ const plainArrayToNestedArray = (
     return getNestedChildren(array, parentIdValue);
 };
 
-export { nestedArrayToPlainArray, plainArrayToNestedArray };
+const suffleArray = (items) =>
+    items
+        .map((item) => [Math.random(), item])
+        .sort((a, b) => a[0] - b[0])
+        .map((sortedItem) => sortedItem[1]);
+
+export { nestedArrayToPlainArray, plainArrayToNestedArray, suffleArray };

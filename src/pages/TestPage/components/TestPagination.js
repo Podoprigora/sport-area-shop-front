@@ -12,7 +12,7 @@ const TestPagination = (props) => {
     return (
         <div>
             {/* <Pagination total={10} page={page} onChange={handlePageChange} /> */}
-            <Pagination count={3} />
+            <Pagination count={100} siblingCount={2} />
         </div>
     );
 };

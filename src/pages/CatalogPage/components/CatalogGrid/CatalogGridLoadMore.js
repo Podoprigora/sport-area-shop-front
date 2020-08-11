@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import RotateCwIcon from '@svg-icons/feather/RotateCwIcon';
 import Button from '@ui/Button';
@@ -15,4 +15,4 @@ const CatalogGridLoadMore = (props) => {
 
 CatalogGridLoadMore.propTypes = {};
 
-export default CatalogGridLoadMore;
+export default memo(CatalogGridLoadMore);

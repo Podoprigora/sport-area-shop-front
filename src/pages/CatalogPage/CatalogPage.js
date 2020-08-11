@@ -1,9 +1,10 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useEffect, useLayoutEffect, memo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { selectedCategoryIdSelector, useCategoriesActions } from '@store/categories';
 
+import { CatalogPageProvider } from './context';
 import CatalogPageLayout from './CatalogPageLayout';
 
 const CatalogPage = (props) => {
@@ -34,7 +35,11 @@ const CatalogPage = (props) => {
         };
     }, [onSelectedCategoryReset]);
 
-    return <CatalogPageLayout />;
+    return (
+        <CatalogPageProvider>
+            <CatalogPageLayout />
+        </CatalogPageProvider>
+    );
 };
 
 export default CatalogPage;

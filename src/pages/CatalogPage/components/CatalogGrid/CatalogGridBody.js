@@ -1,30 +1,34 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
+import Button from '@ui/Button';
 import CatalogGridItemsSkeleton from '@components/Skeletons/CatalogGridItemsSkeleton';
 
 import data from '@remote/json/products.json';
+
+import { useCatalogPageState, useCatalogPageSelectors } from '@pages/CatalogPage/context';
 import CatalogGridItem from './CatalogGridItem';
 
 const CatalogGridBody = (props) => {
-    const { loading = false } = props;
+    const { items, loading, itemsPerPage } = props;
 
-    let items = data.slice(0, 8).map((item) => {
+    let products = items.map((item) => {
         const { id } = item;
-        // const randomId = Math.round(Math.random() * 10000000000);
 
         return <CatalogGridItem key={id} {...item} />;
     });
 
     if (loading) {
-        items = <CatalogGridItemsSkeleton />;
+        products = <CatalogGridItemsSkeleton size={itemsPerPage} />;
     }
 
-    return <div className="catalog-grid__body">{items}</div>;
+    return <div className="catalog-grid__body">{products}</div>;
 };
 
 CatalogGridBody.propTypes = {
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    itemsPerPage: PropTypes.number,
+    items: PropTypes.array
 };
 
 export default memo(CatalogGridBody);

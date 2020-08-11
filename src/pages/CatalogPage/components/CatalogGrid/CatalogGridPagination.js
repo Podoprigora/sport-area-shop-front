@@ -1,11 +1,38 @@
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Pagination from '@ui/Pagination';
 
 const CatalogGridPagination = (props) => {
-    return <Pagination className="catalog-grid__pagination" count={10} />;
+    const { count, selected = [1], onChange } = props;
+
+    const handleChange = useCallback(
+        (page, ev) => {
+            if (onChange) {
+                onChange(page, ev);
+            }
+        },
+        [onChange]
+    );
+
+    if (!count) {
+        return null;
+    }
+
+    return (
+        <Pagination
+            className="catalog-grid__pagination"
+            count={count}
+            page={selected[0]}
+            siblingCount={2}
+            onChange={handleChange}
+        />
+    );
 };
 
-CatalogGridPagination.propTypes = {};
+CatalogGridPagination.propTypes = {
+    selected: PropTypes.arrayOf(PropTypes.number),
+    count: PropTypes.number,
+    onChange: PropTypes.func
+};
 
-export default CatalogGridPagination;
+export default memo(CatalogGridPagination);
