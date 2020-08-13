@@ -22,7 +22,7 @@ const CatalogGridPagination = (props) => {
         <Pagination
             className="catalog-grid__pagination"
             count={count}
-            page={selected[0]}
+            selectedPages={selected}
             siblingCount={2}
             onChange={handleChange}
         />

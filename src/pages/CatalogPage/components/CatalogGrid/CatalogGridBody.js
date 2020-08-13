@@ -1,12 +1,8 @@
 import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import Button from '@ui/Button';
 import CatalogGridItemsSkeleton from '@components/Skeletons/CatalogGridItemsSkeleton';
 
-import data from '@remote/json/products.json';
-
-import { useCatalogPageState, useCatalogPageSelectors } from '@pages/CatalogPage/context';
 import CatalogGridItem from './CatalogGridItem';
 
 const CatalogGridBody = (props) => {

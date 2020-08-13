@@ -19,6 +19,10 @@ const PaginationItem = (props) => {
         }
     };
 
+    const handleMouseDown = (ev) => {
+        ev.preventDefault();
+    };
+
     const handleFocus = (ev) => {
         if (isFocusVisible(ev)) {
             setFocusVisible(true);
@@ -50,6 +54,7 @@ const PaginationItem = (props) => {
             disabled={disabled}
             ref={handleRef}
             onClick={handleClick}
+            onMouseDown={handleMouseDown}
             onFocus={handleFocus}
             onBlur={handleBlur}
         >

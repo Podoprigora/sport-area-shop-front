@@ -1,9 +1,10 @@
+import { useMemo } from 'react';
 import { catalogPageDefaultState } from './catalogPageReducers';
 
 const productSelector = (state, id) => {
     const itemsById = state.itemsById;
 
-    return itemsById[id];
+    return itemsById[id] || null;
 };
 
 const productsSelector = (state) => {
@@ -11,7 +12,7 @@ const productsSelector = (state) => {
 
     return itemsIds.reduce((result, id) => {
         const product = productSelector(state, id);
-        return [...result, product];
+        return product ? [...result, product] : result;
     }, []);
 };
 
@@ -38,15 +39,38 @@ const selectedPagesSelector = (state) => {
     return state.pagination.selectedPages;
 };
 
+const selectedPageSelector = (state) => {
+    const selectedPages = selectedPagesSelector(state);
+
+    return selectedPages && selectedPages.length > 0 && selectedPages[selectedPages.length - 1];
+};
+
+const isLastPageSelector = (state) => {
+    const selectedPage = selectedPageSelector(state);
+    const pagesCount = pagesCountSelector(state);
+
+    return selectedPage === pagesCount;
+};
+
+const sortBySelector = (state) => {
+    return state.sortBy;
+};
+
 const useCatalogPageSelectors = (state = catalogPageDefaultState) => {
-    return {
-        initialLoading: initialLoadingSelector(state),
-        loading: loadingSelector(state),
-        products: productsSelector(state),
-        itemsPerPage: itemPerPageSelector(state),
-        pagesCount: pagesCountSelector(state),
-        selectedPages: selectedPagesSelector(state)
-    };
+    return useMemo(
+        () => ({
+            initialLoading: initialLoadingSelector(state),
+            loading: loadingSelector(state),
+            products: productsSelector(state),
+            itemsPerPage: itemPerPageSelector(state),
+            pagesCount: pagesCountSelector(state),
+            selectedPages: selectedPagesSelector(state),
+            selectedPage: selectedPageSelector(state),
+            isLastPage: isLastPageSelector(state),
+            sortBy: sortBySelector(state)
+        }),
+        [state]
+    );
 };
 
 export default useCatalogPageSelectors;

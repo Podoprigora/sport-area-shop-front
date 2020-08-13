@@ -6,24 +6,24 @@ const TestCircularProgres = () => {
     return (
         <div>
             <div>
-                <CircularProgress preset="small" />
+                <CircularProgress size="small" />
             </div>
             <div>
-                <CircularProgress preset="medium" />
+                <CircularProgress size="medium" />
             </div>
             <div>
-                <CircularProgress preset="large" />
+                <CircularProgress size="large" />
             </div>
             <div>
-                <CircularProgress preset="small" primary />
+                <CircularProgress size="small" primary />
             </div>
             <div>
                 <BoxLabel className="progress-box-label" label="Saving ..." labelAlign="bottom">
-                    <CircularProgress preset="medium" primary />
+                    <CircularProgress size="medium" primary />
                 </BoxLabel>
             </div>
             <div>
-                <CircularProgress preset="large" primary />
+                <CircularProgress size="large" primary />
             </div>
         </div>
     );

@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import useScreenMask from '@contexts/ScreenMaskContext';
@@ -11,7 +11,7 @@ import {
 import CatalogGridBody from './CatalogGridBody';
 import CatalogGridTbar from './CatalogGridTbar';
 import CatalogGridPagination from './CatalogGridPagination';
-import CatalogGridLoadMore from './CatalogGridLoadMore';
+import CatalogGridLoadingMore from './CatalogGridLoadingMore';
 
 const CatalogGrid = (props) => {
     const catalogPageState = useCatalogPageState();
@@ -21,10 +21,12 @@ const CatalogGrid = (props) => {
         loading,
         itemsPerPage,
         pagesCount,
-        selectedPages
+        selectedPages,
+        isLastPage
     } = useCatalogPageSelectors(catalogPageState);
-    const { onChangePage } = useCatalogPageAcitions();
-    const { toggleMask, isMaskShown } = useScreenMask();
+    const { onChangePage, onLoadingMore } = useCatalogPageAcitions();
+    const { toggleMask } = useScreenMask();
+    const [loadingMoreLoading, setLoadingMoreLoading] = useState(false);
 
     const handlePageChange = useCallback(
         (page) => {
@@ -36,9 +38,24 @@ const CatalogGrid = (props) => {
         [onChangePage]
     );
 
+    const handleLoadingMoreClick = useCallback(() => {
+        setLoadingMoreLoading(true);
+        onLoadingMore();
+    }, [onLoadingMore]);
+
+    useEffect(() => {
+        if (loading && loadingMoreLoading) {
+            return () => {
+                setLoadingMoreLoading(false);
+            };
+        }
+
+        return undefined;
+    }, [loading, loadingMoreLoading]);
+
     useEffect(() => {
         toggleMask(loading);
-    }, [loading, toggleMask, isMaskShown]);
+    }, [loading, toggleMask]);
 
     return (
         <div className="catalog-grid">
@@ -48,7 +65,12 @@ const CatalogGrid = (props) => {
                 loading={initialLoading}
                 itemsPerPage={itemsPerPage}
             />
-            {!initialLoading && pagesCount > 0 && <CatalogGridLoadMore />}
+            {!initialLoading && pagesCount > 0 && !isLastPage && (
+                <CatalogGridLoadingMore
+                    loading={loadingMoreLoading}
+                    onClick={handleLoadingMoreClick}
+                />
+            )}
             {!initialLoading && (
                 <CatalogGridPagination
                     selected={selectedPages}

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import SelectInput from '@ui/SelectInput';
 import { ListItem, ListItemText, ListItemIcon } from '@ui/List';
 import CheckIcon from '@svg-icons/feather/CheckIcon';
+import useControlled from '@ui/hooks/useControlled';
 
 const list = [
     { id: 'relevance', name: 'Relevance' },
@@ -15,15 +16,24 @@ const list = [
 ];
 
 const CatalogGridSortBySelect = (props) => {
-    const [selectedId, setSelectedId] = useState(null);
+    const { value: valueProp, defaultValue, onChange } = props;
 
-    const handleChange = useCallback((ev) => {
-        setSelectedId(ev.target.value);
-    }, []);
+    const [value, setValue] = useControlled(valueProp, defaultValue);
+
+    const handleChange = useCallback(
+        (ev) => {
+            setValue(ev.target.value);
+
+            if (onChange) {
+                onChange(ev);
+            }
+        },
+        [setValue, onChange]
+    );
 
     const items = useMemo(() => {
         return list.map(({ id, name }) => {
-            const selected = selectedId === id;
+            const selected = value === id;
 
             return (
                 <ListItem key={id} button value={id}>
@@ -36,13 +46,14 @@ const CatalogGridSortBySelect = (props) => {
                 </ListItem>
             );
         });
-    }, [selectedId]);
+    }, [value]);
 
     return (
         <SelectInput
             placeholder="Sort by"
             className="u-margin-l-auto"
             style={{ maxWidth: '22rem' }}
+            value={value}
             onChange={handleChange}
         >
             {items}
@@ -50,6 +61,10 @@ const CatalogGridSortBySelect = (props) => {
     );
 };
 
-CatalogGridSortBySelect.propTypes = {};
+CatalogGridSortBySelect.propTypes = {
+    value: PropTypes.string,
+    defaultValue: PropTypes.string,
+    onChange: PropTypes.func
+};
 
 export default memo(CatalogGridSortBySelect);

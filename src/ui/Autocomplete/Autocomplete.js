@@ -483,7 +483,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
             appendAdornment: () => {
                 return (
                     <>
-                        {loading && <CircularProgress preset="small" />}
+                        {loading && <CircularProgress size="small" />}
                         {resetButton && !loading && inputValue.length > 0 && (
                             <InputIconButton tabIndex="-1" onClick={handleResetButtonClick}>
                                 <ClearCloseIcon />

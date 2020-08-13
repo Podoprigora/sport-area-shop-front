@@ -20,13 +20,19 @@ const Pagination = React.forwardRef(function Pagination(props, ref) {
         count = 1,
         defaultPage = 1,
         page: pageProp,
+        selectedPages,
         siblingCount = 1,
         boundaryCount = 1,
         className,
         onChange
     } = props;
 
-    const [page, setPage] = useControlled(pageProp, defaultPage);
+    const currentPage =
+        selectedPages && selectedPages.length > 0
+            ? selectedPages[selectedPages.length - 1]
+            : pageProp;
+
+    const [page, setPage] = useControlled(currentPage, defaultPage);
 
     const handlePageChange = useCallback(
         (num, ev) => {
@@ -103,7 +109,10 @@ const Pagination = React.forwardRef(function Pagination(props, ref) {
             const num = item instanceof Object ? item.num : item;
             const text = item instanceof Object ? item.text : item;
 
-            const selected = num === page;
+            const selected =
+                selectedPages && selectedPages.length > 0
+                    ? selectedPages.indexOf(num) !== -1
+                    : num === page;
 
             return (
                 <PaginationItem key={num} selected={selected} onClick={handleItemClick(num)}>
@@ -111,7 +120,7 @@ const Pagination = React.forwardRef(function Pagination(props, ref) {
                 </PaginationItem>
             );
         });
-    }, [page, boundaryCount, siblingCount, count, handleItemClick]);
+    }, [page, selectedPages, boundaryCount, siblingCount, count, handleItemClick]);
 
     const isDisabledPrevControl = page === 1;
     const isDisabledNextControl = page === count;
@@ -140,6 +149,7 @@ const Pagination = React.forwardRef(function Pagination(props, ref) {
 Pagination.propTypes = {
     count: PropTypes.number,
     page: PropTypes.number,
+    selectedPages: PropTypes.arrayOf(PropTypes.number),
     defaultPage: PropTypes.number,
     siblingCount: PropTypes.number,
     boundaryCount: PropTypes.number,

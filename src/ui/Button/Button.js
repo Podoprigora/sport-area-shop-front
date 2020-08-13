@@ -13,6 +13,8 @@ const Button = React.forwardRef(function Button(props, ref) {
         size = 'medium',
         primary,
         icon: Icon,
+        loadingComponent,
+        loading = false,
         iconAlign = 'left',
         iconSize = null,
         className,
@@ -74,6 +76,14 @@ const Button = React.forwardRef(function Button(props, ref) {
         ...style
     };
 
+    const loadingComponentElement =
+        loading &&
+        loadingComponent &&
+        React.cloneElement(loadingComponent, {
+            className: classNames('btn__icon', loadingComponent.props.className),
+            size: loadingComponent.props.size || 'small'
+        });
+
     return (
         <button
             type="button"
@@ -89,18 +99,20 @@ const Button = React.forwardRef(function Button(props, ref) {
                     'btn--centered': centered,
                     'btn--focus-visible': focusVisible,
                     'btn--disabled': disabled,
+                    'btn--loading': loading,
                     'btn--empty-text': !children,
                     'btn--auto-width': autoWidth
                 }
             )}
             style={componentStyle}
-            disabled={disabled}
+            disabled={disabled || loading}
             ref={handleRef}
             onFocus={handleFocus}
             onBlur={handleBlur}
             {...other}
         >
-            {!!Icon && <Icon className="btn__icon" size={iconSize || size} />}
+            {!!Icon && !loading && <Icon className="btn__icon" size={iconSize || size} />}
+            {loadingComponentElement && loadingComponentElement}
             {children && <span className="btn__text">{children}</span>}
             {arrow && <KeyboardArrowDownIcon className="btn__arrow" size={arrowSize} />}
         </button>
@@ -110,6 +122,7 @@ const Button = React.forwardRef(function Button(props, ref) {
 Button.propTypes = {
     children: PropTypes.node,
     icon: PropTypes.elementType,
+    loadingComponent: PropTypes.node,
     className: PropTypes.string,
     size: PropTypes.oneOf(['small', 'medium', 'large']),
     iconSize: PropTypes.oneOf(['small', 'medium', 'large', 'xlarge', null]),
@@ -118,6 +131,7 @@ Button.propTypes = {
     centered: PropTypes.bool,
     disabled: PropTypes.bool,
     plain: PropTypes.bool,
+    loading: PropTypes.bool,
     transparent: PropTypes.bool,
     autoWidth: PropTypes.bool,
     maxWidth: PropTypes.number,

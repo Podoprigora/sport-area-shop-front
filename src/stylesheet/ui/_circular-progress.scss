@@ -2,17 +2,14 @@
 	$this: &;
 
 	display: inline-block;
+	stroke: $icon-color;
 
 	&--primary {
-		#{$this}__svg-circle {
-			stroke: $color-primary;
-		}
+		stroke: $color-primary;
 	}
 
 	&--secondary {
-		#{$this}__svg-circle {
-			stroke: $color-secondary;
-		}
+		stroke: $color-secondary;
 	}
 
 	&__svg {
@@ -20,7 +17,7 @@
 	}
 
 	&__svg-circle {
-		stroke: $icon-color;
+		stroke: inherit;
 		stroke-linecap: round;
 		stroke-dasharray: 31px, 124px;
 		stroke-dashoffset: 0px;

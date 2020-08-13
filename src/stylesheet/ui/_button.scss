@@ -20,7 +20,7 @@
 	cursor: pointer;
 	transition: all .15s ease-out;
 
-	&:hover:not(&--disabled) {
+	&:hover:not(#{$this}--disabled):not(#{$this}--loading) {
 		background-color: $btn-hover-bg-color;
 	}
 
@@ -32,9 +32,13 @@
 		box-shadow: $btn-focus-box-shadow;
 	}
 
+	&--disabled,
+	&--loading {
+		cursor: auto;
+	}
+
 	&--disabled {
 		opacity: $btn-disabled-opacity;
-		cursor: auto;
 	}
 
 	// Should be always prior to &--primary
@@ -48,7 +52,7 @@
 		background-color: $btn-primary-bg-color;
 		color: $btn-primary-color;
 
-		&:hover:not(#{$this}--disabled) {
+		&:hover:not(#{$this}--disabled):not(#{$this}--loading) {
 			background-color: lighten($btn-primary-bg-color, 5%);
 		}
 
@@ -67,6 +71,14 @@
 
 		&#{$this}--transparent {
 			color: $color-primary;
+
+			#{$this}__icon {
+				stroke: $color-primary;
+			}
+		}
+
+		#{$this}__icon {
+			stroke: $btn-primary-color;
 		}
 	}
 
@@ -75,7 +87,7 @@
 		border-color: transparent;
 		box-shadow: none;
 
-		&:hover:not(#{$this}--disabled),
+		&:hover:not(#{$this}--disabled):not(#{$this}--loading),
 		&#{$this}--focus-visible {
 			background-color: rgba(0, 0, 0, 0.08);
 		}

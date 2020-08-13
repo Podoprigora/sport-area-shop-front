@@ -7,6 +7,7 @@ import ChevronLeftIcon from '@svg-icons/feather/ChevronLeftIcon';
 import ChevronRightIcon from '@svg-icons/feather/ChevronRightIcon';
 import ShoppingCartIcon from '@svg-icons/feather/ShoppingCartIcon';
 import Tooltip from '@ui/Tooltip';
+import CircularProgress from '@ui/CircularProgress';
 
 const TestButtons = (props) => {
     const btnRef = useRef(null);
@@ -29,9 +30,9 @@ const TestButtons = (props) => {
             >
                 <Button
                     primary
-                    icon={StarIcon}
+                    icon={CircularProgress}
                     iconAlign="top"
-                    iconSize="large"
+                    iconSize="small"
                     style={{ marginRight: '1.4rem' }}
                 >
                     Save & Close
@@ -47,7 +48,17 @@ const TestButtons = (props) => {
                     Save & Close
                 </Button>
                 <Tooltip title="Test tooltip">
-                    <Button primary transparent icon={StarIcon} style={{ marginRight: '1.4rem' }}>
+                    <Button
+                        primary
+                        transparent
+                        icon={StarIcon}
+                        loadingComponent={<CircularProgress />}
+                        loading
+                        style={{ marginRight: '1.4rem' }}
+                        onClick={(ev) => {
+                            console.log('!!!');
+                        }}
+                    >
                         Save & Close
                     </Button>
                 </Tooltip>
