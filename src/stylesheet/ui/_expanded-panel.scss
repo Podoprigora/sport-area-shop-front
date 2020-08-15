@@ -1,0 +1,49 @@
+.expanded-panel {
+	$this: &;
+
+	border: 1px solid $border-color;
+	border-width: 0px 0 1px 0;
+
+	&__header {
+		position: relative;
+		display: flex;
+		align-items: center;
+		width: 100%;
+		border-radius: $border-radius-lg;
+		z-index: 2;
+
+		&:focus {
+			outline: none;
+		}
+
+		&:hover {
+			color: $color-primary;
+
+			& * {
+				color: inherit;
+			}
+		}
+
+		&--focus-visible {
+			box-shadow: $btn-focus-box-shadow;
+		}
+
+		&-title {
+			flex: 1;
+			text-align: left;
+			color: inherit;
+			padding: $spacing-scale-6 0;
+		}
+
+		&-expanded-icon {
+			margin: 0 $spacing-scale-6;
+			color: $icon-color;
+		}
+	}
+
+	&__body {
+		position: relative;
+		overflow: hidden;
+		z-index: 1;
+	}
+}

@@ -56,10 +56,10 @@ const VirtualizedList = (props) => {
     return (
         <div
             style={{
-                maxWidth: '50rem',
+                // maxWidth: '50rem',
                 width: '100%',
-                background: '#fff',
-                marginBottom: '1.6rem'
+                background: '#fff'
+                // marginBottom: '1.6rem'
             }}
             className="list"
         >

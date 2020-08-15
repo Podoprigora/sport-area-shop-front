@@ -81,6 +81,7 @@
         "normalizr": "^3.6.0",
         "prop-types": "^15.7.2",
         "react": "^16.13.1",
+        "react-animate-height": "^2.0.23",
         "react-custom-scrollbars": "^4.2.1",
         "react-dom": "^16.13.1",
         "react-draggable": "^4.4.2",
