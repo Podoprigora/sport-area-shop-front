@@ -1,9 +1,19 @@
-.catalog-filters {
-	display: block;
-}
-
 .catalog-page {
+	&__tbar {
+		display: flex;
+		padding: $spacing-scale-8 0;
+
+		& > *:not(:last-child) {
+			margin-right: $spacing-scale-8;
+		}
+	}
+
 	&__layout {
 		min-height: 60rem;
+	}
+
+	&__filters {
+		display: block;
+		padding: $spacing-scale-6 0;
 	}
 }

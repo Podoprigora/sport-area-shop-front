@@ -15,7 +15,7 @@ const list = [
     { id: 'name', name: 'Name' }
 ];
 
-const CatalogGridSortBySelect = (props) => {
+const CatalogSortBySelect = (props) => {
     const { value: valueProp, defaultValue, onChange } = props;
 
     const [value, setValue] = useControlled(valueProp, defaultValue);
@@ -61,10 +61,10 @@ const CatalogGridSortBySelect = (props) => {
     );
 };
 
-CatalogGridSortBySelect.propTypes = {
+CatalogSortBySelect.propTypes = {
     value: PropTypes.string,
     defaultValue: PropTypes.string,
     onChange: PropTypes.func
 };
 
-export default memo(CatalogGridSortBySelect);
+export default memo(CatalogSortBySelect);

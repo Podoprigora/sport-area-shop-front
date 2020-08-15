@@ -19,7 +19,7 @@ export const catalogPageDefaultState = {
     filters: {},
     pagination: {
         total: 0,
-        itemsPerPage: 8,
+        itemsPerPage: 24,
         selectedPages: [1]
     }
 };
@@ -72,6 +72,7 @@ function selectedPagesReducer(state, { page, addNextPage = false }) {
 
     if (page) {
         const formatedPage = Number.parseInt(page, 10);
+
         newSelectedPagesState = [formatedPage];
     } else if (addNextPage && newSelectedPagesState.length > 0) {
         const currentPage = newSelectedPagesState[newSelectedPagesState.length - 1];
@@ -85,6 +86,7 @@ function selectedPagesReducer(state, { page, addNextPage = false }) {
     }
 
     const newPaginationState = { ...state.pagination, selectedPages: newSelectedPagesState };
+
     return { ...state, pagination: newPaginationState };
 }
 
@@ -94,6 +96,7 @@ function sortByReducer(state, { value = '' }) {
 
 function requestInitialItemsStrategy(state) {
     let newState = { ...state, initialLoading: true };
+
     newState = selectedPagesReducer(newState, { page: 1 });
 
     return newState;
@@ -144,6 +147,7 @@ function receiveInitialItemsStrategy(state, { total, page, sort, items }) {
 
 function selectPageStrategy(state, { page }) {
     let newState = toggleLoadingStrategy(state, { toggle: true });
+
     newState = selectedPagesReducer(newState, { page });
 
     return { ...newState };
@@ -151,6 +155,7 @@ function selectPageStrategy(state, { page }) {
 
 function loadingMoreStrategy(state) {
     let newState = toggleLoadingStrategy(state, { toggle: true });
+
     newState = selectedPagesReducer(newState, { addNextPage: true });
 
     return { ...newState };
@@ -158,6 +163,7 @@ function loadingMoreStrategy(state) {
 
 function selectSortByStrategy(state, { value }) {
     let newState = toggleLoadingStrategy(state, { toggle: true });
+
     newState = selectedPagesReducer(newState, { page: 1 });
     newState = sortByReducer(newState, { value });
 

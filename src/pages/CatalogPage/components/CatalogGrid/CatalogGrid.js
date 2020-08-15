@@ -9,7 +9,6 @@ import {
 } from '@pages/CatalogPage/context';
 
 import CatalogGridBody from './CatalogGridBody';
-import CatalogGridTbar from './CatalogGridTbar';
 import CatalogGridPagination from './CatalogGridPagination';
 import CatalogGridLoadingMore from './CatalogGridLoadingMore';
 
@@ -59,7 +58,6 @@ const CatalogGrid = (props) => {
 
     return (
         <div className="catalog-grid">
-            <CatalogGridTbar />
             <CatalogGridBody
                 items={products}
                 loading={initialLoading}

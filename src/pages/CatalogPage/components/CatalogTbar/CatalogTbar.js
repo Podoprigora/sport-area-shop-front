@@ -9,9 +9,9 @@ import {
     useCatalogPageSelectors,
     useCatalogPageAcitions
 } from '@pages/CatalogPage/context';
-import CatalogGridSortBySelect from './CatalogGridSortBySelect';
+import CatalogSortBySelect from './CatalogSortBySelect';
 
-const CatalogGridTbar = (props) => {
+const CatalogTbar = (props) => {
     const state = useCatalogPageState();
     const { sortBy } = useCatalogPageSelectors(state);
     const { onChangeSort } = useCatalogPageAcitions();
@@ -27,15 +27,15 @@ const CatalogGridTbar = (props) => {
     );
 
     return (
-        <div className="catalog-grid__tbar">
+        <div className="catalog-page__tbar">
             <Hidden lgUp>
                 <Button primary centered icon={FilterIcon}>
                     Filters
                 </Button>
             </Hidden>
-            <CatalogGridSortBySelect value={sortBy} onChange={handleSortChange} />
+            <CatalogSortBySelect value={sortBy} onChange={handleSortChange} />
         </div>
     );
 };
 
-export default memo(CatalogGridTbar);
+export default memo(CatalogTbar);

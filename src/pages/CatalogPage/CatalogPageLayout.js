@@ -7,11 +7,13 @@ import { StickyContainer, StickyItem } from '@ui/Sticky';
 import { Page, PageSection, PageAside, PageContent } from '@components/Page';
 import CatalogFilters from './components/CatalogFilters';
 import CatalogGrid from './components/CatalogGrid';
+import CatalogTbar from './components/CatalogTbar';
 
 const CatalogPageLayout = (props) => {
     return (
         <Page className="catalog-page">
             <PageSection>
+                <CatalogTbar />
                 <StickyContainer>
                     <FlexRow noWrap className="catalog-page__layout">
                         <Hidden lgDown component={null}>

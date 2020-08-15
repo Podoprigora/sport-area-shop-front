@@ -1,13 +1,13 @@
-import React, { useEffect, useState, useMemo, useReducer, useCallback, memo, useRef } from 'react';
+import React, { useEffect, useMemo, useReducer, useCallback, memo, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { useParams, useRouteMatch, useHistory, useLocation } from 'react-router-dom';
+import { useParams, useHistory, useLocation } from 'react-router-dom';
 
 import useUrlSearchParams from '@ui/hooks/useUrlSearchParams';
 import useEventCallback from '@ui/hooks/useEventCallback';
 import useMountedRef from '@ui/hooks/useMountedRef';
 import ProductsService from '@services/ProductsService';
 import { CatalogPageStateContext, CatalogPageActionsContext } from './CatalogPageContext';
-
+import useCatalogPageSelectors from './catalogPageSelectors';
 import {
     catalogPageReducer,
     catalogPageDefaultState,
@@ -21,7 +21,6 @@ import {
     LOADING_MORE,
     SELECT_SORT_BY
 } from './catalogPageReducers';
-import useCatalogPageSelectors from './catalogPageSelectors';
 
 const CatalogPageProvider = (props) => {
     const { children } = props;
