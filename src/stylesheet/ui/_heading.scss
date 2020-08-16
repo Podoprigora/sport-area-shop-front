@@ -9,6 +9,10 @@
 		margin-bottom: 0;
 	}
 
+	&--uppercase {
+		text-transform: uppercase;
+	}
+
 	&--size-1 {
 		font-size: $heading-1-font-size;
 	}
@@ -31,5 +35,6 @@
 
 	&--size-6 {
 		font-size: $heading-6-font-size;
+		font-weight: 500;
 	}
 }

@@ -6,11 +6,12 @@ import useIsFocusVisible from '@ui/hooks/useIsFocusVisible';
 import useForkRef from '@ui/hooks/useForkRef';
 import KeyboardArrowUpIcon from '@svg-icons/material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@svg-icons/material/KeyboardArrowDown';
+import KeyboardArrowRightIcon from '@svg-icons/material/KeyboardArrowRightIcon';
 
 import { useExpandedPanel } from './ExpandedPanelContext';
 
 const ExpandedPanelHeader = React.forwardRef(function ExpandedPanelHeader(props, ref) {
-    const { children, className, ...other } = props;
+    const { children, className, title, onClick, ...other } = props;
 
     const [focusVisible, setFocusVisible] = useState(false);
     const { expanded, onToggle } = useExpandedPanel() || {};
@@ -22,8 +23,12 @@ const ExpandedPanelHeader = React.forwardRef(function ExpandedPanelHeader(props,
             if (onToggle) {
                 onToggle(ev);
             }
+
+            if (onClick) {
+                onClick(ev);
+            }
         },
-        [onToggle]
+        [onToggle, onClick]
     );
 
     const handleFocus = useCallback(
@@ -45,7 +50,7 @@ const ExpandedPanelHeader = React.forwardRef(function ExpandedPanelHeader(props,
         [focusVisible, onBlurVisible]
     );
 
-    const ExpandedIcon = expanded ? KeyboardArrowUpIcon : KeyboardArrowDownIcon;
+    const ExpandedIcon = expanded ? KeyboardArrowDownIcon : KeyboardArrowRightIcon;
 
     return (
         <button
@@ -60,14 +65,17 @@ const ExpandedPanelHeader = React.forwardRef(function ExpandedPanelHeader(props,
             {...other}
         >
             <ExpandedIcon className="expanded-panel__header-expanded-icon" />
-            <div className="expanded-panel__header-title">{children}</div>
+            {title && <div className="expanded-panel__header-title">{title}</div>}
+            {children && <div className="expanded-panel__header-body">{children}</div>}
         </button>
     );
 });
 
 ExpandedPanelHeader.propTypes = {
     children: PropTypes.node,
-    className: PropTypes.string
+    className: PropTypes.string,
+    title: PropTypes.string,
+    onClick: PropTypes.func
 };
 
 export default ExpandedPanelHeader;

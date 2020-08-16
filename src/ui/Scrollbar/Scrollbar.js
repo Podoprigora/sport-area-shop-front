@@ -6,7 +6,14 @@ import setRef from '@ui/utils/setRef';
 import useEventCallback from '@ui/hooks/useEventCallback';
 
 const Scrollbar = React.forwardRef(function Scrollbar(props, ref) {
-    const { children, disabled, onScroll, ...other } = props;
+    const {
+        children,
+        disabled,
+        enableVerticalTrack,
+        enableHorizontalTrack,
+        onScroll,
+        ...other
+    } = props;
 
     const handleRef = useEventCallback((node) => {
         if (ref) {
@@ -14,16 +21,40 @@ const Scrollbar = React.forwardRef(function Scrollbar(props, ref) {
         }
     });
 
+    const renderTrackVertical = useEventCallback((renderProps) => {
+        return !disabled ? (
+            <div
+                {...renderProps}
+                className="custom-scrollbars-track custom-scrollbars-track--vertical"
+            />
+        ) : (
+            <div />
+        );
+    });
+
+    const renderTrackHorizontal = useEventCallback((renderProps) => {
+        return !disabled ? (
+            <div
+                {...renderProps}
+                className="custom-scrollbars-track custom-scrollbars-track--horizontal"
+            />
+        ) : (
+            <div />
+        );
+    });
+
     const renderThumb = useEventCallback((renderProps) => {
-        return !disabled ? <div className="custom-scrollbars-thumb" {...renderProps} /> : <div />;
+        return !disabled ? <div {...renderProps} className="custom-scrollbars-thumb" /> : <div />;
     });
 
     return (
         <Scrollbars
-            ref={handleRef}
+            {...(enableVerticalTrack && { renderTrackVertical })}
+            {...(enableHorizontalTrack && { renderTrackHorizontal })}
             renderThumbHorizontal={renderThumb}
             renderThumbVertical={renderThumb}
             onScroll={onScroll}
+            ref={handleRef}
             {...other}
         >
             {children}
@@ -34,6 +65,8 @@ const Scrollbar = React.forwardRef(function Scrollbar(props, ref) {
 Scrollbar.propTypes = {
     children: PropTypes.node,
     disabled: PropTypes.bool,
+    enableVerticalTrack: PropTypes.bool,
+    enableHorizontalTrack: PropTypes.bool,
     onScroll: PropTypes.func
 };
 

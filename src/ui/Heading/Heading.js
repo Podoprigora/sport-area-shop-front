@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 const Heading = (props) => {
-    const { size = 5, children, className, gutterBottom = true, ...other } = props;
+    const { size = 5, children, className, gutterBottom = true, upperCase, ...other } = props;
 
     return React.createElement(
         `h${size}`,
@@ -12,7 +12,8 @@ const Heading = (props) => {
                 'heading',
                 `heading--size-${size}`,
                 {
-                    'heading--no-gutter-bottom': !gutterBottom
+                    'heading--no-gutter-bottom': !gutterBottom,
+                    'heading--uppercase': upperCase
                 },
                 className
             ),
@@ -26,7 +27,8 @@ Heading.propTypes = {
     children: PropTypes.node.isRequired,
     size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     className: PropTypes.string,
-    gutterBottom: PropTypes.bool
+    gutterBottom: PropTypes.bool,
+    upperCase: PropTypes.bool
 };
 
 export default Heading;

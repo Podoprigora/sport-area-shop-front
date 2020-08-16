@@ -17,8 +17,12 @@ const CatalogPageLayout = (props) => {
                 <StickyContainer>
                     <FlexRow noWrap className="catalog-page__layout">
                         <Hidden lgDown component={null}>
-                            <PageAside>
-                                <StickyItem scrollbar minHeight={300}>
+                            <PageAside className="catalog-page__aside">
+                                <StickyItem
+                                    className="catalog-page__aside-sticky"
+                                    scrollbar
+                                    minHeight={300}
+                                >
                                     <CatalogFilters />
                                 </StickyItem>
                             </PageAside>

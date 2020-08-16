@@ -1,4 +1,18 @@
 .catalog-page {
+	&__layout {
+		min-height: 60rem;
+	}
+
+	&__aside-sticky {
+		background-color: $white;
+		border: 1px solid $border-color-light;
+		border-radius: $border-radius-lg;
+
+		&--active {
+			margin: $spacing-scale-6 0;
+		}
+	}
+
 	&__tbar {
 		display: flex;
 		padding: $spacing-scale-8 0;
@@ -8,12 +22,31 @@
 		}
 	}
 
-	&__layout {
-		min-height: 60rem;
-	}
-
 	&__filters {
 		display: block;
+	}
+}
+
+.catalog-page-filters-panel {
+	&:last-child {
+		border: 0;
+	}
+
+	&__header {
+		font-weight: 500;
+		text-transform: uppercase;
+		color: $heading-color;
+	}
+
+	&__body {
+		padding-right: $spacing-scale-6;
+	}
+
+	&__search {
+		padding-left: $spacing-scale-6;
+	}
+
+	&__list {
 		padding: $spacing-scale-6 0;
 	}
 }

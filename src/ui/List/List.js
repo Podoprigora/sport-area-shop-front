@@ -7,7 +7,6 @@ const List = React.forwardRef(function List(props, ref) {
     const {
         children,
         className,
-        height,
         maxHeight,
         autoHeight = true,
         scrollbarProps,
@@ -15,7 +14,7 @@ const List = React.forwardRef(function List(props, ref) {
         ...other
     } = props;
 
-    const scrollable = !autoHeight || height || maxHeight;
+    const scrollable = !autoHeight || maxHeight;
     const enhancedScrollbarProps = {
         ...(maxHeight && { autoHeight: true, autoHeightMax: maxHeight }),
         ...scrollbarProps
@@ -37,7 +36,6 @@ const List = React.forwardRef(function List(props, ref) {
 List.propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
-    height: PropTypes.number,
     maxHeight: PropTypes.number,
     autoHeight: PropTypes.bool,
     scrollbarProps: PropTypes.object,

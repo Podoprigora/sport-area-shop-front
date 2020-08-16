@@ -10,7 +10,7 @@
 		align-items: center;
 		width: 100%;
 		border-radius: $border-radius-lg;
-		z-index: 2;
+		z-index: 1;
 
 		&:focus {
 			outline: none;
@@ -25,10 +25,11 @@
 		}
 
 		&--focus-visible {
-			box-shadow: $btn-focus-box-shadow;
+			box-shadow: inset 0 0px 0px 3px $color-active, inset 0 0px 0px 4px rgba($color-primary, 0.5);
 		}
 
-		&-title {
+		&-title,
+		&-body {
 			flex: 1;
 			text-align: left;
 			color: inherit;
@@ -39,11 +40,5 @@
 			margin: 0 $spacing-scale-6;
 			color: $icon-color;
 		}
-	}
-
-	&__body {
-		position: relative;
-		overflow: hidden;
-		z-index: 1;
 	}
 }

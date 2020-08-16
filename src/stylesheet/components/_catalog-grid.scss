@@ -5,8 +5,10 @@
 	&__body {
 		display: flex;
 		flex-flow: row wrap;
+		background-color: $white;
 		border-top: 1px solid $border-color-light;
 		border-left: 1px solid $border-color-light;
+		border-radius: $border-radius-lg $border-radius-lg 0 0;
 	}
 
 	&__pagination {
@@ -27,6 +29,7 @@
 		padding: $spacing-scale-8 0;
 		border: 1px solid $border-color-light;
 		border-top-width: 0;
+		border-radius: 0 0 $border-radius-lg $border-radius-lg;
 	}
 
 	&__item {
