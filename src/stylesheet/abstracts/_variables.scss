@@ -248,6 +248,25 @@ $list-subheader-letter-spacing: .3px;
 $list-subheader-color: $grey-darken-3;
 $list-subheader-padding-y: $spacing-scale-2;
 
+// Cell List
+$cell-list-padding-x: $list-padding-x;
+$cell-list-padding-y: $list-padding-y;
+$cell-list-item-padding-x: $spacing-scale-4;
+$cell-list-item-padding-y: $spacing-scale-2;
+$cell-list-item-margin: 0 $spacing-scale-6 $spacing-scale-6 0;
+$cell-list-item-min-width: 4.4rem;
+$cell-list-item-box-shadow: 0 0 0 1px $border-color-dark;
+$cell-list-item-border-radius: $border-radius-sm;
+$cell-list-item-disabled-opacity: $list-item-disabled-opacity;
+$cell-list-item-painted-bg-color: $grey-lighten-4;
+$cell-list-item-painted-box-shadow: $grey-lighten-4;
+$cell-list-item-selected-bg-color: lighten($color-primary, 51%);
+$cell-list-item-selected-box-shadow: 0 0 0 1px $color-primary;
+$cell-list-item-hover-font-weight: 500;
+$cell-list-item-hover-box-shadow: 0 0 0 2px $color-primary;
+$cell-list-item-focus-font-weight: 500;
+$cell-list-item-focus-box-shadow: 0 0 0 2px $color-primary;
+
 // Alerts
 $alert-error-color: $red;
 $alert-warning-color: $orange-darken-1;
