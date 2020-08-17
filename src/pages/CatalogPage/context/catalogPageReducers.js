@@ -15,7 +15,7 @@ export const catalogPageDefaultState = {
     loading: false,
     itemsIds: [],
     itemsById: {},
-    sortBy: '',
+    sortBy: 'relevance',
     filters: {},
     pagination: {
         total: 0,

@@ -5,6 +5,7 @@ import SelectInput from '@ui/SelectInput';
 import { ListItem, ListItemText, ListItemIcon } from '@ui/List';
 import CheckIcon from '@svg-icons/feather/CheckIcon';
 import useControlled from '@ui/hooks/useControlled';
+import FieldControl from '@ui/FieldControl';
 
 const list = [
     { id: 'relevance', name: 'Relevance' },
@@ -49,15 +50,17 @@ const CatalogSortBySelect = (props) => {
     }, [value]);
 
     return (
-        <SelectInput
-            placeholder="Sort by"
+        <FieldControl
+            component={SelectInput}
+            label="Sort by"
             className="u-margin-l-auto"
-            style={{ maxWidth: '22rem' }}
+            fullWidth
+            style={{ maxWidth: '34rem' }}
             value={value}
             onChange={handleChange}
         >
             {items}
-        </SelectInput>
+        </FieldControl>
     );
 };
 

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { ExpandedPanel, ExpandedPanelHeader, ExpandedPanelBody } from '@ui/ExpandedPanel';
-import Heading from '@ui/Heading';
 import CatalogFiltersBrandsList from './CatalogFiltersBrandsList';
 
 const CatalogFiltersBrands = (props) => {

@@ -274,3 +274,14 @@ $mask-title-font-weight: 700;
 $paper-bg-color: $white;
 $paper-border-radius: $border-radius-lg;
 $paper-box-shadow: $box-shadow-sm;
+
+// ExpandedPanel
+$expanded-panel-border-color: $border-color-light;
+$expanded-panel-border-width: 0px 0 1px 0;
+$expanded-panel-header-hover-color: $color-primary;
+$expanded-panel-header-focus-box-shadow: inset 0 0px 0px 3px $color-active,
+	inset 0 0px 0px 4px rgba($color-primary, 0.5);
+$expanded-panel-title-padding-x: 0;
+$expanded-panel-title-padding-y: $spacing-scale-6;
+$expanded-panel-body-padding-x: 0;
+$expanded-panel-body-padding-y: $spacing-scale-6;
