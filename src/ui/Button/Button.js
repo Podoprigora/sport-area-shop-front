@@ -25,6 +25,7 @@ const Button = React.forwardRef(function Button(props, ref) {
         autoWidth,
         maxWidth,
         arrow,
+        slim,
         arrowSize = 'medium',
         style,
         onFocus,
@@ -101,7 +102,8 @@ const Button = React.forwardRef(function Button(props, ref) {
                     'btn--disabled': disabled,
                     'btn--loading': loading,
                     'btn--empty-text': !children,
-                    'btn--auto-width': autoWidth
+                    'btn--auto-width': autoWidth,
+                    'btn--slim': slim
                 }
             )}
             style={componentStyle}
@@ -137,6 +139,7 @@ Button.propTypes = {
     maxWidth: PropTypes.number,
     autoFocus: PropTypes.bool,
     arrow: PropTypes.bool,
+    slim: PropTypes.bool,
     arrowSize: PropTypes.oneOf(['small', 'medium', 'large', null]),
     style: PropTypes.object,
     onFocus: PropTypes.func,

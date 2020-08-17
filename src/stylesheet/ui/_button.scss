@@ -176,6 +176,10 @@
 		}
 	}
 
+	&--slim {
+		min-width: 0;
+	}
+
 	&--auto-width {
 		width: 100%;
 	}

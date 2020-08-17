@@ -43,14 +43,20 @@
 	}
 
 	&__search {
-		padding: 0 0 $spacing-scale-6 $spacing-scale-6;
+		padding: 0 $spacing-scale-2 $spacing-scale-4 $spacing-scale-8;
 	}
 
 	&__list {
+		min-height: 15rem;
 		padding: 0 0 $spacing-scale-6 0;
+		overflow: hidden;
 	}
 
 	&__cell-list {
 		margin-left: $spacing-scale-8;
+	}
+
+	&__form {
+		padding: $spacing-scale-4 $spacing-scale-2 $spacing-scale-8 $spacing-scale-8;
 	}
 }
