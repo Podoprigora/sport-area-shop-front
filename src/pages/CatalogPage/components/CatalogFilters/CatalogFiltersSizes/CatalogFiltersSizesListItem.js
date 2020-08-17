@@ -21,7 +21,7 @@ const CatalogFiltersSizesListItem = (props) => {
 };
 
 CatalogFiltersSizesListItem.propTypes = {
-    id: PropTypes.number,
+    id: PropTypes.number.isRequired,
     name: PropTypes.string,
     selected: PropTypes.bool,
     onClick: PropTypes.func
