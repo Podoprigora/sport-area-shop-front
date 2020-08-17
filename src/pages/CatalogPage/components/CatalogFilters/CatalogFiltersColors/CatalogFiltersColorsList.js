@@ -6,7 +6,7 @@ import data from '@remote/json/colors.json';
 
 import CatalogFiltersColorsListItem from './CatalogFiltersColorsListItem';
 
-const CatalogFiltersBrandsList = (props) => {
+const CatalogFiltersColorsList = (props) => {
     const [selectedItems, setSelectedItems] = useState([]);
 
     const handleItemClick = useCallback((item) => {
@@ -46,6 +46,6 @@ const CatalogFiltersBrandsList = (props) => {
     );
 };
 
-CatalogFiltersBrandsList.propTypes = {};
+CatalogFiltersColorsList.propTypes = {};
 
-export default CatalogFiltersBrandsList;
+export default CatalogFiltersColorsList;

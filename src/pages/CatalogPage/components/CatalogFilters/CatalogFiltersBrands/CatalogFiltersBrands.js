@@ -6,7 +6,7 @@ import CatalogFiltersBrandsList from './CatalogFiltersBrandsList';
 
 const CatalogFiltersBrands = (props) => {
     return (
-        <ExpandedPanel className="catalog-page-filters-panel">
+        <ExpandedPanel defaultExpanded={false} className="catalog-page-filters-panel">
             <ExpandedPanelHeader title="Brands" className="catalog-page-filters-panel__header" />
             <ExpandedPanelBody className="catalog-page-filters-panel__body">
                 <CatalogFiltersBrandsList />

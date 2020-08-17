@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useRef } from 'react';
+import React, { useMemo, useCallback, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import AnimateHeight from 'react-animate-height';
@@ -41,7 +41,9 @@ const ExpandedPanel = React.forwardRef(function(props, ref) {
                 {headerElement}
             </ExpandedPanelContext.Provider>
             {bodyElement && (
-                <AnimateHeight height={expanded ? 'auto' : 0}>{bodyElement}</AnimateHeight>
+                <AnimateHeight height={expanded ? 'auto' : 0}>
+                    {React.cloneElement(bodyElement)}
+                </AnimateHeight>
             )}
         </div>
     );
