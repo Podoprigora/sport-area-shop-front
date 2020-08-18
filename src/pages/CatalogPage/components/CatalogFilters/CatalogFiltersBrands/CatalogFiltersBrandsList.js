@@ -2,9 +2,8 @@ import React, { useCallback, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 
-import List, { ListItem, ListItemIcon, ListItemText } from '@ui/List';
-import KeyboardArrowDownIcon from '@svg-icons/material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@svg-icons/material/KeyboardArrowUp';
+import List from '@ui/List';
+import useSelectedState from '@ui/hooks/useSelectedState';
 import data from '@remote/json/brands.json';
 
 import CatalogFiltersBrandsListItem from './CatalogFiltersBrandsListItem';
@@ -12,20 +11,17 @@ import CatalogFiltersBrandsSearch from './CatalogFiltersBrandsSearch';
 import CatalogFiltersListItemToggle from '../components/CatalogFiltersListItemToggle/CatalogFiltersListItemToggle';
 
 const CatalogFiltersBrandsList = (props) => {
-    const [selectedItems, setSelectedItems] = useState([]);
+    const [selectedItems, setSelectedItems] = useSelectedState([]);
     const [searchValue, setSearchValue] = useState('');
 
-    const handleItemClick = useCallback((item) => {
-        const { name } = item;
+    const handleItemClick = useCallback(
+        (item) => {
+            const { name } = item;
 
-        setSelectedItems((prevState) => {
-            if (prevState.indexOf(name) !== -1) {
-                return prevState.filter((selectedItem) => selectedItem !== name);
-            }
-
-            return [...prevState, name];
-        });
-    }, []);
+            setSelectedItems(name);
+        },
+        [setSelectedItems]
+    );
 
     const handleSearchChange = useCallback(
         debounce((value = '') => {
@@ -65,8 +61,6 @@ const CatalogFiltersBrandsList = (props) => {
                 renderItemToggle={(renderProps) => {
                     return <CatalogFiltersListItemToggle {...renderProps} />;
                 }}
-                // maxHeight={350}
-                // scrollbarProps={{ enableVerticalTrack: true }}
             >
                 {items}
             </List>

@@ -2,24 +2,22 @@ import React, { useCallback, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import CellList from '@ui/CellList';
+import useSelectedState from '@ui/hooks/useSelectedState';
 import data from '@remote/json/sizes.json';
 
 import CatalogFiltersSizesListItem from './CatalogFiltersSizesListItem';
 
-const CatalogFiltersBrandsList = (props) => {
-    const [selectedItems, setSelectedItems] = useState([]);
+const CatalogFiltersSizesList = (props) => {
+    const [selectedItems, setSelectedItems] = useSelectedState([]);
 
-    const handleItemClick = useCallback((item) => {
-        const { id } = item;
+    const handleItemClick = useCallback(
+        (item) => {
+            const { id } = item;
 
-        setSelectedItems((prevState) => {
-            if (prevState.indexOf(id) !== -1) {
-                return prevState.filter((selectedItem) => selectedItem !== id);
-            }
-
-            return [...prevState, id];
-        });
-    }, []);
+            setSelectedItems(id);
+        },
+        [setSelectedItems]
+    );
 
     const items = data.map((item) => {
         const { id } = item;
@@ -38,6 +36,6 @@ const CatalogFiltersBrandsList = (props) => {
     return <CellList className="catalog-page-filters-panel__cell-list">{items}</CellList>;
 };
 
-CatalogFiltersBrandsList.propTypes = {};
+CatalogFiltersSizesList.propTypes = {};
 
-export default CatalogFiltersBrandsList;
+export default CatalogFiltersSizesList;

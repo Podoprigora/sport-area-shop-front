@@ -11,7 +11,7 @@ const TestExpandedPanel = (props) => {
     return (
         <div>
             {/* <Button>Test</Button> */}
-            <ExpandedPanel defaultExpanded disabled>
+            <ExpandedPanel defaultExpanded={false} disabled>
                 <ExpandedPanelHeader>
                     <Heading gutterBottom={false}>ExpandedPanelHeader</Heading>
                 </ExpandedPanelHeader>
@@ -19,26 +19,30 @@ const TestExpandedPanel = (props) => {
                     <TestVirtualizedList />
                 </ExpandedPanelBody>
             </ExpandedPanel>
-            <ExpandedPanel defaultExpanded>
+            <ExpandedPanel defaultExpanded={false}>
                 <ExpandedPanelHeader>
                     <Heading gutterBottom={false}>ExpandedPanelHeader</Heading>
                 </ExpandedPanelHeader>
                 <ExpandedPanelBody>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aliquam aut,
-                    laudantium vero sint neque repellat quae labore ea unde, culpa velit
-                    reprehenderit blanditiis laborum pariatur perspiciatis nobis explicabo
-                    repudiandae sunt?
+                    <div>
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aliquam aut,
+                        laudantium vero sint neque repellat quae labore ea unde, culpa velit
+                        reprehenderit blanditiis laborum pariatur perspiciatis nobis explicabo
+                        repudiandae sunt?
+                    </div>
                 </ExpandedPanelBody>
             </ExpandedPanel>
-            <ExpandedPanel defaultExpanded>
+            <ExpandedPanel defaultExpanded={false}>
                 <ExpandedPanelHeader>
                     <Heading gutterBottom={false}>ExpandedPanelHeader</Heading>
                 </ExpandedPanelHeader>
                 <ExpandedPanelBody>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aliquam aut,
-                    laudantium vero sint neque repellat quae labore ea unde, culpa velit
-                    reprehenderit blanditiis laborum pariatur perspiciatis nobis explicabo
-                    repudiandae sunt?
+                    <div>
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aliquam aut,
+                        laudantium vero sint neque repellat quae labore ea unde, culpa velit
+                        reprehenderit blanditiis laborum pariatur perspiciatis nobis explicabo
+                        repudiandae sunt?
+                    </div>
                 </ExpandedPanelBody>
             </ExpandedPanel>
         </div>
