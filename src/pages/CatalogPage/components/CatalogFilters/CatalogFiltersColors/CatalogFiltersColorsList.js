@@ -1,10 +1,14 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import List from '@ui/List';
+import List, { ListItemIcon, ListItemText, ListItem } from '@ui/List';
+import KeyboardArrowUpIcon from '@svg-icons/material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@svg-icons/material/KeyboardArrowDown';
+
 import data from '@remote/json/colors.json';
 
 import CatalogFiltersColorsListItem from './CatalogFiltersColorsListItem';
+import CatalogFiltersListItemToggle from '../components/CatalogFiltersListItemToggle/CatalogFiltersListItemToggle';
 
 const CatalogFiltersColorsList = (props) => {
     const [selectedItems, setSelectedItems] = useState([]);
@@ -38,8 +42,12 @@ const CatalogFiltersColorsList = (props) => {
     return (
         <List
             className="catalog-page-filters-panel__list"
-            maxHeight={350}
-            scrollbarProps={{ enableVerticalTrack: true }}
+            minLength={8}
+            renderItemToggle={(renderProps) => {
+                return <CatalogFiltersListItemToggle {...renderProps} />;
+            }}
+            // maxHeight={350}
+            // scrollbarProps={{ enableVerticalTrack: true }}
         >
             {items}
         </List>

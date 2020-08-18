@@ -1,0 +1,1 @@
+export { deault } from './CatalogFiltersListItemToggle';

@@ -2,11 +2,14 @@ import React, { useCallback, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 
-import List from '@ui/List';
+import List, { ListItem, ListItemIcon, ListItemText } from '@ui/List';
+import KeyboardArrowDownIcon from '@svg-icons/material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@svg-icons/material/KeyboardArrowUp';
 import data from '@remote/json/brands.json';
 
 import CatalogFiltersBrandsListItem from './CatalogFiltersBrandsListItem';
 import CatalogFiltersBrandsSearch from './CatalogFiltersBrandsSearch';
+import CatalogFiltersListItemToggle from '../components/CatalogFiltersListItemToggle/CatalogFiltersListItemToggle';
 
 const CatalogFiltersBrandsList = (props) => {
     const [selectedItems, setSelectedItems] = useState([]);
@@ -58,8 +61,12 @@ const CatalogFiltersBrandsList = (props) => {
             <CatalogFiltersBrandsSearch onChange={handleSearchChange} />
             <List
                 className="catalog-page-filters-panel__list"
-                maxHeight={350}
-                scrollbarProps={{ enableVerticalTrack: true }}
+                minLength={8}
+                renderItemToggle={(renderProps) => {
+                    return <CatalogFiltersListItemToggle {...renderProps} />;
+                }}
+                // maxHeight={350}
+                // scrollbarProps={{ enableVerticalTrack: true }}
             >
                 {items}
             </List>
