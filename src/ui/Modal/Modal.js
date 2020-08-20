@@ -207,8 +207,8 @@ const Modal = React.forwardRef(function Modal(props, ref) {
     // Render
 
     const isDisabledFocusBounding = useCallback(() => {
-        return disableFocusBounding || !isTopModal();
-    }, [disableFocusBounding, isTopModal]);
+        return !isTopModal();
+    }, [isTopModal]);
 
     const childProps = useMemo(() => {
         if (hasTransition) {
@@ -224,6 +224,8 @@ const Modal = React.forwardRef(function Modal(props, ref) {
     if (!open && (!hasTransition || exited)) {
         return null;
     }
+
+    const childrenContent = React.cloneElement(children, childProps);
 
     return (
         <Portal onRendered={handlePortalRendered}>
@@ -248,9 +250,13 @@ const Modal = React.forwardRef(function Modal(props, ref) {
                         onClick={handleBackdropClick}
                     />
                 )}
-                <FocusBounding disabled={isDisabledFocusBounding}>
-                    {React.cloneElement(children, childProps)}
-                </FocusBounding>
+                {!disableFocusBounding ? (
+                    <FocusBounding disabled={isDisabledFocusBounding}>
+                        {childrenContent}
+                    </FocusBounding>
+                ) : (
+                    childrenContent
+                )}
             </div>
         </Portal>
     );
