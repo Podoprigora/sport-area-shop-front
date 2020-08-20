@@ -240,7 +240,7 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
 
     return (
         <div
-            role="button"
+            role="presentation"
             className={classNames('select-input input', className, {
                 'select-input--multiline': multiline,
                 'input--focused': focused,

@@ -119,10 +119,10 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
             overflow={false}
             disableBackdropClick
             disableScrollLock
-            backdropTransitionProps={{ timeout: 150, classNames: 'category-menu-backdrop' }}
+            backdropTransitionProps={{ timeout: 350, classNames: 'category-menu-backdrop' }}
             onClose={handleClose}
         >
-            <CSSTransition in={open} classNames="category-menu" timeout={150} appear>
+            <CSSTransition in={open} classNames="category-menu" timeout={300} appear>
                 <div className="category-menu" ref={handleMenuRef} style={menuStyle}>
                     <div className="category-menu__container">
                         <ClickAwayListener onClickAway={handleClose}>
