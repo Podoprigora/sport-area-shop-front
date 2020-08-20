@@ -36,9 +36,9 @@ const TestPage = (props) => {
             <Panel title="Test Pagination">
                 <TestPagination />
             </Panel>
-            <Panel title="Test Intersection Observer">
+            {/* <Panel title="Test Intersection Observer">
                 <TestIntersectionObserver />
-            </Panel>
+            </Panel> */}
             <Panel title="Test Rating">
                 <TestRating />
             </Panel>
@@ -48,9 +48,9 @@ const TestPage = (props) => {
             <Panel title="Test Alerts">
                 <TestAlerts />
             </Panel>
-            <Panel title="Test CircularProgress">
+            {/* <Panel title="Test CircularProgress">
                 <TestCircularProgres />
-            </Panel>
+            </Panel> */}
             <Panel title="Test SearchInput">
                 <TestSearchInput />
             </Panel>

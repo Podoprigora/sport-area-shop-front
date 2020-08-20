@@ -2,10 +2,10 @@ import React, { memo, useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import SelectInput from '@ui/SelectInput';
-import { ListItem, ListItemText, ListItemIcon } from '@ui/List';
-import CheckIcon from '@svg-icons/feather/CheckIcon';
 import useControlled from '@ui/hooks/useControlled';
 import FieldControl from '@ui/FieldControl';
+import { ListItem, ListItemText, ListItemIcon } from '@ui/List';
+import CheckIcon from '@svg-icons/feather/CheckIcon';
 
 const list = [
     { id: 'relevance', name: 'Relevance' },
@@ -15,6 +15,10 @@ const list = [
     { id: 'top-seller', name: 'Top seller' },
     { id: 'name', name: 'Name' }
 ];
+
+const getItemValue = ({ id }) => id;
+const getItemText = ({ name }) => name;
+const getItemSelected = ({ id }, value) => id === value;
 
 const CatalogSortBySelect = (props) => {
     const { value: valueProp, defaultValue, onChange } = props;
@@ -32,12 +36,13 @@ const CatalogSortBySelect = (props) => {
         [setValue, onChange]
     );
 
-    const items = useMemo(() => {
-        return list.map(({ id, name }) => {
+    const renderItem = useMemo(() => {
+        return (item) => {
+            const { id, name } = item;
             const selected = value === id;
 
             return (
-                <ListItem key={id} button value={id}>
+                <ListItem button>
                     <ListItemText flex>{name}</ListItemText>
                     {selected && (
                         <ListItemIcon>
@@ -46,21 +51,24 @@ const CatalogSortBySelect = (props) => {
                     )}
                 </ListItem>
             );
-        });
+        };
     }, [value]);
 
     return (
         <FieldControl
             component={SelectInput}
+            data={list}
+            value={value}
+            getItemValue={getItemValue}
+            getItemText={getItemText}
+            getItemSelected={getItemSelected}
+            renderItem={renderItem}
             label="Sort by"
             className="u-margin-l-auto"
             fullWidth
             style={{ maxWidth: '34rem' }}
-            value={value}
             onChange={handleChange}
-        >
-            {items}
-        </FieldControl>
+        />
     );
 };
 

@@ -1,5 +1,6 @@
 @mixin scale-transition {
-	&-enter {
+	&-enter,
+	&-appear {
 		opacity: 0;
 		transform: scale3d(.6, .6, 1);
 

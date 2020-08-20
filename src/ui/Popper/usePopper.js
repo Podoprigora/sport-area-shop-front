@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { createPopper } from '@popperjs/core';
 
 const defaultModifiers = [
@@ -23,8 +23,7 @@ const usePopper = (props = {}) => {
         };
     });
 
-    const [popperState, setPopperState] = useState({});
-    const popperInstance = useRef(null);
+    const [popperInstance, setPopperInstance] = useState(null);
 
     const referenceRef = useCallback((el) => {
         setReferenceNode(el);
@@ -36,28 +35,29 @@ const usePopper = (props = {}) => {
 
     useEffect(() => {
         if (referenceNode && popperNode) {
-            popperInstance.current = createPopper(referenceNode, popperNode, {
+            const instance = createPopper(referenceNode, popperNode, {
                 ...popperOptions,
-                onFirstUpdate: (state) => {
-                    setPopperState(state);
+                onFirstUpdate: () => {
+                    setPopperInstance(instance);
                 }
             });
 
             return () => {
-                popperInstance.current.destroy();
-                popperInstance.current = null;
+                instance.destroy();
+                setPopperInstance(null);
             };
         }
 
         return undefined;
     }, [referenceNode, popperNode, popperOptions]);
 
-    return {
-        referenceRef,
-        popperRef,
-        popperState,
-        popperInstance: popperInstance.current
-    };
+    return useMemo(() => {
+        return {
+            referenceRef,
+            popperRef,
+            popperInstance
+        };
+    }, [popperRef, referenceRef, popperInstance]);
 };
 
 export default usePopper;

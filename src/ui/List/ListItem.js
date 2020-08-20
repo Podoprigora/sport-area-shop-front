@@ -79,7 +79,7 @@ const ListItem = React.forwardRef(function ListItem(props, ref) {
 
     useEffect(() => {
         if (autoFocus && button && !disabled) {
-            innerRef.current.focus({ preventScroll: true });
+            innerRef.current.focus({ preventScroll: false });
         }
     }, [autoFocus, button, disabled]);
 

@@ -138,7 +138,10 @@ function receiveInitialItemsStrategy(state, { total, page, sort, items }) {
 
     newState = paginationReducer(newState, { total });
     newState = selectedPagesReducer(newState, { page });
-    newState = sortByReducer(newState, { value: sort });
+
+    const sortBy = sort || catalogPageDefaultState.sortBy;
+    newState = sortByReducer(newState, { value: sortBy });
+
     newState = itemsIdsReducer(newState, items);
     newState = itemsByIdReducer(newState, items);
 

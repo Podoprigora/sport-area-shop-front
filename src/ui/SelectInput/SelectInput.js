@@ -6,35 +6,23 @@ import useForkRef from '@ui/hooks/useForkRef';
 import useEventCallback from '@ui/hooks/useEventCallback';
 import isEmptyString from '@ui/utils/isEmptyString';
 import useControlled from '@ui/hooks/useControlled';
-import Menu from '@ui/Menu';
+import Menu, { MenuItem } from '@ui/Menu';
 import { InputIconButton } from '@ui/Input';
 import KeyboardArrowDownIcon from '@svg-icons/material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@svg-icons/material/KeyboardArrowUp';
 import ClearCloseIcon from '@svg-icons/material/ClearCloseIcon';
 import defineEventTarget from '@ui/utils/defineEventTarget';
 import { ListItem, ListItemText } from '@ui/List';
+import SelectInputMenu from './SelectInputMenu';
+import { SelectInputContext } from './SelectInputContext';
 
-const getNestedPropsChildrenString = (component) => {
-    if (Array.isArray(component) && component.length > 0) {
-        return component.reduce((acc, item) => {
-            const result = getNestedPropsChildrenString(item);
-            return acc || result;
-        }, null);
-    }
-
-    if (!component || !component.props) {
-        return null;
-    }
-
-    if (typeof component.props.children === 'string') {
-        return component.props.children;
-    }
-
-    return getNestedPropsChildrenString(component.props.children);
-};
+const getDefaultItemValue = (item) => item;
+const getDefaultItemText = (item) => (typeof item === 'string' ? item : '');
+const getDefaultItemSelected = (item, value) => String(item) === String(value);
 
 const SelectInput = React.forwardRef(function SelectInput(props, ref) {
     const {
+        data = [],
         id,
         name,
         defaultValue,
@@ -42,7 +30,6 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
         placeholder,
         tabIndex = '0',
         className,
-        children,
         disabled,
         readOnly,
         autoFocus,
@@ -60,10 +47,13 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
         emptyItem = false,
         emptyItemText = 'None',
         emptyItemValue = '',
-        onBlur = () => {},
-        onFocus = () => {},
-        onChange = () => {},
-        ...other
+        renderItem,
+        getItemText = getDefaultItemText,
+        getItemValue = getDefaultItemValue,
+        getItemSelected = getDefaultItemSelected,
+        onBlur,
+        onFocus,
+        onChange
     } = props;
 
     const [focused, setFocused] = useState(false);
@@ -84,53 +74,74 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
         (ev, newValue) => {
             setValue(newValue);
 
-            defineEventTarget(ev, { name, value: newValue });
-            onChange(ev);
+            if (onChange) {
+                defineEventTarget(ev, { name, value: newValue });
+                onChange(ev);
+            }
         },
         [name, setValue, onChange]
     );
 
-    const handleFocus = useEventCallback((ev) => {
-        setFocused(true);
+    const doOpenChange = useCallback(
+        (isOpen) => {
+            if (!disabled) {
+                setOpen(isOpen);
+            }
+        },
+        [disabled]
+    );
 
-        if (openOnFocus && !hadBlurRecently.current) {
-            setOpen(true);
-        }
+    const handleFocus = useCallback(
+        (ev) => {
+            setFocused(true);
 
-        if (!open) {
-            defineEventTarget(ev, { name, value });
-            onFocus(ev);
-        }
-    });
+            if (openOnFocus && !hadBlurRecently.current) {
+                doOpenChange(true);
+            }
 
-    const handleBlur = useEventCallback((ev) => {
-        hadBlurRecently.current = true;
+            if (!open && onFocus) {
+                defineEventTarget(ev, { name, value });
+                onFocus(ev);
+            }
+        },
+        [value, name, open, doOpenChange, openOnFocus, onFocus]
+    );
 
-        clearTimeout(hadBlurRecentlyTimeout.current);
+    const handleBlur = useCallback(
+        (ev) => {
+            hadBlurRecently.current = true;
 
-        hadBlurRecentlyTimeout.current = null;
-        hadBlurRecentlyTimeout.current = setTimeout(() => {
-            hadBlurRecently.current = false;
-        }, 100);
+            clearTimeout(hadBlurRecentlyTimeout.current);
 
-        setFocused(false);
+            hadBlurRecentlyTimeout.current = null;
+            hadBlurRecentlyTimeout.current = setTimeout(() => {
+                hadBlurRecently.current = false;
+            }, 100);
 
-        if (!open) {
-            defineEventTarget(ev, { name, value });
-            onBlur(ev);
-        }
-    });
+            setFocused(false);
 
-    const handleMouseDown = useEventCallback((ev) => {
-        if (ev.button !== 0) {
-            return;
-        }
+            if (!open && onBlur) {
+                defineEventTarget(ev, { name, value });
+                onBlur(ev);
+            }
+        },
+        [value, open, name, onBlur]
+    );
 
-        ev.preventDefault();
+    const handleMouseDown = useCallback(
+        (ev) => {
+            if (ev.button !== 0) {
+                return;
+            }
 
-        displayRef.current.focus();
-        setOpen(true);
-    });
+            ev.preventDefault();
+
+            if (!open) {
+                doOpenChange(true);
+            }
+        },
+        [open, doOpenChange]
+    );
 
     const handleKeyDown = useEventCallback((ev) => {
         switch (ev.key) {
@@ -140,35 +151,15 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
             case 'Enter':
                 ev.preventDefault();
 
-                setOpen(true);
+                doOpenChange(true);
                 break;
             default:
                 break;
         }
     });
 
-    const handleItemClick = useEventCallback((child) => (ev) => {
-        ev.stopPropagation();
-
-        const newValue = child.props.value;
-
-        if (newValue === null || newValue === undefined) {
-            return;
-        }
-
-        setOpen(false);
-
-        if (child.props.onClick) {
-            child.props.onClick(ev);
-        }
-
-        if (value !== newValue) {
-            doChange(ev, newValue);
-        }
-    });
-
     const handleMenuClose = useEventCallback((ev) => {
-        setOpen(false);
+        doOpenChange(false);
     });
 
     const handleResetButtonClick = useEventCallback((ev) => {
@@ -177,6 +168,17 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
 
         doChange(ev, '');
     });
+
+    const handleItemClick = useCallback(
+        (ev, newValue) => {
+            doOpenChange(false);
+
+            if (value !== newValue) {
+                doChange(ev, newValue);
+            }
+        },
+        [value, doChange, doOpenChange]
+    );
 
     // Effects
 
@@ -188,31 +190,15 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
 
     // Render
 
-    const childrenArray = React.Children.toArray(children);
-
-    if (emptyItem) {
-        childrenArray.unshift(
-            <ListItem key="-1" button value={emptyItemValue}>
-                <ListItemText className="list__text--empty">{emptyItemText}</ListItemText>
-            </ListItem>
-        );
-    }
-
-    const items = childrenArray.map((child, index) => {
-        const selected = !isEmptyString(value) && String(value) === String(child.props.value);
+    data.forEach((item, index) => {
+        const selected = !isEmptyString(value) && getItemSelected(item, value);
+        const itemText = getItemText(item, index);
 
         if (selected) {
-            displayValueRef.current = getNestedPropsChildrenString(child);
+            displayValueRef.current = itemText;
         } else if (isEmptyString(value)) {
             displayValueRef.current = '';
         }
-
-        return React.cloneElement(child, {
-            selected,
-            onClick: handleItemClick(child),
-            value: undefined,
-            'data-value': child.props.value
-        });
     });
 
     const ChevronIconComponent = open ? KeyboardArrowUpIcon : KeyboardArrowDownIcon;
@@ -227,6 +213,31 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
         }
     }
 
+    const contextValue = useMemo(
+        () => ({
+            data,
+            value,
+            getItemValue,
+            getItemText,
+            getItemSelected,
+            emptyItem,
+            emptyItemText,
+            emptyItemValue,
+            renderItem
+        }),
+        [
+            data,
+            emptyItem,
+            emptyItemText,
+            emptyItemValue,
+            getItemSelected,
+            getItemText,
+            getItemValue,
+            renderItem,
+            value
+        ]
+    );
+
     return (
         <div
             role="button"
@@ -234,6 +245,7 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
                 'select-input--multiline': multiline,
                 'input--focused': focused,
                 'input--disabled': disabled,
+                'select-input--disabled': disabled,
                 'input--full-width': fullWidth,
                 'input--error': error
             })}
@@ -245,29 +257,30 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
             onKeyDown={handleKeyDown}
             onMouseDown={handleMouseDown}
         >
-            <input type="hidden" ref={handleInputRef} {...{ value, disabled, readOnly }} />
+            <input type="hidden" ref={handleInputRef} {...{ id, value, disabled, readOnly }} />
             <div className="select-input__display">{displayContent}</div>
             {resetButton && !!value && (
                 <InputIconButton tabIndex="-1" onMouseDown={handleResetButtonClick}>
                     <ClearCloseIcon />
                 </InputIconButton>
             )}
-
             <ChevronIconComponent className="select-input__chevron" size="medium" />
-            <Menu
-                open={open}
-                anchorRef={displayRef}
-                onClose={handleMenuClose}
-                autoWidth
-                {...menuProps}
-            >
-                {items}
-            </Menu>
+
+            <SelectInputContext.Provider value={contextValue}>
+                <SelectInputMenu
+                    open={open}
+                    anchorRef={displayRef}
+                    onClose={handleMenuClose}
+                    onItemClick={handleItemClick}
+                    {...menuProps}
+                />
+            </SelectInputContext.Provider>
         </div>
     );
 });
 
 SelectInput.propTypes = {
+    data: PropTypes.array,
     id: PropTypes.string,
     name: PropTypes.string,
     defaultValue: PropTypes.any,
@@ -275,7 +288,6 @@ SelectInput.propTypes = {
     placeholder: PropTypes.string,
     tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     className: PropTypes.string,
-    children: PropTypes.node,
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
     autoFocus: PropTypes.bool,
@@ -291,7 +303,11 @@ SelectInput.propTypes = {
     emptyItemValue: PropTypes.any,
     onBlur: PropTypes.func,
     onFocus: PropTypes.func,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    renderItem: PropTypes.func,
+    getItemText: PropTypes.func,
+    getItemValue: PropTypes.func,
+    getItemSelected: PropTypes.func
 };
 
 export default SelectInput;

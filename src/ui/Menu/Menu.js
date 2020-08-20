@@ -60,11 +60,11 @@ const Menu = React.forwardRef(function Menu(props, ref) {
         listProps = {},
         className,
         style,
-        onClose = () => {},
-        onItemClick = () => {}
+        onClose,
+        onItemClick
     } = props;
 
-    const { referenceRef, popperRef, popperState, popperInstance } = usePopper({
+    const { referenceRef, popperRef, popperInstance } = usePopper({
         placement,
         modifiers: [
             {
@@ -85,22 +85,37 @@ const Menu = React.forwardRef(function Menu(props, ref) {
     const handleMenuRef = useForkRef(menuRef, ref);
     const activeIndexRef = useRef(defaultActiveIndex);
 
+    const childrenRef = useRef([]);
+    childrenRef.current = children ? React.Children.toArray(children) : [];
+
     // Handlers
 
-    const handleModalClose = useEventCallback((ev) => {
-        onClose();
+    const handleClose = useEventCallback((ev) => {
+        if (onClose) {
+            onClose(ev);
+        }
     });
 
-    const handleClickAway = useEventCallback((ev) => {
-        onClose();
-    });
+    const handleModalClose = useCallback(
+        (ev) => {
+            handleClose(ev);
+        },
+        [handleClose]
+    );
+
+    const handleClickAway = useCallback(
+        (ev) => {
+            handleClose(ev);
+        },
+        [handleClose]
+    );
 
     const handleMenuKeyDown = useEventCallback((ev) => {
         switch (ev.key) {
             case 'Tab':
                 ev.preventDefault();
 
-                onClose();
+                handleClose(ev);
                 break;
             case 'ArrowDown': {
                 ev.preventDefault();
@@ -117,7 +132,7 @@ const Menu = React.forwardRef(function Menu(props, ref) {
             case 'Escape': {
                 // Because Modal has contained this kind of functionality
                 if (!modal) {
-                    onClose();
+                    handleClose(ev);
                 }
                 break;
             }
@@ -126,24 +141,17 @@ const Menu = React.forwardRef(function Menu(props, ref) {
         }
     });
 
-    const handleItemClick = useCallback(
-        (child, index) => (ev) => {
-            if (child.props.onClick) {
-                child.props.onClick(ev);
-            }
-
-            onItemClick(ev, index);
-        },
-        [onItemClick]
-    );
-
     const handleTransitionEnter = useCallback(() => {
-        setExited(false);
-    }, []);
+        if (exited) {
+            setExited(false);
+        }
+    }, [exited]);
 
     const handleTransitionExited = useCallback(() => {
-        setExited(true);
-    }, []);
+        if (!exited) {
+            setExited(true);
+        }
+    }, [exited]);
 
     // Effects
 
@@ -169,7 +177,7 @@ const Menu = React.forwardRef(function Menu(props, ref) {
         return () => {
             activeIndexRef.current = defaultActiveIndex;
         };
-    }, [open, popperState, anchorRef]);
+    }, [open, popperInstance, anchorRef]);
 
     // Update menu width according to the anchor element width
     useEffect(() => {
@@ -200,37 +208,57 @@ const Menu = React.forwardRef(function Menu(props, ref) {
 
     // Render
 
-    if (!open && exited) {
+    const isClosed = !open && exited;
+
+    const items = useMemo(() => {
+        if (isClosed) {
+            return null;
+        }
+
+        const handleItemClick = (child, index) => (ev) => {
+            if (child.props.onClick) {
+                child.props.onClick(ev);
+            }
+
+            if (onItemClick) {
+                onItemClick(ev, index);
+            }
+        };
+
+        childrenRef.current.forEach((child, index) => {
+            if (child.props.selected && !child.props.disabled) {
+                activeIndexRef.current = index;
+            }
+        });
+
+        return childrenRef.current.map((child, index) => {
+            if (
+                autoFocusItem &&
+                activeIndexRef.current === defaultActiveIndex &&
+                !child.props.disabled
+            ) {
+                activeIndexRef.current = index;
+            }
+
+            return React.cloneElement(child, {
+                autoFocus: activeIndexRef.current === index,
+                tabIndex: '0',
+                onClick: handleItemClick(child, index)
+            });
+        });
+    }, [isClosed, autoFocusItem, onItemClick]);
+
+    if (isClosed) {
         return null;
     }
 
-    React.Children.forEach(children, (child, index) => {
-        if (child.props.selected && !child.props.disabled) {
-            activeIndexRef.current = index;
-        }
-    });
-
-    const items = React.Children.map(children, (child, index) => {
-        if (
-            autoFocusItem &&
-            activeIndexRef.current === defaultActiveIndex &&
-            !child.props.disabled
-        ) {
-            activeIndexRef.current = index;
-        }
-
-        return React.cloneElement(child, {
-            autoFocus: activeIndexRef.current === index,
-            tabIndex: '0',
-            onClick: handleItemClick(child, index)
-        });
-    });
-
+    const popperState = (popperInstance && popperInstance.state) || {};
     const currentPlacement = popperState.placement || placement;
 
     const popperContent = (
         <div className="popper" ref={popperRef}>
             <CSSTransition
+                appear
                 in={open && !!popperInstance}
                 timeout={300}
                 classNames="menu"
@@ -260,12 +288,7 @@ const Menu = React.forwardRef(function Menu(props, ref) {
 
     if (modal) {
         return (
-            <Modal
-                open={open || !exited}
-                backdrop={false}
-                disableScrollLock
-                onClose={handleModalClose}
-            >
+            <Modal open={!isClosed} backdrop={false} disableScrollLock onClose={handleModalClose}>
                 {popperContent}
             </Modal>
         );

@@ -11,23 +11,14 @@ import FlexCol from '@ui/FlexCol';
 import CheckboxField from '@ui/FormikForm/CheckboxField';
 import Button from '@ui/Button';
 import Link from '@ui/Link';
-import SelectField from '@ui/FormikForm/SelectField';
-import { MenuItem } from '@ui/Menu';
 import RadioGroupField from '@ui/FormikForm/RadioGroupField';
 import Radio from '@ui/Radio';
 import BoxLabel from '@ui/BoxLabel';
-import { InputIconButton } from '@ui/Input';
-import EyeIcon from '@svg-icons/feather/EyeIcon';
-import EyeOffIcon from '@svg-icons/feather/EyeOffIcon';
 import UserPlusIcon from '@svg-icons/feather/UserPlusIcon';
 import useEventCallback from '@ui/hooks/useEventCallback';
-
-const days = Array.from(Array(31)).map((_, index) => {
-    const day = index + 1;
-    return String(day).padStart(2, '0');
-});
-
-const months = ['Jun', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+import PasswordField from '@components/PasswordField';
+import BirsdayMonthsSelectInput from './BirsdayMonthsSelectInput';
+import BirsdayDaysSelectInput from './BirsdayDaysSelectInput';
 
 const initialValues = {
     firstName: '',
@@ -68,17 +59,6 @@ const validate = (values) => {
 const RegisterForm = (props) => {
     const { onSignIn, onFormSubmit } = props;
 
-    const [passwordVisible, setPasswordVisible] = useState(false);
-    const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
-
-    const handlePasswordVisibility = useCallback((ev) => {
-        setPasswordVisible((prevState) => !prevState);
-    }, []);
-
-    const handleConfirmPasswordVisibility = useCallback((ev) => {
-        setConfirmPasswordVisible((prevState) => !prevState);
-    }, []);
-
     const handleSignInClick = useEventCallback((ev) => {
         if (onSignIn) {
             onSignIn(ev);
@@ -103,7 +83,6 @@ const RegisterForm = (props) => {
         },
         [onFormSubmit]
     );
-
     return (
         <Formik
             initialValues={initialValues}
@@ -150,45 +129,23 @@ const RegisterForm = (props) => {
                         <FormRow>
                             <FlexRow>
                                 <FlexCol sm className="u-margin-r-sm-6 u-padding-b-down-sm-6">
-                                    <InputField
-                                        type={passwordVisible ? 'text' : 'password'}
+                                    <PasswordField
                                         name="password"
                                         label="Password"
                                         labelAlign="top"
                                         helperText="At least 8 characters long."
                                         required
                                         fullWidth
-                                        appendAdornment={() => {
-                                            return (
-                                                <InputIconButton onClick={handlePasswordVisibility}>
-                                                    {passwordVisible ? <EyeIcon /> : <EyeOffIcon />}
-                                                </InputIconButton>
-                                            );
-                                        }}
                                     />
                                 </FlexCol>
                                 <FlexCol sm>
-                                    <InputField
-                                        type={confirmPasswordVisible ? 'text' : 'password'}
+                                    <PasswordField
                                         name="confirmPassword"
                                         label="Confirm Password"
                                         labelAlign="top"
                                         helperText="At least 8 characters long."
                                         required
                                         fullWidth
-                                        appendAdornment={() => {
-                                            return (
-                                                <InputIconButton
-                                                    onClick={handleConfirmPasswordVisibility}
-                                                >
-                                                    {confirmPasswordVisible ? (
-                                                        <EyeIcon />
-                                                    ) : (
-                                                        <EyeOffIcon />
-                                                    )}
-                                                </InputIconButton>
-                                            );
-                                        }}
                                     />
                                 </FlexCol>
                             </FlexRow>
@@ -208,34 +165,10 @@ const RegisterForm = (props) => {
                                 <FlexCol sm>
                                     <FlexRow alignItems="flex-end" noWrap>
                                         <FlexCol className="u-margin-r-6">
-                                            <SelectField
-                                                name="birthdayMonth"
-                                                label="Birthday"
-                                                labelAlign="top"
-                                                placeholder="Month"
-                                                emptyItem
-                                                fullWidth
-                                            >
-                                                {months.map((item, index) => (
-                                                    <MenuItem key={index} value={item + 1}>
-                                                        {item}
-                                                    </MenuItem>
-                                                ))}
-                                            </SelectField>
+                                            <BirsdayMonthsSelectInput />
                                         </FlexCol>
                                         <FlexCol>
-                                            <SelectField
-                                                name="birthdayDay"
-                                                placeholder="Day"
-                                                emptyItem
-                                                fullWidth
-                                            >
-                                                {days.map((item, index) => (
-                                                    <MenuItem key={index} value={item}>
-                                                        {item}
-                                                    </MenuItem>
-                                                ))}
-                                            </SelectField>
+                                            <BirsdayDaysSelectInput />
                                         </FlexCol>
                                     </FlexRow>
                                 </FlexCol>

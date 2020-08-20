@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, memo } from 'react';
 import PropTypes from 'prop-types';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
@@ -143,4 +143,4 @@ HeaderSearchInput.propTypes = {
     onItemClick: PropTypes.func
 };
 
-export default HeaderSearchInput;
+export default memo(HeaderSearchInput);

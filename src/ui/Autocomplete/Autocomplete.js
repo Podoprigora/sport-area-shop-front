@@ -9,6 +9,7 @@ import { usePopper } from '@ui/Popper';
 import Portal from '@ui/Portal';
 import ClickAwayListener from '@ui/ClickAwayListener';
 import List, { ListItem, ListItemText } from '@ui/List';
+import { MenuItem } from '@ui/Menu';
 import useEventCallback from '@ui/hooks/useEventCallback';
 import useControlled from '@ui/hooks/useControlled';
 import defineEventTarget from '@ui/utils/defineEventTarget';
@@ -103,7 +104,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
     const anchorRef = useRef(null);
     const inputRef = useRef(null);
     const handleAnchorRef = useForkRef(anchorRef, ref);
-    const { referenceRef, popperRef, popperState, popperInstance } = usePopper({
+    const { referenceRef, popperRef, popperInstance } = usePopper({
         placement: listPlacement
     });
 
@@ -448,11 +449,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
 
             const itemText = getItemText(item);
 
-            return (
-                <ListItem {...itemProps}>
-                    <ListItemText>{itemText}</ListItemText>
-                </ListItem>
-            );
+            return <MenuItem {...itemProps}>{itemText}</MenuItem>;
         });
     }, [
         filteredItems,
@@ -504,7 +501,8 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
         })
     });
 
-    const placement = popperState.placment || listPlacement;
+    const popperState = (popperInstance && popperInstance.state) || {};
+    const placement = popperState.placement || listPlacement;
 
     const hasItems = items && items.length > 0;
 

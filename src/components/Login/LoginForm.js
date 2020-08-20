@@ -5,18 +5,15 @@ import * as Yup from 'yup';
 
 import Form from '@ui/FormikForm/Form';
 import InputField from '@ui/FormikForm/InputField';
-import { InputIconButton } from '@ui/Input';
 import Button from '@ui/Button';
 import CheckboxField from '@ui/FormikForm/CheckboxField';
 import FlexRow from '@ui/FlexRow';
 import Link from '@ui/Link';
 import LoginIcon from '@svg-icons/feather/LoginIcon';
 import FormRow from '@ui/FormikForm/FormRow';
-import EyeIcon from '@svg-icons/feather/EyeIcon';
-import EyeOffIcon from '@svg-icons/feather/EyeOffIcon';
 import useEventCallback from '@ui/hooks/useEventCallback';
-import fakeRequest from '@services/fakeRequest';
 import Alert, { AlertTitle } from '@ui/Alert';
+import PasswordField from '@components/PasswordField';
 
 const initialValues = {
     login: '',
@@ -39,12 +36,6 @@ const LoginForm = React.forwardRef(function LoginForm(props, ref) {
         onForgotPassword,
         onSubmit
     } = props;
-
-    const [passwordVisible, setPasswordVisible] = useState(false);
-
-    const handlePasswordVisibility = useCallback((ev) => {
-        setPasswordVisible((prevState) => !prevState);
-    }, []);
 
     const handleSingUpClick = useEventCallback((ev) => {
         if (onSingUp) {
@@ -109,20 +100,12 @@ const LoginForm = React.forwardRef(function LoginForm(props, ref) {
                                 />
                             </FormRow>
                             <FormRow>
-                                <InputField
-                                    type={passwordVisible ? 'text' : 'password'}
+                                <PasswordField
                                     name="password"
                                     label="Password"
                                     labelAlign="top"
                                     required
                                     fullWidth
-                                    appendAdornment={() => {
-                                        return (
-                                            <InputIconButton onClick={handlePasswordVisibility}>
-                                                {passwordVisible ? <EyeIcon /> : <EyeOffIcon />}
-                                            </InputIconButton>
-                                        );
-                                    }}
                                 />
                             </FormRow>
                             <FormRow>
