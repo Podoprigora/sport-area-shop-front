@@ -7,7 +7,7 @@ import { ListItem, ListItemText } from '@ui/List';
 import { useSelectInputContext } from './SelectInputContext';
 
 const SelectInputMenu = (props) => {
-    const { open, anchorRef, onItemClick, onClose, ...other } = props;
+    const { open, anchorRef, menuListMaxHeight = 250, onItemClick, onClose, ...other } = props;
 
     const {
         data,
@@ -68,7 +68,13 @@ const SelectInputMenu = (props) => {
     }
 
     return (
-        <Menu open={open} anchorRef={anchorRef} onClose={onClose} autoWidth {...other}>
+        <Menu
+            open={open}
+            anchorRef={anchorRef}
+            onClose={onClose}
+            autoWidth
+            listProps={{ maxHeight: menuListMaxHeight }}
+        >
             {items}
         </Menu>
     );
@@ -77,6 +83,7 @@ const SelectInputMenu = (props) => {
 SelectInputMenu.propTypes = {
     open: PropTypes.bool,
     anchorRef: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+    menuListMaxHeight: PropTypes.number,
     onItemClick: PropTypes.func,
     onClose: PropTypes.func
 };

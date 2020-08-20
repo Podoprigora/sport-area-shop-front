@@ -39,11 +39,7 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
         multiline = false,
         resetButton = false,
         style,
-        menuProps = {
-            listProps: {
-                maxHeight: 250
-            }
-        },
+        menuListMaxHeight,
         emptyItem = false,
         emptyItemText = 'None',
         emptyItemValue = '',
@@ -272,7 +268,7 @@ const SelectInput = React.forwardRef(function SelectInput(props, ref) {
                     anchorRef={displayRef}
                     onClose={handleMenuClose}
                     onItemClick={handleItemClick}
-                    {...menuProps}
+                    menuListMaxHeight={menuListMaxHeight}
                 />
             </SelectInputContext.Provider>
         </div>
@@ -297,7 +293,7 @@ SelectInput.propTypes = {
     openOnFocus: PropTypes.bool,
     resetButton: PropTypes.bool,
     style: PropTypes.object,
-    menuProps: PropTypes.object,
+    menuListMaxHeight: PropTypes.number,
     emptyItem: PropTypes.bool,
     emptyItemText: PropTypes.string,
     emptyItemValue: PropTypes.any,

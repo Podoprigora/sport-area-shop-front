@@ -288,7 +288,14 @@ const Menu = React.forwardRef(function Menu(props, ref) {
 
     if (modal) {
         return (
-            <Modal open={!isClosed} backdrop={false} disableScrollLock onClose={handleModalClose}>
+            <Modal
+                open={!isClosed}
+                backdrop={false}
+                disableScrollLock
+                disableFocusBounding
+                disableRestoreFocus
+                onClose={handleModalClose}
+            >
                 {popperContent}
             </Modal>
         );

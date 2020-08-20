@@ -70,19 +70,26 @@
 		}
 
 		@include media-breakpoint-down('xl') {
-			width: 50%;
+			width: 33.33333%;
+		}
+
+		@include media-breakpoint-down('lg') {
 			height: auto;
 
 			&-hidden-content {
 				display: block;
 			}
 
-			.product__img-container {
-				height: 28rem;
-			}
-
 			.product__title {
 				height: auto;
+			}
+		}
+
+		@include media-breakpoint-down('md') {
+			width: 50%;
+
+			.product__img-container {
+				height: 28rem;
 			}
 		}
 
