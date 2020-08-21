@@ -46,7 +46,7 @@
 		flex-flow: row nowrap;
 		flex: none;
 		background-color: $body-bg-color;
-		padding: $spacing-scale-6 $spacing-scale-9;
+		padding: $spacing-scale-6 $spacing-scale-12;
 		border-bottom: 1px solid $border-color;
 		cursor: pointer;
 
@@ -71,7 +71,7 @@
 			justify-content: flex-start;
 			align-items: center;
 			flex: 1;
-			padding-left: $spacing-scale-9;
+			padding-left: $spacing-scale-12;
 		}
 
 		&-title {
@@ -101,7 +101,7 @@
 	&__item {
 		font-weight: 400;
 		font-size: 1.6rem;
-		padding: $spacing-scale-6 $spacing-scale-9;
+		padding: $spacing-scale-6 $spacing-scale-12;
 
 		&:not(:last-of-type) {
 			border-bottom: 1px solid $border-color-lighten;

@@ -26,10 +26,14 @@ import TestRating from './components/TestRating';
 import TestIntersectionObserver from './components/TestIntersectionObserver';
 import TestPagination from './components/TestPagination';
 import TestExpandedPanel from './components/TestExpandedPanel';
+import TestSlider from './components/TestSlider';
 
 const TestPage = (props) => {
     return (
         <div className="page">
+            <Panel title="Test Slider">
+                <TestSlider />
+            </Panel>
             <Panel title="Test ExpandedPanel">
                 <TestExpandedPanel />
             </Panel>

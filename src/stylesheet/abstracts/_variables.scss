@@ -42,9 +42,10 @@ $spacing-scale-5: $spacing * 1.25; // 1rem
 $spacing-scale-6: $spacing * 1.5; // 1.2rem
 $spacing-scale-7: $spacing * 1.75; // 1.4rem
 $spacing-scale-8: $spacing * 2; // 1.6rem
-$spacing-scale-9: $spacing * 3; // 2.4rem
-$spacing-scale-10: $spacing * 4.5; // 3.6rem
-$spacing-scale-11: $spacing * 6; // 4.8rem
+$spacing-scale-9: $spacing * 2.25; // 1.8rem
+$spacing-scale-12: $spacing * 3; // 2.4rem
+$spacing-scale-18: $spacing * 4.5; // 3.6rem
+$spacing-scale-24: $spacing * 6; // 4.8rem
 
 $spacing-scale: (
 	"0": $spacing-scale-0,
@@ -57,8 +58,9 @@ $spacing-scale: (
 	"7": $spacing-scale-7,
 	"8": $spacing-scale-8,
 	"9": $spacing-scale-9,
-	"10": $spacing-scale-10,
-	"11": $spacing-scale-11
+	"12": $spacing-scale-12,
+	"18": $spacing-scale-18,
+	"24": $spacing-scale-24
 );
 
 /*
@@ -83,7 +85,7 @@ $breakpoints: (
 
 // Layout
 $container-max-width: 120rem;
-$container-spacing-x: $spacing-scale-9;
+$container-spacing-x: $spacing-scale-12;
 $container-padding: 0 $container-spacing-x;
 
 // Skeleton
@@ -229,7 +231,7 @@ $menu-min-width: 2rem;
 $window-bg-color: $white;
 $window-box-shadow: $box-shadow-lg;
 $window-border-radius: $border-radius-lg;
-$window-margin: $spacing-scale-9;
+$window-margin: $spacing-scale-12;
 $window-body-painted-bg-color: $body-bg-color;
 
 // List
@@ -304,3 +306,10 @@ $expanded-panel-title-padding-x: 0;
 $expanded-panel-title-padding-y: $spacing-scale-6;
 $expanded-panel-body-padding-x: 0;
 $expanded-panel-body-padding-y: $spacing-scale-6;
+
+// Slider
+$slider-padding: $spacing-scale-9 0;
+$slider-height: 3px;
+$slider-color: $color-primary;
+$slider-rail-opacity: .3;
+$slider-thumb-size: 16px;
