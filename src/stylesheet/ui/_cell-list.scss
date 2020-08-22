@@ -9,6 +9,7 @@
 		min-width: $cell-list-item-min-width;
 		box-shadow: $cell-list-item-box-shadow;
 		border-radius: $cell-list-item-border-radius;
+		@include disable-tap-highlight-color;
 		transition: box-shadow .1s, background-color .1s;
 
 		&:focus {

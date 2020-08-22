@@ -5,6 +5,7 @@
 	background-color: transparent;
 	color: $icon-color;
 	margin: 0 $icon-btn-margin-x;
+	@include disable-tap-highlight-color;
 	cursor: pointer;
 
 	&::before {

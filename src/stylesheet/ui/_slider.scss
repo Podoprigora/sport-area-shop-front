@@ -4,6 +4,8 @@
 	padding: $slider-padding;
 	width: 100%;
 	height: $slider-height;
+	touch-action: none;
+	@include disable-tap-highlight-color;
 	cursor: pointer;
 
 	&__rail,

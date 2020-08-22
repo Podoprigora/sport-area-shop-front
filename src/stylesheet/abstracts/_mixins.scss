@@ -20,6 +20,10 @@
 	text-overflow: ellipsis;
 }
 
+@mixin disable-tap-highlight-color {
+	-webkit-tap-highlight-color: transparent;
+}
+
 // Breakpoints
 @mixin media-breakpoint-up($key, $offset: 0) {
 	$value: map-get($breakpoints, $key);

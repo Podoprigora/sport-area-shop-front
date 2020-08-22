@@ -6,6 +6,7 @@
 
 	&__item {
 		position: relative;
+		@include disable-tap-highlight-color;
 		cursor: pointer;
 
 		&:hover:not(&--disabled):not(&--read-only),

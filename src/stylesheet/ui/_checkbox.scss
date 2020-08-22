@@ -8,6 +8,7 @@
 
 	margin-left: $checkbox-margin-x;
 	margin-right: $checkbox-margin-x;
+	@include disable-tap-highlight-color;
 
 	&::before {
 		content: "";

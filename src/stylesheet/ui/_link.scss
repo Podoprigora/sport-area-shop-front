@@ -11,6 +11,8 @@
 		font-size: $link-small-font-size;
 		font-weight: $link-font-weight;
 		text-decoration: $link-text-decoration;
+		@include disable-tap-highlight-color;
+		user-select: none;
 		cursor: pointer;
 		transition: all .15s ease-out;
 	}

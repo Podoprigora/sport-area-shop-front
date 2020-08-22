@@ -3,7 +3,7 @@
 
 	display: inline-flex;
 	align-items: center;
-
+	@include disable-tap-highlight-color;
 	cursor: pointer;
 
 	&:not(#{$this}--multiline) {
@@ -14,6 +14,7 @@
 	}
 
 	&--disabled {
+		pointer-events: none;
 		cursor: auto;
 
 		#{$this}__chevron {

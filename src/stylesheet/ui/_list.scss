@@ -17,6 +17,7 @@
 
 		&--button {
 			cursor: pointer;
+			@include disable-tap-highlight-color;
 
 			&:focus {
 				outline: none;

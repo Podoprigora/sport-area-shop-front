@@ -23,6 +23,7 @@
 		border: 2px solid transparent;
 		border-radius: $border-radius-lg;
 		box-shadow: $box-shadow-sm;
+		@include disable-tap-highlight-color;
 		outline: none;
 
 		&:hover:not(#{$item}--selected):not(#{$item}--disabled) {
