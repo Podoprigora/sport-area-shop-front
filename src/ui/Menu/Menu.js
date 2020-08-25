@@ -260,7 +260,7 @@ const Menu = React.forwardRef(function Menu(props, ref) {
             <CSSTransition
                 appear
                 in={open && !!popperInstance}
-                timeout={300}
+                timeout={{ enter: 250, exit: 150 }}
                 classNames="menu"
                 onEnter={handleTransitionEnter}
                 onExited={handleTransitionExited}

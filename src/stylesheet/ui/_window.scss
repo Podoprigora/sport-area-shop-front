@@ -119,7 +119,7 @@
 		&-active {
 			transform: translate3d(0, 0, 0) !important;
 			opacity: 1;
-			transition: all .3s ease-out;
+			transition: all .25s ease-out;
 		}
 	}
 
@@ -131,7 +131,7 @@
 			&-active {
 				transform: scale3d(1, 1, 1) !important;
 				opacity: 1;
-				transition: all .3s ease;
+				transition: all .25 ease;
 			}
 		}
 	}
@@ -141,7 +141,7 @@
 
 		&-active {
 			opacity: 0;
-			transition: all .3s ease-out;
+			transition: all .2s ease-out;
 		}
 	}
 }

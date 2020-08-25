@@ -37,7 +37,7 @@ const Window = React.forwardRef(function Window(props, ref) {
         <Modal open={open} onClose={onClose} {...modalProps}>
             <CSSTransition
                 in={open}
-                timeout={300}
+                timeout={250}
                 classNames="window"
                 appear
                 unmountOnExit
