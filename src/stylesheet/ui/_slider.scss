@@ -49,8 +49,14 @@
 			left: $offset;
 		}
 
-		&:hover {
+		&:hover,
+		&--active,
+		&--focus-visible {
 			box-shadow: 0 0 0 ($slider-thumb-size / 2 + 1px) rgba($slider-color, $slider-rail-opacity);
+		}
+
+		&:focus {
+			outline: none;
 		}
 	}
 }

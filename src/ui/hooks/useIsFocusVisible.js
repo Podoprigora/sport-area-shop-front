@@ -27,7 +27,7 @@ const inputTypesWhitelist = {
 function focusTriggersKeyboardModality(node) {
     const { type, tagName } = node;
 
-    if (tagName === 'INPUT' && inputTypesWhitelist[type] && !node.raadOnly) {
+    if (tagName === 'INPUT' && inputTypesWhitelist[type] && !node.readOnly) {
         return true;
     }
 
