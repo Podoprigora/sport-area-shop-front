@@ -5,6 +5,8 @@ import { StickyContext } from './StickyContext';
 
 const defaultStyle = {};
 
+const supportResizeObserver = !!window.ResizeObserver;
+
 const StickyContainer = (props) => {
     const { children, minHeight: minHeightDefaultProp = 300, ...other } = props;
 
@@ -12,7 +14,7 @@ const StickyContainer = (props) => {
     const [style, setStyle] = useState(defaultStyle);
     const [minHeight, setMinHeight] = useControlled(null, minHeightDefaultProp);
 
-    const handleDocumentScroll = useCallback(() => {
+    const handleUpdateStyle = useCallback(() => {
         const { top, bottom } = nodeRef.current.getBoundingClientRect();
         const documentHeight = document.documentElement.clientHeight;
 
@@ -29,14 +31,38 @@ const StickyContainer = (props) => {
     }, [minHeight]);
 
     useEffect(() => {
-        document.addEventListener('scroll', handleDocumentScroll, false);
-        document.addEventListener('resize', handleDocumentScroll, false);
+        document.addEventListener('scroll', handleUpdateStyle, false);
+
+        if (!supportResizeObserver) {
+            document.addEventListener('resize', handleUpdateStyle, false);
+        }
 
         return () => {
-            document.removeEventListener('scroll', handleDocumentScroll, false);
-            document.removeEventListener('resize', handleDocumentScroll, false);
+            document.removeEventListener('scroll', handleUpdateStyle, false);
+
+            if (!supportResizeObserver) {
+                document.removeEventListener('resize', handleUpdateStyle, false);
+            }
         };
-    }, [handleDocumentScroll]);
+    }, [handleUpdateStyle]);
+
+    useEffect(() => {
+        const roCallback = (entries) => {
+            handleUpdateStyle();
+        };
+
+        if (nodeRef.current && supportResizeObserver) {
+            const ro = new ResizeObserver(roCallback);
+
+            ro.observe(nodeRef.current);
+
+            return () => {
+                ro.disconnect();
+            };
+        }
+
+        return undefined;
+    }, [handleUpdateStyle]);
 
     const contextValue = useMemo(
         () => ({
