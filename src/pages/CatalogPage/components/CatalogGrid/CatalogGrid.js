@@ -23,14 +23,18 @@ const CatalogGrid = (props) => {
         selectedPages,
         isLastPage
     } = useCatalogPageSelectors(catalogPageState);
+
     const { onChangePage, onLoadingMore } = useCatalogPageAcitions();
     const { toggleMask } = useScreenMask();
     const [loadingMoreLoading, setLoadingMoreLoading] = useState(false);
 
     const handlePageChange = useCallback(
-        (page) => {
+        (page, ev) => {
             if (onChangePage) {
-                document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
+                document.documentElement.scrollTo({
+                    top: 0,
+                    ...(ev.type === 'click' && { behavior: 'smooth' })
+                });
                 onChangePage(page);
             }
         },

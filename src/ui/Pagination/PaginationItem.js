@@ -19,8 +19,9 @@ const PaginationItem = (props) => {
         }
     };
 
-    const handleMouseDown = (ev) => {
+    const handleTouchEnd = (ev) => {
         ev.preventDefault();
+        handleClick(ev);
     };
 
     const handleFocus = (ev) => {
@@ -52,9 +53,10 @@ const PaginationItem = (props) => {
                 'pagination__item--focus-visible': focusVisible
             })}
             disabled={disabled}
+            tabIndex={disabled ? null : 0}
             ref={handleRef}
+            onTouchEnd={handleTouchEnd}
             onClick={handleClick}
-            onMouseDown={handleMouseDown}
             onFocus={handleFocus}
             onBlur={handleBlur}
         >
