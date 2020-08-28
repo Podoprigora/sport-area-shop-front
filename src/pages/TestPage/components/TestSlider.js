@@ -4,8 +4,12 @@ import NumberFormat from 'react-number-format';
 
 import Slider from '@ui/Slider';
 
-const renderThumbLabelText = (value) => {
+const renderPriceText = (value) => {
     return <NumberFormat value={value} displayType="text" prefix="$ " thousandSeparator />;
+};
+
+const renderCelsiusText = (value) => {
+    return <span>{value} &#8451;</span>;
 };
 
 const TestSlider = (props) => {
@@ -22,17 +26,26 @@ const TestSlider = (props) => {
     }, []);
 
     return (
-        <div style={{ width: '30rem' }}>
-            <Slider
-                defaultValue={[65000, 150000]}
-                min={650}
-                max={215946}
-                step={250}
-                disabled={false}
-                renderThumbLabelText={renderThumbLabelText}
-                onChange={handleChange}
-                onChangeCommited={handleChangeCommited}
-            />
+        <div className="u-flex u-flex-direction-column">
+            <div style={{ width: '30rem' }}>
+                <Slider
+                    defaultValue={[65000, 150000]}
+                    min={650}
+                    max={215946}
+                    step={250}
+                    disabled={false}
+                    renderThumbLabelText={renderPriceText}
+                    onChange={handleChange}
+                    onChangeCommited={handleChangeCommited}
+                />
+            </div>
+
+            <div style={{ width: '30rem', marginTop: '1rem' }}>
+                <Slider defaultValue={20} renderThumbLabelText={renderCelsiusText} />
+            </div>
+            <div style={{ position: 'relative', height: '30rem', margin: '1rem 0' }}>
+                <Slider defaultValue={20} orientation="vertical" />
+            </div>
         </div>
     );
 };

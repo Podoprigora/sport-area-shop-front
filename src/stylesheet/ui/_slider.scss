@@ -1,9 +1,9 @@
 .slider {
+	$this: &;
+
 	position: relative;
 	display: inline-block;
 	padding: $slider-padding;
-	width: 100%;
-	height: $slider-height;
 	color: $slider-bg-color;
 	touch-action: none;
 	@include disable-tap-highlight-color;
@@ -14,17 +14,55 @@
 		opacity: $slider-disabled-opacity;
 	}
 
+	&--horizontal {
+		width: 100%;
+		height: $slider-height;
+
+		#{$this}__rail,
+		#{$this}__track {
+			height: $slider-height;
+		}
+
+		#{$this}__rail {
+			width: 100%;
+		}
+
+		#{$this}__thumb {
+			margin-top: ($slider-thumb-size - $slider-height) / -2;
+			margin-left: ($slider-thumb-size - $slider-height) / -2;
+		}
+	}
+
+	&--vertical {
+		width: $slider-height;
+		height: 100%;
+
+		#{$this}__rail,
+		#{$this}__track {
+			bottom: 0;
+			width: $slider-height;
+		}
+
+		#{$this}__rail {
+			height: 100%;
+		}
+
+		#{$this}__thumb {
+			margin-left: ($slider-thumb-size - $slider-height) / -2;
+			margin-bottom: ($slider-thumb-size - $slider-height) / -2;
+		}
+	}
+
 	&__rail,
 	&__track {
 		position: absolute;
-		height: $slider-height;
+
 		border-radius: 2px;
 	}
 
 	&__rail {
 		background-color: currentColor;
 		opacity: $slider-rail-opacity;
-		width: 100%;
 	}
 
 	&__track {
@@ -40,8 +78,6 @@
 		align-items: center;
 		width: $slider-thumb-size;
 		height: $slider-thumb-size;
-		margin-top: ($slider-thumb-size - $slider-height) / -2;
-		margin-left: ($slider-thumb-size - $slider-height) / -2;
 
 		background-color: currentColor;
 		border-radius: 50%;

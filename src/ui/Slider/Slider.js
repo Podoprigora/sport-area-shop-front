@@ -57,7 +57,7 @@ const focusThumb = (elementRef, activeIndex) => {
         !elementRef.current.contains(document.activeElement) ||
         Number(document.activeElement.dataset.index) !== activeIndex
     ) {
-        const activeThumb = document.documentElement.querySelector(
+        const activeThumb = elementRef.current.querySelector(
             `[role="slider"][data-index="${activeIndex}"]`
         );
 
@@ -100,7 +100,7 @@ const axisStyles = {
     },
     vertical: {
         offset(percent) {
-            return { top: `${percent}%` };
+            return { bottom: `${percent}%` };
         },
         size(percent) {
             return { height: `${percent}%` };
@@ -366,6 +366,8 @@ const Slider = React.forwardRef(function Slider(props, ref) {
         <div
             role="presentation"
             className={classNames('slider', className, {
+                'slider--horizontal': orientation === 'horizontal',
+                'slider--vertical': orientation === 'vertical',
                 'slider--disabled': disabled
             })}
             ref={handleRef}
