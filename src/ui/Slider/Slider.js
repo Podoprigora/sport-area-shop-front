@@ -203,6 +203,10 @@ const Slider = React.forwardRef(function Slider(props, ref) {
 
         setActiveIndexState(-1);
 
+        if (ev.type === 'touchend') {
+            setOpenLabelIndexState(-1);
+        }
+
         touchIdRef.current = undefined;
 
         if (onChangeCommited) {
