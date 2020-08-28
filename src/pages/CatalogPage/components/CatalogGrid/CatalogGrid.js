@@ -5,7 +5,7 @@ import useScreenMask from '@contexts/ScreenMaskContext';
 import {
     useCatalogPageState,
     useCatalogPageSelectors,
-    useCatalogPageAcitions
+    useCatalogPageActions
 } from '@pages/CatalogPage/context';
 
 import CatalogGridBody from './CatalogGridBody';
@@ -24,7 +24,7 @@ const CatalogGrid = (props) => {
         isLastPage
     } = useCatalogPageSelectors(catalogPageState);
 
-    const { onChangePage, onLoadingMore } = useCatalogPageAcitions();
+    const { onChangePage, onLoadingMore } = useCatalogPageActions();
     const { toggleMask } = useScreenMask();
     const [loadingMoreLoading, setLoadingMoreLoading] = useState(false);
 
@@ -59,6 +59,20 @@ const CatalogGrid = (props) => {
     useEffect(() => {
         toggleMask(loading);
     }, [loading, toggleMask]);
+
+    useEffect(() => {
+        if (loadingMoreLoading) {
+            const scrollTop = document.documentElement.scrollTop;
+
+            return () => {
+                document.documentElement.scrollTo({
+                    top: scrollTop
+                });
+            };
+        }
+
+        return undefined;
+    }, [loadingMoreLoading]);
 
     return (
         <div className="catalog-grid">

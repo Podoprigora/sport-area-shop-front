@@ -7,14 +7,14 @@ import FilterIcon from '@svg-icons/feather/FilterIcon';
 import {
     useCatalogPageState,
     useCatalogPageSelectors,
-    useCatalogPageAcitions
+    useCatalogPageActions
 } from '@pages/CatalogPage/context';
 import CatalogSortBySelect from './CatalogSortBySelect';
 
 const CatalogTbar = (props) => {
     const state = useCatalogPageState();
     const { sortBy } = useCatalogPageSelectors(state);
-    const { onChangeSort } = useCatalogPageAcitions();
+    const { onChangeSort } = useCatalogPageActions();
 
     const handleSortChange = useCallback(
         (ev) => {

@@ -6,7 +6,7 @@ import CircularProgress from '@ui/CircularProgress';
 import Button from '@ui/Button';
 
 const CatalogGridLoadingMore = (props) => {
-    const { loading, onClick } = props;
+    const { loading, onClick, ...other } = props;
 
     const handleClick = useCallback(
         (ev) => {
@@ -17,12 +17,8 @@ const CatalogGridLoadingMore = (props) => {
         [onClick]
     );
 
-    const handleMouseDown = useCallback((ev) => {
-        ev.preventDefault();
-    }, []);
-
     return (
-        <div className="catalog-grid__load-more">
+        <div className="catalog-grid__load-more" {...other}>
             <Button
                 primary
                 transparent
@@ -31,7 +27,6 @@ const CatalogGridLoadingMore = (props) => {
                 loading={loading}
                 iconSize="xlarge"
                 onClick={handleClick}
-                onMouseDown={handleMouseDown}
             >
                 Load more products
             </Button>

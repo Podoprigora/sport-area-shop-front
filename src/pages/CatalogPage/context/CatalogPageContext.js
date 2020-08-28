@@ -4,11 +4,11 @@ const CatalogPageStateContext = createContext();
 const useCatalogPageState = () => useContext(CatalogPageStateContext);
 
 const CatalogPageActionsContext = createContext();
-const useCatalogPageAcitions = () => useContext(CatalogPageActionsContext);
+const useCatalogPageActions = () => useContext(CatalogPageActionsContext);
 
 export {
     CatalogPageStateContext,
     CatalogPageActionsContext,
     useCatalogPageState,
-    useCatalogPageAcitions
+    useCatalogPageActions
 };
