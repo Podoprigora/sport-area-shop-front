@@ -4,9 +4,15 @@
 	padding: $slider-padding;
 	width: 100%;
 	height: $slider-height;
+	color: $slider-bg-color;
 	touch-action: none;
 	@include disable-tap-highlight-color;
 	cursor: pointer;
+
+	&--disabled {
+		pointer-events: none;
+		opacity: $slider-disabled-opacity;
+	}
 
 	&__rail,
 	&__track {
@@ -16,15 +22,18 @@
 	}
 
 	&__rail {
-		background-color: rgba($slider-color, $slider-rail-opacity);
+		background-color: currentColor;
+		opacity: $slider-rail-opacity;
 		width: 100%;
 	}
 
 	&__track {
-		background-color: $slider-color;
+		background-color: currentColor;
 	}
 
 	&__thumb {
+		$thumb: &;
+
 		position: absolute;
 		display: flex;
 		justify-content: center;
@@ -34,7 +43,7 @@
 		margin-top: ($slider-thumb-size - $slider-height) / -2;
 		margin-left: ($slider-thumb-size - $slider-height) / -2;
 
-		background-color: $slider-color;
+		background-color: currentColor;
 		border-radius: 50%;
 		transition: box-shadow .2s;
 
@@ -52,11 +61,44 @@
 		&:hover,
 		&--active,
 		&--focus-visible {
-			box-shadow: 0 0 0 ($slider-thumb-size / 2 + 1px) rgba($slider-color, $slider-rail-opacity);
+			box-shadow: 0 0 0 ($slider-thumb-size / 2 + .1rem) rgba($slider-bg-color, $slider-rail-opacity);
 		}
 
 		&:focus {
 			outline: none;
+		}
+
+		&--open-label {
+			#{$thumb}-label {
+				opacity: 1;
+				transform: scale3d(1, 1, 1);
+			}
+		}
+
+		&-label {
+			position: absolute;
+			display: inline-flex;
+			flex-flow: row nowrap;
+			justify-content: center;
+			align-items: center;
+			top: -$slider-thumb-size - 2rem;
+			background-color: $slider-bg-color;
+			color: $slider-text-color;
+			padding: $spacing-scale-2 $spacing-scale-4;
+			white-space: nowrap;
+			border-radius: $border-radius-lg;
+			transform: scale3d(0, 0, 0);
+			opacity: 0;
+			transform-origin: bottom center;
+			transition: all .3s ease;
+
+			&::after {
+				position: absolute;
+				content: "";
+				border: .5rem solid transparent;
+				border-top-color: $slider-bg-color;
+				bottom: -1rem;
+			}
 		}
 	}
 }

@@ -309,7 +309,9 @@ $expanded-panel-body-padding-y: $spacing-scale-6;
 
 // Slider
 $slider-padding: $spacing-scale-9 0;
-$slider-height: 3px;
-$slider-color: $color-primary;
+$slider-height: .3rem;
+$slider-bg-color: $color-primary;
+$slider-text-color: $white;
+$slider-disabled-opacity: .4;
 $slider-rail-opacity: .3;
-$slider-thumb-size: 16px;
+$slider-thumb-size: $spacing-scale-8;

@@ -7,6 +7,7 @@ import useForkRef from '@ui/hooks/useForkRef';
 import useEventCallback from '@ui/hooks/useEventCallback';
 import defineEventTarget from '@ui/utils/defineEventTarget';
 import useIsFocusVisible from '@ui/hooks/useIsFocusVisible';
+import SliderThumbLabel from './SliderThumbLabel';
 
 const sortAsc = (a, b) => a - b;
 
@@ -119,6 +120,8 @@ const Slider = React.forwardRef(function Slider(props, ref) {
         step = 1,
         orientation = 'horizontal',
         disabled,
+        disabledThumbLabel,
+        renderThumbLabelText,
         onChange,
         onChangeCommited,
         onFocus,
@@ -133,6 +136,8 @@ const Slider = React.forwardRef(function Slider(props, ref) {
 
     const [activeIndexState, setActiveIndexState] = useState(-1);
     const previousActiveIndexRef = useRef(-1);
+
+    const [openLabelIndexState, setOpenLabelIndexState] = useState(-1);
 
     const [focusVisibleIndex, setFocusVisibleIndex] = useState(-1);
     const { isFocusVisible, onBlurVisible, ref: isFocusVisibleRef } = useIsFocusVisible();
@@ -286,6 +291,9 @@ const Slider = React.forwardRef(function Slider(props, ref) {
             const newIndex = newValue.indexOf(previousValue);
 
             focusThumb(elementRef, newIndex);
+            setActiveIndexState(newIndex);
+        } else {
+            setActiveIndexState(index);
         }
 
         setValueState(newValue);
@@ -302,10 +310,11 @@ const Slider = React.forwardRef(function Slider(props, ref) {
     });
 
     const handleThumbFocus = useEventCallback((ev) => {
+        const index = Number(ev.target.dataset.index);
         if (isFocusVisible(ev)) {
-            const index = Number(ev.target.dataset.index);
             setFocusVisibleIndex(index);
         }
+        setOpenLabelIndexState(index);
     });
 
     const handleThumbBlur = useEventCallback((ev) => {
@@ -313,11 +322,18 @@ const Slider = React.forwardRef(function Slider(props, ref) {
             onBlurVisible(ev);
             setFocusVisibleIndex(-1);
         }
+        setActiveIndexState(-1);
+        setOpenLabelIndexState(-1);
     });
 
-    const handleThumbMouseEnter = useCallback((ev) => {}, []);
+    const handleThumbMouseEnter = useEventCallback((ev) => {
+        const index = Number(ev.target.dataset.index);
+        setOpenLabelIndexState(index);
+    });
 
-    const handleThumbMouseLeave = useCallback((ev) => {}, []);
+    const handleThumbMouseLeave = useEventCallback((ev) => {
+        setOpenLabelIndexState(-1);
+    });
 
     // Effects
 
@@ -349,7 +365,9 @@ const Slider = React.forwardRef(function Slider(props, ref) {
     return (
         <div
             role="presentation"
-            className={classNames('slider', className)}
+            className={classNames('slider', className, {
+                'slider--disabled': disabled
+            })}
             ref={handleRef}
             onMouseDown={handleMouseDown}
         >
@@ -363,27 +381,34 @@ const Slider = React.forwardRef(function Slider(props, ref) {
                 const style = axisStyles[orientation].offset(percent);
 
                 return (
-                    <div
-                        role="slider"
+                    <SliderThumbLabel
                         key={index}
-                        className={classNames('slider__thumb', {
-                            'slider__thumb--active': index === activeIndexState,
-                            'slider__thumb--focus-visible': index === focusVisibleIndex
-                        })}
-                        style={style}
-                        tabIndex={disabled ? null : 0}
-                        data-index={index}
-                        aria-valuemin={min}
-                        aria-valuenow={value}
-                        aria-valuemax={max}
-                        aria-labelledby={ariaLabelledBy}
-                        aria-orientation={orientation}
-                        onKeyDown={handleThumbKeyDown}
-                        onMouseEnter={handleThumbMouseEnter}
-                        onMouseLeave={handleThumbMouseLeave}
-                        onFocus={handleThumbFocus}
-                        onBlur={handleThumbBlur}
-                    />
+                        value={value}
+                        open={openLabelIndexState === index || activeIndexState === index}
+                        disabled={disabledThumbLabel || disabled}
+                        renderValue={renderThumbLabelText}
+                    >
+                        <div
+                            role="slider"
+                            className={classNames('slider__thumb', {
+                                'slider__thumb--active': index === activeIndexState,
+                                'slider__thumb--focus-visible': index === focusVisibleIndex
+                            })}
+                            style={style}
+                            tabIndex={disabled ? null : 0}
+                            data-index={index}
+                            aria-valuemin={min}
+                            aria-valuenow={value}
+                            aria-valuemax={max}
+                            aria-labelledby={ariaLabelledBy}
+                            aria-orientation={orientation}
+                            onKeyDown={handleThumbKeyDown}
+                            onMouseEnter={handleThumbMouseEnter}
+                            onMouseLeave={handleThumbMouseLeave}
+                            onFocus={handleThumbFocus}
+                            onBlur={handleThumbBlur}
+                        />
+                    </SliderThumbLabel>
                 );
             })}
         </div>
@@ -401,6 +426,8 @@ Slider.propTypes = {
     orientation: PropTypes.oneOf(['horizontal', 'vertical']),
     disabled: PropTypes.bool,
     className: PropTypes.string,
+    disabledThumbLabel: PropTypes.bool,
+    renderThumbLabelText: PropTypes.func,
     onChange: PropTypes.func,
     onChangeCommited: PropTypes.func,
     onFocus: PropTypes.func,

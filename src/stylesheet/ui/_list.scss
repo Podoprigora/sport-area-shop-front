@@ -24,10 +24,8 @@
 			}
 
 			&:not(#{$item-selector}--disabled) {
-				@include media-hover {
-					&:hover {
-						background-color: $color-hover;
-					}
+				&:hover {
+					background-color: $color-hover;
 				}
 
 				&#{$item-selector}--highlighted {

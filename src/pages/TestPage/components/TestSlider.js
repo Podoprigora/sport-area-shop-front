@@ -1,7 +1,12 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
+import NumberFormat from 'react-number-format';
 
 import Slider from '@ui/Slider';
+
+const renderThumbLabelText = (value) => {
+    return <NumberFormat value={value} displayType="text" prefix="$ " thousandSeparator />;
+};
 
 const TestSlider = (props) => {
     const handleChange = useCallback((ev) => {
@@ -19,7 +24,12 @@ const TestSlider = (props) => {
     return (
         <div style={{ width: '30rem' }}>
             <Slider
-                defaultValue={[10, 90]}
+                defaultValue={[65000, 150000]}
+                min={650}
+                max={215946}
+                step={250}
+                disabled={false}
+                renderThumbLabelText={renderThumbLabelText}
                 onChange={handleChange}
                 onChangeCommited={handleChangeCommited}
             />
