@@ -9,15 +9,15 @@
 	@include generate-grid("u-");
 }
 
-.u-flex-col-1 {
+.u-flex-item-1 {
 	flex: 1;
 }
 
-.u-flex-col-auto {
+.u-flex-item-auto {
 	flex: auto;
 }
 
-.u-flex-col-none {
+.u-flex-item-none {
 	flex: none;
 }
 
