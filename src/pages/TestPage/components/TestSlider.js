@@ -29,14 +29,14 @@ const TestSlider = (props) => {
         <div className="u-flex u-flex-direction-column">
             <div style={{ width: '30rem' }}>
                 <Slider
-                    defaultValue={[65000, 150000]}
-                    min={650}
-                    max={215946}
-                    step={250}
-                    disabled={false}
-                    renderThumbLabelText={renderPriceText}
-                    onChange={handleChange}
-                    onChangeCommited={handleChangeCommited}
+                    defaultValue={[0, 100]}
+                    // min={650}
+                    // max={215946}
+                    // step={250}
+                    // disabled
+                    // renderThumbLabelText={renderPriceText}
+                    // onChange={handleChange}
+                    // onChangeCommited={handleChangeCommited}
                 />
             </div>
 

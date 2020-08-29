@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Input from '@ui/Input';
+
 import FlexRow from '@ui/FlexRow';
 import FlexCol from '@ui/FlexCol';
 import NumberInput from '@ui/NumberInput';
 import Button from '@ui/Button';
+import Slider from '@ui/Slider';
 
 const CatalogFiltersPriceForm = (props) => {
     return (
@@ -23,6 +24,9 @@ const CatalogFiltersPriceForm = (props) => {
                     </Button>
                 </FlexCol>
             </FlexRow>
+            <div className="u-margin-y-2">
+                <Slider defaultValue={[0, 100]} disabledThumbLabel />
+            </div>
         </form>
     );
 };

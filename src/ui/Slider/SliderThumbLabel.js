@@ -18,7 +18,9 @@ const SliderThumbLabel = (props) => {
                 'slider__thumb--open-label': open
             })
         },
-        <div className="slider__thumb-label">{renderValue(value)}</div>
+        <div className="slider__thumb-label">
+            <div className="slider__thumb-label-text">{renderValue(value)}</div>
+        </div>
     );
 };
 

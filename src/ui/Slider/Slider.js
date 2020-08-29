@@ -368,55 +368,59 @@ const Slider = React.forwardRef(function Slider(props, ref) {
 
     return (
         <div
-            role="presentation"
             className={classNames('slider', className, {
                 'slider--horizontal': orientation === 'horizontal',
                 'slider--vertical': orientation === 'vertical',
                 'slider--disabled': disabled
             })}
-            ref={handleRef}
-            onMouseDown={handleMouseDown}
         >
-            <input type="hidden" name={name} value={values.join(',')} />
-            <div className="slider__rail" />
+            <div
+                role="presentation"
+                className="slider__body"
+                ref={handleRef}
+                onMouseDown={handleMouseDown}
+            >
+                <input type="hidden" name={name} value={values.join(',')} />
+                <div className="slider__rail" />
 
-            <div className="slider__track" style={trackStyle} />
+                <div className="slider__track" style={trackStyle} />
 
-            {values.map((value, index) => {
-                const percent = valueToPercent(value, min, max);
-                const style = axisStyles[orientation].offset(percent);
+                {values.map((value, index) => {
+                    const percent = valueToPercent(value, min, max);
+                    const style = axisStyles[orientation].offset(percent);
 
-                return (
-                    <SliderThumbLabel
-                        key={index}
-                        value={value}
-                        open={openLabelIndexState === index || activeIndexState === index}
-                        disabled={disabledThumbLabel || disabled}
-                        renderValue={renderThumbLabelText}
-                    >
-                        <div
-                            role="slider"
-                            className={classNames('slider__thumb', {
-                                'slider__thumb--active': index === activeIndexState,
-                                'slider__thumb--focus-visible': index === focusVisibleIndex
-                            })}
-                            style={style}
-                            tabIndex={disabled ? null : 0}
-                            data-index={index}
-                            aria-valuemin={min}
-                            aria-valuenow={value}
-                            aria-valuemax={max}
-                            aria-labelledby={ariaLabelledBy}
-                            aria-orientation={orientation}
-                            onKeyDown={handleThumbKeyDown}
-                            onMouseEnter={handleThumbMouseEnter}
-                            onMouseLeave={handleThumbMouseLeave}
-                            onFocus={handleThumbFocus}
-                            onBlur={handleThumbBlur}
-                        />
-                    </SliderThumbLabel>
-                );
-            })}
+                    return (
+                        <SliderThumbLabel
+                            key={index}
+                            value={value}
+                            open={openLabelIndexState === index || activeIndexState === index}
+                            disabled={disabledThumbLabel || disabled}
+                            renderValue={renderThumbLabelText}
+                        >
+                            <div
+                                role="slider"
+                                className={classNames('slider__thumb', {
+                                    'slider__thumb--active': index === activeIndexState,
+                                    'slider__thumb--focus-visible': index === focusVisibleIndex
+                                })}
+                                style={style}
+                                tabIndex={disabled ? null : 0}
+                                data-index={index}
+                                aria-valuemin={min}
+                                aria-valuenow={value}
+                                aria-valuemax={max}
+                                aria-labelledby={ariaLabelledBy}
+                                aria-orientation={orientation}
+                                onKeyDown={handleThumbKeyDown}
+                                onMouseEnter={handleThumbMouseEnter}
+                                onMouseLeave={handleThumbMouseLeave}
+                                onFocus={handleThumbFocus}
+                                onBlur={handleThumbBlur}
+                            />
+                        </SliderThumbLabel>
+                    );
+                })}
+            </div>
         </div>
     );
 });
