@@ -10,27 +10,35 @@ export const SELECT_PAGE = 'SELECT_PAGE';
 export const LOADING_MORE = 'LOADING_MORE';
 export const SELECT_SORT_BY = 'SELECT_SORT_BY';
 
+function getDefaultSortBy() {
+    return 'relevance';
+}
+
+function getDefaultSelectedPage() {
+    return 1;
+}
+
 export const catalogPageDefaultState = {
     initialLoading: true,
     loading: false,
     itemsIds: [],
     itemsById: {},
-    sortBy: 'relevance',
+    sortBy: getDefaultSortBy(),
     filters: {},
     pagination: {
         total: 0,
         itemsPerPage: 24,
-        selectedPages: [1]
+        selectedPages: [getDefaultSelectedPage()]
     }
 };
 
 const strategies = {
     [REQUEST_INITIAL_ITEMS]: requestInitialItemsStrategy,
     [TOGGLE_ITITIAL_LOADING]: toggleInitialLoadingStrategy,
-    [RECEIVE_INITIAL_ITEMS]: receiveInitialItemsStrategy,
+    [RECEIVE_INITIAL_ITEMS]: createReceiveItemsStrategy(true),
     [REQUEST_ITEMS]: requestItemsStrategy,
     [TOGGLE_LOADING]: toggleLoadingStrategy,
-    [RECEIVE_ITEMS]: receiveItemsStrategy,
+    [RECEIVE_ITEMS]: createReceiveItemsStrategy(false),
     [SELECT_PAGE]: selectPageStrategy,
     [LOADING_MORE]: loadingMoreStrategy,
     [SELECT_SORT_BY]: selectSortByStrategy
@@ -114,38 +122,36 @@ function toggleLoadingStrategy(state, { toggle = false }) {
     return { ...state, loading: toggle };
 }
 
-function receiveItemsStrategy(state, { items, total, page, sort }) {
-    let newState = toggleLoadingStrategy(state, { toggle: false });
+function createReceiveItemsStrategy(initialLoading = false) {
+    return (state, { items, total, page, sort }) => {
+        let newState = { ...state };
+        let selectedPage = page;
+        let sortBy = sort;
 
-    newState = paginationReducer(newState, { total });
+        if (initialLoading) {
+            selectedPage = selectedPage || getDefaultSelectedPage();
+            sortBy = sortBy || getDefaultSortBy();
 
-    if (page) {
-        newState = selectedPagesReducer(newState, { page });
-    }
+            newState = toggleInitialLoadingStrategy(state, { toggle: false });
+        } else {
+            newState = toggleLoadingStrategy(state, { toggle: false });
+        }
 
-    if (sort) {
-        newState = sortByReducer(newState, { value: sort });
-    }
+        newState = paginationReducer(newState, { total });
 
-    newState = itemsIdsReducer(newState, items);
-    newState = itemsByIdReducer(newState, items);
+        if (selectedPage) {
+            newState = selectedPagesReducer(newState, { page: selectedPage });
+        }
 
-    return { ...newState };
-}
+        if (sortBy) {
+            newState = sortByReducer(newState, { value: sortBy });
+        }
 
-function receiveInitialItemsStrategy(state, { total, page, sort, items }) {
-    let newState = toggleInitialLoadingStrategy(state, { toggle: false });
+        newState = itemsIdsReducer(newState, items);
+        newState = itemsByIdReducer(newState, items);
 
-    newState = paginationReducer(newState, { total });
-    newState = selectedPagesReducer(newState, { page });
-
-    const sortBy = sort || catalogPageDefaultState.sortBy;
-    newState = sortByReducer(newState, { value: sortBy });
-
-    newState = itemsIdsReducer(newState, items);
-    newState = itemsByIdReducer(newState, items);
-
-    return { ...newState };
+        return { ...newState };
+    };
 }
 
 function selectPageStrategy(state, { page }) {

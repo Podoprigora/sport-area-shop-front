@@ -21,7 +21,7 @@ const CatalogPageLayout = (props) => {
                                 <StickyItem
                                     className="catalog-page__aside-sticky"
                                     scrollbar
-                                    minHeight={300}
+                                    minHeight={400}
                                 >
                                     <CatalogFilters />
                                 </StickyItem>

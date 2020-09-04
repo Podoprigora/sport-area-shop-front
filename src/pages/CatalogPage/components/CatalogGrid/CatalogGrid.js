@@ -11,6 +11,7 @@ import {
 import CatalogGridBody from './CatalogGridBody';
 import CatalogGridPagination from './CatalogGridPagination';
 import CatalogGridLoadingMore from './CatalogGridLoadingMore';
+import CatalogTbar from '../CatalogTbar';
 
 const CatalogGrid = (props) => {
     const catalogPageState = useCatalogPageState();
@@ -29,13 +30,16 @@ const CatalogGrid = (props) => {
     const [loadingMoreLoading, setLoadingMoreLoading] = useState(false);
 
     const handlePageChange = useCallback(
-        (page, ev) => {
+        async (page, ev) => {
+            const eventType = ev.type;
+
             if (onChangePage) {
+                await onChangePage(page);
+
                 document.documentElement.scrollTo({
                     top: 0,
-                    ...(ev.type === 'click' && { behavior: 'smooth' })
+                    ...(eventType === 'click' && { behavior: 'smooth' })
                 });
-                onChangePage(page);
             }
         },
         [onChangePage]

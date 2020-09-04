@@ -8,7 +8,7 @@ import Slider from '@ui/Slider';
 const CatalogFiltersPriceForm = (props) => {
     return (
         <form className="catalog-page-filters-panel__form">
-            <div className="u-flex">
+            <div className="u-flex-row">
                 <div className="u-flex-item-1">
                     <NumberInput placeholder="from" simple fullWidth />
                 </div>

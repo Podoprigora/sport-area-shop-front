@@ -26,7 +26,9 @@ const CatalogPageProvider = (props) => {
     const { children } = props;
 
     const [state, dispatch] = useReducer(catalogPageReducer, catalogPageDefaultState);
-    const { itemsPerPage, isLastPage, selectedPage, sortBy } = useCatalogPageSelectors(state);
+    const { loading, itemsPerPage, isLastPage, selectedPage, sortBy } = useCatalogPageSelectors(
+        state
+    );
 
     const isMountedRef = useMountedRef();
 
@@ -96,24 +98,24 @@ const CatalogPageProvider = (props) => {
     });
 
     const handleChangePage = useCallback(
-        (page) => {
+        async (page) => {
             dispatch({ type: SELECT_PAGE, payload: { page } });
-            loadingItems({ page });
+            await loadingItems({ page });
         },
         [loadingItems]
     );
 
-    const handleLoadingMore = useCallback(() => {
+    const handleLoadingMore = useCallback(async () => {
         if (!isLastPage) {
             dispatch({ type: LOADING_MORE });
-            loadingItems();
+            await loadingItems();
         }
     }, [isLastPage, loadingItems]);
 
     const handleChangeSort = useCallback(
-        (value) => {
+        async (value) => {
             dispatch({ type: SELECT_SORT_BY, payload: { value } });
-            loadingItems({ sort: value });
+            await loadingItems({ sort: value });
         },
         [loadingItems]
     );
@@ -142,8 +144,14 @@ const CatalogPageProvider = (props) => {
     }, [isMountedRef, itemsPerPage, category, subCategory, subCategoryItem]);
 
     useEffect(() => {
-        historyPush({ sort: sortBy, page: selectedPage });
-    }, [sortBy, selectedPage, historyPush]);
+        if (loading) {
+            return () => {
+                historyPush({ sort: sortBy, page: selectedPage });
+            };
+        }
+
+        return undefined;
+    }, [sortBy, selectedPage, loading, historyPush]);
 
     const contextActionsValue = useMemo(
         () => ({
