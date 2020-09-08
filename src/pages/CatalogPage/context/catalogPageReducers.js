@@ -248,7 +248,7 @@ function selectSortByStrategy(state, { value }) {
 
 function changeSelectedFiltersStrategy(state, payload) {
     let newState = selectedPagesReducer(state, { page: 1 });
-    newState = selectedFiltersReducer(newState, { selected: payload });
+    newState = selectedFiltersReducer(newState, payload);
     newState = shouldReloadItemsReducer(newState, true);
 
     return { ...newState };

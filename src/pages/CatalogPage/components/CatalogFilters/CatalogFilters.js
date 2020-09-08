@@ -10,17 +10,7 @@ import {
 } from '@pages/CatalogPage/context';
 
 import CatalogFiltersSkeleton from './CatalogFiltersSkeleton';
-import CatalogFiltersBrandsPanel from './CatalogFiltersBrandsPanel';
-import CatalogFiltersColorsPanel from './CatalogFiltersColorsPanel';
-import CatalogFiltersSizesPanel from './CatalogFiltersSizes';
-import CatalogFiltersPriceRangePanel from './CatalogFiltersPriceRangePanel';
-
-const filterComponents = {
-    brands: CatalogFiltersBrandsPanel,
-    sizes: CatalogFiltersSizesPanel,
-    colors: CatalogFiltersColorsPanel,
-    price: CatalogFiltersPriceRangePanel
-};
+import getCatalogFiltersComponentById from './getCatalogFiltersComponentById';
 
 const CatalogFilters = (props) => {
     const catalogPageState = useCatalogPageState();
@@ -40,7 +30,7 @@ const CatalogFilters = (props) => {
 
     const items = filtersItems.map((item) => {
         const { id } = item;
-        const Component = filterComponents[id];
+        const Component = getCatalogFiltersComponentById(id);
         const selected = getSelectedFiltersById(id);
 
         if (!Component) {

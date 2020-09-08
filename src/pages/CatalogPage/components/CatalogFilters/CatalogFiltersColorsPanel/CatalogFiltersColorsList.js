@@ -7,7 +7,7 @@ import FiltersList from '@components/FiltersList/FiltersList';
 const getItemTitle = (item = {}) => item.name;
 
 const CatalogFiltersColorsList = (props) => {
-    const { items, selected, onChange } = props;
+    const { items, selected = [], onChange } = props;
 
     const handleChange = useEventCallback((ev, selectedItems) => {
         if (onChange) {

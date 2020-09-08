@@ -10,7 +10,7 @@ const CatalogFiltersColorsPanel = (props) => {
     const { id, title, items = [], selected: selectedProp = [], onChange } = props;
     let selected = selectedProp;
 
-    if (typeof selected === 'string') {
+    if (!!selected && typeof selected === 'string') {
         selected = [selected];
     }
 
@@ -33,7 +33,7 @@ const CatalogFiltersColorsPanel = (props) => {
     return (
         <CatalogFiltersExpandedPanel
             title={title}
-            resetButton={selected.length > 0}
+            resetButton={!!selected && selected.length > 0}
             onResetClick={handleResetClick}
         >
             <CatalogFiltersColorsList items={items} selected={selected} onChange={handleChange} />

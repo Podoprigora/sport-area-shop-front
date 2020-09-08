@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 const WindowActions = (props) => {
-    const { children, align = 'right', className, ...other } = props;
+    const { children, justify = 'right', className, ...other } = props;
 
     return (
         <div
             className={classNames('window__actions', className, {
-                [`window__actions--align-${align}`]: align
+                [`window__actions--justify-${justify}`]: justify
             })}
         >
             {children}
@@ -18,7 +18,7 @@ const WindowActions = (props) => {
 
 WindowActions.propTypes = {
     children: PropTypes.node,
-    align: PropTypes.string,
+    justify: PropTypes.oneOf(['left', 'right', 'center', 'stretch']),
     className: PropTypes.string
 };
 

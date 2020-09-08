@@ -52,8 +52,8 @@ const CatalogPageProvider = (props) => {
         dispatch({ type: SELECT_SORT_BY, payload: { value } });
     }, []);
 
-    const handleChangeFilters = useCallback((payload) => {
-        dispatch({ type: CHANGE_SELECTED_FILTERS, payload });
+    const handleChangeFilters = useCallback((selected, merge = true) => {
+        dispatch({ type: CHANGE_SELECTED_FILTERS, payload: { selected, merge } });
     }, []);
 
     // Render

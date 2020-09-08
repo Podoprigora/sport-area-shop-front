@@ -1,8 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import useEventCallback from '@ui/hooks/useEventCallback';
-import useControlled from '@ui/hooks/useControlled';
 import Button from '@ui/Button';
 import Slider from '@ui/Slider';
 
@@ -11,19 +9,24 @@ import CatalogFiltersPriceRangeNumberFileld from './CatalogFiltersPriceRangeNumb
 const stringToNumber = (string) => (string ? Number.parseInt(string, 10) : 0);
 
 const CatalogFiltersPriceRangeForm = (props) => {
-    const { range = [0, 1000], selected = [], onChange } = props;
+    const { range = [0, 1000], selected = [], mobile = false, onChange } = props;
 
     const [minRange, maxRange] = range.map((num) => stringToNumber(num));
     const [selectedMinValue, selectedMaxValue] = selected.map((num) => stringToNumber(num));
 
-    const [minValue, setMinValue] = useState(() =>
-        selectedMinValue ? Math.max(selectedMinValue, minRange) : minRange
-    );
-    const [maxValue, setMaxValue] = useState(() =>
-        selectedMaxValue ? Math.min(selectedMaxValue, maxRange) : maxRange
-    );
+    const [minValue, setMinValue] = useState(minRange);
+    const [maxValue, setMaxValue] = useState(maxRange);
 
     const [invalidValue, setInvalidValue] = useState(false);
+
+    const handleChange = useCallback(
+        (ev) => {
+            if (onChange && !invalidValue) {
+                onChange(ev, [minValue, maxValue]);
+            }
+        },
+        [invalidValue, onChange, minValue, maxValue]
+    );
 
     const handleSliderChange = useCallback(
         (ev) => {
@@ -35,6 +38,16 @@ const CatalogFiltersPriceRangeForm = (props) => {
         [setMaxValue, setMinValue]
     );
 
+    const handleSliderChangeCommited = useCallback(
+        (ev) => {
+            if (mobile) {
+                handleSliderChange(ev);
+                handleChange(ev);
+            }
+        },
+        [mobile, handleChange, handleSliderChange]
+    );
+
     const handleMinInputBlur = useCallback(
         (ev) => {
             let newMinValue = stringToNumber(ev.target.value);
@@ -44,8 +57,12 @@ const CatalogFiltersPriceRangeForm = (props) => {
             newMinValue = Math.min(newMinValue, maxValue - 1);
 
             setMinValue(newMinValue);
+
+            if (mobile) {
+                handleChange(ev);
+            }
         },
-        [minRange, maxRange, maxValue, setMinValue]
+        [minRange, maxRange, maxValue, setMinValue, mobile, handleChange]
     );
 
     const handleMinInputChange = useCallback(
@@ -66,8 +83,12 @@ const CatalogFiltersPriceRangeForm = (props) => {
             newMaxValue = Math.max(newMaxValue, minValue + 1);
 
             setMaxValue(newMaxValue);
+
+            if (mobile) {
+                handleChange(ev);
+            }
         },
-        [maxRange, minRange, minValue, setMaxValue]
+        [maxRange, minRange, minValue, setMaxValue, mobile, handleChange]
     );
 
     const handleMaxInputChange = useCallback(
@@ -81,11 +102,9 @@ const CatalogFiltersPriceRangeForm = (props) => {
 
     const handleOkButtonClick = useCallback(
         (ev) => {
-            if (onChange && !invalidValue) {
-                onChange(ev, [minValue, maxValue]);
-            }
+            handleChange(ev);
         },
-        [invalidValue, onChange, minValue, maxValue]
+        [handleChange]
     );
 
     // Validation
@@ -102,17 +121,10 @@ const CatalogFiltersPriceRangeForm = (props) => {
         }
     }, [minValue, maxValue, minRange, maxRange]);
 
-    // Reset values when 'selected' prop becomes empty
     useEffect(() => {
-        if (selected.length > 0) {
-            return () => {
-                setMinValue(minRange);
-                setMaxValue(maxRange);
-            };
-        }
-
-        return undefined;
-    }, [selected, minRange, maxRange]);
+        setMinValue(() => (selectedMinValue ? Math.max(selectedMinValue, minRange) : minRange));
+        setMaxValue(() => (selectedMaxValue ? Math.min(selectedMaxValue, maxRange) : maxRange));
+    }, [selectedMinValue, selectedMaxValue, minRange, maxRange]);
 
     return (
         <form className="catalog-page-filters-panel__form">
@@ -136,17 +148,19 @@ const CatalogFiltersPriceRangeForm = (props) => {
                         onBlur={handleMaxInputBlur}
                     />
                 </div>
-                <div className="u-margin-l-6">
-                    <Button
-                        primary
-                        centered
-                        slim
-                        disabled={invalidValue}
-                        onClick={handleOkButtonClick}
-                    >
-                        OK
-                    </Button>
-                </div>
+                {!mobile && (
+                    <div className="u-margin-l-6">
+                        <Button
+                            primary
+                            centered
+                            slim
+                            disabled={invalidValue}
+                            onClick={handleOkButtonClick}
+                        >
+                            OK
+                        </Button>
+                    </div>
+                )}
             </div>
             <div className="u-margin-y-2">
                 <Slider
@@ -155,6 +169,7 @@ const CatalogFiltersPriceRangeForm = (props) => {
                     max={maxRange}
                     disabledThumbLabel
                     onChange={handleSliderChange}
+                    onChangeCommited={handleSliderChangeCommited}
                 />
             </div>
         </form>
@@ -164,6 +179,7 @@ const CatalogFiltersPriceRangeForm = (props) => {
 CatalogFiltersPriceRangeForm.propTypes = {
     range: PropTypes.array.isRequired,
     selected: PropTypes.array,
+    mobile: PropTypes.bool,
     onChange: PropTypes.func
 };
 

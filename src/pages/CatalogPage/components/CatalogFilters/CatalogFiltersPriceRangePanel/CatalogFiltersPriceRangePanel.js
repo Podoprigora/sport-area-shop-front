@@ -7,7 +7,7 @@ import CatalogFiltersPriceRangeForm from './CatalogFiltersPriceRangeForm';
 import CatalogFiltersExpandedPanel from '../components/CatalogFiltersExpandedPanel';
 
 const CatalogFiltersPriceRangePanel = (props) => {
-    const { id, title, range, selected = [], onChange } = props;
+    const { id, title, range, selected = [], onChange, ...other } = props;
 
     const handleChange = useEventCallback((ev, values) => {
         if (onChange) {
@@ -24,13 +24,14 @@ const CatalogFiltersPriceRangePanel = (props) => {
     return (
         <CatalogFiltersExpandedPanel
             title={title}
-            resetButton={selected.length > 0}
+            resetButton={!!selected && selected.length > 0}
             onResetClick={handleResetClick}
         >
             <CatalogFiltersPriceRangeForm
                 range={range}
                 selected={selected}
                 onChange={handleChange}
+                {...other}
             />
         </CatalogFiltersExpandedPanel>
     );

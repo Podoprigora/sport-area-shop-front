@@ -55,6 +55,11 @@
 
 		&:hover:not(#{$this}--disabled):not(#{$this}--loading) {
 			background-color: lighten($btn-primary-bg-color, 5%);
+
+			&#{$this}--plain {
+				background-color: $btn-primary-color;
+				color: $btn-primary-bg-color;
+			}
 		}
 
 		&#{$this}--focus-visible {
@@ -63,11 +68,6 @@
 
 		&#{$this}--plain {
 			border-color: $btn-primary-bg-color;
-
-			&:hover {
-				background-color: $btn-primary-color;
-				color: $btn-primary-bg-color;
-			}
 		}
 
 		&#{$this}--transparent {

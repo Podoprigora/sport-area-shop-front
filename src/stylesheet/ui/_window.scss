@@ -95,16 +95,24 @@
 		align-items: center;
 		padding: $spacing-scale-6;
 
-		&--align-left {
+		&--justify-left {
 			justify-content: flex-start;
 		}
 
-		&--align-right {
+		&--justify-right {
 			justify-content: flex-end;
 		}
 
-		&--align-center {
+		&--justify-center {
 			justify-content: center;
+		}
+
+		&--justify-stretch {
+			justify-content: stretch;
+
+			& > * {
+				flex: 1;
+			}
 		}
 
 		& > *:not(:first-child) {

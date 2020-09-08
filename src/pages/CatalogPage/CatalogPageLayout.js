@@ -8,6 +8,7 @@ import { Page, PageSection, PageAside, PageContent } from '@components/Page';
 import CatalogFilters from './components/CatalogFilters';
 import CatalogGrid from './components/CatalogGrid';
 import CatalogTbar from './components/CatalogTbar';
+import CatalogFiltersMobile from './components/CatalogFilters/CatalogFiltersMobile';
 
 const CatalogPageLayout = (props) => {
     return (
@@ -24,6 +25,7 @@ const CatalogPageLayout = (props) => {
                                     minHeight={400}
                                 >
                                     <CatalogFilters />
+                                    <CatalogFiltersMobile />
                                 </StickyItem>
                             </PageAside>
                         </Hidden>
