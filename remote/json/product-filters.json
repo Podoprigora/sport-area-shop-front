@@ -1,0 +1,240 @@
+[
+    {
+        "id": "brands",
+        "title": "Brands",
+        "items": [
+            {
+                "title": "Volcom",
+                "id": "volcom"
+            },
+            {
+                "title": "Vans",
+                "id": "vans"
+            },
+            {
+                "title": "O'Neill",
+                "id": "oneill"
+            },
+            {
+                "title": "Burton",
+                "id": "burton"
+            },
+            {
+                "title": "Nike SB",
+                "id": "nike-sb"
+            },
+            {
+                "title": "Element",
+                "id": "element"
+            },
+            {
+                "title": "Converse",
+                "id": "converse"
+            },
+            {
+                "title": "ADIDAS",
+                "id": "adidas"
+            },
+            {
+                "title": "NIKE SPORTSWEAR",
+                "id": "nike-sportswear"
+            },
+            {
+                "title": "NAKETANO",
+                "id": "naketano"
+            },
+            {
+                "title": "BILLABONG",
+                "id": "billabong"
+            },
+            {
+                "title": "G STAR",
+                "id": "g-star"
+            },
+            {
+                "title": "Etnies",
+                "id": "etnies"
+            },
+            {
+                "title": "Roxy",
+                "id": "roxy"
+            },
+            {
+                "title": "Quiksilver",
+                "id": "quiksilver"
+            },
+            {
+                "title": "DC",
+                "id": "dc"
+            },
+            {
+                "title": "Reell",
+                "id": "reell"
+            },
+            {
+                "title": "BENCH",
+                "id": "bench"
+            }
+        ]
+    },
+    {
+        "id": "sizes",
+        "title": "Sizes",
+        "items": [
+            {
+                "id": 1,
+                "name": "XXS"
+            },
+            {
+                "id": 2,
+                "name": "XS"
+            },
+            {
+                "id": 3,
+                "name": "S"
+            },
+            {
+                "id": 4,
+                "name": "M"
+            },
+            {
+                "id": 5,
+                "name": "L"
+            },
+            {
+                "id": 6,
+                "name": "XL"
+            },
+            {
+                "id": 7,
+                "name": "XXL"
+            },
+            {
+                "id": 8,
+                "name": "42"
+            },
+            {
+                "id": 9,
+                "name": "44"
+            },
+            {
+                "id": 10,
+                "name": "46"
+            },
+            {
+                "id": 11,
+                "name": "48"
+            },
+            {
+                "id": 12,
+                "name": "50"
+            },
+            {
+                "id": 13,
+                "name": "52"
+            },
+            {
+                "id": 14,
+                "name": "54"
+            },
+            {
+                "id": 15,
+                "name": "56"
+            },
+            {
+                "id": 16,
+                "name": "58"
+            },
+            {
+                "id": 17,
+                "name": "60"
+            },
+            {
+                "id": 18,
+                "name": "62"
+            }
+        ]
+    },
+    {
+        "id": "price",
+        "title": "Price",
+        "range": [
+            30,
+            80
+        ]
+    },
+    {
+        "id": "colors",
+        "title": "Colors",
+        "items": [
+            {
+                "id": 1,
+                "name": "Beige"
+            },
+            {
+                "id": 2,
+                "name": "Black"
+            },
+            {
+                "id": 3,
+                "name": "Blue"
+            },
+            {
+                "id": 4,
+                "name": "Brown"
+            },
+            {
+                "id": 5,
+                "name": "Camo"
+            },
+            {
+                "id": 6,
+                "name": "Gold"
+            },
+            {
+                "id": 7,
+                "name": "Green"
+            },
+            {
+                "id": 8,
+                "name": "Gray"
+            },
+            {
+                "id": 9,
+                "name": "Multicolor"
+            },
+            {
+                "id": 10,
+                "name": "Orange"
+            },
+            {
+                "id": 11,
+                "name": "Pink"
+            },
+            {
+                "id": 12,
+                "name": "Plaid"
+            },
+            {
+                "id": 13,
+                "name": "Purple"
+            },
+            {
+                "id": 14,
+                "name": "Red"
+            },
+            {
+                "id": 15,
+                "name": "Stripes"
+            },
+            {
+                "id": 16,
+                "name": "White"
+            },
+            {
+                "id": 17,
+                "name": "Yellow"
+            }
+        ]
+    }
+]

@@ -17,7 +17,7 @@
 		transition: all .15s ease-out;
 	}
 
-	&:hover {
+	&:hover:not(&--disabled) {
 		color: $link-hover-color;
 		text-decoration: none;
 	}
@@ -26,7 +26,12 @@
 		outline: none;
 	}
 
-	&--focus-visible {
+	&--disabled {
+		pointer-events: none;
+		opacity: .4;
+	}
+
+	&--focus-visible:not(&--disabled) {
 		border-radius: $btn-border-radius;
 		box-shadow: $btn-focus-box-shadow;
 	}

@@ -13,6 +13,7 @@ const Link = React.forwardRef(function Link(props, ref) {
         iconAlign = 'left',
         size = 'medium',
         primary,
+        disabled,
         className,
         onFocus,
         onBlur,
@@ -60,6 +61,7 @@ const Link = React.forwardRef(function Link(props, ref) {
             className={classNames('link', className, {
                 [`link--${size}`]: size,
                 'link--primary': primary,
+                'link--disabled': disabled,
                 'link--focus-visible': focusVisible
             })}
             ref={handleRef}
@@ -79,6 +81,7 @@ Link.propTypes = {
     icon: PropTypes.elementType,
     iconAlign: PropTypes.oneOf(['left', 'right']),
     primary: PropTypes.bool,
+    disabled: PropTypes.bool,
     className: PropTypes.string,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func

@@ -1,6 +1,7 @@
 import brandnewData from '@remote/json/brandnew.json';
 import topsellerData from '@remote/json/topseller.json';
 import productsData from '@remote/json/products.json';
+import productFilters from '@remote/json/product-filters.json';
 
 import { suffleArray } from '@utils/convertingData';
 import fakeRequest from './fakeRequest';
@@ -28,5 +29,9 @@ export default class ProductsService {
             items: limit ? itemsWithRandomIds.slice(0, limit) : itemsWithRandomIds,
             total: 240
         };
+    }
+
+    static async fetchFilters() {
+        return fakeRequest(productFilters, { success: true, delay: 1500 });
     }
 }

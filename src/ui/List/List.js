@@ -1,6 +1,9 @@
 import React, { useState, useCallback, memo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+
+import useControlled from '@ui/hooks/useControlled';
+import useEventCallback from '@ui/hooks/useEventCallback';
 import Scrollbar from '@ui/Scrollbar';
 import ListItemToggle from './ListItemToggle';
 
@@ -11,17 +14,24 @@ const List = React.forwardRef(function List(props, ref) {
         minLength,
         maxHeight,
         autoHeight = true,
+        expanded: expandedProp,
+        defaultExpanded = false,
         scrollbarProps,
         scrollbarRef,
         renderItemToggle,
+        onToggle,
         ...other
     } = props;
 
-    const [expanded, setExpanded] = useState(false);
+    const [expanded, setExpanded] = useControlled(expandedProp, defaultExpanded);
 
-    const handleToggle = useCallback(() => {
+    const handleToggle = useEventCallback(() => {
         setExpanded((prevState) => !prevState);
-    }, []);
+
+        if (onToggle) {
+            onToggle();
+        }
+    });
 
     const scrollable = !autoHeight || maxHeight;
     const enhancedScrollbarProps = {
@@ -60,9 +70,12 @@ List.propTypes = {
     minLength: PropTypes.number,
     maxHeight: PropTypes.number,
     autoHeight: PropTypes.bool,
+    expanded: PropTypes.bool,
+    defaultExpanded: PropTypes.bool,
     scrollbarProps: PropTypes.object,
     scrollbarRef: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-    renderItemToggle: PropTypes.func
+    renderItemToggle: PropTypes.func,
+    onToggle: PropTypes.func
 };
 
 export default List;

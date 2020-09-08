@@ -1,10 +1,11 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
+
 import { ListItem, ListItemIcon, ListItemText } from '@ui/List';
 import KeyboardArrowUpIcon from '@svg-icons/material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@svg-icons/material/KeyboardArrowDown';
 
-const CatalogFiltersListItemToggle = (props) => {
+const FiltersListItemToggle = (props) => {
     const { items, expanded, minLength, onClick } = props;
 
     const handleClick = useCallback(
@@ -28,11 +29,11 @@ const CatalogFiltersListItemToggle = (props) => {
     );
 };
 
-CatalogFiltersListItemToggle.propTypes = {
+FiltersListItemToggle.propTypes = {
     items: PropTypes.array.isRequired,
     minLength: PropTypes.number.isRequired,
     expanded: PropTypes.bool,
     onClick: PropTypes.func
 };
 
-export default CatalogFiltersListItemToggle;
+export default FiltersListItemToggle;

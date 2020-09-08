@@ -20,7 +20,7 @@ const Skeleton = React.forwardRef(function Skeleton(props, ref) {
 
 Skeleton.propTypes = {
     type: PropTypes.oneOf(['text', 'circle', 'rect']),
-    size: PropTypes.oneOf(['small', 'medium', 'large']),
+    size: PropTypes.oneOf(['xsmall', 'small', 'medium', 'large']),
     animation: PropTypes.oneOf(['pulse', 'wave', false]),
     style: PropTypes.object,
     className: PropTypes.string

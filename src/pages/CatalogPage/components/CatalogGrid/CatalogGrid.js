@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import useScreenMask from '@contexts/ScreenMaskContext';
@@ -11,7 +11,6 @@ import {
 import CatalogGridBody from './CatalogGridBody';
 import CatalogGridPagination from './CatalogGridPagination';
 import CatalogGridLoadingMore from './CatalogGridLoadingMore';
-import CatalogTbar from '../CatalogTbar';
 
 const CatalogGrid = (props) => {
     const catalogPageState = useCatalogPageState();
@@ -30,16 +29,9 @@ const CatalogGrid = (props) => {
     const [loadingMoreLoading, setLoadingMoreLoading] = useState(false);
 
     const handlePageChange = useCallback(
-        async (page, ev) => {
-            const eventType = ev.type;
-
+        (ev, page) => {
             if (onChangePage) {
-                await onChangePage(page);
-
-                document.documentElement.scrollTo({
-                    top: 0,
-                    ...(eventType === 'click' && { behavior: 'smooth' })
-                });
+                onChangePage(page);
             }
         },
         [onChangePage]
@@ -77,6 +69,17 @@ const CatalogGrid = (props) => {
 
         return undefined;
     }, [loadingMoreLoading]);
+
+    useEffect(() => {
+        if (loading && !loadingMoreLoading) {
+            return () => {
+                document.documentElement.scrollTo({
+                    top: 0
+                });
+            };
+        }
+        return undefined;
+    }, [loading, loadingMoreLoading]);
 
     return (
         <div className="catalog-grid">

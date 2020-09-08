@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import useEventCallback from '@ui/hooks/useEventCallback';
@@ -9,7 +9,7 @@ const CatalogFiltersSizesListItem = (props) => {
 
     const handleClick = useEventCallback((ev) => {
         if (onClick) {
-            onClick({ id, name });
+            onClick(ev, id);
         }
     });
 

@@ -28,6 +28,10 @@
 }
 
 .catalog-page-filters-panel {
+	border-style: solid;
+	border-width: 0px 0 1px 0;
+	border-color: $border-color-light;
+
 	&:last-child {
 		border: 0;
 	}
@@ -36,24 +40,34 @@
 		font-weight: 500;
 		text-transform: uppercase;
 		color: $heading-color;
+
+		& &-reset {
+			text-transform: none;
+			padding-right: $spacing-scale-8;
+
+			&,
+			&:link,
+			&:visited,
+			&:hover {
+				color: $color-secondary;
+			}
+		}
 	}
 
 	&__body {
 		padding-right: $spacing-scale-6;
 	}
 
-	&__search {
-		padding: 0 $spacing-scale-2 $spacing-scale-4 $spacing-scale-8;
-	}
-
-	&__list {
-		min-height: 15rem;
-		padding: 0 0 $spacing-scale-6 0;
-		overflow: hidden;
+	& .filters-list__search {
+		padding: 0 $spacing-scale-2 0 $spacing-scale-8;
 	}
 
 	&__cell-list {
-		margin-left: $spacing-scale-8;
+		padding: 0 0 0 $spacing-scale-8;
+
+		& .filters-list__search {
+			padding: 0 $spacing-scale-2 $spacing-scale-4 0;
+		}
 	}
 
 	&__form {

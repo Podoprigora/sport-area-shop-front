@@ -1,19 +1,12 @@
-import React, { useCallback, useState, useMemo } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import useEventCallback from '@ui/hooks/useEventCallback';
 import FiltersList from '@components/FiltersList/FiltersList';
-import CellList from '@ui/CellList';
 
-import CatalogFiltersSizesListItem from './CatalogFiltersSizesListItem';
+const getItemTitle = (item = {}) => item.title;
 
-const getItemTitle = (item = {}) => item.name;
-
-const renderItem = (item) => {
-    return <CatalogFiltersSizesListItem {...item} />;
-};
-
-const CatalogFiltersSizesList = (props) => {
+const CatalogFiltersBrandsList = (props) => {
     const { items, selected, onChange } = props;
 
     const handleChange = useEventCallback((ev, selectedItems) => {
@@ -24,27 +17,27 @@ const CatalogFiltersSizesList = (props) => {
 
     return (
         <FiltersList
-            component={CellList}
-            className="catalog-page-filters-panel__cell-list"
-            quickSearch={false}
+            className="catalog-page-filters-panel__list"
+            quickSearch
             getItemTitle={getItemTitle}
             items={items}
             selected={selected}
-            renderItem={renderItem}
+            minLength={8}
+            defaultExpanded={selected.length > 0}
             onChange={handleChange}
         />
     );
 };
 
-CatalogFiltersSizesList.propTypes = {
+CatalogFiltersBrandsList.propTypes = {
     items: PropTypes.arrayOf(
         PropTypes.shape({
-            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            name: PropTypes.string
+            id: PropTypes.string.isRequired,
+            title: PropTypes.string
         })
     ),
     selected: PropTypes.arrayOf(PropTypes.string),
     onChange: PropTypes.func
 };
 
-export default CatalogFiltersSizesList;
+export default CatalogFiltersBrandsList;

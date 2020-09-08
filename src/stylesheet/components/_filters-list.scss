@@ -1,0 +1,8 @@
+.filters-list {
+	min-height: 15rem;
+	overflow: hidden;
+
+	&__search {
+		padding: 0 0 0 $spacing-scale-8;
+	}
+}

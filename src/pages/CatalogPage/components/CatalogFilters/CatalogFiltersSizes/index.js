@@ -1,1 +1,1 @@
-export { default } from './CatalogFiltersSizes';
+export { default } from './CatalogFiltersSizesPanel';

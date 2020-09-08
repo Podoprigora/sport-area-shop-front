@@ -35,30 +35,30 @@ const Pagination = React.forwardRef(function Pagination(props, ref) {
     const [page, setPage] = useControlled(currentPage, defaultPage);
 
     const handlePageChange = useCallback(
-        (num, ev) => {
+        (ev, num) => {
             setPage(num);
 
             if (onChange) {
-                onChange(num, ev);
+                onChange(ev, num);
             }
         },
         [setPage, onChange]
     );
 
     const handleItemClick = useEventCallback((num) => (ev) => {
-        handlePageChange(num, ev);
+        handlePageChange(ev, num);
     });
 
     const handlePrevControlClick = useEventCallback((ev) => {
         const nextPage = page > 1 ? page - 1 : 1;
 
-        handlePageChange(nextPage, ev);
+        handlePageChange(ev, nextPage);
     });
 
     const handleNextControlClick = useEventCallback((ev) => {
         const nextPage = page < count ? page + 1 : count;
 
-        handlePageChange(nextPage, ev);
+        handlePageChange(ev, nextPage);
     });
 
     const items = useMemo(() => {

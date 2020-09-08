@@ -35,7 +35,7 @@ const CatalogFiltersBrandsSearch = (props) => {
     );
 
     return (
-        <div className="catalog-page-filters-panel__search">
+        <div className="filters-list__search">
             <Input
                 value={value}
                 fullWidth

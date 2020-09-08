@@ -9,6 +9,10 @@
 		min-height: $font-size;
 		border-radius: 10rem;
 
+		&#{$this}--xsmall {
+			min-height: .8rem;
+		}
+
 		&#{$this}--small {
 			min-height: 1rem;
 		}
@@ -26,6 +30,11 @@
 		border-radius: 50%;
 		width: 4.8rem;
 		height: 4.8rem;
+
+		&#{$this}--xsmall {
+			width: 1.8rem;
+			height: 1.8rem;
+		}
 
 		&#{$this}--small {
 			width: 2.4rem;
@@ -46,6 +55,11 @@
 	&--rect {
 		border-radius: .5rem;
 		min-height: 4.8rem;
+
+		&#{$this}--xsmall {
+			width: 1.8rem;
+			height: 1.8rem;
+		}
 
 		&#{$this}--small {
 			min-height: 2.4rem;

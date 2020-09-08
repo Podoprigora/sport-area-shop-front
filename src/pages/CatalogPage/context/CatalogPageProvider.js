@@ -1,176 +1,88 @@
-import React, { useEffect, useMemo, useReducer, useCallback, memo, useRef } from 'react';
+import React, { useMemo, useReducer, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { useParams, useHistory, useLocation } from 'react-router-dom';
 
-import useUrlSearchParams from '@ui/hooks/useUrlSearchParams';
-import useEventCallback from '@ui/hooks/useEventCallback';
-import useMountedRef from '@ui/hooks/useMountedRef';
-import ProductsService from '@services/ProductsService';
+import { useCatalogPageSelectors } from './catalogPageSelectors';
 import { CatalogPageStateContext, CatalogPageActionsContext } from './CatalogPageContext';
-import useCatalogPageSelectors from './catalogPageSelectors';
+
 import {
     catalogPageReducer,
     catalogPageDefaultState,
-    REQUEST_INITIAL_ITEMS,
-    RECEIVE_INITIAL_ITEMS,
-    TOGGLE_ITITIAL_LOADING,
     REQUEST_ITEMS,
     RECEIVE_ITEMS,
     TOGGLE_LOADING,
     SELECT_PAGE,
     LOADING_MORE,
-    SELECT_SORT_BY
+    SELECT_SORT_BY,
+    CHANGE_SELECTED_FILTERS
 } from './catalogPageReducers';
+import { CatalogPageContextLog } from './CatalogPageContextLog';
 
 const CatalogPageProvider = (props) => {
     const { children } = props;
 
     const [state, dispatch] = useReducer(catalogPageReducer, catalogPageDefaultState);
-    const { loading, itemsPerPage, isLastPage, selectedPage, sortBy } = useCatalogPageSelectors(
-        state
-    );
 
-    const isMountedRef = useMountedRef();
+    const { isLastPage } = useCatalogPageSelectors(state);
 
-    // Route params
-    const { category, subCategory = null, subCategoryItem = null } = useParams();
-    const history = useHistory();
+    // Handlers
 
-    // Route search params
-    const { pathname: routePathName, search } = useLocation();
-    const urlSearchParams = useUrlSearchParams(search);
-    const urlSearchParamsRef = useRef(null);
-    urlSearchParamsRef.current = urlSearchParams;
+    const handleRequestItems = useCallback(() => {
+        dispatch({ type: REQUEST_ITEMS });
+    }, []);
 
-    const loadingItems = useCallback(
-        async (params) => {
-            try {
-                const { items, total } = await ProductsService.fetchAll(itemsPerPage);
+    const handleReceiveItems = useCallback((payload) => {
+        dispatch({ type: RECEIVE_ITEMS, payload });
+    }, []);
 
-                if (isMountedRef.current) {
-                    dispatch({
-                        type: RECEIVE_ITEMS,
-                        payload: {
-                            items,
-                            total,
-                            ...params
-                        }
-                    });
-                }
-            } catch (e) {
-                console.log(e);
-                dispatch({ type: TOGGLE_LOADING, payload: { toggle: false } });
-            }
-        },
-        [isMountedRef, itemsPerPage]
-    );
+    const handleToggleLoading = useCallback((toggle = false) => {
+        dispatch({ type: TOGGLE_LOADING, payload: { toggle } });
+    }, []);
 
-    const historyPush = useEventCallback((params) => {
-        const { page, sort } = params;
-        const queryParams = new URLSearchParams(urlSearchParamsRef.current || '');
-        const initQueryParams = new URLSearchParams(urlSearchParamsRef.current || '');
+    const handleChangePage = useCallback((page) => {
+        dispatch({ type: SELECT_PAGE, payload: { page } });
+    }, []);
 
-        if (page) {
-            if (queryParams.has('page')) {
-                if (page > 1) {
-                    queryParams.set('page', page);
-                } else {
-                    queryParams.delete('page');
-                }
-            } else if (page > 1) {
-                queryParams.append('page', page);
-            }
-        }
-
-        if (sort) {
-            if (queryParams.has('sort')) {
-                queryParams.set('sort', sort);
-            } else {
-                queryParams.append('sort', sort);
-            }
-        }
-
-        const searchString = queryParams.toString();
-
-        if (searchString.length && searchString !== initQueryParams.toString()) {
-            history.push(`${routePathName}?${searchString}`);
-        }
-    });
-
-    const handleChangePage = useCallback(
-        async (page) => {
-            dispatch({ type: SELECT_PAGE, payload: { page } });
-            await loadingItems({ page });
-        },
-        [loadingItems]
-    );
-
-    const handleLoadingMore = useCallback(async () => {
+    const handleLoadingMore = useCallback(() => {
         if (!isLastPage) {
             dispatch({ type: LOADING_MORE });
-            await loadingItems();
         }
-    }, [isLastPage, loadingItems]);
+    }, [isLastPage]);
 
-    const handleChangeSort = useCallback(
-        async (value) => {
-            dispatch({ type: SELECT_SORT_BY, payload: { value } });
-            await loadingItems({ sort: value });
-        },
-        [loadingItems]
-    );
+    const handleChangeSort = useCallback((value) => {
+        dispatch({ type: SELECT_SORT_BY, payload: { value } });
+    }, []);
 
-    useEffect(() => {
-        (async () => {
-            try {
-                dispatch({ type: REQUEST_INITIAL_ITEMS });
-                const { items, total } = await ProductsService.fetchAll(itemsPerPage);
+    const handleChangeFilters = useCallback((payload) => {
+        dispatch({ type: CHANGE_SELECTED_FILTERS, payload });
+    }, []);
 
-                if (isMountedRef.current) {
-                    dispatch({
-                        type: RECEIVE_INITIAL_ITEMS,
-                        payload: {
-                            items,
-                            total,
-                            ...(urlSearchParamsRef.current && urlSearchParamsRef.current)
-                        }
-                    });
-                }
-            } catch (e) {
-                console.log(e);
-                dispatch({ type: TOGGLE_ITITIAL_LOADING, payload: { toggle: false } });
-            }
-        })();
-    }, [isMountedRef, itemsPerPage, category, subCategory, subCategoryItem]);
-
-    useEffect(() => {
-        if (loading) {
-            return () => {
-                historyPush({ sort: sortBy, page: selectedPage });
-            };
-        }
-
-        return undefined;
-    }, [sortBy, selectedPage, loading, historyPush]);
+    // Render
 
     const contextActionsValue = useMemo(
         () => ({
             onChangePage: handleChangePage,
             onLoadingMore: handleLoadingMore,
-            onChangeSort: handleChangeSort
+            onChangeSort: handleChangeSort,
+            onChangeFilters: handleChangeFilters,
+            onToggleLoading: handleToggleLoading,
+            onRequestItems: handleRequestItems,
+            onReceiveItems: handleReceiveItems
         }),
-        [handleChangePage, handleChangeSort, handleLoadingMore]
+        [
+            handleChangePage,
+            handleLoadingMore,
+            handleChangeSort,
+            handleChangeFilters,
+            handleToggleLoading,
+            handleRequestItems,
+            handleReceiveItems
+        ]
     );
-
-    // Logging
-    console.groupCollapsed('CatalogPageContext');
-    console.log({ state });
-    console.log({ selectors: useCatalogPageSelectors(state) });
-    console.groupEnd();
 
     return (
         <CatalogPageStateContext.Provider value={state}>
             <CatalogPageActionsContext.Provider value={contextActionsValue}>
+                <CatalogPageContextLog />
                 {children}
             </CatalogPageActionsContext.Provider>
         </CatalogPageStateContext.Provider>

@@ -1,6 +1,10 @@
 import { useMemo } from 'react';
 import { catalogPageDefaultState } from './catalogPageReducers';
 
+const shouldReloadItemsSelector = (state) => {
+    return state.shouldReloadItems;
+};
+
 const productSelector = (state, id) => {
     const itemsById = state.itemsById;
 
@@ -56,9 +60,31 @@ const sortBySelector = (state) => {
     return state.sortBy;
 };
 
+const getSelectedFilters = (state) => {
+    return state.filters.selected;
+};
+
+const getFiltersItemById = (state, id) => {
+    return state.filters.itemsById[id];
+};
+
+const getSelectedFiltersById = (state, id, defaultValue) => {
+    return state.filters.selected[id] || defaultValue;
+};
+
+const filtersItemsSelector = (state) => {
+    const itemsIds = state.filters.itemsIds || [];
+
+    return itemsIds.reduce((result, id) => {
+        const filterItem = getFiltersItemById(state, id);
+        return filterItem ? [...result, filterItem] : result;
+    }, []);
+};
+
 const useCatalogPageSelectors = (state = catalogPageDefaultState) => {
     return useMemo(
         () => ({
+            shouldReloadItems: shouldReloadItemsSelector(state),
             initialLoading: initialLoadingSelector(state),
             loading: loadingSelector(state),
             products: productsSelector(state),
@@ -67,10 +93,15 @@ const useCatalogPageSelectors = (state = catalogPageDefaultState) => {
             selectedPages: selectedPagesSelector(state),
             selectedPage: selectedPageSelector(state),
             isLastPage: isLastPageSelector(state),
-            sortBy: sortBySelector(state)
+            sortBy: sortBySelector(state),
+            filtersItems: filtersItemsSelector(state),
+            selectedFilters: getSelectedFilters(state),
+            getFiltersItemById: (id) => getFiltersItemById(state, id),
+            getSelectedFiltersById: (id, defaultValue) =>
+                getSelectedFiltersById(state, id, defaultValue)
         }),
         [state]
     );
 };
 
-export default useCatalogPageSelectors;
+export { useCatalogPageSelectors };

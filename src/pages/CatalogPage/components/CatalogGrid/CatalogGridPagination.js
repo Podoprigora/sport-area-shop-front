@@ -2,13 +2,15 @@ import React, { memo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Pagination from '@ui/Pagination';
 
+const defaultSelected = [1];
+
 const CatalogGridPagination = (props) => {
-    const { count, selected = [1], onChange } = props;
+    const { count, selected = defaultSelected, onChange } = props;
 
     const handleChange = useCallback(
-        (page, ev) => {
+        (ev, page) => {
             if (onChange) {
-                onChange(page, ev);
+                onChange(ev, page);
             }
         },
         [onChange]

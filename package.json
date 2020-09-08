@@ -5,8 +5,8 @@
     "main": "index.js",
     "scripts": {
         "serve": "httpster -p 3010 -d ./dist",
-        "start": "webpack-dev-server --env dev",
-        "build": "webpack --env prod"
+        "start": "webpack-dev-server --env.DEV",
+        "build": "webpack --env.PROD"
     },
     "author": "Alexandr Podoprigora",
     "license": "ISC",

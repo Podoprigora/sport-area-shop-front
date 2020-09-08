@@ -99,7 +99,7 @@ const NumberInput = React.forwardRef(function NumberInput(props, ref) {
     return (
         <Input
             {...other}
-            name="number"
+            name={name}
             value={value}
             className={classNames('input-number', className)}
             ref={ref}

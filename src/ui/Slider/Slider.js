@@ -302,7 +302,7 @@ const Slider = React.forwardRef(function Slider(props, ref) {
 
         setValueState(newValue);
 
-        defineEventTarget(ev, { name, value, newValue });
+        defineEventTarget(ev, { name, value: newValue });
 
         if (onChange) {
             onChange(ev);
