@@ -3,6 +3,7 @@ import React, { memo } from 'react';
 import Hidden from '@ui/Hidden';
 import FlexRow from '@ui/FlexRow';
 import { StickyContainer, StickyItem } from '@ui/Sticky';
+import useScrollTrigger from '@ui/hooks/useScrollTrigger';
 
 import { Page, PageSection, PageAside, PageContent } from '@components/Page';
 import CatalogFilters from './components/CatalogFilters';

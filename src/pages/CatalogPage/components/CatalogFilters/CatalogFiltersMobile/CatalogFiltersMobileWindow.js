@@ -12,8 +12,8 @@ const CatalogFiltersMobileWindow = (props) => {
     const {
         children,
         open,
-        disabledAcceptButton,
-        disabledResetAllButton,
+        disableAcceptButton,
+        disableResetAllButton,
         onClose,
         onResetAll,
         onAccept
@@ -73,7 +73,7 @@ const CatalogFiltersMobileWindow = (props) => {
                     plain
                     centered
                     size="large"
-                    disabled={disabledResetAllButton}
+                    disabled={disableResetAllButton}
                     onClick={handleResetAll}
                 >
                     Reset All
@@ -83,7 +83,7 @@ const CatalogFiltersMobileWindow = (props) => {
                     plain
                     centered
                     size="large"
-                    disabled={disabledAcceptButton}
+                    disabled={disableAcceptButton}
                     onClick={handleAccept}
                 >
                     Accept
@@ -96,8 +96,8 @@ const CatalogFiltersMobileWindow = (props) => {
 CatalogFiltersMobileWindow.propTypes = {
     children: PropTypes.node,
     open: PropTypes.bool,
-    disabledResetAllButton: PropTypes.bool,
-    disabledAcceptButton: PropTypes.bool,
+    disableResetAllButton: PropTypes.bool,
+    disableAcceptButton: PropTypes.bool,
     onClose: PropTypes.func,
     onResetAll: PropTypes.func,
     onAccept: PropTypes.func

@@ -61,12 +61,12 @@ const CatalogFiltersMobile = (props) => {
         return <Component key={id} {...item} selected={selected} mobile onChange={handleChange} />;
     });
 
-    const disabledResetAllButton = Object.keys(selectedFiltersState).length === 0;
+    const disableResetAllButton = Object.keys(selectedFiltersState).length === 0;
 
     return (
         <CatalogFiltersMobileWindow
             open={openWindow}
-            disabledResetAllButton={disabledResetAllButton}
+            disableResetAllButton={disableResetAllButton}
             onClose={handleWindowClose}
             onResetAll={handleResetAll}
             onAccept={handleAccept}
