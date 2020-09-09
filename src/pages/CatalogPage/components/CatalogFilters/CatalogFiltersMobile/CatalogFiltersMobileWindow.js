@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, memo, useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Window, { WindowHeader, WindowTitle, WindowBody, WindowActions } from '@ui/Window';
@@ -19,6 +19,8 @@ const CatalogFiltersMobileWindow = (props) => {
         onAccept
     } = props;
 
+    const [displayChildren, setDisplayChildren] = useState(false);
+
     const handleClose = useEventCallback((ev) => {
         if (onClose) {
             onClose(ev);
@@ -37,8 +39,25 @@ const CatalogFiltersMobileWindow = (props) => {
         }
     });
 
+    const handleEntered = useEventCallback(() => {
+        setDisplayChildren(true);
+    });
+
+    const handleExit = useEventCallback(() => {
+        setDisplayChildren(false);
+    });
+
     return (
-        <Window open={open} draggable={false} fullScreen onClose={handleClose}>
+        <Window
+            open={open}
+            draggable={false}
+            fullScreen
+            onClose={handleClose}
+            transitionProps={{
+                onEntered: handleEntered,
+                onExit: handleExit
+            }}
+        >
             <WindowHeader>
                 <IconButton onClick={handleClose}>
                     <ChevronLeftIcon />
@@ -48,7 +67,7 @@ const CatalogFiltersMobileWindow = (props) => {
                     <ClearCloseIcon />
                 </IconButton>
             </WindowHeader>
-            <WindowBody>{children}</WindowBody>
+            <WindowBody>{displayChildren && children}</WindowBody>
             <WindowActions justify="stretch">
                 <Button
                     plain
@@ -75,7 +94,7 @@ const CatalogFiltersMobileWindow = (props) => {
 };
 
 CatalogFiltersMobileWindow.propTypes = {
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     open: PropTypes.bool,
     disabledResetAllButton: PropTypes.bool,
     disabledAcceptButton: PropTypes.bool,
@@ -84,4 +103,4 @@ CatalogFiltersMobileWindow.propTypes = {
     onAccept: PropTypes.func
 };
 
-export default CatalogFiltersMobileWindow;
+export default memo(CatalogFiltersMobileWindow);

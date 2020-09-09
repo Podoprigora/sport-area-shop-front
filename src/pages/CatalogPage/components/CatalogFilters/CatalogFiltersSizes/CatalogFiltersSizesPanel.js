@@ -22,7 +22,7 @@ const CatalogFiltersSizesPanel = (props) => {
     const handleResetClick = useEventCallback((ev) => {
         ev.stopPropagation();
 
-        handleChange(ev, []);
+        handleChange(ev, undefined);
     });
 
     if (items.length === 0) {

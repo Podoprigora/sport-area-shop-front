@@ -18,7 +18,7 @@ const CatalogFiltersPriceRangePanel = (props) => {
     const handleResetClick = useEventCallback((ev) => {
         ev.stopPropagation();
 
-        handleChange(ev, null);
+        handleChange(ev, undefined);
     });
 
     return (

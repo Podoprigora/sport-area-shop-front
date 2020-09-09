@@ -23,7 +23,7 @@ const CatalogFiltersColorsPanel = (props) => {
     const handleResetClick = useEventCallback((ev) => {
         ev.stopPropagation();
 
-        handleChange(ev, null);
+        handleChange(ev, undefined);
     });
 
     if (items.length === 0) {
