@@ -147,6 +147,7 @@ function filtersItemsReducer(state, { items = [] }) {
 function selectedFiltersReducer(state, { selected, merge = true }) {
     if (!(selected instanceof Object)) {
         const invalidType = typeof selected;
+
         console.error(
             `Invalid parameter type of 'selected', expecting a type [Object], but received a type [${invalidType}]!`
         );
@@ -157,8 +158,18 @@ function selectedFiltersReducer(state, { selected, merge = true }) {
     let newSelectedFiltersState = { ...selected };
 
     if (merge) {
-        newSelectedFiltersState = { ...selectedFiltersState, ...selected };
+        newSelectedFiltersState = { ...selectedFiltersState, ...newSelectedFiltersState };
     }
+
+    newSelectedFiltersState = Object.keys(newSelectedFiltersState).reduce((result, key) => {
+        const value = newSelectedFiltersState[key];
+
+        if (value) {
+            return { ...result, [key]: value };
+        }
+
+        return result;
+    }, {});
 
     return { ...state, filters: { ...state.filters, selected: newSelectedFiltersState } };
 }

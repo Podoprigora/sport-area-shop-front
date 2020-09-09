@@ -9,7 +9,7 @@ const CatalogFiltersSizesPanel = (props) => {
     const { id, title, items = [], selected: selectedProp = [], onChange } = props;
     let selected = selectedProp;
 
-    if (!!selected && typeof selected === 'string') {
+    if (selected && typeof selected === 'string') {
         selected = [selected];
     }
 
@@ -32,7 +32,7 @@ const CatalogFiltersSizesPanel = (props) => {
     return (
         <CatalogFiltersExpandedPanel
             title={title}
-            resetButton={!!selected && selected.length > 0}
+            resetButton={selected.length > 0}
             onResetClick={handleResetClick}
         >
             <CatalogFiltersSizesList items={items} selected={selected} onChange={handleChange} />

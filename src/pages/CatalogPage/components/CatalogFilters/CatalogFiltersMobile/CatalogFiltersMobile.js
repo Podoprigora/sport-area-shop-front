@@ -27,20 +27,7 @@ const CatalogFiltersMobile = (props) => {
     });
 
     const handleResetAll = useEventCallback(() => {
-        setSelectedFiltersState((prevState) => {
-            const keys = Object.keys(prevState);
-
-            return keys.reduce((result, key) => {
-                const filterItem = prevState[key];
-                let emptyValue;
-
-                if (filterItem instanceof Array) {
-                    emptyValue = [];
-                }
-
-                return { ...result, [key]: emptyValue };
-            }, {});
-        });
+        setSelectedFiltersState({});
     });
 
     const handleAccept = useCallback(() => {
@@ -74,9 +61,12 @@ const CatalogFiltersMobile = (props) => {
         return <Component key={id} {...item} selected={selected} mobile onChange={handleChange} />;
     });
 
+    const disabledResetAllButton = Object.keys(selectedFiltersState).length === 0;
+
     return (
         <CatalogFiltersMobileWindow
             open={openWindow}
+            disabledResetAllButton={disabledResetAllButton}
             onClose={handleWindowClose}
             onResetAll={handleResetAll}
             onAccept={handleAccept}

@@ -18,13 +18,13 @@ const CatalogFiltersPriceRangePanel = (props) => {
     const handleResetClick = useEventCallback((ev) => {
         ev.stopPropagation();
 
-        handleChange(ev, []);
+        handleChange(ev, null);
     });
 
     return (
         <CatalogFiltersExpandedPanel
             title={title}
-            resetButton={!!selected && selected.length > 0}
+            resetButton={selected.length > 0}
             onResetClick={handleResetClick}
         >
             <CatalogFiltersPriceRangeForm

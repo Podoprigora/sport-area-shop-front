@@ -48,58 +48,28 @@ const CatalogPageEffects = (props) => {
     const isMountedRef = useMountedRef();
 
     const historyPush = useCallback(
-        (params) => {
-            const { page, sort, filters = {} } = params;
-            const queryParams = new URLSearchParams(urlSearchParamsRef.current || '');
-            const initQueryParams = new URLSearchParams(urlSearchParamsRef.current || '');
+        (params = {}) => {
+            const newSearchParams = new URLSearchParams('');
+            const currentSearchParams = new URLSearchParams(urlSearchParamsRef.current || '');
 
-            if (page) {
-                if (queryParams.has('page')) {
-                    if (page > 1) {
-                        queryParams.set('page', page);
-                    } else {
-                        queryParams.delete('page');
-                    }
-                } else if (page > 1) {
-                    queryParams.append('page', page);
+            const paramsKeys = Object.keys(params);
+
+            paramsKeys.forEach((key) => {
+                let value = params[key];
+
+                if (value instanceof Array) {
+                    value = value.join(',');
                 }
-            }
 
-            if (sort) {
-                if (queryParams.has('sort')) {
-                    queryParams.set('sort', sort);
-                } else {
-                    queryParams.append('sort', sort);
+                if (value) {
+                    newSearchParams.append(key, params[key]);
                 }
-            }
+            });
 
-            const filtersKeys = Object.keys(filters);
+            const newSearchParamsString = newSearchParams.toString();
 
-            if (filtersKeys.length > 0) {
-                for (let k = 0; k < filtersKeys.length; k += 1) {
-                    const filterId = filtersKeys[k];
-                    let filterValue = filters[filterId];
-
-                    if (filterValue instanceof Array) {
-                        filterValue = filterValue.join(',');
-                    }
-
-                    if (queryParams.has(filterId)) {
-                        if (filterValue) {
-                            queryParams.set(filterId, filterValue);
-                        } else {
-                            queryParams.delete(filterId);
-                        }
-                    } else if (filterValue) {
-                        queryParams.append(filterId, filterValue);
-                    }
-                }
-            }
-
-            const searchString = queryParams.toString();
-
-            if (searchString.length && searchString !== initQueryParams.toString()) {
-                history.push(`${routePathName}?${searchString}`);
+            if (newSearchParamsString !== currentSearchParams.toString()) {
+                history.push(`${routePathName}?${newSearchParamsString}`);
             }
         },
         [history, routePathName]
@@ -176,7 +146,7 @@ const CatalogPageEffects = (props) => {
 
     useEffect(() => {
         if (loading) {
-            historyPush({ sort: sortBy, page: selectedPage, filters: selectedFilters });
+            historyPush({ sort: sortBy, page: selectedPage, ...selectedFilters });
         }
     }, [sortBy, selectedPage, selectedFilters, loading, historyPush]);
 
