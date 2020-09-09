@@ -4,9 +4,9 @@ import classNames from 'classnames';
 import PanelHeader from './PanelHeader';
 import PanelBody from './PanelBody';
 
-const Panel = ({ children, title, className }) => {
+const Panel = React.forwardRef(function Panel({ children, title, className }, ref) {
     return (
-        <div className={classNames('panel', className)}>
+        <div className={classNames('panel', className)} ref={ref}>
             {title ? (
                 <>
                     <PanelHeader title={title} />
@@ -17,7 +17,7 @@ const Panel = ({ children, title, className }) => {
             )}
         </div>
     );
-};
+});
 
 Panel.propTypes = {
     children: PropTypes.node,

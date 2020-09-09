@@ -4,7 +4,7 @@ import debounce from 'lodash/debounce';
 import Carousel from '@ui/Carousel';
 import AdwSliderSkeleton from '../Skeletons/AdwSliderSkeleton';
 
-const AdwSlider = ({ data, className, isLoading }) => {
+const AdwSlider = ({ data, className, loading }) => {
     const [style, setStyle] = useState({ minHeight: '10rem' });
     const elRef = useRef(null);
 
@@ -33,9 +33,9 @@ const AdwSlider = ({ data, className, isLoading }) => {
         return () => {
             window.removeEventListener('resize', handleWindowResize, false);
         };
-    }, [updateStyle, handleWindowResize, isLoading]);
+    }, [updateStyle, handleWindowResize, loading]);
 
-    if (isLoading) {
+    if (loading) {
         return <AdwSliderSkeleton />;
     }
 
@@ -67,7 +67,7 @@ AdwSlider.propTypes = {
         })
     ),
     className: PropTypes.string,
-    isLoading: PropTypes.bool
+    loading: PropTypes.bool
 };
 
 export default AdwSlider;

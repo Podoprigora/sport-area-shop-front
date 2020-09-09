@@ -9,11 +9,12 @@ import CatalogFilters from './components/CatalogFilters';
 import CatalogGrid from './components/CatalogGrid';
 import CatalogTbar from './components/CatalogTbar';
 import CatalogFiltersMobile from './components/CatalogFilters/CatalogFiltersMobile';
+import CatalogTopseller from './components/CatalogTopseller';
 
 const CatalogPageLayout = (props) => {
     return (
         <Page className="catalog-page">
-            <PageSection>
+            <PageSection className="catalog-page__main-section">
                 <CatalogTbar />
                 <StickyContainer>
                     <FlexRow noWrap className="catalog-page__layout">
@@ -36,62 +37,7 @@ const CatalogPageLayout = (props) => {
                 </StickyContainer>
             </PageSection>
             <PageSection>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium blanditiis
-                natus accusamus, fugiat nam rem ratione nemo quam exercitationem reprehenderit esse
-                quia, commodi repellat deleniti quasi aliquam debitis qui molestias.
-                <br />
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minima, debitis. Soluta
-                nobis non dolorem amet error vero obcaecati numquam tempora deleniti exercitationem
-                consequuntur aspernatur illum, doloremque molestias voluptates nihil voluptatibus.
-                <br />
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium blanditiis
-                natus accusamus, fugiat nam rem ratione nemo quam exercitationem reprehenderit esse
-                quia, commodi repellat deleniti quasi aliquam debitis qui molestias.
-                <br />
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minima, debitis. Soluta
-                nobis non dolorem amet error vero obcaecati numquam tempora deleniti exercitationem
-                consequuntur aspernatur illum, doloremque molestias voluptates nihil voluptatibus.
-                <br />
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium blanditiis
-                natus accusamus, fugiat nam rem ratione nemo quam exercitationem reprehenderit esse
-                quia, commodi repellat deleniti quasi aliquam debitis qui molestias.
-                <br />
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minima, debitis. Soluta
-                nobis non dolorem amet error vero obcaecati numquam tempora deleniti exercitationem
-                consequuntur aspernatur illum, doloremque molestias voluptates nihil voluptatibus.
-                <br />
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium blanditiis
-                natus accusamus, fugiat nam rem ratione nemo quam exercitationem reprehenderit esse
-                quia, commodi repellat deleniti quasi aliquam debitis qui molestias.
-                <br />
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minima, debitis. Soluta
-                nobis non dolorem amet error vero obcaecati numquam tempora deleniti exercitationem
-                consequuntur aspernatur illum, doloremque molestias voluptates nihil voluptatibus.
-                <br />
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium blanditiis
-                natus accusamus, fugiat nam rem ratione nemo quam exercitationem reprehenderit esse
-                quia, commodi repellat deleniti quasi aliquam debitis qui molestias.
-                <br />
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minima, debitis. Soluta
-                nobis non dolorem amet error vero obcaecati numquam tempora deleniti exercitationem
-                consequuntur aspernatur illum, doloremque molestias voluptates nihil voluptatibus.
-                <br />
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium blanditiis
-                natus accusamus, fugiat nam rem ratione nemo quam exercitationem reprehenderit esse
-                quia, commodi repellat deleniti quasi aliquam debitis qui molestias.
-                <br />
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minima, debitis. Soluta
-                nobis non dolorem amet error vero obcaecati numquam tempora deleniti exercitationem
-                consequuntur aspernatur illum, doloremque molestias voluptates nihil voluptatibus.
-                <br />
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium blanditiis
-                natus accusamus, fugiat nam rem ratione nemo quam exercitationem reprehenderit esse
-                quia, commodi repellat deleniti quasi aliquam debitis qui molestias.
-                <br />
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minima, debitis. Soluta
-                nobis non dolorem amet error vero obcaecati numquam tempora deleniti exercitationem
-                consequuntur aspernatur illum, doloremque molestias voluptates nihil voluptatibus.
-                <br />
+                <CatalogTopseller />
             </PageSection>
         </Page>
     );

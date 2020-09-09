@@ -21,6 +21,14 @@ const Scrollbar = React.forwardRef(function Scrollbar(props, ref) {
         }
     });
 
+    const handleScroll = useEventCallback((ev) => {
+        ev.stopPropagation();
+
+        if (onScroll) {
+            onScroll(ev);
+        }
+    });
+
     const renderTrackVertical = useEventCallback((renderProps) => {
         return !disabled ? (
             <div
@@ -53,7 +61,7 @@ const Scrollbar = React.forwardRef(function Scrollbar(props, ref) {
             {...(enableHorizontalTrack && { renderTrackHorizontal })}
             renderThumbHorizontal={renderThumb}
             renderThumbVertical={renderThumb}
-            onScroll={onScroll}
+            onScroll={handleScroll}
             ref={handleRef}
             {...other}
         >

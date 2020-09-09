@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import useEventCallback from '@ui/hooks/useEventCallback';
 import ScrollingCarousel from '@ui/ScrollingCarousel';
 import Panel from '@ui/Panel';
 import PanelHeader from '@ui/Panel/PanelHeader';
@@ -13,8 +14,14 @@ import Calc from '@utils/Calc';
 import Format from '@utils/Format';
 import ProductsCarouselSkeleton from '../Skeletons/ProductsCarouselSkeleton';
 
-const TopsellerCarousel = ({ data, className, isLoading, onItemClick, ...props }) => {
-    if (isLoading) {
+const TopsellerCarousel = ({ data, className, loading, onItemClick, ...props }) => {
+    const handleItemClick = useEventCallback((ev, item) => {
+        if (onItemClick) {
+            onItemClick(ev, item);
+        }
+    });
+
+    if (loading) {
         return <ProductsCarouselSkeleton />;
     }
 
@@ -40,7 +47,7 @@ const TopsellerCarousel = ({ data, className, isLoading, onItemClick, ...props }
                                 key={id}
                                 href="#"
                                 className="products-carousel__item product"
-                                onClick={(ev) => onItemClick(item, ev)}
+                                onClick={(ev) => handleItemClick(ev, item)}
                             >
                                 {discount && (
                                     <div className="product__flag product__flag--hot">
@@ -90,12 +97,8 @@ TopsellerCarousel.propTypes = {
         })
     ),
     className: PropTypes.string,
-    isLoading: PropTypes.bool,
+    loading: PropTypes.bool,
     onItemClick: PropTypes.func
-};
-
-TopsellerCarousel.defaultProps = {
-    onItemClick: () => {}
 };
 
 export default TopsellerCarousel;

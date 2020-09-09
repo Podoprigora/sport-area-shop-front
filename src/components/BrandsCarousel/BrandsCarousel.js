@@ -4,8 +4,8 @@ import classNames from 'classnames';
 import ScrollingCarousel from '@ui/ScrollingCarousel';
 import BrandsCarouselSkeleton from '../Skeletons/BrandsCarouselSkeleton';
 
-const BrandsCarousel = ({ data, className, onItemClick, isLoading, ...props }) => {
-    if (isLoading) {
+const BrandsCarousel = ({ data, className, onItemClick, loading, ...props }) => {
+    if (loading) {
         return <BrandsCarouselSkeleton />;
     }
 
@@ -48,7 +48,7 @@ BrandsCarousel.propTypes = {
         })
     ),
     className: PropTypes.string,
-    isLoading: PropTypes.bool,
+    loading: PropTypes.bool,
     onItemClick: PropTypes.func
 };
 

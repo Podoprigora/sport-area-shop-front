@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Page, PageSection } from '@components/Page';
 import AdwSlider from '@components/AdwSlider';
 import BrandsCarousel from '@components/BrandsCarousel';
 import BrandnewCarousel from '@components/BrandnewCarousel';
@@ -10,25 +11,25 @@ import useMainPageBootstrapData from './useMainPageBootstrapData';
 
 const MainPage = (props) => {
     const {
-        isLoading,
+        loading,
         data: { adwSlidersData, brandsData, brandnewData, topsellerData }
     } = useMainPageBootstrapData();
 
     return (
-        <div className="page">
-            <div className="page__section">
-                <AdwSlider data={adwSlidersData} isLoading={isLoading} />
-            </div>
-            <div className="page__section">
+        <Page>
+            <PageSection>
+                <AdwSlider data={adwSlidersData} loading={loading} />
+            </PageSection>
+            <PageSection>
                 <BrandsCarousel data={brandsData} />
-            </div>
-            <div className="page__section">
-                <BrandnewCarousel data={brandnewData} isLoading={isLoading} />
-            </div>
-            <div className="page__section">
-                <TopsellerCarousel data={topsellerData} isLoading={isLoading} />
-            </div>
-        </div>
+            </PageSection>
+            <PageSection>
+                <BrandnewCarousel data={brandnewData} loading={loading} />
+            </PageSection>
+            <PageSection>
+                <TopsellerCarousel data={topsellerData} loading={loading} />
+            </PageSection>
+        </Page>
     );
 };
 

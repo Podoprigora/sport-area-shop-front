@@ -6,7 +6,7 @@ import ProductsService from '@services/ProductsService';
 
 export default function useMainPageBootstrapData() {
     const [error, setError] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
     const [data, setData] = useState({});
 
     const isMountedRef = useMountedRef();
@@ -32,13 +32,13 @@ export default function useMainPageBootstrapData() {
                     topsellerData
                 });
 
-                setIsLoading(false);
+                setLoading(false);
             }
         })();
     }, [isMountedRef]);
 
     return {
-        isLoading,
+        loading,
         error,
         data
     };

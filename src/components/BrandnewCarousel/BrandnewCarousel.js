@@ -11,8 +11,8 @@ import ChevronRightIcon from '@ui/SvgIcons/feather/ChevronRightIcon';
 import Link from '@ui/Link';
 import ProductsCarouselSkeleton from '../Skeletons/ProductsCarouselSkeleton';
 
-const BrandnewCarousel = ({ data, className, onItemClick, isLoading, ...props }) => {
-    if (isLoading) {
+const BrandnewCarousel = ({ data, className, onItemClick, loading, ...props }) => {
+    if (loading) {
         return <ProductsCarouselSkeleton />;
     }
 
@@ -71,7 +71,7 @@ BrandnewCarousel.propTypes = {
         })
     ),
     className: PropTypes.string,
-    isLoading: PropTypes.bool,
+    loading: PropTypes.bool,
     onItemClick: PropTypes.func
 };
 
