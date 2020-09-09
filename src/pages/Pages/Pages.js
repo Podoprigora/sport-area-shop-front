@@ -9,6 +9,7 @@ import RegisterWindow from '@components/Register';
 import ForgotPasswordWindow from '@components/ForgotPassword';
 import PagesLoadingScreen from '@components/PagesLoadingScreen';
 import ScreenMask from '@components/ScreenMask';
+import ScrollToTopButton from '@components/ScrollToTopButton';
 
 import MainPage from '@pages/MainPage';
 import CatalogPage from '@pages/CatalogPage';
@@ -52,6 +53,7 @@ const Pages = (props) => {
                 <ForgotPasswordWindow />
             </Main>
             <Footer />
+            <ScrollToTopButton />
         </>
     );
 };
