@@ -1,12 +1,13 @@
-import React, { useCallback } from 'react';
+import React, { memo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import IconButton from '@ui/IconButton';
 import FavoriteOutlineIcon from '@svg-icons/material/FavoriteOutlineIcon';
 import FavoriteIcon from '@svg-icons/material/FavoriteIcon';
+import CircularProgress from '@ui/CircularProgress';
 
 const ProductActionAddToFavorite = (props) => {
-    const { selected, onClick } = props;
+    const { selected, loading, onClick } = props;
 
     const handleClick = useCallback(
         (ev) => {
@@ -19,16 +20,21 @@ const ProductActionAddToFavorite = (props) => {
 
     return (
         <div className="product__action product__action--favorite">
-            <IconButton size="large" onClick={handleClick}>
-                {selected ? <FavoriteIcon /> : <FavoriteOutlineIcon />}
-            </IconButton>
+            {loading ? (
+                <CircularProgress primary size="small" />
+            ) : (
+                <IconButton size="large" onClick={handleClick}>
+                    {selected ? <FavoriteIcon /> : <FavoriteOutlineIcon />}
+                </IconButton>
+            )}
         </div>
     );
 };
 
 ProductActionAddToFavorite.propTypes = {
     selected: PropTypes.bool,
+    loading: PropTypes.bool,
     onClick: PropTypes.func
 };
 
-export default ProductActionAddToFavorite;
+export default memo(ProductActionAddToFavorite);

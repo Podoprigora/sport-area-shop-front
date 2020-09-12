@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Calc from '@utils/Calc';
 import {
     Product,
-    ProductActionAddToFavorite,
     ProductFlag,
     ProductLink,
     ProductImage,
@@ -13,6 +12,7 @@ import {
     ProductPrice,
     ProductSizes
 } from '@components/Product';
+import CatalogGridItemActionAddToFavorite from './CatalogGridItemActionAddToFavorite';
 
 const CatalogGridItem = (props) => {
     const {
@@ -36,7 +36,7 @@ const CatalogGridItem = (props) => {
     return (
         <Product className="catalog-grid__item">
             <div className="catalog-grid__item-inner">
-                <ProductActionAddToFavorite selected={favorite} />
+                <CatalogGridItemActionAddToFavorite />
                 <ProductFlag isNew={isNew} discount={discount} />
 
                 <ProductLink>
