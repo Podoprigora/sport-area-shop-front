@@ -1,25 +1,42 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector, useStore } from 'react-redux';
 
 import { ProductActionAddToFavorite } from '@components/Product';
+import { useFavoritesActions, makeIsProductAddedToFavoriteSelector } from '@store/favorites';
 
 const CatalogGridItemActionAddToFavorite = (props) => {
     const { id } = props;
+
+    const isProductAddedToFavoriteSelector = useMemo(
+        () => makeIsProductAddedToFavoriteSelector(),
+        []
+    );
+    const selected = useSelector((store) => {
+        return isProductAddedToFavoriteSelector(store, id);
+    });
+
+    const { onAsyncAddToFavorite } = useFavoritesActions();
     const [loading, setLoading] = useState(false);
 
-    const handleClick = useCallback(() => {
-        setLoading(true);
-
-        setTimeout(() => {
+    const handleClick = useCallback(async () => {
+        try {
+            setLoading(true);
+            await onAsyncAddToFavorite(id);
+        } catch (e) {
+            console.error(e);
+        } finally {
             setLoading(false);
-        }, 1000);
-    }, []);
+        }
+    }, [id, onAsyncAddToFavorite]);
 
-    return <ProductActionAddToFavorite loading={loading} onClick={handleClick} />;
+    return (
+        <ProductActionAddToFavorite loading={loading} selected={selected} onClick={handleClick} />
+    );
 };
 
 CatalogGridItemActionAddToFavorite.propTypes = {
-    id: PropTypes.number
+    id: PropTypes.number.isRequired
 };
 
 export default memo(CatalogGridItemActionAddToFavorite);

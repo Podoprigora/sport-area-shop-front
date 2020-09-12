@@ -63,9 +63,12 @@ export default function useCategoriesActions() {
         });
     });
 
-    return {
-        onAsyncCategoriesFetch,
-        onCategorySelect,
-        onSelectedCategoryReset
-    };
+    return useMemo(
+        () => ({
+            onAsyncCategoriesFetch,
+            onCategorySelect,
+            onSelectedCategoryReset
+        }),
+        [onAsyncCategoriesFetch, onCategorySelect, onSelectedCategoryReset]
+    );
 }

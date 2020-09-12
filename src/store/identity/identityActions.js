@@ -42,9 +42,12 @@ export function useIdentityActions() {
         [dispatch]
     );
 
-    return {
-        onAsyncIdentityFetch,
-        onAsyncLogin,
-        onAsyncLogout
-    };
+    return useMemo(
+        () => ({
+            onAsyncIdentityFetch,
+            onAsyncLogin,
+            onAsyncLogout
+        }),
+        [onAsyncIdentityFetch, onAsyncLogin, onAsyncLogout]
+    );
 }

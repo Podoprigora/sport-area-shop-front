@@ -36,7 +36,7 @@ const CatalogGridItem = (props) => {
     return (
         <Product className="catalog-grid__item">
             <div className="catalog-grid__item-inner">
-                <CatalogGridItemActionAddToFavorite />
+                <CatalogGridItemActionAddToFavorite id={id} />
                 <ProductFlag isNew={isNew} discount={discount} />
 
                 <ProductLink>

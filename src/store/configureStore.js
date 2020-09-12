@@ -9,11 +9,11 @@ export default function configureStore(defaultState = {}) {
     let composeEnhancer = compose;
 
     if (process.env.NODE_ENV === 'development') {
-        // middleware.push(
-        //     createLogger({
-        //         collapsed: true
-        //     })
-        // );
+        middleware.push(
+            createLogger({
+                collapsed: true
+            })
+        );
 
         composeEnhancer = composeWithDevTools({
             persit: false

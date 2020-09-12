@@ -1,0 +1,24 @@
+.badge-wrap {
+	position: relative;
+	display: inline-block;
+}
+
+.badge {
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+	align-items: center;
+	color: $white;
+	background-color: $color-secondary;
+	padding: 0 .6rem;
+	min-width: 2rem;
+	min-height: 2rem;
+	transform: translate(.2rem, -1rem);
+	font-size: $font-size-small;
+	line-height: 1;
+	border-radius: 2rem;
+	z-index: 1;
+}
