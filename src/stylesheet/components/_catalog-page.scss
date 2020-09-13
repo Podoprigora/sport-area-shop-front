@@ -13,15 +13,6 @@
 		}
 	}
 
-	&__tbar {
-		display: flex;
-		padding: $spacing-scale-6 0;
-
-		& > *:not(:last-child) {
-			margin-right: $spacing-scale-8;
-		}
-	}
-
 	&__filters {
 		display: block;
 	}

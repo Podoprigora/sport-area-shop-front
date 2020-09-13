@@ -14,7 +14,7 @@ import ScrollToTopButton from '@components/ScrollToTopButton';
 
 import MainPage from '@pages/MainPage';
 import CatalogPage from '@pages/CatalogPage';
-import FavoritesPage from '@pages/FavoritesPage';
+import WishlistPage from '@pages/WishlistPage';
 import TestPage from '@pages/TestPage';
 
 const PagesView = (props) => {
@@ -33,8 +33,8 @@ const PagesView = (props) => {
                     <Route exact path="/">
                         <MainPage />
                     </Route>
-                    <Route path="/favorites">
-                        <FavoritesPage />
+                    <Route path="/wishlist">
+                        <WishlistPage />
                     </Route>
                     <Route path="/test">
                         <TestPage />

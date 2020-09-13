@@ -11,7 +11,7 @@ import {
     ProductStat,
     ProductPrice,
     ProductSizes,
-    ProductActionAddToFavorite
+    ProductActionAddToWishlist
 } from '@components/Product';
 
 const CatalogGridItem = (props) => {
@@ -26,8 +26,7 @@ const CatalogGridItem = (props) => {
         isNew,
         sizes = [],
         rating = 0,
-        comments = 0,
-        favorite
+        comments = 0
     } = props;
 
     const shouldDisplayHiddenContent = sizes.length > 0;
@@ -36,7 +35,7 @@ const CatalogGridItem = (props) => {
     return (
         <Product className="catalog-grid__item">
             <div className="catalog-grid__item-inner">
-                <ProductActionAddToFavorite id={id} />
+                <ProductActionAddToWishlist id={id} />
                 <ProductFlag isNew={isNew} discount={discount} />
 
                 <ProductLink>
@@ -74,8 +73,7 @@ CatalogGridItem.propTypes = {
     isNew: PropTypes.bool,
     sizes: PropTypes.array,
     rating: PropTypes.number,
-    comments: PropTypes.number,
-    favorite: PropTypes.bool
+    comments: PropTypes.number
 };
 
 export default memo(CatalogGridItem);

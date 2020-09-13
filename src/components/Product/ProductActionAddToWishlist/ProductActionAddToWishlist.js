@@ -2,26 +2,26 @@ import React, { memo, useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
-import { useFavoritesActions, makeIsProductAddedToFavoriteSelector } from '@store/favorites';
+import { useWishlistActions, makeIsProductAddedToWishlistSelector } from '@store/wishlist';
 import { authSelector } from '@store/identity';
 import { useWindowManager } from '@ui/WindowManager';
-import ProductActionAddToFavoriteView from './ProductActionAddToFavoriteView';
+import ProductActionAddToWishlistView from './ProductActionAddToWishlistView';
 
-const ProductActionAddToFavorite = (props) => {
+const ProductActionAddToWishlist = (props) => {
     const { id } = props;
 
     const isAuth = useSelector(authSelector);
     const { openWindow } = useWindowManager();
 
-    const isProductAddedToFavoriteSelector = useMemo(
-        () => makeIsProductAddedToFavoriteSelector(),
+    const isProductAddedToWishlistSelector = useMemo(
+        () => makeIsProductAddedToWishlistSelector(),
         []
     );
-    const isProductAddedToFavorite = useSelector((store) => {
-        return isProductAddedToFavoriteSelector(store, id);
+    const isProductAddedToWishlist = useSelector((store) => {
+        return isProductAddedToWishlistSelector(store, id);
     });
 
-    const { onAsyncAddToFavorite } = useFavoritesActions();
+    const { onAsyncAddToWishlist } = useWishlistActions();
     const [loading, setLoading] = useState(false);
 
     const handleClick = useCallback(async () => {
@@ -32,18 +32,18 @@ const ProductActionAddToFavorite = (props) => {
             }
 
             setLoading(true);
-            await onAsyncAddToFavorite(id);
+            await onAsyncAddToWishlist(id);
         } catch (e) {
             console.error(e);
         } finally {
             setLoading(false);
         }
-    }, [id, isAuth, onAsyncAddToFavorite, openWindow]);
+    }, [id, isAuth, onAsyncAddToWishlist, openWindow]);
 
-    const selected = isAuth && isProductAddedToFavorite;
+    const selected = isAuth && isProductAddedToWishlist;
 
     return (
-        <ProductActionAddToFavoriteView
+        <ProductActionAddToWishlistView
             loading={loading}
             selected={selected}
             onClick={handleClick}
@@ -51,8 +51,8 @@ const ProductActionAddToFavorite = (props) => {
     );
 };
 
-ProductActionAddToFavorite.propTypes = {
+ProductActionAddToWishlist.propTypes = {
     id: PropTypes.number.isRequired
 };
 
-export default memo(ProductActionAddToFavorite);
+export default memo(ProductActionAddToWishlist);

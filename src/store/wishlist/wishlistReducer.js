@@ -1,5 +1,5 @@
 import reducerFactory from '@ui/utils/reducerFactory';
-import { ADD_TO_FAVORITE, RECEIVE_INITIAL_FAVORITES } from './favoritesActions';
+import { ADD_TO_WISHLIST, RECEIVE_INITIAL_WISHLIST } from './wishlistActions';
 
 const defaultState = {
     allIds: [],
@@ -8,8 +8,8 @@ const defaultState = {
 };
 
 const strategies = {
-    [ADD_TO_FAVORITE]: addToFavoriteStrategy,
-    [RECEIVE_INITIAL_FAVORITES]: receiveInitialFavoritesStrategy
+    [ADD_TO_WISHLIST]: addToWishlistStrategy,
+    [RECEIVE_INITIAL_WISHLIST]: receiveInitialWishlistStrategy
 };
 
 function allIdsReducer(state, payload) {
@@ -51,13 +51,13 @@ function byIdReducer(state, payload) {
     return state;
 }
 
-function addToFavoriteStrategy(state, payload) {
+function addToWishlistStrategy(state, payload) {
     const newState = allIdsReducer(state, payload);
 
     return newState;
 }
 
-function receiveInitialFavoritesStrategy(state, payload) {
+function receiveInitialWishlistStrategy(state, payload) {
     const { ids } = payload;
 
     return { ...defaultState, allIds: ids };

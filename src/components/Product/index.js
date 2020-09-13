@@ -1,5 +1,5 @@
 export { default as Product } from './Product';
-export { default as ProductActionAddToFavorite } from './ProductActionAddToFavorite/ProductActionAddToFavorite';
+export { default as ProductActionAddToWishlist } from './ProductActionAddToWishlist/ProductActionAddToWishlist';
 export { default as ProductFlag } from './ProductFlag';
 export { default as ProductLink } from './ProductLink';
 export { default as ProductImage } from './ProductImage';

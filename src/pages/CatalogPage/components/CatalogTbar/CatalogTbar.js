@@ -34,7 +34,7 @@ const CatalogTbar = (props) => {
     });
 
     return (
-        <div className="catalog-page__tbar">
+        <div className="catalog-page__tbar tbar">
             <Hidden lgUp>
                 <Button transparent centered icon={FilterIcon} onClick={handleFiltersClick}>
                     Filters

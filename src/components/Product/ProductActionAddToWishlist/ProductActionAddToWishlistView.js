@@ -6,7 +6,7 @@ import FavoriteOutlineIcon from '@svg-icons/material/FavoriteOutlineIcon';
 import FavoriteIcon from '@svg-icons/material/FavoriteIcon';
 import CircularProgress from '@ui/CircularProgress';
 
-const ProductActionAddToFavoriteView = (props) => {
+const ProductActionAddToWishlistView = (props) => {
     const { selected, loading, onClick } = props;
 
     const handleClick = useCallback(
@@ -31,10 +31,10 @@ const ProductActionAddToFavoriteView = (props) => {
     );
 };
 
-ProductActionAddToFavoriteView.propTypes = {
+ProductActionAddToWishlistView.propTypes = {
     selected: PropTypes.bool,
     loading: PropTypes.bool,
     onClick: PropTypes.func
 };
 
-export default memo(ProductActionAddToFavoriteView);
+export default memo(ProductActionAddToWishlistView);

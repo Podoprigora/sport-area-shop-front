@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import useMountedRef from '@ui/hooks/useMountedRef';
 import { useCategoriesActions } from '@store/categories';
 import { authSelector, useIdentityActions } from '@store/identity';
-import { useFavoritesActions } from '@store/favorites';
+import { useWishlistActions } from '@store/wishlist';
 
 import PagesView from './PagesView';
 
@@ -16,7 +16,7 @@ const Pages = (props) => {
 
     const { onAsyncCategoriesFetch } = useCategoriesActions();
     const { onAsyncIdentityFetch } = useIdentityActions();
-    const { onAsyncFetchInitialFavorites } = useFavoritesActions();
+    const { onAsyncFetchInitialWishlist } = useWishlistActions();
 
     const isMountedRef = useMountedRef();
 
@@ -51,7 +51,7 @@ const Pages = (props) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const promises = [onAsyncFetchInitialFavorites()];
+            const promises = [onAsyncFetchInitialWishlist()];
             try {
                 await Promise.all(promises);
             } catch (e) {
@@ -67,7 +67,7 @@ const Pages = (props) => {
         }
 
         return undefined;
-    }, [isAuth, onAsyncFetchInitialFavorites]);
+    }, [isAuth, onAsyncFetchInitialWishlist]);
 
     return <PagesView loading={loading} error={error} />;
 };

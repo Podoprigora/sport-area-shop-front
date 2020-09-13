@@ -21,4 +21,12 @@
 		display: flex;
 		width: 100%;
 	}
+
+	&__header {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: flex-start;
+		align-items: center;
+		padding: $spacing-scale-8 0;
+	}
 }

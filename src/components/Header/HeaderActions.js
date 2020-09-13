@@ -2,12 +2,12 @@ import React from 'react';
 
 import IconButton from '@ui/IconButton';
 import ShoppingCartIcon from '@svg-icons/feather/ShoppingCartIcon';
-import HeaderFavoritesAction from './HeaderFavoritesAction';
+import HeaderWishlistAction from './HeaderWishlistAction';
 
 const HeaderActions = () => {
     return (
         <div className="header__actions">
-            <HeaderFavoritesAction />
+            <HeaderWishlistAction />
             <IconButton primary size="large">
                 <ShoppingCartIcon />
             </IconButton>

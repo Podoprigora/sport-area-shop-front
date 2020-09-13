@@ -1,6 +1,15 @@
 .catalog-grid {
+	$this: &;
+
 	display: block;
 	flex: 1;
+
+	&--framed {
+		#{$this}__body {
+			border: 1px solid $border-color-light;
+			border-radius: $border-radius-lg;
+		}
+	}
 
 	&__body {
 		display: flex;

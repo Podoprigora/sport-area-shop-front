@@ -9,11 +9,11 @@ import Tooltip from '@ui/Tooltip';
 import { useWindowManager } from '@ui/WindowManager';
 
 import { authSelector } from '@store/identity';
-import { numOfFavoritesSelector } from '@store/favorites';
+import { numOfWishlistItemsSelector } from '@store/wishlist';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 
-const HeaderFavoritesAction = (props) => {
-    const num = useSelector(numOfFavoritesSelector);
+const HeaderWishlistAction = (props) => {
+    const num = useSelector(numOfWishlistItemsSelector);
     const isAuth = useSelector(authSelector);
 
     const { openWindow } = useWindowManager();
@@ -28,7 +28,7 @@ const HeaderFavoritesAction = (props) => {
             if (!isAuth) {
                 openWindow('LoginWindow');
             } else {
-                history.push(`${basePath}favorites`);
+                history.push(`${basePath}wishlist`);
             }
         },
         [isAuth, openWindow, history, basePath]
@@ -45,4 +45,4 @@ const HeaderFavoritesAction = (props) => {
     );
 };
 
-export default memo(HeaderFavoritesAction);
+export default memo(HeaderWishlistAction);
