@@ -25,7 +25,11 @@ export default function useWishlistActions() {
         });
     });
 
-    const onAsyncFetchWishlist = () => {};
+    const onAsyncFetchWishlist = useEventCallback(() => {
+        return WishlistService.fetchAll().then((response) => {
+            dispatch({ type: RECEIVE_WISHLIST, payload: { items: response } });
+        });
+    });
 
     const onSelelectWishlistItem = (id) => {};
 
@@ -39,6 +43,6 @@ export default function useWishlistActions() {
             onSelelectWishlistItem,
             onAsyncDeleteSelectedWishlistItems
         }),
-        [onAsyncAddToWishlist, onAsyncFetchInitialWishlist]
+        [onAsyncAddToWishlist, onAsyncFetchInitialWishlist, onAsyncFetchWishlist]
     );
 }

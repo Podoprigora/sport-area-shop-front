@@ -6,8 +6,9 @@
 
 	&--framed {
 		#{$this}__body {
-			border: 1px solid $border-color-light;
-			border-radius: $border-radius-lg;
+			border-top: 1px solid $border-color-light;
+			border-left: 1px solid $border-color-light;
+			border-radius: 0;
 		}
 	}
 

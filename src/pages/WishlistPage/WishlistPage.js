@@ -1,27 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { Page, PageHeader, PageSection } from '@components/Page';
-import Heading from '@ui/Heading';
-import WisthlistTbar from './components/WishlistTbar';
-import WishlistGrid from './components/WishlistGrid';
+import useScreenMask from '@contexts/ScreenMaskContext';
+import { useWishlistActions } from '@store/wishlist';
+import WishlistPageView from './WishlistPageView';
 
 const WishlistPage = (props) => {
-    return (
-        <Page>
-            <PageHeader>
-                <Heading size="3" gutterBottom={false}>
-                    Wish List
-                </Heading>
-            </PageHeader>
-            <PageSection>
-                <WisthlistTbar />
-                <WishlistGrid />
-            </PageSection>
-        </Page>
-    );
-};
+    const { onAsyncFetchWishlist } = useWishlistActions();
+    const { toggleMask } = useScreenMask();
 
-WishlistPage.propTypes = {};
+    useEffect(() => {
+        (async () => {
+            try {
+                toggleMask(true);
+                await onAsyncFetchWishlist();
+            } catch (e) {
+                console.error(e);
+            } finally {
+                toggleMask(false);
+            }
+        })();
+    }, [onAsyncFetchWishlist, toggleMask]);
+
+    return <WishlistPageView />;
+};
 
 export default WishlistPage;

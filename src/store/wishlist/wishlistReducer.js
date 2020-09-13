@@ -1,5 +1,5 @@
 import reducerFactory from '@ui/utils/reducerFactory';
-import { ADD_TO_WISHLIST, RECEIVE_INITIAL_WISHLIST } from './wishlistActions';
+import { ADD_TO_WISHLIST, RECEIVE_INITIAL_WISHLIST, RECEIVE_WISHLIST } from './wishlistActions';
 
 const defaultState = {
     allIds: [],
@@ -9,10 +9,26 @@ const defaultState = {
 
 const strategies = {
     [ADD_TO_WISHLIST]: addToWishlistStrategy,
-    [RECEIVE_INITIAL_WISHLIST]: receiveInitialWishlistStrategy
+    [RECEIVE_INITIAL_WISHLIST]: receiveInitialWishlistStrategy,
+    [RECEIVE_WISHLIST]: receiveWishlistStrategy
 };
 
-function allIdsReducer(state, payload) {
+function allIdsReducer(state, items = []) {
+    const newState = items.map(({ id }) => id);
+
+    return { ...state, allIds: newState };
+}
+
+function byIdReducer(state, items = []) {
+    const newState = items.reduce((result, item) => {
+        const { id } = item;
+        return { ...result, [id]: item };
+    }, {});
+
+    return { ...state, byId: newState };
+}
+
+function addToWishlistStrategy(state, payload) {
     const { id: idProp = null } = payload;
 
     if (idProp) {
@@ -31,36 +47,19 @@ function allIdsReducer(state, payload) {
     return state;
 }
 
-function byIdReducer(state, payload) {
-    const { id: idProp = null, ...rest } = payload;
-
-    if (idProp) {
-        const byIdState = state.byId;
-
-        let newByIdState = { ...byIdState };
-
-        if (newByIdState[idProp]) {
-            delete newByIdState[idProp];
-        } else {
-            newByIdState = { ...newByIdState, [idProp]: { ...rest } };
-        }
-
-        return { ...state, byId: newByIdState };
-    }
-
-    return state;
-}
-
-function addToWishlistStrategy(state, payload) {
-    const newState = allIdsReducer(state, payload);
-
-    return newState;
-}
-
 function receiveInitialWishlistStrategy(state, payload) {
     const { ids } = payload;
 
     return { ...defaultState, allIds: ids };
+}
+
+function receiveWishlistStrategy(state, payload) {
+    const { items = [] } = payload;
+
+    let newState = allIdsReducer(defaultState, items);
+    newState = byIdReducer(newState, items);
+
+    return newState;
 }
 
 export default reducerFactory(strategies, defaultState);

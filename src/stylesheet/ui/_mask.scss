@@ -60,12 +60,13 @@
 		}
 	}
 
-	&-enter {
+	&-enter,
+	&-appear {
 		opacity: 0;
 
 		&-active {
 			opacity: 1;
-			transition: opacity .15s ease;
+			transition: opacity .25s ease-in;
 		}
 	}
 
@@ -74,7 +75,7 @@
 
 		&-active {
 			opacity: 0;
-			transition: opacity .15s ease;
+			transition: opacity .25s ease-out;
 		}
 	}
 }
