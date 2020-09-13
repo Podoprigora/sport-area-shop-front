@@ -1,5 +1,5 @@
 import reducerFactory from '@ui/utils/reducerFactory';
-import { ADD_TO_FAVORITE } from './favoritesActions';
+import { ADD_TO_FAVORITE, RECEIVE_INITIAL_FAVORITES } from './favoritesActions';
 
 const defaultState = {
     allIds: [],
@@ -8,14 +8,15 @@ const defaultState = {
 };
 
 const strategies = {
-    [ADD_TO_FAVORITE]: addToFavoriteStrategy
+    [ADD_TO_FAVORITE]: addToFavoriteStrategy,
+    [RECEIVE_INITIAL_FAVORITES]: receiveInitialFavoritesStrategy
 };
 
-function allIdsReducer(store, payload) {
+function allIdsReducer(state, payload) {
     const { id: idProp = null } = payload;
 
     if (idProp) {
-        const allIdsState = store.allIds;
+        const allIdsState = state.allIds;
         let newAllIdsState = [...allIdsState];
 
         if (newAllIdsState.indexOf(idProp) !== -1) {
@@ -24,17 +25,17 @@ function allIdsReducer(store, payload) {
             newAllIdsState = [...newAllIdsState, idProp];
         }
 
-        return { ...store, allIds: newAllIdsState };
+        return { ...state, allIds: newAllIdsState };
     }
 
-    return store;
+    return state;
 }
 
-function byIdReducer(store, payload) {
+function byIdReducer(state, payload) {
     const { id: idProp = null, ...rest } = payload;
 
     if (idProp) {
-        const byIdState = store.byId;
+        const byIdState = state.byId;
 
         let newByIdState = { ...byIdState };
 
@@ -44,17 +45,22 @@ function byIdReducer(store, payload) {
             newByIdState = { ...newByIdState, [idProp]: { ...rest } };
         }
 
-        return { ...store, byId: newByIdState };
+        return { ...state, byId: newByIdState };
     }
 
-    return store;
+    return state;
 }
 
-function addToFavoriteStrategy(store, payload) {
-    let newStore = allIdsReducer(store, payload);
-    newStore = byIdReducer(newStore, payload);
+function addToFavoriteStrategy(state, payload) {
+    const newState = allIdsReducer(state, payload);
 
-    return newStore;
+    return newState;
+}
+
+function receiveInitialFavoritesStrategy(state, payload) {
+    const { ids } = payload;
+
+    return { ...defaultState, allIds: ids };
 }
 
 export default reducerFactory(strategies, defaultState);

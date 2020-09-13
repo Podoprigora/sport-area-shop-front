@@ -1,14 +1,14 @@
 import React from 'react';
 
 import { CatalogPageProvider } from './context';
-import CatalogPageLayout from './CatalogPageLayout';
+import CatalogPageView from './CatalogPageView';
 import CatalogPageEffects from './CatalogPageEffects';
 
 const CatalogPage = (props) => {
     return (
         <CatalogPageProvider>
             <CatalogPageEffects>
-                <CatalogPageLayout />
+                <CatalogPageView />
             </CatalogPageEffects>
         </CatalogPageProvider>
     );

@@ -1,61 +1,75 @@
-import React, { memo } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-import Header from '@components/Header';
-import Main from '@components/Main';
-import Footer from '@components/Footer';
-import LoginWindow from '@components/Login';
-import RegisterWindow from '@components/Register';
-import ForgotPasswordWindow from '@components/ForgotPassword';
-import PagesLoadingScreen from '@components/PagesLoadingScreen';
-import ScreenMask from '@components/ScreenMask';
-import ScrollToTopButton from '@components/ScrollToTopButton';
+import useMountedRef from '@ui/hooks/useMountedRef';
+import { useCategoriesActions } from '@store/categories';
+import { authSelector, useIdentityActions } from '@store/identity';
+import { useFavoritesActions } from '@store/favorites';
 
-import MainPage from '@pages/MainPage';
-import CatalogPage from '@pages/CatalogPage';
-import TestPage from '@pages/TestPage';
-
-import usePagesBootsrap from './usePagesBootsrap';
+import PagesView from './PagesView';
 
 const Pages = (props) => {
-    const { loading, error } = usePagesBootsrap();
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const isAuth = useSelector(authSelector);
 
-    if (loading || !!error) {
-        return <PagesLoadingScreen />;
-    }
+    const { onAsyncCategoriesFetch } = useCategoriesActions();
+    const { onAsyncIdentityFetch } = useIdentityActions();
+    const { onAsyncFetchInitialFavorites } = useFavoritesActions();
 
-    return (
-        <>
-            <ScreenMask />
-            <Header />
-            <Main>
-                <Switch>
-                    <Route exact path="/">
-                        <MainPage />
-                    </Route>
-                    <Route path="/test">
-                        <TestPage />
-                    </Route>
+    const isMountedRef = useMountedRef();
 
-                    <Route exact path="/:category">
-                        <CatalogPage />
-                    </Route>
-                    <Route exact path="/:category/:subCategory">
-                        <CatalogPage />
-                    </Route>
-                    <Route exact path="/:category/:subCategory/:subCategoryItem">
-                        <CatalogPage />
-                    </Route>
-                </Switch>
+    useEffect(() => {
+        const promises = [onAsyncCategoriesFetch(true), onAsyncIdentityFetch(true)].map(
+            (promise) => {
+                let validPromise = promise;
 
-                <LoginWindow />
-                <RegisterWindow />
-                <ForgotPasswordWindow />
-            </Main>
-            <Footer />
-            <ScrollToTopButton />
-        </>
-    );
+                if (typeof promise === 'function') {
+                    validPromise = promise();
+                }
+
+                if (validPromise instanceof Promise) {
+                    return validPromise.catch((e) => {
+                        console.error(e);
+                        setError(e);
+                    });
+                }
+
+                return null;
+            }
+        );
+
+        (async () => {
+            await Promise.all(promises);
+
+            if (isMountedRef.current) {
+                setLoading(false);
+            }
+        })();
+    }, [isMountedRef, onAsyncCategoriesFetch, onAsyncIdentityFetch]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const promises = [onAsyncFetchInitialFavorites()];
+            try {
+                await Promise.all(promises);
+            } catch (e) {
+                console.error(e);
+                setError(e);
+            }
+        };
+
+        if (!isAuth) {
+            return () => {
+                fetchData();
+            };
+        }
+
+        return undefined;
+    }, [isAuth, onAsyncFetchInitialFavorites]);
+
+    return <PagesView loading={loading} error={error} />;
 };
 
-export default memo(Pages);
+export default Pages;

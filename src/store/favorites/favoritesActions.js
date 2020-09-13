@@ -19,7 +19,11 @@ export default function useFavoritesActions() {
         });
     });
 
-    const onAsyncFetchInitialFavorites = () => {};
+    const onAsyncFetchInitialFavorites = useEventCallback(() => {
+        return FavoritesService.fetchIds().then((response) => {
+            dispatch({ type: RECEIVE_INITIAL_FAVORITES, payload: { ids: response } });
+        });
+    });
 
     const onAsyncFetchFavorites = () => {};
 
@@ -35,6 +39,6 @@ export default function useFavoritesActions() {
             onSelelectFavorite,
             onAsyncDeleteSelectedFavorites
         }),
-        [onAsyncAddToFavorite]
+        [onAsyncAddToFavorite, onAsyncFetchInitialFavorites]
     );
 }

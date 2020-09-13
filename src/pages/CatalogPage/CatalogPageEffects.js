@@ -81,7 +81,7 @@ const CatalogPageEffects = (props) => {
                 onRequestItems();
 
                 const promises = [
-                    ProductsService.fetchAll(itemsPerPage),
+                    ProductsService.fetchAll(itemsPerPage, false),
                     ProductsService.fetchFilters()
                 ];
 
@@ -118,7 +118,11 @@ const CatalogPageEffects = (props) => {
             try {
                 onRequestItems();
 
-                const { items, total } = await ProductsService.fetchAll(itemsPerPage);
+                const generageRandomId = selectedPage > 0;
+                const { items, total } = await ProductsService.fetchAll(
+                    itemsPerPage,
+                    generageRandomId
+                );
 
                 if (isMountedRef.current) {
                     onReceiveItems({
@@ -138,6 +142,7 @@ const CatalogPageEffects = (props) => {
     }, [
         shouldReloadItems,
         itemsPerPage,
+        selectedPage,
         isMountedRef,
         onReceiveItems,
         onRequestItems,

@@ -16,7 +16,7 @@ const Popper = (props) => {
         transitionProps = null
     } = props;
 
-    const { referenceRef, popperRef, popperState, popperInstance } = usePopper({
+    const { referenceRef, popperRef, popperInstance } = usePopper({
         placement,
         strategy,
         modifiers
@@ -40,6 +40,8 @@ const Popper = (props) => {
     if (!open && exited) {
         return null;
     }
+
+    const popperState = (popperInstance && popperInstance.state) || {};
 
     return (
         <Portal>

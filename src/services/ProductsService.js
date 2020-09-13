@@ -15,18 +15,22 @@ export default class ProductsService {
         return fakeRequest(topsellerData, { success: true, delay: 500 });
     }
 
-    static async fetchAll(limit = 0) {
+    static async fetchAll(limit = 0, generateRandomId = true) {
         const items = await fakeRequest(productsData, { success: true, dalay: 1000 });
 
         const suffleItems = suffleArray(items);
 
-        const itemsWithRandomIds = suffleItems.map(({ id, ...rest }) => {
-            const randomId = Math.round(Math.random() * 10000000000);
-            return { id: randomId, ...rest };
-        });
+        const itemsWithRandomIds =
+            generateRandomId &&
+            suffleItems.map(({ id, ...rest }) => {
+                const randomId = Math.round(Math.random() * 10000000000);
+                return { id: randomId, ...rest };
+            });
+
+        const resultItem = itemsWithRandomIds || suffleItems;
 
         return {
-            items: limit ? itemsWithRandomIds.slice(0, limit) : itemsWithRandomIds,
+            items: limit ? resultItem.slice(0, limit) : resultItem,
             total: 240
         };
     }

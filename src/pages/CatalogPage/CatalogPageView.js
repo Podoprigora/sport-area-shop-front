@@ -11,7 +11,7 @@ import CatalogTbar from './components/CatalogTbar';
 import CatalogFiltersMobile from './components/CatalogFilters/CatalogFiltersMobile';
 import CatalogTopseller from './components/CatalogTopseller';
 
-const CatalogPageLayout = (props) => {
+const CatalogPageView = (props) => {
     return (
         <Page className="catalog-page">
             <PageSection className="catalog-page__main-section">
@@ -43,4 +43,4 @@ const CatalogPageLayout = (props) => {
     );
 };
 
-export default memo(CatalogPageLayout);
+export default memo(CatalogPageView);

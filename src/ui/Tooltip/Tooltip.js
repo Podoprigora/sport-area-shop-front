@@ -12,8 +12,8 @@ const Tooltip = (props) => {
         title,
         placement = 'bottom',
         className,
-        disableFocusListener,
-        enterDelay = 166,
+        disableFocusListener = false,
+        enterDelay = 300,
         leaveDelay = 0
     } = props;
 
@@ -85,12 +85,12 @@ const Tooltip = (props) => {
                     open={open}
                     placement={placement}
                     anchorRef={anchorRef}
-                    transitionProps={{ classNames: 'tooltip', timeout: 300 }}
+                    transitionProps={{ classNames: 'tooltip', timeout: 200 }}
                     modifiers={[
                         {
                             name: 'offset',
                             options: {
-                                offset: [0, 8]
+                                offset: [0, 12]
                             }
                         }
                     ]}

@@ -8,5 +8,26 @@
 	max-width: $tooltip-max-width;
 	border-radius: $tooltip-border-radius;
 
-	@include scale-transition;
+	&-enter,
+	&-appear {
+		opacity: 0;
+		transform: scale3d(0.6, 0.6, 1);
+
+		&-active {
+			opacity: 1;
+			transform: scale3d(1, 1, 1);
+			transition: all .2s ease;
+		}
+	}
+
+	&-exit {
+		opacity: 1;
+		transform: scale3d(1, 1, 1);
+
+		&-active {
+			transform: scale3d(.6, .6, 1);
+			opacity: 0;
+			transition: opacity .1s ease, transform .2s ease;
+		}
+	}
 }

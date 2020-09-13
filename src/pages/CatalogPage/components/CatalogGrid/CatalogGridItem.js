@@ -10,9 +10,9 @@ import {
     ProductTitle,
     ProductStat,
     ProductPrice,
-    ProductSizes
+    ProductSizes,
+    ProductActionAddToFavorite
 } from '@components/Product';
-import CatalogGridItemActionAddToFavorite from './CatalogGridItemActionAddToFavorite';
 
 const CatalogGridItem = (props) => {
     const {
@@ -36,7 +36,7 @@ const CatalogGridItem = (props) => {
     return (
         <Product className="catalog-grid__item">
             <div className="catalog-grid__item-inner">
-                <CatalogGridItemActionAddToFavorite id={id} />
+                <ProductActionAddToFavorite id={id} />
                 <ProductFlag isNew={isNew} discount={discount} />
 
                 <ProductLink>

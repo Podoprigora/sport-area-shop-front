@@ -1,35 +1,55 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { Page, PageSection } from '@components/Page';
-import AdwSlider from '@components/AdwSlider';
-import BrandsCarousel from '@components/BrandsCarousel';
-import BrandnewCarousel from '@components/BrandnewCarousel';
-import TopsellerCarousel from '@components/TopsellerCarousel';
+import useMountedRef from '@ui/hooks/useMountedRef';
+import BrandsService from '@services/BrandsService';
+import ProductsService from '@services/ProductsService';
 
-import useMainPageBootstrapData from './useMainPageBootstrapData';
+import MainPageView from './MainPageView';
 
 const MainPage = (props) => {
-    const {
-        loading,
-        data: { adwSlidersData, brandsData, brandnewData, topsellerData }
-    } = useMainPageBootstrapData();
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [data, setData] = useState({});
+
+    const isMountedRef = useMountedRef();
+
+    useEffect(() => {
+        const promises = [
+            BrandsService.fetchAdwSliders(),
+            BrandsService.fetchAll(),
+            ProductsService.fetchBrandnew(),
+            ProductsService.fetchTopseller()
+        ].map(async (pr) => pr.catch((e) => setError(e)));
+
+        (async () => {
+            const [adwSlidersData, brandsData, brandnewData, topsellerData] = await Promise.all(
+                promises
+            );
+
+            if (isMountedRef.current) {
+                setData({
+                    adwSlidersData,
+                    brandsData,
+                    brandnewData,
+                    topsellerData
+                });
+
+                setLoading(false);
+            }
+        })();
+    }, [isMountedRef]);
+
+    const { adwSlidersData, brandsData, brandnewData, topsellerData } = data;
 
     return (
-        <Page>
-            <PageSection>
-                <AdwSlider data={adwSlidersData} loading={loading} />
-            </PageSection>
-            <PageSection>
-                <BrandsCarousel data={brandsData} />
-            </PageSection>
-            <PageSection>
-                <BrandnewCarousel data={brandnewData} loading={loading} />
-            </PageSection>
-            <PageSection>
-                <TopsellerCarousel data={topsellerData} loading={loading} />
-            </PageSection>
-        </Page>
+        <MainPageView
+            loading={loading}
+            adwSlidersData={adwSlidersData}
+            brandsData={brandsData}
+            brandnewData={brandnewData}
+            topsellerData={topsellerData}
+        />
     );
 };
 

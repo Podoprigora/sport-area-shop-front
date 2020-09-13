@@ -1,14 +1,15 @@
 import React, { memo, useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector, useStore } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import { ProductActionAddToFavorite } from '@components/Product';
 import { useFavoritesActions, makeIsProductAddedToFavoriteSelector } from '@store/favorites';
 import { authSelector } from '@store/identity';
 import { useWindowManager } from '@ui/WindowManager';
+import ProductActionAddToFavoriteView from './ProductActionAddToFavoriteView';
 
-const CatalogGridItemActionAddToFavorite = (props) => {
+const ProductActionAddToFavorite = (props) => {
     const { id } = props;
+
     const isAuth = useSelector(authSelector);
     const { openWindow } = useWindowManager();
 
@@ -42,12 +43,16 @@ const CatalogGridItemActionAddToFavorite = (props) => {
     const selected = isAuth && isProductAddedToFavorite;
 
     return (
-        <ProductActionAddToFavorite loading={loading} selected={selected} onClick={handleClick} />
+        <ProductActionAddToFavoriteView
+            loading={loading}
+            selected={selected}
+            onClick={handleClick}
+        />
     );
 };
 
-CatalogGridItemActionAddToFavorite.propTypes = {
+ProductActionAddToFavorite.propTypes = {
     id: PropTypes.number.isRequired
 };
 
-export default memo(CatalogGridItemActionAddToFavorite);
+export default memo(ProductActionAddToFavorite);
