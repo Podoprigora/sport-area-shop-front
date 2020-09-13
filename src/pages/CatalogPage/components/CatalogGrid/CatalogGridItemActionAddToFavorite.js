@@ -4,15 +4,19 @@ import { useSelector, useStore } from 'react-redux';
 
 import { ProductActionAddToFavorite } from '@components/Product';
 import { useFavoritesActions, makeIsProductAddedToFavoriteSelector } from '@store/favorites';
+import { authSelector } from '@store/identity';
+import { useWindowManager } from '@ui/WindowManager';
 
 const CatalogGridItemActionAddToFavorite = (props) => {
     const { id } = props;
+    const isAuth = useSelector(authSelector);
+    const { openWindow } = useWindowManager();
 
     const isProductAddedToFavoriteSelector = useMemo(
         () => makeIsProductAddedToFavoriteSelector(),
         []
     );
-    const selected = useSelector((store) => {
+    const isProductAddedToFavorite = useSelector((store) => {
         return isProductAddedToFavoriteSelector(store, id);
     });
 
@@ -21,6 +25,11 @@ const CatalogGridItemActionAddToFavorite = (props) => {
 
     const handleClick = useCallback(async () => {
         try {
+            if (!isAuth) {
+                openWindow('LoginWindow');
+                return;
+            }
+
             setLoading(true);
             await onAsyncAddToFavorite(id);
         } catch (e) {
@@ -28,7 +37,9 @@ const CatalogGridItemActionAddToFavorite = (props) => {
         } finally {
             setLoading(false);
         }
-    }, [id, onAsyncAddToFavorite]);
+    }, [id, isAuth, onAsyncAddToFavorite, openWindow]);
+
+    const selected = isAuth && isProductAddedToFavorite;
 
     return (
         <ProductActionAddToFavorite loading={loading} selected={selected} onClick={handleClick} />

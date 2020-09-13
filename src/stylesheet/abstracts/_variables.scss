@@ -162,6 +162,14 @@ $icon-btn-large-margin-x: $spacing-scale-5;
 $icon-btn-margin-x: $icon-btn-medium-margin-x;
 $icon-btn-disabled-opacity: .6;
 
+// Badge
+$badge-size: 2rem;
+$badge-padding: 0 $spacing-scale-3;
+$badge-color: $white;
+$badge-bg-color: $color-secondary;
+$badge-box-shadow: 0 0 2px 2px $body-bg-color;
+$badge-font-size: $font-size-small;
+
 // Tooltip
 $tooltip-bg-color: $grey-darken-1;
 $tooltip-color: $white;

@@ -15,7 +15,7 @@ export default function usePagesBootsrap() {
     const { onAsyncIdentityFetch } = useIdentityActions();
 
     useEffect(() => {
-        const promises = [onAsyncCategoriesFetch(true), onAsyncIdentityFetch(false)].map(
+        const promises = [onAsyncCategoriesFetch(true), onAsyncIdentityFetch(true)].map(
             (promise) => {
                 let validPromise = promise;
 

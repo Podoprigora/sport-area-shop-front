@@ -1,24 +1,47 @@
 .badge-wrap {
 	position: relative;
-	display: inline-block;
 }
 
 .badge {
 	position: absolute;
-	top: 0;
+	bottom: 0;
 	right: 0;
 	display: flex;
 	flex-flow: row nowrap;
 	justify-content: center;
 	align-items: center;
-	color: $white;
-	background-color: $color-secondary;
-	padding: 0 .6rem;
-	min-width: 2rem;
-	min-height: 2rem;
-	transform: translate(.2rem, -1rem);
-	font-size: $font-size-small;
+	color: $badge-color;
+	background-color: $badge-bg-color;
+	padding: $badge-padding;
+	min-width: $badge-size;
+	min-height: $badge-size;
+	font-size: $badge-font-size;
 	line-height: 1;
-	border-radius: 2rem;
+	border-radius: $badge-size;
+	box-shadow: $badge-box-shadow;
 	z-index: 1;
+
+	&--top-right {
+		transform: translate(50%, -50%);
+	}
+
+	&--top-left {
+		transform: translate(-50%, -50%);
+	}
+
+	&--bottom-right {
+		transform: translate(50%, 50%);
+	}
+
+	&--bottom-left {
+		transform: translate(-50%, 50%);
+	}
+
+	&--center-right {
+		transform: translate(50%, 0%);
+	}
+
+	&--center-left {
+		transform: translate(-50%, 0%);
+	}
 }

@@ -1,7 +1,8 @@
-import FavoritesService from '@services/FavoritesService';
-import useEventCallback from '@ui/hooks/useEventCallback';
 import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
+
+import FavoritesService from '@services/FavoritesService';
+import useEventCallback from '@ui/hooks/useEventCallback';
 
 export const ADD_TO_FAVORITE = 'ADD_TO_FAVORITE';
 export const RECEIVE_INITIAL_FAVORITES = 'RECEIVE_INITIAL_FAVORITES';

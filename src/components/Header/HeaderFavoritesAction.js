@@ -1,21 +1,26 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import IconButton from '@ui/IconButton';
-import HeartIcon from '@svg-icons/feather/HeartIcon';
 import { useSelector } from 'react-redux';
 
-import { numOfFavoritesSelector } from '@store/favorites';
+import IconButton from '@ui/IconButton';
+import HeartIcon from '@svg-icons/feather/HeartIcon';
 import Badge from '@ui/Badge';
 
+import { authSelector } from '@store/identity';
+import { numOfFavoritesSelector } from '@store/favorites';
+
 const HeaderFavoritesAction = (props) => {
-    const badgeValue = useSelector(numOfFavoritesSelector);
+    const num = useSelector(numOfFavoritesSelector);
+    const isAuth = useSelector(authSelector);
+
+    const badgeValue = num && isAuth ? num : undefined;
 
     return (
-        <Badge value={badgeValue}>
-            <IconButton primary size="large">
+        <IconButton primary size="large">
+            <Badge value={badgeValue}>
                 <HeartIcon />
-            </IconButton>
-        </Badge>
+            </Badge>
+        </IconButton>
     );
 };
 
