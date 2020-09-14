@@ -127,7 +127,8 @@
 	&--icon-align-left,
 	&--icon-align-right {
 		#{$this}__arrow {
-			margin-left: $spacing-scale-1;
+			margin-left: auto;
+			padding-left: $spacing-scale-1;
 		}
 	}
 

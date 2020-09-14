@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import Calc from '@utils/Calc';
@@ -24,15 +24,26 @@ const WishlistGridItem = (props) => {
         currency,
         isNew,
         rating = 0,
-        comments = 0
+        comments = 0,
+        checked,
+        onCheckChange
     } = props;
+
+    const handleCheckChange = useCallback(
+        (ev) => {
+            if (onCheckChange) {
+                onCheckChange(ev, id);
+            }
+        },
+        [id, onCheckChange]
+    );
 
     const discount = Calc.discountPersent(oldPrice, price);
 
     return (
         <Product className="catalog-grid__item">
             <div className="catalog-grid__item-inner">
-                <ProductActionCheckbox />
+                <ProductActionCheckbox checked={checked} onChange={handleCheckChange} />
                 <ProductFlag isNew={isNew} discount={discount} />
 
                 <ProductLink>
@@ -63,7 +74,9 @@ WishlistGridItem.propTypes = {
     currency: PropTypes.string,
     isNew: PropTypes.bool,
     rating: PropTypes.number,
-    comments: PropTypes.number
+    comments: PropTypes.number,
+    checked: PropTypes.bool,
+    onCheckChange: PropTypes.func
 };
 
 export default memo(WishlistGridItem);

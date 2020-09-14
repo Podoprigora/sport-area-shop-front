@@ -9,10 +9,14 @@ export default class WishlistService {
     }
 
     static async fetchIds() {
-        return fakeRequest(wishlistIds, { success: true, delay: 1000 });
+        return fakeRequest(wishlistIds, { success: true, delay: 500 });
     }
 
     static async fetchAll() {
-        return fakeRequest(wishlist, { success: true, delay: 200 });
+        return fakeRequest(wishlist, { success: true, delay: 250 });
+    }
+
+    static async delete(ids) {
+        return fakeRequest({ success: true }, { success: true, delay: 2500 });
     }
 }

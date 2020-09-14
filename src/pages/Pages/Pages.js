@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
@@ -19,35 +19,41 @@ const Pages = (props) => {
     const { onAsyncFetchInitialWishlist } = useWishlistActions();
 
     const isMountedRef = useMountedRef();
+    const hadInitialFetchRecentlyRef = useRef(false);
+
+    // console.log(hadInitialFetchRecentlyRef.current);
 
     useEffect(() => {
-        const promises = [onAsyncCategoriesFetch(true), onAsyncIdentityFetch(true)].map(
-            (promise) => {
-                let validPromise = promise;
+        const promises = [
+            onAsyncCategoriesFetch(true),
+            onAsyncIdentityFetch(true),
+            onAsyncFetchInitialWishlist
+        ].map((promise) => {
+            let validPromise = promise;
 
-                if (typeof promise === 'function') {
-                    validPromise = promise();
-                }
-
-                if (validPromise instanceof Promise) {
-                    return validPromise.catch((e) => {
-                        console.error(e);
-                        setError(e);
-                    });
-                }
-
-                return null;
+            if (typeof promise === 'function') {
+                validPromise = promise();
             }
-        );
+
+            if (validPromise instanceof Promise) {
+                return validPromise.catch((e) => {
+                    console.error(e);
+                    setError(e);
+                });
+            }
+
+            return null;
+        });
 
         (async () => {
+            hadInitialFetchRecentlyRef.current = true;
             await Promise.all(promises);
 
             if (isMountedRef.current) {
                 setLoading(false);
             }
         })();
-    }, [isMountedRef, onAsyncCategoriesFetch, onAsyncIdentityFetch]);
+    }, [isMountedRef, onAsyncCategoriesFetch, onAsyncFetchInitialWishlist, onAsyncIdentityFetch]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -60,7 +66,7 @@ const Pages = (props) => {
             }
         };
 
-        if (!isAuth) {
+        if (!isAuth && !hadInitialFetchRecentlyRef.current) {
             return () => {
                 fetchData();
             };
@@ -68,6 +74,10 @@ const Pages = (props) => {
 
         return undefined;
     }, [isAuth, onAsyncFetchInitialWishlist]);
+
+    useEffect(() => {
+        hadInitialFetchRecentlyRef.current = false;
+    });
 
     return <PagesView loading={loading} error={error} />;
 };

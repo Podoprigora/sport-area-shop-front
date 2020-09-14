@@ -7,7 +7,7 @@ const Mask = React.forwardRef(function Mask(props, ref) {
     const { open, fixed, className, children, ...other } = props;
 
     return (
-        <CSSTransition in={open} timeout={300} classNames="mask" unmountOnExit>
+        <CSSTransition in={open} timeout={150} classNames="mask" unmountOnExit>
             <div
                 className={classNames('mask', className, {
                     'mask--fixed': fixed
