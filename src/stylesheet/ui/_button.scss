@@ -47,6 +47,10 @@
 		background-color: $btn-bg-color;
 		border: $btn-border-width solid $btn-bg-color;
 		box-shadow: none;
+
+		&#{$this}--focus-visible {
+			background-color: $btn-hover-bg-color;
+		}
 	}
 
 	&--primary {

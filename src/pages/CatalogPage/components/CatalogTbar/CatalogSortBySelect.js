@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo, useState } from 'react';
+import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import SelectInput from '@ui/SelectInput';
@@ -6,8 +6,12 @@ import useControlled from '@ui/hooks/useControlled';
 import FieldControl from '@ui/FieldControl';
 import { ListItem, ListItemText, ListItemIcon } from '@ui/List';
 import CheckIcon from '@svg-icons/feather/CheckIcon';
+import Menu from '@ui/Menu';
+import Button from '@ui/Button';
+import SortIcon from '@svg-icons/material/SortIcon';
+import defineEventTarget from '@ui/utils/defineEventTarget';
 
-const list = [
+const options = [
     { id: 'relevance', name: 'Relevance' },
     { id: 'price-up', name: 'Price up' },
     { id: 'price-down', name: 'Price down' },
@@ -16,65 +20,79 @@ const list = [
     { id: 'name', name: 'Name' }
 ];
 
-const getItemValue = ({ id }) => id;
-const getItemText = ({ name }) => name;
-const getItemSelected = ({ id }, value) => id === value;
-
 const CatalogSortBySelect = (props) => {
-    const { value: valueProp, defaultValue, onChange } = props;
+    const { value, defaultValue = '', style, onChange, ...other } = props;
 
-    const [value, setValue] = useControlled(valueProp, defaultValue);
+    const anchorRef = useRef(null);
+    const [open, setOpen] = useState(false);
+    const [selectedState, setSelectedState] = useControlled(value, defaultValue);
 
-    const handleChange = useCallback(
-        (ev) => {
-            setValue(ev.target.value);
+    const handleButtonClick = useCallback(() => {
+        setOpen((prevState) => !prevState);
+    }, []);
 
-            if (onChange) {
-                onChange(ev);
-            }
-        },
-        [setValue, onChange]
-    );
+    const handleCloseMenu = useCallback(() => {
+        setOpen(false);
+    }, []);
 
-    const renderItem = useMemo(() => {
-        return (item) => {
+    const handleItemClick = (id) => (ev) => {
+        setSelectedState(id);
+        setOpen(false);
+
+        if (onChange) {
+            onChange(ev, id);
+        }
+    };
+
+    const menuItems = options.map((item) => {
+        const { id, name } = item;
+        const selected = id === selectedState;
+
+        return (
+            <ListItem button key={id} value={id} selected={selected} onClick={handleItemClick(id)}>
+                <ListItemText flex>{name}</ListItemText>
+                {selected && (
+                    <ListItemIcon>
+                        <CheckIcon size="small" />
+                    </ListItemIcon>
+                )}
+            </ListItem>
+        );
+    });
+
+    const defaultDisplayValue = 'Sort by';
+
+    const displayValue =
+        selectedState &&
+        options.reduce((result, item) => {
             const { id, name } = item;
-            const selected = value === id;
-
-            return (
-                <ListItem button>
-                    <ListItemText flex>{name}</ListItemText>
-                    {selected && (
-                        <ListItemIcon>
-                            <CheckIcon size="medium" />
-                        </ListItemIcon>
-                    )}
-                </ListItem>
-            );
-        };
-    }, [value]);
+            return id === selectedState ? name : result;
+        }, defaultDisplayValue);
 
     return (
-        <FieldControl
-            component={SelectInput}
-            data={list}
-            value={value}
-            getItemValue={getItemValue}
-            getItemText={getItemText}
-            getItemSelected={getItemSelected}
-            renderItem={renderItem}
-            label="Sort by"
-            className="u-margin-l-auto"
-            fullWidth
-            style={{ maxWidth: '34rem' }}
-            onChange={handleChange}
-        />
+        <>
+            <Button
+                {...other}
+                plain
+                arrow
+                icon={SortIcon}
+                style={{ minWidth: '18rem' }}
+                onClick={handleButtonClick}
+                ref={anchorRef}
+            >
+                {displayValue}
+            </Button>
+            <Menu open={open} anchorRef={anchorRef} autoWidth onClose={handleCloseMenu}>
+                {menuItems}
+            </Menu>
+        </>
     );
 };
 
 CatalogSortBySelect.propTypes = {
     value: PropTypes.string,
     defaultValue: PropTypes.string,
+    style: PropTypes.object,
     onChange: PropTypes.func
 };
 

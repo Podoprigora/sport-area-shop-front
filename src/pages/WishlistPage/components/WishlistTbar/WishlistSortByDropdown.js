@@ -15,7 +15,7 @@ const options = [
 ];
 
 const WishlistSortByDropdown = (props) => {
-    const { value, defaultValue = 'added-date', style, onChange, ...other } = props;
+    const { value, defaultValue = '', style, onChange, ...other } = props;
 
     const anchorRef = useRef(null);
     const [open, setOpen] = useState(false);

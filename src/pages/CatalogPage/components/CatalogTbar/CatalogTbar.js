@@ -20,9 +20,8 @@ const CatalogTbar = (props) => {
     const { openWindow } = useWindowManager();
 
     const handleSortChange = useCallback(
-        (ev) => {
+        (ev, value) => {
             if (onChangeSort) {
-                const value = ev.target.value;
                 onChangeSort(value);
             }
         },
@@ -36,11 +35,15 @@ const CatalogTbar = (props) => {
     return (
         <div className="catalog-page__tbar tbar">
             <Hidden lgUp>
-                <Button transparent centered icon={FilterIcon} onClick={handleFiltersClick}>
+                <Button plain centered icon={FilterIcon} onClick={handleFiltersClick}>
                     Filters
                 </Button>
             </Hidden>
-            <CatalogSortBySelect value={sortBy} onChange={handleSortChange} />
+            <CatalogSortBySelect
+                value={sortBy}
+                className="u-margin-l-auto"
+                onChange={handleSortChange}
+            />
         </div>
     );
 };
