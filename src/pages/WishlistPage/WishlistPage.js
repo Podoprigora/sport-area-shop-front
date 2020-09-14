@@ -9,7 +9,7 @@ import WishlistPageView from './WishlistPageView';
 const WishlistPage = (props) => {
     const sortBy = useSelector(wishlistSortBySelector);
     const { onAsyncFetchWishlist } = useWishlistActions();
-    const { toggleMask } = useScreenMask();
+    const { isMaskShown, toggleMask } = useScreenMask();
 
     useEffect(() => {
         (async () => {
@@ -23,6 +23,16 @@ const WishlistPage = (props) => {
             }
         })();
     }, [sortBy, onAsyncFetchWishlist, toggleMask]);
+
+    useEffect(() => {
+        if (isMaskShown) {
+            return () => {
+                document.documentElement.scrollTo({ top: 0 });
+            };
+        }
+
+        return undefined;
+    }, [isMaskShown]);
 
     return <WishlistPageView />;
 };

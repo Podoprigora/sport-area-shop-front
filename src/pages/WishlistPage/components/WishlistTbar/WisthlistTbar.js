@@ -55,7 +55,7 @@ const WisthlistTbar = (props) => {
     });
 
     return (
-        <div className="tbar">
+        <div className="tbar tbar--sticky">
             <Hidden smDown>
                 <Button
                     plain

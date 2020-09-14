@@ -1,6 +1,15 @@
 .tbar {
 	display: flex;
+	background-color: $body-bg-color;
 	padding: $spacing-scale-6 0;
+
+	&--sticky {
+		position: sticky;
+		top: 0;
+		margin-bottom: -1px;
+		box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .15);
+		z-index: 10;
+	}
 
 	& > *:not(:last-child) {
 		margin-right: $spacing-scale-8;
