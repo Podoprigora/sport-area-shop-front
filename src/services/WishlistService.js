@@ -13,6 +13,6 @@ export default class WishlistService {
     }
 
     static async fetchAll() {
-        return fakeRequest(wishlist, { success: true, delay: 1500 });
+        return fakeRequest(wishlist, { success: true, delay: 200 });
     }
 }

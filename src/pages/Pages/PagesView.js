@@ -16,6 +16,7 @@ import MainPage from '@pages/MainPage';
 import CatalogPage from '@pages/CatalogPage';
 import WishlistPage from '@pages/WishlistPage';
 import TestPage from '@pages/TestPage';
+import ProtectedRoute from '@components/ProtectedRoute';
 
 const PagesView = (props) => {
     const { loading, error } = props;
@@ -33,9 +34,9 @@ const PagesView = (props) => {
                     <Route exact path="/">
                         <MainPage />
                     </Route>
-                    <Route path="/wishlist">
+                    <ProtectedRoute path="/wishlist">
                         <WishlistPage />
-                    </Route>
+                    </ProtectedRoute>
                     <Route path="/test">
                         <TestPage />
                     </Route>

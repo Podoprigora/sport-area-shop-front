@@ -11,6 +11,7 @@ import {
     ProductStat,
     ProductPrice
 } from '@components/Product';
+import ProductActionCheckbox from '@components/Product/ProductActionCheckbox';
 
 const WishlistGridItem = (props) => {
     const {
@@ -31,6 +32,7 @@ const WishlistGridItem = (props) => {
     return (
         <Product className="catalog-grid__item">
             <div className="catalog-grid__item-inner">
+                <ProductActionCheckbox />
                 <ProductFlag isNew={isNew} discount={discount} />
 
                 <ProductLink>
