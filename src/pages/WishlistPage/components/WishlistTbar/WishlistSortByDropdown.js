@@ -45,27 +45,25 @@ const WishlistSortByDropdown = (props) => {
     });
 
     const defaultDisplayValue = 'Sort by';
-    const displayValue =
-        selectedState &&
-        options.reduce((result, item) => {
-            const { id, title } = item;
+    const displayValue = selectedState
+        ? options.reduce((result, item) => {
+              const { id, title } = item;
 
-            return id === selectedState ? title : result;
-        }, defaultDisplayValue);
+              return id === selectedState ? title : result;
+          }, defaultDisplayValue)
+        : defaultDisplayValue;
 
     return (
-        <>
-            <ButtonMenu
-                text={displayValue}
-                plain
-                arrow
-                icon={SortIcon}
-                style={{ minWidth: '18rem', ...style }}
-                {...other}
-            >
-                <Menu autoWidth>{menuItems}</Menu>
-            </ButtonMenu>
-        </>
+        <ButtonMenu
+            text={displayValue}
+            plain
+            arrow
+            icon={SortIcon}
+            style={{ minWidth: '18rem', ...style }}
+            {...other}
+        >
+            <Menu autoWidth>{menuItems}</Menu>
+        </ButtonMenu>
     );
 };
 

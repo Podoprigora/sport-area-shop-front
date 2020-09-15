@@ -1,17 +1,25 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
+import useEventCallback from '@ui/hooks/useEventCallback';
 import ScrollingCarousel from '@ui/ScrollingCarousel';
-import Format from '@utils/Format';
 import Panel from '@ui/Panel';
 import PanelHeader from '@ui/Panel/PanelHeader';
 import PanelBody from '@ui/Panel/PanelBody';
 import TagIcon from '@ui/SvgIcons/feather/TagIcon';
 import ChevronRightIcon from '@ui/SvgIcons/feather/ChevronRightIcon';
 import Link from '@ui/Link';
+
 import ProductsCarouselSkeleton from '../Skeletons/ProductsCarouselSkeleton';
+import BrandnewCarouselItem from './BrandnewCarouselItem';
 
 const BrandnewCarousel = ({ data, className, onItemClick, loading, ...props }) => {
+    const handleItemClick = useEventCallback((ev, item) => {
+        if (onItemClick) {
+            onItemClick(ev, item);
+        }
+    });
+
     if (loading) {
         return <ProductsCarouselSkeleton />;
     }
@@ -29,29 +37,10 @@ const BrandnewCarousel = ({ data, className, onItemClick, loading, ...props }) =
             </PanelHeader>
             <PanelBody className="products-carousel">
                 <ScrollingCarousel>
-                    {data.map((item, i) => {
-                        const { id, name, brand, image, price, currency } = item;
+                    {data.map((item) => {
+                        const { id } = item;
 
-                        return (
-                            <a
-                                key={id}
-                                href="#"
-                                className="products-carousel__item product"
-                                onClick={(ev) => onItemClick(item, ev)}
-                            >
-                                <div className="product__flag product__flag--new">New</div>
-                                <div className="product__img-container">
-                                    <img src={image} alt={name} className="product__img" />
-                                </div>
-                                <h4 className="product__title">
-                                    {brand && <span className="product__brand">{brand}</span>}
-                                    <span className="product__name">{name}</span>
-                                </h4>
-                                <div className="product__price">
-                                    {Format.price(price, currency)}
-                                </div>
-                            </a>
-                        );
+                        return <BrandnewCarouselItem key={id} {...item} />;
                     })}
                 </ScrollingCarousel>
             </PanelBody>
@@ -62,12 +51,7 @@ const BrandnewCarousel = ({ data, className, onItemClick, loading, ...props }) =
 BrandnewCarousel.propTypes = {
     data: PropTypes.arrayOf(
         PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired,
-            brand: PropTypes.string,
-            image: PropTypes.string,
-            price: PropTypes.number,
-            currency: PropTypes.string
+            id: PropTypes.number.isRequired
         })
     ),
     className: PropTypes.string,
@@ -75,8 +59,4 @@ BrandnewCarousel.propTypes = {
     onItemClick: PropTypes.func
 };
 
-BrandnewCarousel.defaultProps = {
-    onItemClick: () => {}
-};
-
-export default BrandnewCarousel;
+export default memo(BrandnewCarousel);

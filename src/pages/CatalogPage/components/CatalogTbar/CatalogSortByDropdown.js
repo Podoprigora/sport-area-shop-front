@@ -6,7 +6,6 @@ import useControlled from '@ui/hooks/useControlled';
 import { ListItem, ListItemText, ListItemIcon } from '@ui/List';
 import CheckIcon from '@svg-icons/feather/CheckIcon';
 import Menu from '@ui/Menu';
-import Button from '@ui/Button';
 import SortIcon from '@svg-icons/material/SortIcon';
 import ButtonMenu from '@ui/ButtonMenu';
 
@@ -50,13 +49,13 @@ const CatalogSortByDropdown = (props) => {
 
     const defaultDisplayValue = 'Sort by';
 
-    const displayValue =
-        selectedState &&
-        options.reduce((result, item) => {
-            const { id, name } = item;
+    const displayValue = selectedState
+        ? options.reduce((result, item) => {
+              const { id, name } = item;
 
-            return id === selectedState ? name : result;
-        }, defaultDisplayValue);
+              return id === selectedState ? name : result;
+          }, defaultDisplayValue)
+        : defaultDisplayValue;
 
     return (
         <ButtonMenu
