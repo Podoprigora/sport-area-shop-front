@@ -1,6 +1,6 @@
 [
     {
-        "id": 1,
+        "id": 100000,
         "brand": "DC",
         "name": "Rebuilt - Hooded Sweatshirt for Men - Grey",
         "image": "remote/images/products/dc-rebuilt-hooded-sweatshirt-men-grey-pid-47906500.jpg",
@@ -8,7 +8,7 @@
         "currency": "EUR"
     },
     {
-        "id": 2,
+        "id": 2000,
         "brand": "DC",
         "name": "Minimal Crew - Sweatshirt for Men - Red",
         "image": "remote/images/products/dc-minimal-crew-sweatshirt-men-red.jpg",
@@ -17,7 +17,7 @@
         "currency": "EUR"
     },
     {
-        "id": 3,
+        "id": 3000,
         "brand": "Lakeville Mountain",
         "name": "Mafadi - Jacket for Men - Black",
         "image": "remote/images/products/lakeville-mountain-mafadi-jacket-men-black-pid-45356001.jpg",
@@ -25,7 +25,7 @@
         "currency": "EUR"
     },
     {
-        "id": 4,
+        "id": 4000,
         "brand": "BILLABONG",
         "name": "Matt - Jacket for Men - Black",
         "image": "remote/images/products/billabong-matt-jacket-men-black-pid-47709900.jpg",
@@ -34,7 +34,7 @@
         "currency": "EUR"
     },
     {
-        "id": 5,
+        "id": 5000,
         "brand": "Volcom",
         "name": "Wenson Winter - Jacket for Men - Black",
         "image": "remote/images/products/volcom-wenson-winter-jacket-men-black-pid-48368100.jpg",
@@ -43,7 +43,7 @@
         "currency": "EUR"
     },
     {
-        "id": 6,
+        "id": 6000,
         "brand": "Roxy",
         "name": "Light Of Down - Shirt for Women - Blue",
         "image": "remote/images/products/roxy-light-of-down-shirt-women-blue-pid-47988000.jpg",
@@ -52,7 +52,7 @@
         "currency": "EUR"
     },
     {
-        "id": 7,
+        "id": 7000,
         "brand": "Roxy",
         "name": "Risingrun - T-Shirt for Women - Orange",
         "image": "remote/images/products/roxy-risingrun-t-shirt-women-orange-pid-44889401.jpg",
@@ -61,7 +61,7 @@
         "currency": "EUR"
     },
     {
-        "id": 8,
+        "id": 8000,
         "brand": "NIKE SB",
         "name": "Fisherman - Beanie - Black",
         "image": "remote/images/products/nike-sb-fisherman-beanie-black-pid-39038400.jpg",
@@ -70,7 +70,7 @@
         "currency": "EUR"
     },
     {
-        "id": 9,
+        "id": 9000,
         "brand": "BILLABONG",
         "name": "All Day - Beanie for Men - Blue",
         "image": "remote/images/products/billabong-all-day-beanie-men-blue-pid-09064503.jpg",
@@ -78,7 +78,7 @@
         "currency": "EUR"
     },
     {
-        "id": 10,
+        "id": 10000,
         "brand": "BILLABONG",
         "name": "Alpine - Backpack for Men - Green",
         "image": "remote/images/products/billabong-alpine-backpack-men-green-pid-09072601.jpg",
@@ -87,7 +87,7 @@
         "currency": "EUR"
     },
     {
-        "id": 11,
+        "id": 10001,
         "brand": "Zimtstern",
         "name": "Coverz - Backpack - Green",
         "image": "remote/images/products/zimtstern-coverz-backpack-green-pid-46256502.jpg",
@@ -95,7 +95,7 @@
         "currency": "EUR"
     },
     {
-        "id": 12,
+        "id": 10002,
         "brand": "NIKE SB",
         "name": "Stefan Janoski Max - Sneakers - Blue",
         "image": "remote/images/products/nike-sb-stefan-janoski-max-sneakers-blue-pid-47714901.jpg",
@@ -104,7 +104,7 @@
         "currency": "EUR"
     },
     {
-        "id": 13,
+        "id": 10003,
         "brand": "Lakeville Mountain",
         "name": "Easy Light - Sneakers for Women - Grey",
         "image": "remote/images/products/lakeville-mountain-easy-light-sneakers-women-grey-pid-44431600.jpg",
@@ -113,7 +113,7 @@
         "currency": "EUR"
     },
     {
-        "id": 14,
+        "id": 10004,
         "brand": "Volcom",
         "name": "Shelterlen Gore-Tex - Boots for Men - Black",
         "image": "remote/images/products/volcom-shelterlen-gore-tex-boots-men-black-pid-45072803.jpg",
@@ -122,7 +122,7 @@
         "currency": "EUR"
     },
     {
-        "id": 15,
+        "id": 10005,
         "brand": "DC",
         "name": "Crisis High Winter - Sneakers for Men - Black",
         "image": "remote/images/products/dc-crisis-high-winter-sneakers-men-black-pid-47898300.jpg",
