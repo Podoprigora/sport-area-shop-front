@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, memo } from 'react';
 import PropTypes from 'prop-types';
 
 import InputField from '@ui/FormikForm/InputField';
@@ -12,6 +12,8 @@ const PasswordField = (props) => {
     const handlePasswordVisibility = useCallback((ev) => {
         setPasswordVisible((prevState) => !prevState);
     }, []);
+
+    console.log('rerender');
 
     return (
         <InputField
@@ -28,6 +30,4 @@ const PasswordField = (props) => {
     );
 };
 
-PasswordField.propTypes = {};
-
-export default PasswordField;
+export default memo(PasswordField);

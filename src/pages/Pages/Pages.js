@@ -21,8 +21,6 @@ const Pages = (props) => {
     const isMountedRef = useMountedRef();
     const hadInitialFetchRecentlyRef = useRef(false);
 
-    // console.log(hadInitialFetchRecentlyRef.current);
-
     useEffect(() => {
         const promises = [
             onAsyncCategoriesFetch(true),

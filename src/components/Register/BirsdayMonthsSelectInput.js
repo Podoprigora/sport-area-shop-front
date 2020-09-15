@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import SelectField from '@ui/FormikForm/SelectField';
@@ -42,4 +42,4 @@ const BirsdayMonthsSelectInput = (props) => {
 
 BirsdayMonthsSelectInput.propTypes = {};
 
-export default BirsdayMonthsSelectInput;
+export default memo(BirsdayMonthsSelectInput);

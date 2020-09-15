@@ -127,23 +127,9 @@ const ScrollingCarousel = ({
     // Render
 
     const items = React.Children.map(children, (child, i) => {
-        const handleItemClick = (ev) => {
-            const { onClick } = child.props;
-
-            ev.preventDefault();
-
-            if (onClick && !isActivatedDrag.current) {
-                onClick(ev);
-            }
-        };
-
-        const item = React.cloneElement(child, {
-            onClick: handleItemClick
-        });
-
         return (
             <div key={i} className="scrolling-carousel__item">
-                {item}
+                {child}
             </div>
         );
     });

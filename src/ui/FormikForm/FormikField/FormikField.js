@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { useField } from 'formik';
 
@@ -25,4 +25,4 @@ FormikField.propTypes = {
     component: PropTypes.elementType.isRequired
 };
 
-export default FormikField;
+export default memo(FormikField);
