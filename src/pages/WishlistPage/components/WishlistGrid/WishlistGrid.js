@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 import useEventCallback from '@ui/hooks/useEventCallback';
-import { GridEmptyItem } from '@components/Grid';
+import Empty from '@ui/Empty';
 import useScreenMask from '@contexts/ScreenMaskContext';
 import { useWishlistActions, wishlistItemsSelector } from '@store/wishlist';
 import WishlistGridItem from './WishlistGridItem';
@@ -38,9 +38,7 @@ const WishlistGrid = (props) => {
                     })}
                 </div>
             )}
-            {!shouldDisplayItems && !isMaskShown && (
-                <GridEmptyItem>You Wish List is empty.</GridEmptyItem>
-            )}
+            {!shouldDisplayItems && !isMaskShown && <Empty>You Wish List is empty.</Empty>}
         </div>
     );
 };

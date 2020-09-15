@@ -47,7 +47,7 @@ export default function useWishlistActions() {
         dispatch({ type: SELECT_ALL_WISHLIST_ITEMS, payload: { toggle } });
     });
 
-    const onAsyncDeletedWishlistSelectedItems = useCallback(() => {
+    const onAsyncDeleteWishlistSelectedItems = useCallback(() => {
         return WishlistService.delete(selected).then(() => {
             dispatch({ type: DELETE_WISHLIST_SELECTED_ITEMS });
         });
@@ -61,13 +61,13 @@ export default function useWishlistActions() {
             onChangeWishlistSort,
             onSelectWishlistItem,
             onSelectAllWishlistItems,
-            onAsyncDeletedWishlistSelectedItems
+            onAsyncDeleteWishlistSelectedItems
         }),
         [
             onAsyncAddToWishlist,
             onAsyncFetchInitialWishlist,
             onAsyncFetchWishlist,
-            onAsyncDeletedWishlistSelectedItems,
+            onAsyncDeleteWishlistSelectedItems,
             onChangeWishlistSort,
             onSelectWishlistItem,
             onSelectAllWishlistItems

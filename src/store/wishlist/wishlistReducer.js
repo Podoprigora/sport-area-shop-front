@@ -1,4 +1,3 @@
-import { CHANGE_SELECTED_FILTERS } from '@pages/CatalogPage/context';
 import reducerFactory from '@ui/utils/reducerFactory';
 import {
     ADD_TO_WISHLIST,

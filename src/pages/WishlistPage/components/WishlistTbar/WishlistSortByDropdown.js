@@ -1,11 +1,12 @@
 import React, { memo, useCallback, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+
 import Button from '@ui/Button';
 import SortIcon from '@svg-icons/material/SortIcon';
-import Menu, { MenuItem } from '@ui/Menu';
+import Menu from '@ui/Menu';
 import useControlled from '@ui/hooks/useControlled';
 import { ListItem, ListItemIcon, ListItemText } from '@ui/List';
-import CheckBoxIcon from '@svg-icons/material/CheckBoxIcon';
 import CheckIcon from '@svg-icons/feather/CheckIcon';
 
 const options = [
@@ -15,7 +16,7 @@ const options = [
 ];
 
 const WishlistSortByDropdown = (props) => {
-    const { value, defaultValue = '', style, onChange, ...other } = props;
+    const { value, defaultValue = '', style, className, onChange, ...other } = props;
 
     const anchorRef = useRef(null);
     const [open, setOpen] = useState(false);
@@ -69,6 +70,9 @@ const WishlistSortByDropdown = (props) => {
                 plain
                 arrow
                 icon={SortIcon}
+                className={classNames(className, {
+                    'btn--focus-visible': open
+                })}
                 style={{ minWidth: '18rem', ...style }}
                 onClick={handleButtonClick}
                 ref={anchorRef}
@@ -85,6 +89,7 @@ const WishlistSortByDropdown = (props) => {
 WishlistSortByDropdown.propTypes = {
     value: PropTypes.string,
     defaultValue: PropTypes.string,
+    className: PropTypes.string,
     style: PropTypes.object,
     onChange: PropTypes.func
 };

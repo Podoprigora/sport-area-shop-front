@@ -4,8 +4,7 @@ import Hidden from '@ui/Hidden';
 import FlexRow from '@ui/FlexRow';
 import { StickyContainer, StickyItem } from '@ui/Sticky';
 
-import { Page, PageSection, PageAside, PageContent, PageHeader } from '@components/Page';
-import Heading from '@ui/Heading';
+import { Page, PageSection, PageAside, PageContent, PageHeader, PageTitle } from '@components/Page';
 import CatalogFilters from './components/CatalogFilters';
 import CatalogGrid from './components/CatalogGrid';
 import CatalogTbar from './components/CatalogTbar';
@@ -16,9 +15,7 @@ const CatalogPageView = (props) => {
     return (
         <Page className="catalog-page">
             <PageHeader>
-                <Heading size="3" gutterBottom={false}>
-                    Catalog
-                </Heading>
+                <PageTitle>Catalog</PageTitle>
             </PageHeader>
             <PageSection className="catalog-page__main-section">
                 <CatalogTbar />

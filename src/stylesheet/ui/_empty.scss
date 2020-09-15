@@ -1,0 +1,18 @@
+.empty {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	padding: $empty-padding-y $empty-padding-x;
+	color: $empty-color;
+
+	& &__icon {
+		width: $empty-icon-size;
+		height: $empty-icon-size;
+		margin-bottom: $spacing-scale-6;
+	}
+
+	& &__text {
+		font-size: $empty-text-font-size;
+		font-weight: $empty-text-font-weight;
+	}
+}

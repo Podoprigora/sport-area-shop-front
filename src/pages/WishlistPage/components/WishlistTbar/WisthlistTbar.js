@@ -26,7 +26,7 @@ const WisthlistTbar = (props) => {
     const {
         onChangeWishlistSort,
         onSelectAllWishlistItems,
-        onAsyncDeletedWishlistSelectedItems
+        onAsyncDeleteWishlistSelectedItems
     } = useWishlistActions();
 
     const { toggleMask } = useScreenMask();
@@ -46,7 +46,7 @@ const WisthlistTbar = (props) => {
     const handleDelete = useEventCallback(async () => {
         try {
             toggleMask(true);
-            await onAsyncDeletedWishlistSelectedItems();
+            await onAsyncDeleteWishlistSelectedItems();
         } catch (e) {
             console.error(e);
         } finally {

@@ -323,3 +323,11 @@ $slider-text-color: $white;
 $slider-disabled-opacity: .4;
 $slider-rail-opacity: .3;
 $slider-thumb-size: $spacing-scale-8;
+
+// Empty
+$empty-padding-x: 0;
+$empty-padding-y: $spacing-scale-8;
+$empty-color: lighten($grey, 5%);
+$empty-text-font-size: $font-size;
+$empty-text-font-weight: 500;
+$empty-icon-size: 4.8rem;

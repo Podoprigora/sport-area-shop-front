@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Page, PageHeader, PageSection } from '@components/Page';
-import Heading from '@ui/Heading';
+import { Page, PageHeader, PageSection, PageTitle } from '@components/Page';
 import WisthlistTbar from './components/WishlistTbar';
 import WishlistGrid from './components/WishlistGrid';
 
@@ -10,9 +9,7 @@ const WishlistPageView = (props) => {
     return (
         <Page>
             <PageHeader>
-                <Heading size="3" gutterBottom={false}>
-                    Wish List
-                </Heading>
+                <PageTitle>Wish List</PageTitle>
             </PageHeader>
             <PageSection>
                 <WisthlistTbar />

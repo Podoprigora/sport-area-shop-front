@@ -1,15 +1,13 @@
 import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-import SelectInput from '@ui/SelectInput';
 import useControlled from '@ui/hooks/useControlled';
-import FieldControl from '@ui/FieldControl';
 import { ListItem, ListItemText, ListItemIcon } from '@ui/List';
 import CheckIcon from '@svg-icons/feather/CheckIcon';
 import Menu from '@ui/Menu';
 import Button from '@ui/Button';
 import SortIcon from '@svg-icons/material/SortIcon';
-import defineEventTarget from '@ui/utils/defineEventTarget';
 
 const options = [
     { id: 'relevance', name: 'Relevance' },
@@ -21,7 +19,7 @@ const options = [
 ];
 
 const CatalogSortBySelect = (props) => {
-    const { value, defaultValue = '', style, onChange, ...other } = props;
+    const { value, defaultValue = '', style, className, onChange, ...other } = props;
 
     const anchorRef = useRef(null);
     const [open, setOpen] = useState(false);
@@ -61,7 +59,6 @@ const CatalogSortBySelect = (props) => {
     });
 
     const defaultDisplayValue = 'Sort by';
-
     const displayValue =
         selectedState &&
         options.reduce((result, item) => {
@@ -77,6 +74,9 @@ const CatalogSortBySelect = (props) => {
                 arrow
                 icon={SortIcon}
                 style={{ minWidth: '18rem' }}
+                className={classNames(className, {
+                    'btn--focus-visible': open
+                })}
                 onClick={handleButtonClick}
                 ref={anchorRef}
             >
@@ -92,6 +92,7 @@ const CatalogSortBySelect = (props) => {
 CatalogSortBySelect.propTypes = {
     value: PropTypes.string,
     defaultValue: PropTypes.string,
+    className: PropTypes.string,
     style: PropTypes.object,
     onChange: PropTypes.func
 };
