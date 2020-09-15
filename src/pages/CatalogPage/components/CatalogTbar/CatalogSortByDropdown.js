@@ -8,6 +8,7 @@ import CheckIcon from '@svg-icons/feather/CheckIcon';
 import Menu from '@ui/Menu';
 import Button from '@ui/Button';
 import SortIcon from '@svg-icons/material/SortIcon';
+import ButtonMenu from '@ui/ButtonMenu';
 
 const options = [
     { id: 'relevance', name: 'Relevance' },
@@ -18,24 +19,13 @@ const options = [
     { id: 'name', name: 'Name' }
 ];
 
-const CatalogSortBySelect = (props) => {
-    const { value, defaultValue = '', style, className, onChange, ...other } = props;
+const CatalogSortByDropdown = (props) => {
+    const { value, defaultValue = '', style, onChange, ...other } = props;
 
-    const anchorRef = useRef(null);
-    const [open, setOpen] = useState(false);
     const [selectedState, setSelectedState] = useControlled(value, defaultValue);
-
-    const handleButtonClick = useCallback(() => {
-        setOpen((prevState) => !prevState);
-    }, []);
-
-    const handleCloseMenu = useCallback(() => {
-        setOpen(false);
-    }, []);
 
     const handleItemClick = (id) => (ev) => {
         setSelectedState(id);
-        setOpen(false);
 
         if (onChange) {
             onChange(ev, id);
@@ -59,42 +49,34 @@ const CatalogSortBySelect = (props) => {
     });
 
     const defaultDisplayValue = 'Sort by';
+
     const displayValue =
         selectedState &&
         options.reduce((result, item) => {
             const { id, name } = item;
+
             return id === selectedState ? name : result;
         }, defaultDisplayValue);
 
     return (
-        <>
-            <Button
-                {...other}
-                plain
-                arrow
-                icon={SortIcon}
-                style={{ minWidth: '18rem' }}
-                className={classNames(className, {
-                    'btn--focus-visible': open
-                })}
-                onClick={handleButtonClick}
-                ref={anchorRef}
-            >
-                {displayValue}
-            </Button>
-            <Menu open={open} anchorRef={anchorRef} autoWidth onClose={handleCloseMenu}>
-                {menuItems}
-            </Menu>
-        </>
+        <ButtonMenu
+            text={displayValue}
+            plain
+            arrow
+            icon={SortIcon}
+            style={{ minWidth: '18rem', ...style }}
+            {...other}
+        >
+            <Menu autoWidth>{menuItems}</Menu>
+        </ButtonMenu>
     );
 };
 
-CatalogSortBySelect.propTypes = {
+CatalogSortByDropdown.propTypes = {
     value: PropTypes.string,
     defaultValue: PropTypes.string,
-    className: PropTypes.string,
     style: PropTypes.object,
     onChange: PropTypes.func
 };
 
-export default memo(CatalogSortBySelect);
+export default memo(CatalogSortByDropdown);

@@ -2,12 +2,12 @@ import React, { memo, useCallback, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import Button from '@ui/Button';
 import SortIcon from '@svg-icons/material/SortIcon';
 import Menu from '@ui/Menu';
 import useControlled from '@ui/hooks/useControlled';
 import { ListItem, ListItemIcon, ListItemText } from '@ui/List';
 import CheckIcon from '@svg-icons/feather/CheckIcon';
+import ButtonMenu from '@ui/ButtonMenu';
 
 const options = [
     { id: 'added-date', title: 'By added date' },
@@ -16,23 +16,12 @@ const options = [
 ];
 
 const WishlistSortByDropdown = (props) => {
-    const { value, defaultValue = '', style, className, onChange, ...other } = props;
+    const { value, defaultValue = '', style, onChange, ...other } = props;
 
-    const anchorRef = useRef(null);
-    const [open, setOpen] = useState(false);
     const [selectedState, setSelectedState] = useControlled(value, defaultValue);
-
-    const handleButtonClick = useCallback(() => {
-        setOpen((prevState) => !prevState);
-    }, []);
-
-    const handleCloseMenu = useCallback(() => {
-        setOpen(false);
-    }, []);
 
     const handleItemClick = (id) => (ev) => {
         setSelectedState(id);
-        setOpen(false);
 
         if (onChange) {
             onChange(ev, id);
@@ -60,28 +49,22 @@ const WishlistSortByDropdown = (props) => {
         selectedState &&
         options.reduce((result, item) => {
             const { id, title } = item;
+
             return id === selectedState ? title : result;
         }, defaultDisplayValue);
 
     return (
         <>
-            <Button
-                {...other}
+            <ButtonMenu
+                text={displayValue}
                 plain
                 arrow
                 icon={SortIcon}
-                className={classNames(className, {
-                    'btn--focus-visible': open
-                })}
                 style={{ minWidth: '18rem', ...style }}
-                onClick={handleButtonClick}
-                ref={anchorRef}
+                {...other}
             >
-                {displayValue}
-            </Button>
-            <Menu open={open} anchorRef={anchorRef} autoWidth onClose={handleCloseMenu}>
-                {menuItems}
-            </Menu>
+                <Menu autoWidth>{menuItems}</Menu>
+            </ButtonMenu>
         </>
     );
 };
@@ -89,7 +72,6 @@ const WishlistSortByDropdown = (props) => {
 WishlistSortByDropdown.propTypes = {
     value: PropTypes.string,
     defaultValue: PropTypes.string,
-    className: PropTypes.string,
     style: PropTypes.object,
     onChange: PropTypes.func
 };

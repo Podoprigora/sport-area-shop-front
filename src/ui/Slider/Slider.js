@@ -120,7 +120,7 @@ const Slider = React.forwardRef(function Slider(props, ref) {
         step = 1,
         orientation = 'horizontal',
         disabled,
-        disabledThumbLabel,
+        disableThumbLabel,
         renderThumbLabelText,
         onChange,
         onChangeCommited,
@@ -394,7 +394,7 @@ const Slider = React.forwardRef(function Slider(props, ref) {
                             key={index}
                             value={value}
                             open={openLabelIndexState === index || activeIndexState === index}
-                            disabled={disabledThumbLabel || disabled}
+                            disabled={disableThumbLabel || disabled}
                             renderValue={renderThumbLabelText}
                         >
                             <div
@@ -436,7 +436,7 @@ Slider.propTypes = {
     orientation: PropTypes.oneOf(['horizontal', 'vertical']),
     disabled: PropTypes.bool,
     className: PropTypes.string,
-    disabledThumbLabel: PropTypes.bool,
+    disableThumbLabel: PropTypes.bool,
     renderThumbLabelText: PropTypes.func,
     onChange: PropTypes.func,
     onChangeCommited: PropTypes.func,

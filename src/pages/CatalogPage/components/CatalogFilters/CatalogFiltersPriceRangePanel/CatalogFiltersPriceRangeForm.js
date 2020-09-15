@@ -167,7 +167,7 @@ const CatalogFiltersPriceRangeForm = (props) => {
                     value={[minValue, maxValue]}
                     min={minRange}
                     max={maxRange}
-                    disabledThumbLabel
+                    disableThumbLabel
                     onChange={handleSliderChange}
                     onChangeCommited={handleSliderChangeCommited}
                 />

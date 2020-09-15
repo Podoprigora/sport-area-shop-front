@@ -1,12 +1,12 @@
 import React, { useReducer, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import Button from '@ui/Button/Button';
 import useEventCallback from '@ui/hooks/useEventCallback';
 import useForkRef from '@ui/hooks/useForkRef';
 
 const defaultState = {
-    selected: [],
     open: false,
     autoFocusItem: false
 };
@@ -30,35 +30,13 @@ const reducer = (state = defaultState, { type, payload }) => {
                 ...state,
                 open: false
             };
-        case 'SELECT': {
-            return {
-                ...state,
-                open: false,
-                selected: [payload]
-            };
-        }
-        case 'MULTISELECT': {
-            const newSelected = [...state.selected];
-            const existedIndex = newSelected.indexOf(payload);
-
-            if (existedIndex !== -1) {
-                newSelected.splice(existedIndex, 1);
-            } else {
-                newSelected.push(payload);
-            }
-
-            return {
-                ...state,
-                selected: newSelected
-            };
-        }
         default:
             return state;
     }
 };
 
 const ButtonMenu = React.forwardRef(function ButtonMenu(props, ref) {
-    const { children, text = '', onClick, onKeyDown, ...other } = props;
+    const { children, text = '', className, onClick, onKeyDown, onItemClick, ...other } = props;
 
     const [state, dispatch] = useReducer(reducer, defaultState);
 
@@ -84,16 +62,19 @@ const ButtonMenu = React.forwardRef(function ButtonMenu(props, ref) {
         }
     });
 
+    const handleItemClick = useEventCallback((ev) => {
+        dispatch({ type: 'CLOSE' });
+
+        if (onItemClick) {
+            onItemClick(ev);
+        }
+    });
+
     const handleMenuClose = useCallback((ev) => {
         dispatch({ type: 'CLOSE' });
     }, []);
 
-    const handleMenuItemClick = useCallback((ev, index) => {
-        dispatch({ type: 'SELECT', payload: index });
-    }, []);
-
-    // TODO: Implement selection functionality
-    const { open, autoFocusItem, selected } = state;
+    const { open, autoFocusItem } = state;
 
     const menuElement =
         children &&
@@ -101,14 +82,17 @@ const ButtonMenu = React.forwardRef(function ButtonMenu(props, ref) {
             open,
             autoFocusItem,
             anchorRef: buttonRef,
-            onClose: handleMenuClose,
-            onItemClick: handleMenuItemClick
+            onItemClick: handleItemClick,
+            onClose: handleMenuClose
         });
 
     return (
         <>
             <Button
                 {...other}
+                className={classNames(className, {
+                    'btn--focus-visible': open
+                })}
                 ref={handleRef}
                 onClick={handleButtonClick}
                 onKeyDown={handleButtonKeyDown}
@@ -123,8 +107,10 @@ const ButtonMenu = React.forwardRef(function ButtonMenu(props, ref) {
 ButtonMenu.propTypes = {
     children: PropTypes.element,
     text: PropTypes.string,
+    className: PropTypes.string,
     onClick: PropTypes.func,
-    onKeyDown: PropTypes.func
+    onKeyDown: PropTypes.func,
+    onItemClick: PropTypes.func
 };
 
 export default ButtonMenu;

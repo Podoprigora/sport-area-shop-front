@@ -11,7 +11,7 @@ import {
     useCatalogPageSelectors,
     useCatalogPageActions
 } from '@pages/CatalogPage/context';
-import CatalogSortBySelect from './CatalogSortBySelect';
+import CatalogSortByDropdown from './CatalogSortByDropdown';
 
 const CatalogTbar = (props) => {
     const state = useCatalogPageState();
@@ -39,7 +39,7 @@ const CatalogTbar = (props) => {
                     Filters
                 </Button>
             </Hidden>
-            <CatalogSortBySelect
+            <CatalogSortByDropdown
                 value={sortBy}
                 className="u-margin-l-auto"
                 onChange={handleSortChange}

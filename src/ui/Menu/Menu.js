@@ -235,6 +235,7 @@ const Menu = React.forwardRef(function Menu(props, ref) {
             if (
                 autoFocusItem &&
                 activeIndexRef.current === defaultActiveIndex &&
+                child.props.children &&
                 !child.props.disabled
             ) {
                 activeIndexRef.current = index;
