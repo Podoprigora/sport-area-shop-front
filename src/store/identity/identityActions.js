@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 
 import UserService from '@services/UserService';
 
-export const RECEIVE_IDENTITY = 'RECEIVE_IDENTITY';
-export const LOGOUT = 'LOGOUT';
+export const RECEIVE_IDENTITY = 'identity/RECEIVE_IDENTITY';
+export const LOGOUT = 'identity/LOGOUT';
 
 export function useIdentityActions() {
     const dispatch = useDispatch();

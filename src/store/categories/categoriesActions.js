@@ -10,9 +10,9 @@ import {
     getCategoryIdByPath
 } from './categoriesSelectors';
 
-export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
-export const SELECT_CATEGORY = 'SELECT_CATEGORY';
-export const RESET_SELECTED_CATEGORY = 'RESET_SELECTED_CATEGORY';
+export const RECEIVE_CATEGORIES = 'categories/RECEIVE_CATEGORIES';
+export const SELECT_CATEGORY = 'categories/SELECT_CATEGORY';
+export const RESET_SELECTED_CATEGORY = 'categories/RESET_SELECTED_CATEGORY';
 
 export default function useCategoriesActions() {
     const dispatch = useDispatch();
