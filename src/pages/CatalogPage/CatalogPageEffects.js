@@ -33,7 +33,7 @@ const CatalogPageEffects = (props) => {
         selectedFilters,
         shouldReloadItems
     } = useCatalogPageSelectors(state);
-    const { onRequestItems, onReceiveItems, onToggleLoading } = useCatalogPageActions();
+    const { requestItems, receiveItems, toggleLoading } = useCatalogPageActions();
 
     // Route params
     const { category, subCategory = null, subCategoryItem = null } = useParams();
@@ -78,7 +78,7 @@ const CatalogPageEffects = (props) => {
     useEffect(() => {
         (async () => {
             try {
-                onRequestItems();
+                requestItems();
 
                 const promises = [
                     ProductsService.fetchAll(itemsPerPage, false),
@@ -89,7 +89,7 @@ const CatalogPageEffects = (props) => {
                 const { items, total } = productData;
 
                 if (isMountedRef.current) {
-                    onReceiveItems({
+                    receiveItems({
                         items,
                         total,
                         filters,
@@ -99,7 +99,7 @@ const CatalogPageEffects = (props) => {
                 }
             } catch (e) {
                 console.log(e);
-                onToggleLoading(false);
+                toggleLoading(false);
             }
         })();
     }, [
@@ -108,15 +108,15 @@ const CatalogPageEffects = (props) => {
         subCategoryItem,
         itemsPerPage,
         isMountedRef,
-        onRequestItems,
-        onReceiveItems,
-        onToggleLoading
+        requestItems,
+        receiveItems,
+        toggleLoading
     ]);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                onRequestItems();
+                requestItems();
 
                 const generageRandomId = selectedPage > 0;
                 const { items, total } = await ProductsService.fetchAll(
@@ -125,14 +125,14 @@ const CatalogPageEffects = (props) => {
                 );
 
                 if (isMountedRef.current) {
-                    onReceiveItems({
+                    receiveItems({
                         items,
                         total
                     });
                 }
             } catch (e) {
                 console.log(e);
-                onToggleLoading(false);
+                toggleLoading(false);
             }
         };
 
@@ -144,9 +144,9 @@ const CatalogPageEffects = (props) => {
         itemsPerPage,
         selectedPage,
         isMountedRef,
-        onReceiveItems,
-        onRequestItems,
-        onToggleLoading
+        receiveItems,
+        requestItems,
+        toggleLoading
     ]);
 
     useEffect(() => {

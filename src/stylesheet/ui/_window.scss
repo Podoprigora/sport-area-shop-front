@@ -127,7 +127,7 @@
 		&-active {
 			transform: translate3d(0, 0, 0) !important;
 			opacity: 1;
-			transition: all .25s ease-out;
+			transition: transform .25s ease-out, opacity .25s ease;
 		}
 	}
 

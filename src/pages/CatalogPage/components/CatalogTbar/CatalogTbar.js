@@ -16,16 +16,16 @@ import CatalogSortByDropdown from './CatalogSortByDropdown';
 const CatalogTbar = (props) => {
     const state = useCatalogPageState();
     const { sortBy } = useCatalogPageSelectors(state);
-    const { onChangeSort } = useCatalogPageActions();
+    const { changeSort } = useCatalogPageActions();
     const { openWindow } = useWindowManager();
 
     const handleSortChange = useCallback(
         (ev, value) => {
-            if (onChangeSort) {
-                onChangeSort(value);
+            if (changeSort) {
+                changeSort(value);
             }
         },
-        [onChangeSort]
+        [changeSort]
     );
 
     const handleFiltersClick = useEventCallback(() => {

@@ -26,33 +26,33 @@ const CatalogPageProvider = (props) => {
 
     // Handlers
 
-    const handleRequestItems = useCallback(() => {
+    const requestItems = useCallback(() => {
         dispatch({ type: REQUEST_ITEMS });
     }, []);
 
-    const handleReceiveItems = useCallback((payload) => {
+    const receiveItems = useCallback((payload) => {
         dispatch({ type: RECEIVE_ITEMS, payload });
     }, []);
 
-    const handleToggleLoading = useCallback((toggle = false) => {
+    const toggleLoading = useCallback((toggle = false) => {
         dispatch({ type: TOGGLE_LOADING, payload: { toggle } });
     }, []);
 
-    const handleChangePage = useCallback((page) => {
+    const changePage = useCallback((page) => {
         dispatch({ type: SELECT_PAGE, payload: { page } });
     }, []);
 
-    const handleLoadingMore = useCallback(() => {
+    const loadingMore = useCallback(() => {
         if (!isLastPage) {
             dispatch({ type: LOADING_MORE });
         }
     }, [isLastPage]);
 
-    const handleChangeSort = useCallback((value) => {
+    const changeSort = useCallback((value) => {
         dispatch({ type: SELECT_SORT_BY, payload: { value } });
     }, []);
 
-    const handleChangeFilters = useCallback((selected, merge = true) => {
+    const changeFilters = useCallback((selected, merge = true) => {
         dispatch({ type: CHANGE_SELECTED_FILTERS, payload: { selected, merge } });
     }, []);
 
@@ -60,22 +60,22 @@ const CatalogPageProvider = (props) => {
 
     const contextActionsValue = useMemo(
         () => ({
-            onChangePage: handleChangePage,
-            onLoadingMore: handleLoadingMore,
-            onChangeSort: handleChangeSort,
-            onChangeFilters: handleChangeFilters,
-            onToggleLoading: handleToggleLoading,
-            onRequestItems: handleRequestItems,
-            onReceiveItems: handleReceiveItems
+            changePage,
+            loadingMore,
+            changeSort,
+            changeFilters,
+            toggleLoading,
+            requestItems,
+            receiveItems
         }),
         [
-            handleChangePage,
-            handleLoadingMore,
-            handleChangeSort,
-            handleChangeFilters,
-            handleToggleLoading,
-            handleRequestItems,
-            handleReceiveItems
+            changeFilters,
+            changePage,
+            changeSort,
+            loadingMore,
+            receiveItems,
+            requestItems,
+            toggleLoading
         ]
     );
 

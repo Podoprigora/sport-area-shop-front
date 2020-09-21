@@ -8,21 +8,21 @@ import WishlistPageView from './WishlistPageView';
 
 const WishlistPage = (props) => {
     const sortBy = useSelector(wishlistSortBySelector);
-    const { onAsyncFetchWishlist } = useWishlistActions();
+    const { asyncFetchWishlist } = useWishlistActions();
     const { isMaskShown, toggleMask } = useScreenMask();
 
     useEffect(() => {
         (async () => {
             try {
                 toggleMask(true);
-                await onAsyncFetchWishlist();
+                await asyncFetchWishlist();
             } catch (e) {
                 console.error(e);
             } finally {
                 toggleMask(false);
             }
         })();
-    }, [sortBy, onAsyncFetchWishlist, toggleMask]);
+    }, [sortBy, asyncFetchWishlist, toggleMask]);
 
     useEffect(() => {
         if (isMaskShown) {

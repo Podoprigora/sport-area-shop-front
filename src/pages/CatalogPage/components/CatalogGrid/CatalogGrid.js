@@ -24,23 +24,23 @@ const CatalogGrid = (props) => {
         isLastPage
     } = useCatalogPageSelectors(catalogPageState);
 
-    const { onChangePage, onLoadingMore } = useCatalogPageActions();
+    const { changePage, loadingMore } = useCatalogPageActions();
     const { toggleMask } = useScreenMask();
     const [loadingMoreLoading, setLoadingMoreLoading] = useState(false);
 
     const handlePageChange = useCallback(
         (ev, page) => {
-            if (onChangePage) {
-                onChangePage(page);
+            if (changePage) {
+                changePage(page);
             }
         },
-        [onChangePage]
+        [changePage]
     );
 
     const handleLoadingMoreClick = useCallback(() => {
         setLoadingMoreLoading(true);
-        onLoadingMore();
-    }, [onLoadingMore]);
+        loadingMore();
+    }, [loadingMore]);
 
     useEffect(() => {
         if (loading && loadingMoreLoading) {

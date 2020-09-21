@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useRef, useEffect, useCallback, useMemo, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { scrollbarSize } from 'dom-helpers';
@@ -18,7 +18,10 @@ const isOverflowing = () => {
 const setBodyOverflow = (overflow = true) => {
     const { style } = document.body;
 
+    // console.log(`calc(100% - ${scrollbarSize()})px`);
+
     style['overflow'] = overflow ? null : 'hidden';
+    // style['width'] = overflow ? null : `calc(100% - ${scrollbarSize()}px)`;
     style['paddingRight'] = overflow ? null : `${scrollbarSize()}px`;
 };
 
@@ -186,12 +189,14 @@ const Modal = React.forwardRef(function Modal(props, ref) {
     }, [modalNode]);
 
     // Toggle the body scrollbar visibility
-    useEffect(() => {
-        if (!disableScrollLock) {
-            if (open && modalNode && isOverflowing()) {
-                setBodyOverflow(false);
-            }
+    useLayoutEffect(() => {
+        if (!disableScrollLock && open && modalNode && isOverflowing()) {
+            setBodyOverflow(false);
+        }
+    }, [modalNode, open, disableScrollLock]);
 
+    useEffect(() => {
+        if (!disableScrollLock && modalNode && !isOverflowing()) {
             return () => {
                 if (manager.modals.length === 0) {
                     setBodyOverflow(true);
@@ -200,7 +205,7 @@ const Modal = React.forwardRef(function Modal(props, ref) {
         }
 
         return undefined;
-    }, [modalNode, open, disableScrollLock]);
+    }, [open, modalNode, disableScrollLock]);
 
     useEventListener('keydown', handleDocumentKeyDown);
 

@@ -15,7 +15,7 @@ import getCatalogFiltersComponentById from '../getCatalogFiltersComponentById';
 const CatalogFiltersMobile = (props) => {
     const catalogPageState = useCatalogPageState();
     const { filtersItems, selectedFilters } = useCatalogPageSelectors(catalogPageState);
-    const { onChangeFilters } = useCatalogPageActions();
+    const { changeFilters } = useCatalogPageActions();
 
     const { isOpenWindow, closeWindow } = useWindowManager();
     const openWindow = isOpenWindow('CatalogFiltersMobileWindow');
@@ -31,9 +31,9 @@ const CatalogFiltersMobile = (props) => {
     });
 
     const handleAccept = useCallback(() => {
-        onChangeFilters(selectedFiltersState, false);
+        changeFilters(selectedFiltersState, false);
         handleWindowClose();
-    }, [handleWindowClose, onChangeFilters, selectedFiltersState]);
+    }, [handleWindowClose, changeFilters, selectedFiltersState]);
 
     const handleChange = useEventCallback((id, selected) => {
         setSelectedFiltersState((prevState) => ({ ...prevState, [id]: selected }));

@@ -15,7 +15,7 @@ const HeaderDesktopCategoryMenu = (props) => {
     const [open, setOpen] = useState(false);
 
     const data = useSelector(categoriesTreeSelector);
-    const { onCategorySelect } = useCategoriesActions();
+    const { selectCategory } = useCategoriesActions();
 
     const buttonRef = useRef(null);
 
@@ -31,7 +31,7 @@ const HeaderDesktopCategoryMenu = (props) => {
 
     const handleItemClick = useEventCallback((ev, item) => {
         handleMenuClose(ev);
-        onCategorySelect(item.id);
+        selectCategory(item.id);
     });
 
     return (

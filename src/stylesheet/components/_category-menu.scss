@@ -21,7 +21,6 @@
 .category-menu {
 	position: absolute;
 	width: 100%;
-	// padding-left: -2rem;
 
 	&__container {
 		position: relative;
@@ -36,6 +35,7 @@
 		display: inline-block;
 		border-radius: 0 0 $border-radius-lg $border-radius-lg;
 		box-shadow: $box-shadow-lg;
+
 		overflow: hidden;
 
 		&--show-hidden-groups {

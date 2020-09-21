@@ -24,15 +24,15 @@ import HeaderUserAuthActions from './HeaderUserAuthActions';
 const HeaderUser = (props) => {
     const auth = useSelector(authSelector);
 
-    const { onAsyncLogout } = useIdentityActions();
+    const { asyncLogout } = useIdentityActions();
     const { toggleMask } = useScreenMask();
     const isMountedRef = useMountedRef();
 
     const handleSignOutClick = useEventCallback(async (ev) => {
-        if (onAsyncLogout) {
+        if (asyncLogout) {
             try {
                 toggleMask(true);
-                await onAsyncLogout(true);
+                await asyncLogout(true);
             } catch (e) {
                 console.error(e);
             } finally {

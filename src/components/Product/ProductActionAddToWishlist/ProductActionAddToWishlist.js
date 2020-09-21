@@ -21,7 +21,7 @@ const ProductActionAddToWishlist = (props) => {
         return isProductAddedToWishlistSelector(store, id);
     });
 
-    const { onAsyncAddToWishlist } = useWishlistActions();
+    const { asyncAddToWishlist } = useWishlistActions();
     const [loading, setLoading] = useState(false);
 
     const handleClick = useCallback(async () => {
@@ -32,13 +32,13 @@ const ProductActionAddToWishlist = (props) => {
             }
 
             setLoading(true);
-            await onAsyncAddToWishlist(id);
+            await asyncAddToWishlist(id);
         } catch (e) {
             console.error(e);
         } finally {
             setLoading(false);
         }
-    }, [id, isAuth, onAsyncAddToWishlist, openWindow]);
+    }, [id, isAuth, asyncAddToWishlist, openWindow]);
 
     const selected = isAuth && isProductAddedToWishlist;
 

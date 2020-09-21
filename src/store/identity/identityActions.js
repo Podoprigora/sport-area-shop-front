@@ -9,7 +9,7 @@ export const LOGOUT = 'identity/LOGOUT';
 export function useIdentityActions() {
     const dispatch = useDispatch();
 
-    const onAsyncIdentityFetch = useCallback(
+    const asyncFetchIdentity = useCallback(
         async (auth) => {
             return UserService.fetchIdentity(auth).then((response) => {
                 dispatch({
@@ -23,15 +23,15 @@ export function useIdentityActions() {
         [dispatch]
     );
 
-    const onAsyncLogin = useCallback(
+    const asyncLogin = useCallback(
         async (values, success) => {
             await UserService.login(values);
-            await onAsyncIdentityFetch(success);
+            await asyncFetchIdentity(success);
         },
-        [onAsyncIdentityFetch]
+        [asyncFetchIdentity]
     );
 
-    const onAsyncLogout = useCallback(
+    const asyncLogout = useCallback(
         async (success) => {
             return UserService.logout(success).then(() => {
                 dispatch({
@@ -44,10 +44,10 @@ export function useIdentityActions() {
 
     return useMemo(
         () => ({
-            onAsyncIdentityFetch,
-            onAsyncLogin,
-            onAsyncLogout
+            asyncFetchIdentity,
+            asyncLogin,
+            asyncLogout
         }),
-        [onAsyncIdentityFetch, onAsyncLogin, onAsyncLogout]
+        [asyncFetchIdentity, asyncLogin, asyncLogout]
     );
 }

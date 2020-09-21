@@ -24,29 +24,29 @@ const WisthlistTbar = (props) => {
     const numOfSelection = useSelector(numOfWishlistSelectionSelector);
 
     const {
-        onChangeWishlistSort,
-        onSelectAllWishlistItems,
-        onAsyncDeleteWishlistSelectedItems
+        changeWishlistSort,
+        selectAllWishlistItems,
+        asyncDeleteWishlistSelectedItems
     } = useWishlistActions();
 
     const { toggleMask } = useScreenMask();
 
     const handleSortByChange = useEventCallback((ev, value) => {
-        if (onChangeWishlistSort) {
-            onChangeWishlistSort(value);
+        if (changeWishlistSort) {
+            changeWishlistSort(value);
         }
     });
 
     const handleToggleSelection = useCallback(() => {
-        if (onSelectAllWishlistItems) {
-            onSelectAllWishlistItems(numOfSelection !== numOfItems);
+        if (selectAllWishlistItems) {
+            selectAllWishlistItems(numOfSelection !== numOfItems);
         }
-    }, [numOfItems, numOfSelection, onSelectAllWishlistItems]);
+    }, [numOfItems, numOfSelection, selectAllWishlistItems]);
 
     const handleDelete = useEventCallback(async () => {
         try {
             toggleMask(true);
-            await onAsyncDeleteWishlistSelectedItems();
+            await asyncDeleteWishlistSelectedItems();
         } catch (e) {
             console.error(e);
         } finally {

@@ -13,8 +13,6 @@ const PasswordField = (props) => {
         setPasswordVisible((prevState) => !prevState);
     }, []);
 
-    console.log('rerender');
-
     return (
         <InputField
             type={passwordVisible ? 'text' : 'password'}

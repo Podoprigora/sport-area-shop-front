@@ -12,11 +12,11 @@ import WishlistGridItem from './WishlistGridItem';
 const WishlistGrid = (props) => {
     const items = useSelector(wishlistItemsSelector);
     const { isMaskShown } = useScreenMask();
-    const { onSelectWishlistItem } = useWishlistActions();
+    const { selectWishlistItem } = useWishlistActions();
 
     const handleCheckChange = useEventCallback((ev, id) => {
-        if (onSelectWishlistItem) {
-            onSelectWishlistItem(id);
+        if (selectWishlistItem) {
+            selectWishlistItem(id);
         }
     });
 

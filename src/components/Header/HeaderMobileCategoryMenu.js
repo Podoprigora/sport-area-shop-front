@@ -19,7 +19,7 @@ const HeaderMobileCategoryMenu = (props) => {
 
     const data = useSelector(categoriesSelector);
     const selectedId = useSelector(selectedCategoryIdSelector);
-    const { onCategorySelect } = useCategoriesActions();
+    const { selectCategory } = useCategoriesActions();
 
     const handleButtonClick = useEventCallback((ev) => {
         ev.preventDefault();
@@ -33,7 +33,7 @@ const HeaderMobileCategoryMenu = (props) => {
 
     const handleItemClick = useEventCallback((ev, item) => {
         handleMenuClose();
-        onCategorySelect(item.id);
+        selectCategory(item.id);
     });
 
     return (

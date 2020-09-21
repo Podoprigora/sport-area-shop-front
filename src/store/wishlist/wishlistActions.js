@@ -17,37 +17,37 @@ export default function useWishlistActions() {
     const dispatch = useDispatch();
     const selected = useSelector(wishlistSelectedSelector);
 
-    const onAsyncAddToWishlist = useEventCallback((id) => {
+    const asyncAddToWishlist = useEventCallback((id) => {
         return WishlistService.add(id).then(() => {
             dispatch({ type: ADD_TO_WISHLIST, payload: { id } });
         });
     });
 
-    const onAsyncFetchInitialWishlist = useEventCallback(() => {
+    const asyncFetchInitialWishlist = useEventCallback(() => {
         return WishlistService.fetchIds().then((response) => {
             dispatch({ type: RECEIVE_INITIAL_WISHLIST, payload: { ids: response } });
         });
     });
 
-    const onAsyncFetchWishlist = useEventCallback(() => {
+    const asyncFetchWishlist = useEventCallback(() => {
         return WishlistService.fetchAll().then((response) => {
             dispatch({ type: RECEIVE_WISHLIST, payload: { items: response } });
         });
     });
 
-    const onChangeWishlistSort = useEventCallback((value) => {
+    const changeWishlistSort = useEventCallback((value) => {
         dispatch({ type: CHANGE_WISHLIST_SORT, payload: { value } });
     });
 
-    const onSelectWishlistItem = useEventCallback((id) => {
+    const selectWishlistItem = useEventCallback((id) => {
         dispatch({ type: SELECT_WISHLIST_ITEM, payload: { id } });
     });
 
-    const onSelectAllWishlistItems = useEventCallback((toggle = true) => {
+    const selectAllWishlistItems = useEventCallback((toggle = true) => {
         dispatch({ type: SELECT_ALL_WISHLIST_ITEMS, payload: { toggle } });
     });
 
-    const onAsyncDeleteWishlistSelectedItems = useCallback(() => {
+    const asyncDeleteWishlistSelectedItems = useCallback(() => {
         return WishlistService.delete(selected).then(() => {
             dispatch({ type: DELETE_WISHLIST_SELECTED_ITEMS });
         });
@@ -55,22 +55,22 @@ export default function useWishlistActions() {
 
     return useMemo(
         () => ({
-            onAsyncAddToWishlist,
-            onAsyncFetchWishlist,
-            onAsyncFetchInitialWishlist,
-            onChangeWishlistSort,
-            onSelectWishlistItem,
-            onSelectAllWishlistItems,
-            onAsyncDeleteWishlistSelectedItems
+            asyncAddToWishlist,
+            asyncFetchWishlist,
+            asyncFetchInitialWishlist,
+            changeWishlistSort,
+            selectWishlistItem,
+            selectAllWishlistItems,
+            asyncDeleteWishlistSelectedItems
         }),
         [
-            onAsyncAddToWishlist,
-            onAsyncFetchInitialWishlist,
-            onAsyncFetchWishlist,
-            onAsyncDeleteWishlistSelectedItems,
-            onChangeWishlistSort,
-            onSelectWishlistItem,
-            onSelectAllWishlistItems
+            asyncAddToWishlist,
+            asyncFetchInitialWishlist,
+            asyncFetchWishlist,
+            asyncDeleteWishlistSelectedItems,
+            changeWishlistSort,
+            selectWishlistItem,
+            selectAllWishlistItems
         ]
     );
 }

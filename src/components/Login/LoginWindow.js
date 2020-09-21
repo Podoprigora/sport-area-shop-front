@@ -1,11 +1,9 @@
 import React, { useCallback, memo, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import Window from '@ui/Window';
+import Window, { WindowLoadingMask } from '@ui/Window';
 import WindowHeader from '@ui/Window/WindowHeader';
 import WindowBody from '@ui/Window/WindowBody';
-import Mask, { MaskProgress } from '@ui/Mask';
-import LinearProgress from '@ui/LinearProgress';
 import { useWindowManager } from '@ui/WindowManager';
 import useEventCallback from '@ui/hooks/useEventCallback';
 import useMountedRef from '@ui/hooks/useMountedRef';
@@ -18,7 +16,7 @@ const LoginWindow = (props) => {
     const [mask, setMask] = useState(false);
     const isMountedRef = useMountedRef();
     const { isOpenWindow, getWindowParams, openWindow, closeWindow } = useWindowManager();
-    const { onAsyncLogin } = useIdentityActions();
+    const { asyncLogin } = useIdentityActions();
 
     const open = isOpenWindow('LoginWindow');
     const { resetPasswordAlert = false, registrationAlert = false } =
@@ -43,25 +41,24 @@ const LoginWindow = (props) => {
             try {
                 setMask(true);
 
-                await onAsyncLogin(values);
+                await asyncLogin(values);
 
                 if (isMountedRef.current) {
                     setMask(false);
                     handleClose();
                 }
             } catch (e) {
+                if (isMountedRef.current && typeof e === 'object') {
+                    throw e;
+                }
+                console.log(e);
+            } finally {
                 if (isMountedRef.current) {
                     setMask(false);
                 }
-
-                if (typeof e === 'object') {
-                    throw e;
-                } else {
-                    console.error(e);
-                }
             }
         },
-        [isMountedRef, handleClose, onAsyncLogin]
+        [isMountedRef, handleClose, asyncLogin]
     );
 
     return (
@@ -74,12 +71,7 @@ const LoginWindow = (props) => {
             disableBackdropClick={mask}
             onClose={handleClose}
         >
-            <Mask open={mask}>
-                <MaskProgress position="top" primary>
-                    <LinearProgress />
-                </MaskProgress>
-            </Mask>
-
+            <WindowLoadingMask open={mask} />
             <WindowHeader title="Sign In to SportArea" onClose={handleClose} />
             <WindowBody painted>
                 <LoginForm

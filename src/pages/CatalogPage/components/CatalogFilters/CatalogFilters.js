@@ -18,10 +18,10 @@ const CatalogFilters = (props) => {
         catalogPageState
     );
 
-    const { onChangeFilters } = useCatalogPageActions();
+    const { changeFilters } = useCatalogPageActions();
 
     const handleChange = useEventCallback((id, selected) => {
-        onChangeFilters({ [id]: selected });
+        changeFilters({ [id]: selected });
     }, []);
 
     if (!filtersItems) {

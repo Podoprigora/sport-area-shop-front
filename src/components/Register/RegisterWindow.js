@@ -2,13 +2,11 @@ import React, { useCallback, useMemo, memo, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import useMountedRef from '@ui/hooks/useMountedRef';
-import Window from '@ui/Window';
+import Window, { WindowLoadingMask } from '@ui/Window';
 import WindowHeader from '@ui/Window/WindowHeader';
 import WindowBody from '@ui/Window/WindowBody';
 import { useWindowManager } from '@ui/WindowManager';
 import useEventCallback from '@ui/hooks/useEventCallback';
-import Mask, { MaskProgress } from '@ui/Mask';
-import LinearProgress from '@ui/LinearProgress';
 
 import UserService from '@services/UserService';
 import RegisterForm from './RegisterForm';
@@ -45,7 +43,7 @@ const RegisterWindow = (props) => {
                     handleSignIn({ registrationAlert: true });
                 }
             } catch (e) {
-                if (typeof e === 'object') {
+                if (isMountedRef.current && typeof e === 'object') {
                     throw e;
                 }
 
@@ -68,12 +66,7 @@ const RegisterWindow = (props) => {
             disableBackdropClick={mask}
             onClose={handleClose}
         >
-            <Mask open={mask}>
-                <MaskProgress position="top" primary>
-                    <LinearProgress />
-                </MaskProgress>
-            </Mask>
-
+            <WindowLoadingMask open={mask} />
             <WindowHeader title="Sign Up for SportArea" onClose={handleClose} />
             <WindowBody painted>
                 <RegisterForm onSignIn={handleSignInClick} onFormSubmit={handleFormSubmit} />

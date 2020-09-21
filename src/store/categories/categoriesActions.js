@@ -21,7 +21,7 @@ export default function useCategoriesActions() {
 
     const categoriesState = useSelector(categoriesStateSelector);
 
-    const onAsyncCategoriesFetch = useCallback(
+    const asyncFetchCategories = useCallback(
         async (success) => {
             return CategoriesService.fetchAll(success).then((response) => {
                 dispatch({
@@ -35,7 +35,7 @@ export default function useCategoriesActions() {
         [dispatch]
     );
 
-    const onCategorySelect = useEventCallback((id = null, path = []) => {
+    const selectCategory = useEventCallback((id = null, path = []) => {
         if (!id && path.length === 0) {
             return;
         }
@@ -57,7 +57,7 @@ export default function useCategoriesActions() {
         });
     });
 
-    const onSelectedCategoryReset = useEventCallback(() => {
+    const resetSelectedCatagory = useEventCallback(() => {
         dispatch({
             type: RESET_SELECTED_CATEGORY
         });
@@ -65,10 +65,10 @@ export default function useCategoriesActions() {
 
     return useMemo(
         () => ({
-            onAsyncCategoriesFetch,
-            onCategorySelect,
-            onSelectedCategoryReset
+            asyncFetchCategories,
+            selectCategory,
+            resetSelectedCatagory
         }),
-        [onAsyncCategoriesFetch, onCategorySelect, onSelectedCategoryReset]
+        [asyncFetchCategories, selectCategory, resetSelectedCatagory]
     );
 }

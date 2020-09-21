@@ -14,18 +14,18 @@ const Pages = (props) => {
     const [error, setError] = useState(null);
     const isAuth = useSelector(authSelector);
 
-    const { onAsyncCategoriesFetch } = useCategoriesActions();
-    const { onAsyncIdentityFetch } = useIdentityActions();
-    const { onAsyncFetchInitialWishlist } = useWishlistActions();
+    const { asyncFetchCategories } = useCategoriesActions();
+    const { asyncFetchIdentity } = useIdentityActions();
+    const { asyncFetchInitialWishlist } = useWishlistActions();
 
     const isMountedRef = useMountedRef();
     const hadInitialFetchRecentlyRef = useRef(false);
 
     useEffect(() => {
         const promises = [
-            onAsyncCategoriesFetch(true),
-            onAsyncIdentityFetch(true),
-            onAsyncFetchInitialWishlist
+            asyncFetchCategories(true),
+            asyncFetchIdentity(true),
+            asyncFetchInitialWishlist
         ].map((promise) => {
             let validPromise = promise;
 
@@ -51,11 +51,11 @@ const Pages = (props) => {
                 setLoading(false);
             }
         })();
-    }, [isMountedRef, onAsyncCategoriesFetch, onAsyncFetchInitialWishlist, onAsyncIdentityFetch]);
+    }, [isMountedRef, asyncFetchCategories, asyncFetchInitialWishlist, asyncFetchIdentity]);
 
     useEffect(() => {
         const fetchData = async () => {
-            const promises = [onAsyncFetchInitialWishlist()];
+            const promises = [asyncFetchInitialWishlist()];
             try {
                 await Promise.all(promises);
             } catch (e) {
@@ -71,7 +71,7 @@ const Pages = (props) => {
         }
 
         return undefined;
-    }, [isAuth, onAsyncFetchInitialWishlist]);
+    }, [isAuth, asyncFetchInitialWishlist]);
 
     useEffect(() => {
         hadInitialFetchRecentlyRef.current = false;
