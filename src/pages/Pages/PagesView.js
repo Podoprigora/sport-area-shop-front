@@ -17,6 +17,7 @@ import CatalogPage from '@pages/CatalogPage';
 import WishlistPage from '@pages/WishlistPage';
 import TestPage from '@pages/TestPage';
 import ProtectedRoute from '@components/ProtectedRoute';
+import ProductPage from '@pages/ProductPage';
 
 const PagesView = (props) => {
     const { loading, error } = props;
@@ -34,12 +35,15 @@ const PagesView = (props) => {
                     <Route exact path="/">
                         <MainPage />
                     </Route>
-                    <ProtectedRoute path="/wishlist">
-                        <WishlistPage />
-                    </ProtectedRoute>
                     <Route path="/test">
                         <TestPage />
                     </Route>
+                    <Route path="/product/:category/:id">
+                        <ProductPage />
+                    </Route>
+                    <ProtectedRoute path="/wishlist">
+                        <WishlistPage />
+                    </ProtectedRoute>
 
                     <Route exact path="/:category">
                         <CatalogPage />

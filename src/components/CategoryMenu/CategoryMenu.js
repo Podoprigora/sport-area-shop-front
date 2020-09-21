@@ -63,7 +63,7 @@ const CategoryMenu = React.forwardRef(function CategoryMenu(props, ref) {
                 const { y, height } = anchorRef.current.getBoundingClientRect();
                 const offsetY = y + height;
 
-                const newStyle = { transform: `translate3d(0, ${offsetY}px, 0)` };
+                const newStyle = { transform: `translateY(${offsetY}px)` };
 
                 setMenuStyle(newStyle);
             }

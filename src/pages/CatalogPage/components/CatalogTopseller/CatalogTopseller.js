@@ -14,13 +14,17 @@ const CatalogTopseller = (props) => {
     const nodeRef = useRef(null);
 
     const { category, subCategory, subCategoryItem } = useParams();
-    const catagoryId = subCategoryItem || subCategory || category;
+    const categoryId = subCategoryItem || subCategory || category;
 
     const fetchData = useCallback(async () => {
+        if (!categoryId) {
+            return;
+        }
+
         try {
             setLoading(true);
 
-            const response = await ProductsService.fetchTopseller(catagoryId);
+            const response = await ProductsService.fetchTopseller(categoryId);
 
             if (isMountedRef.current) {
                 setData(response);
@@ -30,7 +34,7 @@ const CatalogTopseller = (props) => {
         } finally {
             setLoading(false);
         }
-    }, [isMountedRef, catagoryId]);
+    }, [isMountedRef, categoryId]);
 
     useEffect(() => {
         const ioCallback = ([entry], observer) => {
