@@ -1,0 +1,19 @@
+.helper-text {
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: center;
+	font-size: $helper-text-font-size;
+	font-weight: $helper-text-font-weight;
+	letter-spacing: $helper-text-letter-spacing;
+	color: $helper-text-color;
+	padding: $spacing-scale-1 0;
+
+	&--error {
+		color: $color-red;
+		padding: $spacing-scale-2 0;
+	}
+
+	&__icon {
+		margin-right: $spacing-scale-2;
+	}
+}

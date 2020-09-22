@@ -4,8 +4,8 @@ import classNames from 'classnames';
 
 import ErrorOutlineIcon from '@svg-icons/material/ErrorOutline';
 
-const FieldHelperText = (props) => {
-    const { children = '', error } = props;
+const HelperText = (props) => {
+    const { children = '', error, className } = props;
 
     if (!children || children.lenght === 0) {
         return null;
@@ -13,19 +13,20 @@ const FieldHelperText = (props) => {
 
     return (
         <small
-            className={classNames('field__helper-text', {
-                'field__helper-text--error': error
+            className={classNames('helper-text', className, {
+                'helper-text--error': error
             })}
         >
-            {error && <ErrorOutlineIcon size="small" className="field__helper-icon" />}
+            {error && <ErrorOutlineIcon size="small" className="helper-text__icon" />}
             {children}
         </small>
     );
 };
 
-FieldHelperText.propTypes = {
+HelperText.propTypes = {
     children: PropTypes.string,
-    error: PropTypes.bool
+    error: PropTypes.bool,
+    className: PropTypes.string
 };
 
-export default FieldHelperText;
+export default HelperText;

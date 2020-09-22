@@ -59,22 +59,10 @@
 	}
 
 	&__helper-text {
-		display: flex;
-		flex-wrap: nowrap;
-		align-items: center;
-		font-size: $field-helper-text-font-size;
-		font-weight: $field-helper-text-font-weight;
-		letter-spacing: $field-helper-text-letter-spacing;
-		color: $field-helper-text-color;
 		padding: $spacing-scale-1 $spacing-scale-1 0;
 
-		&--error {
-			color: $color-red;
+		&.helper-text--error {
 			padding: $spacing-scale-2 $spacing-scale-1 0;
 		}
-	}
-
-	&__helper-icon {
-		margin-right: $spacing-scale-2;
 	}
 }

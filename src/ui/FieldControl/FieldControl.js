@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import BoxLabel from '@ui/BoxLabel';
+import HelperText from '@ui/HelperText';
 import FieldLabel from './FieldLabel';
-import FieldHelperText from './FieldHelperText';
 
 const FieldControl = React.forwardRef(function FieldControl(props, ref) {
     const {
@@ -71,9 +71,12 @@ const FieldControl = React.forwardRef(function FieldControl(props, ref) {
                 ) : (
                     inputComponent
                 )}
-                <FieldHelperText error={hasError && errorVariant !== 'input'}>
+                <HelperText
+                    error={hasError && errorVariant !== 'input'}
+                    className="field__helper-text"
+                >
                     {(hasError && errorVariant !== 'input' && error) || helperText}
-                </FieldHelperText>
+                </HelperText>
             </div>
         </div>
     );

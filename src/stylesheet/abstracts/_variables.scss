@@ -43,6 +43,7 @@ $spacing-scale-6: $spacing * 1.5; // 1.2rem
 $spacing-scale-7: $spacing * 1.75; // 1.4rem
 $spacing-scale-8: $spacing * 2; // 1.6rem
 $spacing-scale-9: $spacing * 2.25; // 1.8rem
+$spacing-scale-10: $spacing * 2.5; // 2rem
 $spacing-scale-12: $spacing * 3; // 2.4rem
 $spacing-scale-18: $spacing * 4.5; // 3.6rem
 $spacing-scale-24: $spacing * 6; // 4.8rem
@@ -217,6 +218,12 @@ $rating-disabled-opacity: .4;
 // $rating-icon-color: lighten($grey, 15%);
 // $rating-icon-selected-color: $orange-accent-2;
 
+// Helper text
+$helper-text-color: $grey;
+$helper-text-font-size: $font-size-small;
+$helper-text-font-weight: 400;
+$helper-text-letter-spacing: .3px;
+
 // Field
 $field-label-color: $grey-darken-3;
 $field-label-font-size: $font-size-small;
@@ -267,9 +274,9 @@ $cell-list-item-margin: 0 $spacing-scale-6 $spacing-scale-6 0;
 $cell-list-item-min-width: 4.4rem;
 $cell-list-item-box-shadow: 0 0 0 1px $border-color-dark;
 $cell-list-item-border-radius: $border-radius-sm;
-$cell-list-item-disabled-opacity: $list-item-disabled-opacity;
+$cell-list-item-disabled-opacity: .4;
 $cell-list-item-painted-bg-color: $grey-lighten-4;
-$cell-list-item-painted-box-shadow: $grey-lighten-4;
+$cell-list-item-painted-box-shadow: 0 0 0 1px $border-color-dark;
 $cell-list-item-selected-bg-color: lighten($color-primary, 51%);
 $cell-list-item-selected-box-shadow: 0 0 0 1px $color-primary;
 $cell-list-item-hover-font-weight: 500;

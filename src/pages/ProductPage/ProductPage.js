@@ -1,9 +1,9 @@
 import React from 'react';
 
-import ProdcutPageView from './ProdcutPageView';
+import ProductPageView from './ProductPageView';
 
 const ProductPage = (props) => {
-    return <ProdcutPageView />;
+    return <ProductPageView />;
 };
 
 export default ProductPage;

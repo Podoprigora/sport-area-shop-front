@@ -2,8 +2,9 @@
 	& &__main-section {
 		display: flex;
 		flex-flow: row wrap;
+		align-items: flex-start;
 
-		@include media-breakpoint-down('md') {
+		@include media-breakpoint-down('lg') {
 			background-color: $white;
 			border: 1px solid $border-color-light;
 			border-radius: $border-radius-lg;
@@ -11,12 +12,11 @@
 	}
 
 	& &__aside,
-	& &__content {
+	& &__center {
 		background-color: $white;
-		border: 1px solid $border-color-light;
 		border-radius: $border-radius-lg;
 
-		@include media-breakpoint-down('md') {
+		@include media-breakpoint-down('lg') {
 			background-color: transparent;
 			border: 0;
 			border-radius: 0;
@@ -27,32 +27,32 @@
 		position: sticky;
 		top: $spacing-scale-6;
 		flex: auto;
-		max-width: 36rem;
-		height: 50rem;
+		max-width: 38rem;
+		min-height: 20rem;
+		box-shadow: $box-shadow-sm;
 
 		@include media-breakpoint-down('lg') {
-			max-width: $page-aside-width;
-		}
-
-		@include media-breakpoint-down('md') {
 			position: relative;
 			top: 0;
 			width: 100%;
 			max-width: 100%;
 			margin: 0;
 			margin-bottom: $spacing-scale-6;
+			box-shadow: none;
 			order: 0;
 		}
 	}
 
-	& &__content {
+	& &__center {
 		width: auto;
 		flex: 1;
 		height: 300rem;
+		border: 1px solid $border-color-light;
 
-		@include media-breakpoint-down('md') {
-			width: 100%;
+		@include media-breakpoint-down('lg') {
 			flex: auto;
+			width: 100%;
+			border: 0;
 			order: 1;
 		}
 	}

@@ -16,11 +16,6 @@
 			outline: none;
 		}
 
-		&--disabled {
-			opacity: $cell-list-item-disabled-opacity;
-			cursor: auto;
-		}
-
 		&--painted {
 			background-color: $cell-list-item-painted-bg-color;
 			box-shadow: $cell-list-item-painted-box-shadow;
@@ -43,6 +38,12 @@
 		&--focus-visible {
 			font-weight: $cell-list-item-focus-font-weight;
 			box-shadow: $cell-list-item-focus-box-shadow;
+		}
+
+		&--disabled {
+			opacity: $cell-list-item-disabled-opacity;
+			pointer-events: none;
+			cursor: auto;
 		}
 	}
 }

@@ -1,0 +1,141 @@
+.product-trade {
+	display: block;
+	padding: $spacing-scale-9;
+	width: 100%;
+
+	&__section {
+		margin-bottom: $spacing-scale-10;
+	}
+
+	&__brand {
+		font-size: 1.6rem;
+		line-height: 1;
+	}
+
+	&__name {
+		font-size: 2rem;
+	}
+
+	&__stat {
+		margin-top: $spacing-scale-3;
+	}
+
+	&__prices {
+		.product__price--old {
+			font-size: 1.8rem;
+			font-weight: 400;
+			margin: 0 0 0 $spacing-scale-4;
+			line-height: inherit;
+			color: $grey-darken-2;
+		}
+	}
+
+	&__price {
+		font-size: 3.6rem;
+	}
+
+	&__price-discount {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		margin-top: $spacing-scale-2;
+	}
+
+	&__discount {
+		font-weight: 400;
+		color: $red;
+	}
+
+	&__price-note {
+		color: $grey;
+		font-weight: 500;
+		font-size: 1.1rem;
+	}
+
+	&__sizes {
+		&-label {
+			font-size: $font-size;
+			font-weight: 400;
+		}
+
+		&-list {
+			padding-bottom: 0;
+			margin-bottom: -1.2rem;
+		}
+
+		&-note {
+			font-size: $font-size-small;
+		}
+
+		& .cell-list__item {
+			$bg-color: lighten($grey-lighten-3, 3%);
+
+			padding: $spacing-scale-2 $spacing-scale-6;
+			background-color: $bg-color;
+			border-radius: .2rem;
+			box-shadow: 0 0 0 2px $bg-color;
+
+			&:hover:not(.cell-list__item--selected),
+			&--focus-visible {
+				background-color: transparent;
+				box-shadow: 0 0 0 2px $grey-lighten-3;
+			}
+
+			&--selected {
+				font-weight: 500;
+				color: darken($color-primary, 10%);
+				background-color: $white;
+				box-shadow: 0 0 0 2px $color-primary;
+			}
+
+			&--disabled {
+				background-color: transparent;
+			}
+		}
+
+		& .helper-text--error {
+			padding: $spacing-scale-4 0 0 0;
+		}
+	}
+
+	&__actions {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+
+		&-item--add-to-cart {
+			flex: 1;
+			margin-right: $spacing-scale-8;
+		}
+
+		&-item--selected.btn {
+			background-color: transparent;
+			color: $color-primary;
+
+			& .btn__icon {
+				stroke: $color-primary;
+			}
+		}
+	}
+
+	&__list {
+		padding: 0;
+
+		& .list__icon {
+			color: inherit;
+		}
+
+		&-item {
+			padding: 0;
+			color: $grey-darken-3;
+
+			&--small {
+				font-size: $font-size-small;
+			}
+
+			&:not(:last-child) {
+				padding-bottom: $spacing-scale-3;
+			}
+		}
+	}
+}

@@ -46,10 +46,9 @@
 	&--plain {
 		background-color: $btn-bg-color;
 		border: $btn-border-width solid $btn-bg-color;
-		box-shadow: none;
 
-		&#{$this}--focus-visible {
-			background-color: $btn-hover-bg-color;
+		&:not(#{$this}--focus-visible) {
+			box-shadow: none;
 		}
 	}
 
@@ -116,6 +115,7 @@
 
 	&--large {
 		font-size: $btn-large-font-size;
+		font-weight: 400;
 		padding-top: $spacing-scale-4;
 		padding-bottom: $spacing-scale-4;
 
