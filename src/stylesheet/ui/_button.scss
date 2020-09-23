@@ -46,9 +46,10 @@
 	&--plain {
 		background-color: $btn-bg-color;
 		border: $btn-border-width solid $btn-bg-color;
+		box-shadow: none;
 
-		&:not(#{$this}--focus-visible) {
-			box-shadow: none;
+		&#{$this}--focus-visible {
+			background-color: $btn-hover-bg-color;
 		}
 	}
 
@@ -67,6 +68,12 @@
 
 		&#{$this}--focus-visible {
 			box-shadow: $btn-primary-focus-box-shadow;
+
+			&#{$this}--plain {
+				background-color: $btn-primary-color;
+				color: $btn-primary-bg-color;
+				box-shadow: none;
+			}
 		}
 
 		&#{$this}--plain {

@@ -23,7 +23,7 @@ const ProductTradeActionAddToCart = (props) => {
     return (
         <Button
             primary
-            plain
+            plain={toggle}
             size="large"
             centered={!toggle}
             icon={toggle ? CheckCircleIcon : ShoppingCartIcon}
@@ -33,7 +33,7 @@ const ProductTradeActionAddToCart = (props) => {
             className={classNames(
                 'product-trade__actions-item product-trade__actions-item--add-to-cart',
                 {
-                    'product-trade__actions-item--selected': toggle || loading
+                    'product-trade__actions-item--selected': toggle
                 }
             )}
             onClick={handleClick}

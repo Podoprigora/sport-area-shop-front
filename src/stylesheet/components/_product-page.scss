@@ -11,25 +11,12 @@
 		}
 	}
 
-	& &__aside,
-	& &__center {
-		background-color: $white;
-		border-radius: $border-radius-lg;
-
-		@include media-breakpoint-down('lg') {
-			background-color: transparent;
-			border: 0;
-			border-radius: 0;
-		}
-	}
-
 	& &__aside {
 		position: sticky;
 		top: $spacing-scale-6;
 		flex: auto;
 		max-width: 38rem;
 		min-height: 20rem;
-		box-shadow: $box-shadow-sm;
 
 		@include media-breakpoint-down('lg') {
 			position: relative;
@@ -46,7 +33,9 @@
 	& &__center {
 		width: auto;
 		flex: 1;
+		background-color: $white;
 		height: 300rem;
+		border-radius: $border-radius-lg;
 		border: 1px solid $border-color-light;
 
 		@include media-breakpoint-down('lg') {

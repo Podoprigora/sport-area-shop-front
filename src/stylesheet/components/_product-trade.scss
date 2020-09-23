@@ -68,17 +68,15 @@
 		}
 
 		& .cell-list__item {
-			$bg-color: lighten($grey-lighten-3, 3%);
-
 			padding: $spacing-scale-2 $spacing-scale-6;
-			background-color: $bg-color;
+			background-color: $white;
 			border-radius: .2rem;
-			box-shadow: 0 0 0 2px $bg-color;
+			box-shadow: $box-shadow-sm;
 
 			&:hover:not(.cell-list__item--selected),
 			&--focus-visible {
-				background-color: transparent;
-				box-shadow: 0 0 0 2px $grey-lighten-3;
+				background-color: $white;
+				box-shadow: 0 0 0 2px $grey;
 			}
 
 			&--selected {
@@ -90,6 +88,7 @@
 
 			&--disabled {
 				background-color: transparent;
+				box-shadow: 0 0 0 1px $grey-lighten-1;
 			}
 		}
 
@@ -109,8 +108,11 @@
 		}
 
 		&-item--selected.btn {
-			background-color: transparent;
+			background-color: $white;
+			border-color: $color-primary;
 			color: $color-primary;
+			box-shadow: none;
+			transition: opacity .15s;
 
 			& .btn__icon {
 				stroke: $color-primary;
