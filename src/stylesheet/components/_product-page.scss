@@ -2,6 +2,7 @@
 	& &__main-section {
 		display: flex;
 		flex-flow: row wrap;
+		justify-content: flex-start;
 		align-items: flex-start;
 
 		@include media-breakpoint-down('lg') {
@@ -31,10 +32,9 @@
 	}
 
 	& &__center {
-		width: auto;
 		flex: 1;
 		background-color: $white;
-		height: 300rem;
+		min-height: 15rem;
 		border-radius: $border-radius-lg;
 		border: 1px solid $border-color-light;
 

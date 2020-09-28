@@ -4,16 +4,21 @@ import classNames from 'classnames';
 
 import useEventCallback from '@ui/hooks/useEventCallback';
 import ScrollingCarousel from '@ui/ScrollingCarousel';
+import Alert, { AlertActions, AlertTitle } from '@ui/Alert';
 import Panel from '@ui/Panel';
 import PanelHeader from '@ui/Panel/PanelHeader';
 import Link from '@ui/Link';
+import Button from '@ui/Button';
 import PanelBody from '@ui/Panel/PanelBody';
 import StarIcon from '@svg-icons/feather/StarIcon';
 import ChevronRightIcon from '@svg-icons/feather/ChevronRightIcon';
+import FetchDataErrorAlert from '@components/Alerts/FetchDataErrorAlert';
 import ProductsCarouselSkeleton from '../Skeletons/ProductsCarouselSkeleton';
 import TopsellerCarouselItem from './TopsellerCarouselItem';
 
-const TopsellerCarousel = ({ data, className, loading, onItemClick, ...props }) => {
+const TopsellerCarousel = (props) => {
+    const { data, className, loading, error, onItemClick, onReload, ...other } = props;
+
     const handleItemClick = useEventCallback((ev, item) => {
         if (onItemClick) {
             onItemClick(ev, item);
@@ -24,12 +29,23 @@ const TopsellerCarousel = ({ data, className, loading, onItemClick, ...props }) 
         return <ProductsCarouselSkeleton />;
     }
 
+    if (error) {
+        return (
+            <Panel className={className} {...other}>
+                <PanelHeader title="Topseller" icon={StarIcon} />
+                <PanelBody>
+                    <FetchDataErrorAlert error={error} onReload={onReload} />
+                </PanelBody>
+            </Panel>
+        );
+    }
+
     if (!data || data.length === 0) {
         return null;
     }
 
     return (
-        <Panel className={className} {...props}>
+        <Panel className={className} {...other}>
             <PanelHeader title="Topseller" icon={StarIcon}>
                 <Link href="#" icon={ChevronRightIcon} iconAlign="right">
                     View all
@@ -56,7 +72,9 @@ TopsellerCarousel.propTypes = {
     ),
     className: PropTypes.string,
     loading: PropTypes.bool,
-    onItemClick: PropTypes.func
+    error: PropTypes.string,
+    onItemClick: PropTypes.func,
+    onReload: PropTypes.func
 };
 
 export default memo(TopsellerCarousel);

@@ -95,7 +95,7 @@
 		}
 
 		& .btn:first-of-type {
-			margin-left: -$btn-padding-x;
+			margin-left: ($btn-padding-x + $btn-border-width) * -1;
 		}
 	}
 }

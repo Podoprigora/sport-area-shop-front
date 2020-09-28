@@ -7,12 +7,18 @@ import { suffleArray } from '@utils/convertingData';
 import fakeRequest from './fakeRequest';
 
 export default class ProductsService {
-    static async fetchBrandnew() {
-        return fakeRequest(brandnewData, { success: true, delay: 1000 });
+    static async fetchBrandnew(success = true) {
+        if (success) {
+            return fakeRequest(brandnewData, { success: true, delay: 1000 });
+        }
+        return fakeRequest('Some error occurred!', { success: false, delay: 2500 });
     }
 
-    static async fetchTopseller() {
-        return fakeRequest(topsellerData, { success: true, delay: 500 });
+    static async fetchTopseller(success = true) {
+        if (success) {
+            return fakeRequest(topsellerData, { success: true, delay: 2500 });
+        }
+        return fakeRequest('Some error occurred!', { success: false, delay: 2500 });
     }
 
     static async fetchAll(limit = 0, generateRandomId = true) {

@@ -43,7 +43,6 @@ const NotificationItem = (props) => {
         return undefined;
     }, [autoClose, autoCloseDelay, handleClose]);
 
-    const content = message || render({ ...props });
     let actionContent = null;
 
     if (closable) {
@@ -54,9 +53,21 @@ const NotificationItem = (props) => {
         );
     }
 
+    if (render) {
+        const alertElement = render({ ...props });
+
+        if (React.isValidElement(alertElement)) {
+            return React.cloneElement(alertElement, {
+                action: actionContent,
+                className: 'notification__item'
+            });
+        }
+        return null;
+    }
+
     return (
         <Alert type={type} action={actionContent} className="notification__item" {...other}>
-            {content}
+            {message}
         </Alert>
     );
 };

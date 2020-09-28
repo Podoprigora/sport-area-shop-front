@@ -10,10 +10,13 @@ import TagIcon from '@ui/SvgIcons/feather/TagIcon';
 import ChevronRightIcon from '@ui/SvgIcons/feather/ChevronRightIcon';
 import Link from '@ui/Link';
 
+import FetchDataErrorAlert from '@components/Alerts/FetchDataErrorAlert';
 import ProductsCarouselSkeleton from '../Skeletons/ProductsCarouselSkeleton';
 import BrandnewCarouselItem from './BrandnewCarouselItem';
 
-const BrandnewCarousel = ({ data, className, onItemClick, loading, ...props }) => {
+const BrandnewCarousel = (props) => {
+    const { data, className, loading, error, onItemClick, onReload, ...other } = props;
+
     const handleItemClick = useEventCallback((ev, item) => {
         if (onItemClick) {
             onItemClick(ev, item);
@@ -22,6 +25,17 @@ const BrandnewCarousel = ({ data, className, onItemClick, loading, ...props }) =
 
     if (loading) {
         return <ProductsCarouselSkeleton />;
+    }
+
+    if (error) {
+        return (
+            <Panel className={className} {...other}>
+                <PanelHeader title="Brandnew" icon={TagIcon} />
+                <PanelBody>
+                    <FetchDataErrorAlert error={error} onReload={onReload} />
+                </PanelBody>
+            </Panel>
+        );
     }
 
     if (!data || data.length === 0) {
@@ -56,7 +70,9 @@ BrandnewCarousel.propTypes = {
     ),
     className: PropTypes.string,
     loading: PropTypes.bool,
-    onItemClick: PropTypes.func
+    error: PropTypes.string,
+    onItemClick: PropTypes.func,
+    onReload: PropTypes.func
 };
 
 export default memo(BrandnewCarousel);

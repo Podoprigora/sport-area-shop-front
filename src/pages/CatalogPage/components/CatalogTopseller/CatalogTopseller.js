@@ -1,72 +1,19 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
-import TopsellerCarousel from '@components/TopsellerCarousel';
-import useMountedRef from '@ui/hooks/useMountedRef';
-import ProductsService from '@services/ProductsService';
+import TopsellerCarouselWithFetchingDataOnDemand from '@components/TopsellerCarouselWithFetchingDataOnDemand';
+import { makeSelectCategoryIdByPathSelector } from '@store/categories';
 
 const CatalogTopseller = (props) => {
-    const [loading, setLoading] = useState(false);
-    const [data, setData] = useState([]);
+    const { pathname } = useLocation();
 
-    const isMountedRef = useMountedRef();
-    const nodeRef = useRef(null);
+    const selectCategoryIdByPathSelector = useMemo(() => makeSelectCategoryIdByPathSelector(), []);
 
-    const { category, subCategory, subCategoryItem } = useParams();
-    const categoryId = subCategoryItem || subCategory || category;
+    const categoryId = useSelector((state) => selectCategoryIdByPathSelector(state, pathname));
 
-    const fetchData = useCallback(async () => {
-        if (!categoryId) {
-            return;
-        }
-
-        try {
-            setLoading(true);
-
-            const response = await ProductsService.fetchTopseller(categoryId);
-
-            if (isMountedRef.current) {
-                setData(response);
-            }
-        } catch (e) {
-            console.log(e);
-        } finally {
-            setLoading(false);
-        }
-    }, [isMountedRef, categoryId]);
-
-    useEffect(() => {
-        const ioCallback = ([entry], observer) => {
-            const { isIntersecting, target } = entry;
-
-            if (isIntersecting) {
-                fetchData();
-                observer.unobserve(target);
-            }
-        };
-
-        if (nodeRef.current) {
-            const io = new IntersectionObserver(ioCallback, {
-                root: null,
-                margin: '200px 0'
-            });
-
-            io.observe(nodeRef.current);
-
-            return () => {
-                io.disconnect();
-            };
-        }
-
-        return undefined;
-    }, [fetchData]);
-
-    return (
-        <div ref={nodeRef}>
-            <TopsellerCarousel data={data} loading={loading} />
-        </div>
-    );
+    return <TopsellerCarouselWithFetchingDataOnDemand categoryId={categoryId} />;
 };
 
 export default CatalogTopseller;

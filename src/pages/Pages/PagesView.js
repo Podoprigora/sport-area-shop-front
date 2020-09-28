@@ -38,7 +38,7 @@ const PagesView = (props) => {
                     <Route path="/test">
                         <TestPage />
                     </Route>
-                    <Route path="/product/:category/:id">
+                    <Route path="/product/:id">
                         <ProductPage />
                     </Route>
                     <ProtectedRoute path="/wishlist">

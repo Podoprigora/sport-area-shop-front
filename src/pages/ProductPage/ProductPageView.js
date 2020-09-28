@@ -2,22 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Page, PageAside, PageContent, PageSection } from '@components/Page';
-import CatalogTopseller from '@pages/CatalogPage/components/CatalogTopseller';
 import ProductTrade from './components/ProductTrade';
-
-const sizes = ['XS', 'S', 'L', 'Xl'];
+import ProductGallery from './components/ProductGallery';
+import ProductTopseller from './components/ProductTopseller';
 
 const ProductPageView = (props) => {
     return (
         <Page className="product-page">
             <PageSection className="product-page__main-section">
-                <PageContent className="product-page__center">Page content</PageContent>
+                <PageContent className="product-page__center">
+                    <ProductGallery />
+                </PageContent>
                 <PageAside className="product-page__aside">
                     <ProductTrade />
                 </PageAside>
             </PageSection>
             <PageSection>
-                <CatalogTopseller />
+                <ProductTopseller />
             </PageSection>
         </Page>
     );

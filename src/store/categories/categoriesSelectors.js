@@ -80,3 +80,24 @@ export const categoriesSelector = createSelector(getCategories, (categoriesState
 export const selectedCategoryIdSelector = createSelector(getCategories, (categoriesState = {}) => {
     return categoriesState.selectedId;
 });
+
+export const makeSelectCategoryIdByPathSelector = () =>
+    createSelector(
+        getCategories,
+        (_, path) => {
+            if (!path) {
+                return null;
+            }
+
+            if (typeof path === 'string') {
+                return path.replace(/^\//, '').split('/');
+            }
+
+            console.log(path);
+
+            return path;
+        },
+        (categoriesState = {}, path = []) => {
+            return getCategoryIdByPath(categoriesState, path);
+        }
+    );

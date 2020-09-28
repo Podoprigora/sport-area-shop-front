@@ -12,10 +12,17 @@ import CarouselIndicators from './CarouselIndicators';
 
 const animationTimeout = 1000;
 
-const Carousel = React.forwardRef(function Carousel(
-    { children, autoPlay, interval, className, control, ...props },
-    ref
-) {
+const Carousel = React.forwardRef(function Carousel(props, ref) {
+    const {
+        children,
+        autoPlay,
+        interval = 5000,
+        className,
+        control = 'hover',
+        renderThumbneil,
+        ...other
+    } = props;
+
     const [activeIndex, setActiveIndex] = useState(0);
     const [isMouseEntered, setIsMouseEntered] = useState(false);
     const animDirection = useRef('left');
@@ -161,7 +168,7 @@ const Carousel = React.forwardRef(function Carousel(
             onFocus={handleMouseEnter}
             onBlur={handleMouseLeave}
             ref={ref}
-            {...props}
+            {...other}
         >
             <div className="carousel__items">{items}</div>
 
@@ -195,13 +202,8 @@ Carousel.propTypes = {
     autoPlay: PropTypes.bool,
     interval: PropTypes.number,
     control: PropTypes.oneOf(['always', 'hover', 'none']),
+    renderThumbneil: PropTypes.func,
     className: PropTypes.string
-};
-
-Carousel.defaultProps = {
-    autoPlay: false,
-    interval: 5000,
-    control: 'hover'
 };
 
 export default Carousel;
