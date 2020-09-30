@@ -53,19 +53,17 @@
 
 	&__indicator-btn {
 		display: block;
-		background: #fff;
+		background: rgba(#fff, .6);
 		width: .8rem;
 		height: .8rem;
 		border-radius: 50%;
-		opacity: .4;
 		cursor: pointer;
-		box-shadow: 0 1px 1px 0px rgba(#000, .2);
+		box-shadow: $box-shadow-sm;
 		transition: all .15s ease-out;
 
 		&--active {
-			opacity: 1;
+			background-color: #fff;
 			transform: scale3d(1.4, 1.4, 1);
-			box-shadow: none;
 		}
 
 		&:hover {
@@ -78,20 +76,22 @@
 	}
 
 	&__control {
+		$control: &;
+
 		position: absolute;
 		top: 50%;
 		transform: translateY(-50%);
 		color: $icon-color;
-		background-color: rgba(#fff, .4);
+		background-color: transparent;
 		padding: .6rem;
 		border-radius: 50%;
 		opacity: 0;
 		cursor: pointer;
-		transition: all .3s ease-out;
+		transition: all .15s ease-out;
 
 		&:hover {
-			background-color: rgba(#fff, .8);
-			box-shadow: 0 1px 4px 0px rgba(#000, .2);
+			background-color: rgba(0, 0, 0, .08);
+			box-shadow: $box-shadow-sm;
 		}
 
 		&:focus {
@@ -111,6 +111,11 @@
 		&--active {
 			opacity: 1;
 			transform: translate3d(0, -50%, 0);
+
+			&#{$control}--disabled {
+				opacity: .4;
+				pointer-events: none;
+			}
 		}
 	}
 
@@ -121,7 +126,7 @@
 		&-active {
 			opacity: 1;
 			transform: translate3d(0, 0, 0);
-			transition: all 1s ease-out;
+			transition: all .8s ease-out;
 		}
 	}
 
@@ -133,7 +138,7 @@
 		&-active {
 			opacity: 0;
 			transform: translate3d(-100%, 0, 0);
-			transition: all 1s ease-out;
+			transition: all .8s ease-out;
 		}
 	}
 
@@ -144,7 +149,7 @@
 		&-active {
 			opacity: 1;
 			transform: translate3d(0, 0, 0);
-			transition: all 1s ease-out;
+			transition: all .8s ease-out;
 		}
 	}
 
@@ -156,7 +161,7 @@
 		&-active {
 			opacity: 0;
 			transform: translate3d(100%, 0, 0);
-			transition: all 1s ease-out;
+			transition: all .8s ease-out;
 		}
 	}
 }

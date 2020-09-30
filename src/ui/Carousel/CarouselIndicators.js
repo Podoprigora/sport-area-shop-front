@@ -2,10 +2,18 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const CarouselIndicators = memo(function CarouselIndicators({ size, activeIndex, onSelect }) {
+const CarouselIndicators = (props) => {
+    const { size = 0, activeIndex = 0, onSelect } = props;
+
     const items = [...Array(size)];
 
     const indicators = items.map((item, index) => {
+        const handleClick = (ev) => {
+            if (onSelect) {
+                onSelect(ev, index);
+            }
+        };
+
         return (
             <li className="carousel__indicator" key={index}>
                 <button
@@ -14,7 +22,7 @@ const CarouselIndicators = memo(function CarouselIndicators({ size, activeIndex,
                     className={classNames('carousel__indicator-btn', {
                         'carousel__indicator-btn--active': index === activeIndex
                     })}
-                    onClick={onSelect(index)}
+                    onClick={handleClick}
                 />
             </li>
         );
@@ -25,7 +33,7 @@ const CarouselIndicators = memo(function CarouselIndicators({ size, activeIndex,
     }
 
     return <ul className="carousel__indicators">{indicators}</ul>;
-});
+};
 
 CarouselIndicators.propTypes = {
     size: PropTypes.number,
@@ -33,10 +41,4 @@ CarouselIndicators.propTypes = {
     onSelect: PropTypes.func
 };
 
-CarouselIndicators.defaultProps = {
-    size: 0,
-    activeIndex: 0,
-    onSelect: () => {}
-};
-
-export default CarouselIndicators;
+export default memo(CarouselIndicators);

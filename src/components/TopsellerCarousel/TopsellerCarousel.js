@@ -4,11 +4,9 @@ import classNames from 'classnames';
 
 import useEventCallback from '@ui/hooks/useEventCallback';
 import ScrollingCarousel from '@ui/ScrollingCarousel';
-import Alert, { AlertActions, AlertTitle } from '@ui/Alert';
 import Panel from '@ui/Panel';
 import PanelHeader from '@ui/Panel/PanelHeader';
 import Link from '@ui/Link';
-import Button from '@ui/Button';
 import PanelBody from '@ui/Panel/PanelBody';
 import StarIcon from '@svg-icons/feather/StarIcon';
 import ChevronRightIcon from '@svg-icons/feather/ChevronRightIcon';

@@ -1,0 +1,8 @@
+.product-gallery {
+	// padding: $spacing-scale-6;
+
+	& &__img {
+		min-height: 0;
+		max-height: 50rem;
+	}
+}

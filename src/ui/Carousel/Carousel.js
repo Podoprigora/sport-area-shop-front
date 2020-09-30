@@ -4,68 +4,100 @@ import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import throttle from 'lodash/throttle';
 
+import useControlled from '@ui/hooks/useControlled';
 import useEventCallback from '@ui/hooks/useEventCallback';
 import useEventListener from '@ui/hooks/useEventListener';
+import useForkRef from '@ui/hooks/useForkRef';
 import useMountedRef from '@ui/hooks/useMountedRef';
 import CarouselControl from './CarouselControl';
 import CarouselIndicators from './CarouselIndicators';
 
-const animationTimeout = 1000;
-
 const Carousel = React.forwardRef(function Carousel(props, ref) {
     const {
+        activeIndex: activeIndexProp,
         children,
         autoPlay,
+        disableInfiniteLoop = true,
         interval = 5000,
+        animationTimeout = 800,
         className,
         control = 'hover',
-        renderThumbneil,
+        indicators = true,
+        onChange,
         ...other
     } = props;
 
-    const [activeIndex, setActiveIndex] = useState(0);
     const [isMouseEntered, setIsMouseEntered] = useState(false);
-    const animDirection = useRef('left');
-    const mouseEnterTimerId = useRef(null);
-    const autoPlayTimerId = useRef(null);
-    const isMounted = useMountedRef();
-    const itemsLength = React.Children.toArray(children).length;
 
-    const nextSlide = useEventCallback(() => {
-        if (!isMounted.current) {
-            return;
+    const [activeIndex, setActiveIndex] = useControlled(activeIndexProp, 0);
+
+    const animDirectionRef = useRef('left');
+    const mouseEnterTimerIdRef = useRef(null);
+    const autoPlayTimerIdRef = useRef(null);
+    const isMountedRef = useMountedRef();
+    const nodeRef = useRef(null);
+    const handleRef = useForkRef(nodeRef, ref);
+
+    const infiniteLoopRef = useRef(false);
+    infiniteLoopRef.current = autoPlay || !disableInfiniteLoop;
+
+    const itemsLengthRef = useRef(0);
+    itemsLengthRef.current = React.Children.count(children);
+
+    const doChange = useEventCallback((ev, value) => {
+        if (onChange) {
+            onChange(ev, value);
         }
-
-        setActiveIndex((prevState) => {
-            return (prevState + 1) % itemsLength;
-        });
-        animDirection.current = 'left';
     });
 
-    const prevSlide = useEventCallback(() => {
-        if (!isMounted.current) {
+    const nextSlide = useEventCallback((ev) => {
+        if (Number.isNaN(parseInt(activeIndex, 10))) {
             return;
         }
 
-        setActiveIndex((prevState) => {
-            return prevState ? prevState - 1 : itemsLength - 1;
-        });
-        animDirection.current = 'right';
+        let newIndex = Math.min(activeIndex + 1, itemsLengthRef.current - 1);
+
+        if (infiniteLoopRef.current) {
+            newIndex = (activeIndex + 1) % itemsLengthRef.current;
+        }
+
+        setActiveIndex(newIndex);
+        animDirectionRef.current = 'left';
+
+        doChange(ev, newIndex);
+    });
+
+    const prevSlide = useEventCallback((ev) => {
+        if (Number.isNaN(parseInt(activeIndex, 10))) {
+            return;
+        }
+
+        let newIndex = Math.max(activeIndex - 1, 0);
+
+        if (infiniteLoopRef.current) {
+            newIndex = activeIndex > 0 ? activeIndex - 1 : itemsLengthRef.current - 1;
+        }
+
+        setActiveIndex(newIndex);
+        animDirectionRef.current = 'right';
+
+        doChange(ev, newIndex);
     });
 
     const stop = useCallback(() => {
-        animDirection.current = 'left';
-        clearInterval(autoPlayTimerId.current);
+        animDirectionRef.current = 'left';
+        clearInterval(autoPlayTimerIdRef.current);
     }, []);
 
     const play = useCallback(() => {
-        if (autoPlay) {
+        if (autoPlay && isMountedRef.current) {
             stop();
-            autoPlayTimerId.current = setInterval(() => {
+            clearInterval(autoPlayTimerIdRef.current);
+            autoPlayTimerIdRef.current = setInterval(() => {
                 nextSlide();
             }, interval);
         }
-    }, [autoPlay, interval, nextSlide, stop]);
+    }, [autoPlay, interval, nextSlide, stop, isMountedRef]);
 
     const handlePrevControlClick = useCallback(
         throttle(
@@ -94,28 +126,33 @@ const Carousel = React.forwardRef(function Carousel(props, ref) {
             return;
         }
 
-        clearTimeout(mouseEnterTimerId.current);
-        mouseEnterTimerId.current = null;
+        clearTimeout(mouseEnterTimerIdRef.current);
+        mouseEnterTimerIdRef.current = null;
 
         stop();
-        mouseEnterTimerId.current = setTimeout(() => {
+
+        mouseEnterTimerIdRef.current = setTimeout(() => {
             setIsMouseEntered(true);
         }, 150);
     });
 
     const handleMouseLeave = useEventCallback((ev) => {
-        clearTimeout(mouseEnterTimerId.current);
+        clearTimeout(mouseEnterTimerIdRef.current);
+
         setIsMouseEntered(false);
+
         play();
     });
 
-    const handleIndicatorSelect = useCallback(
-        (index) => (ev) => {
-            animDirection.current = index >= activeIndex ? 'left' : 'right';
-            setActiveIndex(index);
-        },
-        [activeIndex]
-    );
+    const handleMouseDown = useEventCallback((ev) => {
+        ev.preventDefault();
+    });
+
+    const handleIndicatorSelect = useEventCallback((ev, index) => {
+        animDirectionRef.current = index >= activeIndex ? 'left' : 'right';
+
+        setActiveIndex(index);
+    });
 
     useEffect(() => {
         play();
@@ -138,7 +175,7 @@ const Carousel = React.forwardRef(function Carousel(props, ref) {
             <CSSTransition
                 key={index}
                 in={index === activeIndex}
-                classNames={`carousel__slide-anim-${animDirection.current}`}
+                classNames={`carousel__slide-anim-${animDirectionRef.current}`}
                 timeout={animationTimeout}
             >
                 <div
@@ -152,44 +189,53 @@ const Carousel = React.forwardRef(function Carousel(props, ref) {
         );
     });
 
-    if (!itemsLength) {
+    if (!itemsLengthRef.current) {
         return null;
     }
 
-    const shouldShowControl = itemsLength > 1 && control !== 'none';
+    const shouldDisplayControl = itemsLengthRef.current > 1 && control !== 'none';
     const isActiveControl = control === 'always' || (isMouseEntered && control === 'hover');
+    const disabledNextControl =
+        activeIndex === itemsLengthRef.current - 1 && !infiniteLoopRef.current;
+    const disablePrevControl = !activeIndex && !infiniteLoopRef.current;
 
     return (
         <div
+            role="presentation"
             className={classNames('carousel', className)}
             onMouseOver={handleMouseEnter}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
+            onMouseDown={handleMouseDown}
             onFocus={handleMouseEnter}
             onBlur={handleMouseLeave}
-            ref={ref}
+            ref={handleRef}
             {...other}
         >
             <div className="carousel__items">{items}</div>
 
-            <CarouselIndicators
-                size={itemsLength}
-                activeIndex={activeIndex}
-                onSelect={handleIndicatorSelect}
-            />
+            {indicators && (
+                <CarouselIndicators
+                    size={itemsLengthRef.current}
+                    activeIndex={activeIndex}
+                    onSelect={handleIndicatorSelect}
+                />
+            )}
 
-            {shouldShowControl && (
+            {shouldDisplayControl && (
                 <CarouselControl
                     type="prev"
                     active={isActiveControl}
+                    disabled={disablePrevControl}
                     onClick={handlePrevControlClick}
                 />
             )}
 
-            {shouldShowControl && (
+            {shouldDisplayControl && (
                 <CarouselControl
                     type="next"
                     active={isActiveControl}
+                    disabled={disabledNextControl}
                     onClick={handleNextControlClick}
                 />
             )}
@@ -198,12 +244,16 @@ const Carousel = React.forwardRef(function Carousel(props, ref) {
 });
 
 Carousel.propTypes = {
+    activeIndex: PropTypes.number,
     children: PropTypes.node,
     autoPlay: PropTypes.bool,
     interval: PropTypes.number,
+    animationTimeout: PropTypes.number,
     control: PropTypes.oneOf(['always', 'hover', 'none']),
-    renderThumbneil: PropTypes.func,
-    className: PropTypes.string
+    disableInfiniteLoop: PropTypes.bool,
+    indicators: PropTypes.bool,
+    className: PropTypes.string,
+    onChange: PropTypes.func
 };
 
 export default Carousel;
