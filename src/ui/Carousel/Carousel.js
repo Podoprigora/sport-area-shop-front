@@ -152,6 +152,7 @@ const Carousel = React.forwardRef(function Carousel(props, ref) {
         animDirectionRef.current = index >= activeIndex ? 'left' : 'right';
 
         setActiveIndex(index);
+        doChange(ev, index);
     });
 
     useEffect(() => {

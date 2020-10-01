@@ -6,6 +6,7 @@ import useControlled from '@ui/hooks/useControlled';
 import useForkRef from '@ui/hooks/useForkRef';
 import useEventCallback from '@ui/hooks/useEventCallback';
 import defineEventTarget from '@ui/utils/defineEventTarget';
+import getTouchPosition from '@ui/utils/getTouchPosition';
 import useIsFocusVisible from '@ui/hooks/useIsFocusVisible';
 import SliderThumbLabel from './SliderThumbLabel';
 
@@ -65,28 +66,6 @@ const focusThumb = (elementRef, activeIndex) => {
             activeThumb.focus();
         }
     }
-};
-
-const getTouchPosition = (ev, touchIdRef) => {
-    if (touchIdRef && touchIdRef.current !== undefined && ev.changedTouches) {
-        for (let i = 0; i <= ev.changedTouches.length; i += 1) {
-            const touchItem = ev.changedTouches[i];
-
-            if (touchIdRef.current === touchItem.identifier) {
-                return {
-                    x: touchItem.clientX,
-                    y: touchItem.clientY
-                };
-            }
-        }
-
-        return null;
-    }
-
-    return {
-        x: ev.clientX,
-        y: ev.clientY
-    };
 };
 
 const axisStyles = {
