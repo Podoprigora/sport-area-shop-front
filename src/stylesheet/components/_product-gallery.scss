@@ -1,8 +1,38 @@
 .product-gallery {
-	// padding: $spacing-scale-6;
+	padding-bottom: $spacing-scale-6;
 
 	& &__picture {
 		min-height: 0;
 		height: 50rem;
+	}
+
+	&__carousel {
+		border-bottom: 1px solid $border-color-lighten;
+	}
+
+	&__thumbnail-list {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: center;
+		align-content: flex-start;
+	}
+
+	&__thumbnail {
+		display: inline-block;
+		line-height: 0;
+		margin: $spacing-scale-6 $spacing-scale-6 0 0;
+		padding: $spacing-scale-2;
+		border: 2px solid transparent;
+		border-radius: $border-radius-sm;
+		transition: all .25s;
+		cursor: pointer;
+
+		&--selected {
+			border-color: $color-primary;
+		}
+
+		img {
+			height: 14rem;
+		}
 	}
 }

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Carousel from '@ui/Carousel';
 import ImageEasyZoom from '@ui/ImageEasyZoom';
+import ProductGalleryThumbnailList from './ProductGalleryThumbnailList';
 
 const images = [
     'remote/images/product/naketano-family-biz-hooded-jacket-women-grey.jpg',
@@ -31,17 +32,25 @@ const ProductGallery = (props) => {
         );
     });
 
+    const thumbnails = thumbnailImages.map((item, index) => {
+        return <img key={index} src={item} alt="" />;
+    });
+
     return (
-        <Carousel
-            className="product-gallery"
-            control="always"
-            // autoPlay
-            // interval={2000}
-            activeIndex={activeIndex}
-            onChange={handleChange}
-        >
-            {items}
-        </Carousel>
+        <div className="product-gallery">
+            <Carousel
+                className="product-gallery__carousel"
+                control="always"
+                indicators={false}
+                activeIndex={activeIndex}
+                onChange={handleChange}
+            >
+                {items}
+            </Carousel>
+            <ProductGalleryThumbnailList activeIndex={activeIndex} onChange={handleChange}>
+                {thumbnails}
+            </ProductGalleryThumbnailList>
+        </div>
     );
 };
 
