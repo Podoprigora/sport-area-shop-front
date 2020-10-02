@@ -25,6 +25,7 @@
 		border: 2px solid transparent;
 		border-radius: $border-radius-sm;
 		transition: all .25s;
+		@include disable-tap-highlight-color;
 		cursor: pointer;
 
 		&--selected {

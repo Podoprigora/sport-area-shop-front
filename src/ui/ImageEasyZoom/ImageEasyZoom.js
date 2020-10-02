@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { debounce, defer, delay, throttle } from 'lodash';
 
 import useEventCallback from '@ui/hooks/useEventCallback';
 import useForkRef from '@ui/hooks/useForkRef';
@@ -19,6 +20,7 @@ const ImageEasyZoom = React.forwardRef(function ImageEasyZoom(props, ref) {
 
     const touchPositionIdRef = useRef(null);
     const hadTouchMoveRecentlyRef = useRef(false);
+    const hadTouchMoveRecentlyCountRef = useRef(0);
 
     const updateStyle = () => {
         if (imageRef.current) {
@@ -88,6 +90,28 @@ const ImageEasyZoom = React.forwardRef(function ImageEasyZoom(props, ref) {
         }
     });
 
+    const handleTouchEnd = useEventCallback((ev) => {
+        if (!zoom) {
+            zoomIn(ev);
+        } else if (hadTouchMoveRecentlyCountRef.current < 10) {
+            zoomOut();
+        }
+
+        touchPositionIdRef.current = null;
+        hadTouchMoveRecentlyCountRef.current = 0;
+    });
+
+    const handleTouchMove = useEventCallback((ev) => {
+        handlePointerMove(ev);
+        hadTouchMoveRecentlyCountRef.current += 1;
+    });
+
+    const handleTouchAway = useEventCallback((ev) => {
+        if (zoom && nodeRef.current && !nodeRef.current.contains(ev.target)) {
+            zoomOut();
+        }
+    });
+
     const handleTouchStart = useEventCallback((ev) => {
         ev.preventDefault();
 
@@ -96,28 +120,12 @@ const ImageEasyZoom = React.forwardRef(function ImageEasyZoom(props, ref) {
         if (touchItem) {
             touchPositionIdRef.current = touchItem.identifier;
         }
-    });
 
-    const handleTouchEnd = useEventCallback((ev) => {
-        if (!zoom) {
-            zoomIn(ev);
-        } else if (!hadTouchMoveRecentlyRef.current) {
-            zoomOut();
-        }
+        const element = nodeRef.current;
 
-        touchPositionIdRef.current = null;
-        hadTouchMoveRecentlyRef.current = false;
-    });
-
-    const handleTouchMove = useEventCallback((ev) => {
-        handlePointerMove(ev);
-        hadTouchMoveRecentlyRef.current = true;
-    });
-
-    const handleTouchAway = useEventCallback((ev) => {
-        if (zoom && nodeRef.current && !nodeRef.current.contains(ev.target)) {
-            zoomOut();
-        }
+        element.addEventListener('touchend', handleTouchEnd);
+        element.addEventListener('touchmove', handleTouchMove);
+        document.addEventListener('touchend', handleTouchAway);
     });
 
     // Effects
@@ -130,21 +138,11 @@ const ImageEasyZoom = React.forwardRef(function ImageEasyZoom(props, ref) {
                 passive: false
             });
 
-            element.addEventListener('touchend', handleTouchEnd, {
-                passive: false
-            });
-
-            element.addEventListener('touchmove', handleTouchMove, {
-                passive: false
-            });
-
-            document.addEventListener('touchend', handleTouchAway, false);
-
             return () => {
                 element.removeEventListener('touchstart', handleTouchStart, { passive: false });
-                element.removeEventListener('touchend', handleTouchEnd, { passive: false });
-                element.removeEventListener('touchmove', handleTouchMove, { passive: false });
-                document.addEventListener('touchend', handleTouchAway, false);
+                element.removeEventListener('touchend', handleTouchEnd);
+                element.removeEventListener('touchmove', handleTouchMove);
+                document.addEventListener('touchend', handleTouchAway);
             };
         }
 
