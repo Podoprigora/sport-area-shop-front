@@ -5,7 +5,7 @@ import classNames from 'classnames';
 const ProductGalleryThumbnailList = (props) => {
     const { children, activeIndex, onChange } = props;
 
-    const handleThumbneilClick = (index) => (ev) => {
+    const handleThumbnailClick = (index) => (ev) => {
         if (onChange) {
             onChange(ev, index);
         }
@@ -22,7 +22,7 @@ const ProductGalleryThumbnailList = (props) => {
                 className={classNames('product-gallery__thumbnail', {
                     'product-gallery__thumbnail--selected': index === activeIndex
                 })}
-                onClick={handleThumbneilClick(index)}
+                onClick={handleThumbnailClick(index)}
             >
                 {child}
             </li>

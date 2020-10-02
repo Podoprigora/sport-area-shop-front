@@ -5,13 +5,18 @@ import { Page, PageAside, PageContent, PageSection } from '@components/Page';
 import ProductTrade from './components/ProductTrade';
 import ProductGallery from './components/ProductGallery';
 import ProductTopseller from './components/ProductTopseller';
+import ProductFeatures from './components/ProductFeatures';
 
 const ProductPageView = (props) => {
     return (
         <Page className="product-page">
             <PageSection className="product-page__main-section">
                 <PageContent className="product-page__center">
-                    <ProductGallery />
+                    <PageSection>
+                        <ProductGallery />
+                    </PageSection>
+
+                    <ProductFeatures />
                 </PageContent>
                 <PageAside className="product-page__aside">
                     <ProductTrade />

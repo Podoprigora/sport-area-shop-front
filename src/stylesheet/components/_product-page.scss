@@ -33,10 +33,10 @@
 
 	& &__center {
 		flex: 1;
-		background-color: $white;
+		// background-color: $white;
 		min-height: 15rem;
-		border-radius: $border-radius-lg;
-		border: 1px solid $border-color-light;
+		// border-radius: $border-radius-lg;
+		// border: 1px solid $border-color-light;
 
 		@include media-breakpoint-down('lg') {
 			flex: auto;

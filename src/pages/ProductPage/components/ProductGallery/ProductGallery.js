@@ -37,7 +37,7 @@ const ProductGallery = (props) => {
     });
 
     return (
-        <div className="product-gallery">
+        <div className="product-gallery paper paper--outlined">
             <Carousel
                 className="product-gallery__carousel"
                 control="always"

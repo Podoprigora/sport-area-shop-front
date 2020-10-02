@@ -1,6 +1,13 @@
 .paper {
 	background-color: $paper-bg-color;
 	border-radius: $paper-border-radius;
-	box-shadow: $paper-box-shadow;
 	overflow: hidden;
+
+	&--elevated {
+		box-shadow: $paper-box-shadow;
+	}
+
+	&--outlined {
+		border: $paper-border;
+	}
 }

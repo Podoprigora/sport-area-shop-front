@@ -1,13 +1,7 @@
 .product-gallery {
-	padding-bottom: $spacing-scale-6;
-
 	& &__picture {
 		min-height: 0;
 		height: 50rem;
-	}
-
-	&__carousel {
-		border-bottom: 1px solid $border-color-lighten;
 	}
 
 	&__thumbnail-list {
@@ -15,6 +9,8 @@
 		flex-flow: row wrap;
 		justify-content: center;
 		align-content: flex-start;
+		border-top: 1px solid $border-color-lighten;
+		padding-bottom: $spacing-scale-6;
 	}
 
 	&__thumbnail {
@@ -33,7 +29,8 @@
 		}
 
 		img {
-			height: 14rem;
+			width: 8rem;
+			min-height: 8rem;
 		}
 	}
 }
