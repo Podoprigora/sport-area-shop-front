@@ -18,6 +18,8 @@ const thumbnailImages = [
 ];
 
 const ProductGallery = (props) => {
+    const { animationTimeout = 1000 } = props;
+
     const [activeIndex, setActiveIndex] = useState(0);
 
     const handleChange = useCallback((ev, value) => {
@@ -54,6 +56,8 @@ const ProductGallery = (props) => {
     );
 };
 
-ProductGallery.propTypes = {};
+ProductGallery.propTypes = {
+    animationTimeout: PropTypes.number
+};
 
 export default ProductGallery;

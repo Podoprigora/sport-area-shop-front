@@ -1,16 +1,19 @@
 .product-features {
 	&__item {
-		&-title {
-			font-weight: 500;
-			text-transform: uppercase;
-			color: $heading-color;
-			width: 100%;
-			max-width: 10rem;
-		}
+		padding-top: $spacing-scale-2;
+		padding-bottom: $spacing-scale-2;
 
 		&--condensed {
 			padding-top: $spacing-scale-1;
 			padding-bottom: $spacing-scale-1;
+		}
+
+		&-title {
+			font-weight: 500;
+			letter-spacing: .2px;
+			color: $heading-color;
+			width: 100%;
+			max-width: 20rem;
 		}
 	}
 }

@@ -19,7 +19,7 @@ const Carousel = React.forwardRef(function Carousel(props, ref) {
         autoPlay,
         disableInfiniteLoop = true,
         interval = 5000,
-        animationTimeout = 800,
+        animationTimeout = 1000,
         className,
         control = 'hover',
         indicators = true,
