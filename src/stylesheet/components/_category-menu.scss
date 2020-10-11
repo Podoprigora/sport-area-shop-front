@@ -4,6 +4,7 @@
 
 		&-active {
 			opacity: 1;
+
 			transition: opacity .25s ease;
 		}
 	}
@@ -21,6 +22,9 @@
 .category-menu {
 	position: absolute;
 	width: 100%;
+	backface-visibility: hidden;
+	-webkit-font-smoothing: subpixel-antialiased;
+	transform: translateZ(0) scale(1.0, 1.0);
 
 	&__container {
 		position: relative;
@@ -29,6 +33,8 @@
 		margin: 0 auto;
 		width: 100%;
 		height: 100%;
+		backface-visibility: hidden;
+		transform: translateZ(0);
 	}
 
 	&__body {

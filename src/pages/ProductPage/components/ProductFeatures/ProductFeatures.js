@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Panel from '@ui/Panel';
-import PanelHeader from '@ui/Panel/PanelHeader';
-import PanelBody from '@ui/Panel/PanelBody';
+import Panel, { PanelHeader, PanelBody } from '@ui/Panel';
 import FileTextIcon from '@svg-icons/feather/FileTextIcon';
 
 import ProductFeatureList from './ProductFeatureList';

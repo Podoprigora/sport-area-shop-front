@@ -12,6 +12,7 @@ import Portal from '@ui/Portal';
 import ClickAwayListener from '@ui/ClickAwayListener';
 import { throttle } from 'lodash';
 
+// Move focus to the next element of Menu item if it's not disabled and it has role of button
 const moveFocus = (menuElement, offset = 1) => {
     const activeElement = document.activeElement;
     let nextElement = null;

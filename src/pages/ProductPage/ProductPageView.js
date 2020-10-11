@@ -6,6 +6,7 @@ import ProductTrade from './components/ProductTrade';
 import ProductGallery from './components/ProductGallery';
 import ProductTopseller from './components/ProductTopseller';
 import ProductFeatures from './components/ProductFeatures';
+import ProductComments from './components/ProductComments';
 
 const ProductPageView = (props) => {
     return (
@@ -15,8 +16,10 @@ const ProductPageView = (props) => {
                     <PageSection>
                         <ProductGallery />
                     </PageSection>
-
-                    <ProductFeatures />
+                    <PageSection>
+                        <ProductFeatures />
+                    </PageSection>
+                    <ProductComments />
                 </PageContent>
                 <PageAside className="product-page__aside">
                     <ProductTrade />

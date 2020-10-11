@@ -11,13 +11,16 @@
 .u-text-small {
 	font-size: $font-size-small;
 }
-
-.u-text-decoration-underline {
-	text-decoration: underline;
+.u-text-large {
+	font-size: $font-size-large;
 }
 
 .u-text-strong {
 	font-weight: 500;
+}
+
+.u-text-decoration-underline {
+	text-decoration: underline;
 }
 
 .u-text-upper-case {

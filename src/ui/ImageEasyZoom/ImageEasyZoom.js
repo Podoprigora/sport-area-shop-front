@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { debounce, defer, delay, throttle } from 'lodash';
 
 import useEventCallback from '@ui/hooks/useEventCallback';
 import useForkRef from '@ui/hooks/useForkRef';
@@ -19,7 +18,6 @@ const ImageEasyZoom = React.forwardRef(function ImageEasyZoom(props, ref) {
     const imageRef = useRef(null);
 
     const touchPositionIdRef = useRef(null);
-    const hadTouchMoveRecentlyRef = useRef(false);
     const hadTouchMoveRecentlyCountRef = useRef(0);
 
     const updateStyle = () => {
@@ -90,17 +88,6 @@ const ImageEasyZoom = React.forwardRef(function ImageEasyZoom(props, ref) {
         }
     });
 
-    const handleTouchEnd = useEventCallback((ev) => {
-        if (!zoom) {
-            zoomIn(ev);
-        } else if (hadTouchMoveRecentlyCountRef.current < 10) {
-            zoomOut();
-        }
-
-        touchPositionIdRef.current = null;
-        hadTouchMoveRecentlyCountRef.current = 0;
-    });
-
     const handleTouchMove = useEventCallback((ev) => {
         handlePointerMove(ev);
         hadTouchMoveRecentlyCountRef.current += 1;
@@ -110,6 +97,23 @@ const ImageEasyZoom = React.forwardRef(function ImageEasyZoom(props, ref) {
         if (zoom && nodeRef.current && !nodeRef.current.contains(ev.target)) {
             zoomOut();
         }
+    });
+
+    const handleTouchEnd = useEventCallback((ev) => {
+        if (!zoom) {
+            zoomIn(ev);
+        } else if (hadTouchMoveRecentlyCountRef.current < 10) {
+            zoomOut();
+        }
+
+        touchPositionIdRef.current = null;
+        hadTouchMoveRecentlyCountRef.current = 0;
+
+        const element = nodeRef.current;
+
+        element.removeEventListener('touchend', handleTouchEnd);
+        element.removeEventListener('touchmove', handleTouchMove);
+        document.removeEventListener('touchend', handleTouchAway);
     });
 
     const handleTouchStart = useEventCallback((ev) => {

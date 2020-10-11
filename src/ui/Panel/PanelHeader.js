@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Heading from '@ui/Heading';
 
-const PanelHeader = (props) => {
+const PanelHeader = React.forwardRef(function PanelHeader(props, ref) {
     const { title, icon, children, renderIcon, renderTitle, ...other } = props;
     let iconContent = null;
 
@@ -21,13 +21,13 @@ const PanelHeader = (props) => {
     );
 
     return (
-        <div className="panel__header" {...other}>
+        <div className="panel__header" ref={ref} {...other}>
             {iconContent}
             {titleContent}
             {children && <div className="panel__header-body">{children}</div>}
         </div>
     );
-};
+});
 
 PanelHeader.propTypes = {
     title: PropTypes.string,

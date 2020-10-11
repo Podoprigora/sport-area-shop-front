@@ -5,8 +5,8 @@ import List, { ListItem, ListItemIcon, ListItemText } from '@ui/List';
 import Divider from '@ui/Divider';
 import NavigateNextChevronRightIcon from '@svg-icons/material/NavigateNextChevronRightIcon';
 
-function formatFeatureItemTitleByKey(key) {
-    let result = key.replace(/[A-W]/g, (match) => {
+function formatFeatureItemTitleByKey(key = '') {
+    let result = String(key).replace(/[A-W]/g, (match) => {
         return ` ${match.toLowerCase()}`;
     });
 

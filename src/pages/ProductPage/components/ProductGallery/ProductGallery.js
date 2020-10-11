@@ -44,12 +44,17 @@ const ProductGallery = (props) => {
                 className="product-gallery__carousel"
                 control="always"
                 indicators={false}
+                animationTimeout={animationTimeout}
                 activeIndex={activeIndex}
                 onChange={handleChange}
             >
                 {items}
             </Carousel>
-            <ProductGalleryThumbnailList activeIndex={activeIndex} onChange={handleChange}>
+            <ProductGalleryThumbnailList
+                activeIndex={activeIndex}
+                animationTimeout={animationTimeout}
+                onChange={handleChange}
+            >
                 {thumbnails}
             </ProductGalleryThumbnailList>
         </div>

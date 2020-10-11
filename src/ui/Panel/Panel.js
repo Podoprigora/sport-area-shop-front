@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+
 import PanelHeader from './PanelHeader';
 import PanelBody from './PanelBody';
 

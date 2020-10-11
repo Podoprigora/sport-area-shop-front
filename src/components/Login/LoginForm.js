@@ -12,7 +12,6 @@ import Link from '@ui/Link';
 import LoginIcon from '@svg-icons/feather/LoginIcon';
 import FormRow from '@ui/FormikForm/FormRow';
 import useEventCallback from '@ui/hooks/useEventCallback';
-import Alert, { AlertTitle } from '@ui/Alert';
 import PasswordField from '@components/PasswordField';
 
 const initialValues = {
@@ -29,13 +28,7 @@ const validationShcema = Yup.object({
 });
 
 const LoginForm = React.forwardRef(function LoginForm(props, ref) {
-    const {
-        resetPasswordAlert = false,
-        registrationAlert = true,
-        onSingUp,
-        onForgotPassword,
-        onSubmit
-    } = props;
+    const { onSingUp, onForgotPassword, onSubmit } = props;
 
     const handleSingUpClick = useEventCallback((ev) => {
         if (onSingUp) {
@@ -57,8 +50,11 @@ const LoginForm = React.forwardRef(function LoginForm(props, ref) {
                 try {
                     await onSubmit(values);
                 } catch (e) {
-                    const { errors } = e || {};
-                    setErrors(errors);
+                    const errors = e?.errors;
+
+                    if (errors) {
+                        setErrors(errors);
+                    }
                 }
             }
         },
@@ -66,90 +62,75 @@ const LoginForm = React.forwardRef(function LoginForm(props, ref) {
     );
 
     return (
-        <>
-            {resetPasswordAlert && (
-                <Alert type="success">
-                    We&apos;ve sent a new password to your email, please use it to sing in.
-                </Alert>
-            )}
-            {registrationAlert && (
-                <Alert type="success">
-                    <AlertTitle>Registration completed successfully.</AlertTitle>
-                    Please use your email and password to sign in.
-                </Alert>
-            )}
-            <Formik
-                initialValues={initialValues}
-                validationSchema={validationShcema}
-                onSubmit={handleFormikSubmit}
-            >
-                {(formik) => {
-                    const { handleSubmit } = formik;
+        <Formik
+            initialValues={initialValues}
+            validationSchema={validationShcema}
+            onSubmit={handleFormikSubmit}
+        >
+            {(formik) => {
+                const { handleSubmit } = formik;
 
-                    return (
-                        <Form centered maxWidth={340} ref={ref}>
-                            <FormRow>
-                                <InputField
-                                    type="email"
-                                    name="login"
-                                    label="Email"
-                                    labelAlign="top"
-                                    placeholder="demo@mail.com"
-                                    required
-                                    fullWidth
-                                />
-                            </FormRow>
-                            <FormRow>
-                                <PasswordField
-                                    name="password"
-                                    label="Password"
-                                    labelAlign="top"
-                                    required
-                                    fullWidth
-                                />
-                            </FormRow>
-                            <FormRow>
-                                <FlexRow justify="space-between" alignItems="center">
-                                    <CheckboxField name="rememberMe" boxLabel="Remember Me" />
-                                    <Link size="small" onClick={handleForgotPasswordClick}>
-                                        Forgot your Password?
-                                    </Link>
-                                </FlexRow>
-                            </FormRow>
-                            <FormRow>
-                                <FlexRow justify="center">
-                                    <Button
-                                        onClick={handleSubmit}
-                                        primary
-                                        centered
-                                        icon={LoginIcon}
-                                        maxWidth={140}
-                                    >
-                                        Sign In
-                                    </Button>
-                                </FlexRow>
-                            </FormRow>
-                            <FlexRow justify="center" alignItems="center">
-                                <span>
-                                    <span className="u-text-small u-color-grey-darken-2 u-margin-r-3">
-                                        New customer?
-                                    </span>
-                                    <Link primary onClick={handleSingUpClick}>
-                                        Sign Up
-                                    </Link>
-                                </span>
+                return (
+                    <Form centered maxWidth={340} ref={ref}>
+                        <FormRow>
+                            <InputField
+                                type="email"
+                                name="login"
+                                label="Email"
+                                labelAlign="top"
+                                placeholder="demo@mail.com"
+                                required
+                                fullWidth
+                            />
+                        </FormRow>
+                        <FormRow>
+                            <PasswordField
+                                name="password"
+                                label="Password"
+                                labelAlign="top"
+                                required
+                                fullWidth
+                            />
+                        </FormRow>
+                        <FormRow>
+                            <FlexRow justify="space-between" alignItems="center">
+                                <CheckboxField name="rememberMe" boxLabel="Remember Me" />
+                                <Link size="small" onClick={handleForgotPasswordClick}>
+                                    Forgot your Password?
+                                </Link>
                             </FlexRow>
-                        </Form>
-                    );
-                }}
-            </Formik>
-        </>
+                        </FormRow>
+                        <FormRow>
+                            <FlexRow justify="center">
+                                <Button
+                                    onClick={handleSubmit}
+                                    primary
+                                    centered
+                                    icon={LoginIcon}
+                                    maxWidth={140}
+                                >
+                                    Sign In
+                                </Button>
+                            </FlexRow>
+                        </FormRow>
+                        <FlexRow justify="center" alignItems="center">
+                            <span>
+                                <span className="u-text-small u-color-grey-darken-2 u-margin-r-3">
+                                    New customer?
+                                </span>
+                                <Link primary onClick={handleSingUpClick}>
+                                    Sign Up
+                                </Link>
+                            </span>
+                        </FlexRow>
+                    </Form>
+                );
+            }}
+        </Formik>
     );
 });
 
 LoginForm.propTypes = {
-    resetPasswordAlert: PropTypes.bool,
-    registrationAlert: PropTypes.bool,
     onSubmit: PropTypes.func,
     onSingUp: PropTypes.func,
     onForgotPassword: PropTypes.func

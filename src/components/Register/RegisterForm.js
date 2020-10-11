@@ -73,7 +73,7 @@ const RegisterForm = (props) => {
                 try {
                     await onFormSubmit(values);
                 } catch (e) {
-                    const errors = (e || {}).errors;
+                    const errors = e?.errors;
 
                     if (errors) {
                         setErrors(errors);

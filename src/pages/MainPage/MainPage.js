@@ -21,7 +21,7 @@ const MainPage = (props) => {
                 BrandsService.fetchAdwSliders(),
                 BrandsService.fetchAll(),
                 ProductsService.fetchBrandnew(),
-                ProductsService.fetchTopseller(false)
+                ProductsService.fetchTopseller()
             ].map(async (pr, index) => {
                 return pr.catch((e) =>
                     setErrors((prevState) => {
