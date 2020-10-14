@@ -4,7 +4,6 @@
 
 		&-active {
 			opacity: 1;
-
 			transition: opacity .25s ease;
 		}
 	}
@@ -22,9 +21,6 @@
 .category-menu {
 	position: absolute;
 	width: 100%;
-	backface-visibility: hidden;
-	-webkit-font-smoothing: subpixel-antialiased;
-	transform: translateZ(0) scale(1.0, 1.0);
 
 	&__container {
 		position: relative;
@@ -33,8 +29,6 @@
 		margin: 0 auto;
 		width: 100%;
 		height: 100%;
-		backface-visibility: hidden;
-		transform: translateZ(0);
 	}
 
 	&__body {
@@ -120,10 +114,11 @@
 		align-items: flex-start;
 		padding: $spacing-scale-5 $spacing-scale-7;
 		width: 20rem;
+		backface-visibility: hidden;
 
 		&:hover {
 			& #{$group}-img-box {
-				box-shadow: 0 0 0 2.5px $color-primary;
+				box-shadow: 0 0 0 2px $color-primary;
 			}
 		}
 
@@ -135,7 +130,7 @@
 			border-radius: 50%;
 			margin-bottom: $spacing-scale-5;
 			overflow: hidden;
-			transition: all .3s ease-out;
+			transition: box-shadow .3s ease;
 		}
 
 		&-img {

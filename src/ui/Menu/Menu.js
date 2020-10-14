@@ -184,7 +184,7 @@ const Menu = React.forwardRef(function Menu(props, ref) {
     useEffect(() => {
         function updateStyle() {
             if (anchorRef.current && open && autoWidth) {
-                const anchorWidth = anchorRef.current.clientWidth;
+                const anchorWidth = anchorRef.current?.offsetWidth;
 
                 setMenuStyle((prevStyle) => {
                     return { ...prevStyle, width: anchorWidth };
