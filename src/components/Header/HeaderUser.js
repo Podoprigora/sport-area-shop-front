@@ -48,7 +48,7 @@ const HeaderUser = (props) => {
     }
 
     return (
-        <ButtonMenu transparent primary arrow icon={UserIcon} text="Demo Customer">
+        <ButtonMenu transparent primary arrow truncate icon={UserIcon} text="Demo Customer">
             <Menu width={220}>
                 <ListItem button disabled>
                     <ListItemIcon>

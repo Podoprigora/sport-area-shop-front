@@ -87,7 +87,7 @@ $breakpoints: (
 // Layout
 $container-max-width: 120rem;
 $container-spacing-x: $spacing-scale-12;
-$container-padding: 0 $container-spacing-x;
+$container-spacing-sm-x: $spacing-scale-8;
 
 // Skeleton
 $skeleton-bg-color: $blue-grey-lighten-5;
@@ -101,6 +101,7 @@ $heading-5-font-size: $font-size * 1.25;
 $heading-6-font-size: $font-size;
 $heading-font-weight: 400;
 $heading-color: $grey-darken-3;
+$heading-color-light: $grey-darken-2;
 $heading-line-height: inherit;
 $heading-gutter-bottom: $spacing-scale-6;
 

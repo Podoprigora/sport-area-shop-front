@@ -1,7 +1,10 @@
 .product-gallery {
 	& &__picture {
 		min-height: 0;
-		height: 50rem;
+
+		@include media-breakpoint-up('sm') {
+			height: 50rem;
+		}
 	}
 
 	&__thumbnail-list {

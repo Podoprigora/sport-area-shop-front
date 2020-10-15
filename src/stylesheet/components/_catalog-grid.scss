@@ -106,9 +106,9 @@
 		@include media-breakpoint-down('sm') {
 			width: 100%;
 
-			.product__img-container {
-				height: 24rem;
-			}
+			// .product__img-container {
+			// 	height: 24rem;
+			// }
 		}
 
 		&--skeleton {

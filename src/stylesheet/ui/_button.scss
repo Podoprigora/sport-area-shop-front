@@ -197,12 +197,22 @@
 		width: 100%;
 	}
 
+	&--truncate {
+		#{$this}__text {
+			@include truncation;
+		}
+	}
+
 	&__text {
 		display: block;
 		letter-spacing: $btn-text-letter-spacing;
 	}
 
 	&__icon {
+		flex-shrink: 0;
+	}
+
+	&__arrow {
 		flex-shrink: 0;
 	}
 }

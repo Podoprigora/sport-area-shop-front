@@ -51,11 +51,17 @@
 
 	&__logo-link {
 		display: inline-block;
+
+		@include media-breakpoint-down("sm") {
+			margin-right: $spacing-scale-6;
+		}
 	}
 
 	&__logo-img {
 		display: inline-block;
-		width: $logo-image-width;
+		width: 100%;
+		min-width: $logo-image-width * .8;
+		max-width: $logo-image-width;
 		height: auto;
 	}
 

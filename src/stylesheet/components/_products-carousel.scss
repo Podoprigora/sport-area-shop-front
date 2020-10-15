@@ -9,6 +9,14 @@
 		padding: $spacing-scale-6 $spacing-scale-6 $spacing-scale-12;
 		border-right: 1px solid $border-color-light;
 		border-bottom: 1px solid $border-color-light;
+
+		@include media-breakpoint-down('sm') {
+			width: 16rem;
+
+			& .product__img-container {
+				height: 21rem;
+			}
+		}
 	}
 
 	.scrolling-carousel__item:last-child &__item {

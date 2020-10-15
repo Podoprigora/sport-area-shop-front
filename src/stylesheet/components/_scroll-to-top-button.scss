@@ -9,6 +9,11 @@
 		right: 4rem;
 	}
 
+	@include media-breakpoint-down('sm') {
+		bottom: $container-spacing-sm-x;
+		right: $container-spacing-sm-x;
+	}
+
 	& {
 		display: flex;
 		justify-content: center;

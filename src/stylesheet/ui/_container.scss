@@ -1,6 +1,10 @@
 .container {
 	width: 100%;
 	max-width: $container-max-width;
-	padding: $container-padding;
+	padding: 0 $container-spacing-x;
 	margin: 0 auto;
+
+	@include media-breakpoint-down('sm') {
+		padding: 0 $container-spacing-sm-x;
+	}
 }
