@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 
@@ -43,7 +43,6 @@ const ProductCommentEditorForm = React.forwardRef(function ProductCommentEditorF
                         name="rating"
                         label="Your rate of product"
                         labelAlign="top"
-                        // labelWidth={150}
                         required
                     />
                 </FormRow>
@@ -66,4 +65,4 @@ ProductCommentEditorForm.propTypes = {
     onSubmit: PropTypes.func
 };
 
-export default ProductCommentEditorForm;
+export default memo(ProductCommentEditorForm);

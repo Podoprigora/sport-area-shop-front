@@ -1,12 +1,6 @@
 .product-trade {
 	display: block;
-	padding: $spacing-scale-9;
 	width: 100%;
-
-	@include media-breakpoint-down('lg') {
-		padding-left: $spacing-scale-2;
-		padding-right: $spacing-scale-2;
-	}
 
 	&__section {
 		margin-bottom: $spacing-scale-10;
@@ -37,6 +31,7 @@
 
 	&__price {
 		font-size: 3.6rem;
+		margin: 0;
 	}
 
 	&__price-discount {

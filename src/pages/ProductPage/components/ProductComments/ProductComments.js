@@ -15,7 +15,7 @@ const ProductComments = (props) => {
 
     useEffect(() => {
         if (nodeRef.current) {
-            nodeRef.current.scrollIntoView();
+            // nodeRef.current.scrollIntoView();
         }
     }, []);
 

@@ -12,7 +12,7 @@ import ProductTradeTitle from './ProductTradeTitle';
 
 const ProductTrade = (props) => {
     return (
-        <div className="product-page__trade product-trade product">
+        <div className="product-trade product">
             <ProductTradeTitle className="product-trade__section" />
             <ProductTradePrice className="product-trade__section" />
             <ProductTradeSizes className="product-trade__section" />

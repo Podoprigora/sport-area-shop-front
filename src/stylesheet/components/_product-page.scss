@@ -4,27 +4,24 @@
 		flex-flow: row wrap;
 		justify-content: flex-start;
 		align-items: flex-start;
-
-		// @include media-breakpoint-down('lg') {
-		// 	background-color: $white;
-		// 	border: 1px solid $border-color-light;
-		// 	border-radius: $border-radius-lg;
-		// }
 	}
 
 	& &__aside {
 		position: sticky;
 		top: $spacing-scale-6;
 		flex: auto;
+		padding: $spacing-scale-9;
 		max-width: 38rem;
-		min-height: 20rem;
+		min-height: 4rem;
 
 		@include media-breakpoint-down('lg') {
 			position: relative;
 			top: 0;
 			width: 100%;
 			max-width: 100%;
+			min-height: 0;
 			margin: 0;
+			padding: 0;
 			margin-bottom: $spacing-scale-6;
 			box-shadow: none;
 			order: 0;
@@ -33,10 +30,7 @@
 
 	& &__center {
 		flex: 1;
-		// background-color: $white;
 		min-height: 15rem;
-		// border-radius: $border-radius-lg;
-		// border: 1px solid $border-color-light;
 
 		@include media-breakpoint-down('lg') {
 			flex: auto;
@@ -44,5 +38,13 @@
 			border: 0;
 			order: 1;
 		}
+	}
+
+	&__header {
+		margin-bottom: $spacing-scale-12;
+	}
+
+	&__trade {
+		padding: $list-padding-y $list-item-padding-x;
 	}
 }
