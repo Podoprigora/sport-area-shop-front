@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
+import { useWindowManager } from '@ui/WindowManager';
 import Button from '@ui/Button';
-import SortIcon from '@svg-icons/material/SortIcon';
+import useEventCallback from '@ui/hooks/useEventCallback';
+import ProductCommentsSortByDropdown from './ProductCommentsSortByDropdown';
 
 const ProductCommentsTbar = (props) => {
+    const { openWindow } = useWindowManager();
+
+    const handleAddCommentClick = useEventCallback((ev) => {
+        openWindow('ProductCommentEditorWindow');
+    });
+
     return (
         <div className="tbar">
-            <Button plain arrow icon={SortIcon} disabled>
-                Sort By
-            </Button>
-            <Button primary style={{ marginLeft: 'auto' }}>
+            <ProductCommentsSortByDropdown style={{ minWidth: '14rem' }} />
+            <Button primary style={{ marginLeft: 'auto' }} onClick={handleAddCommentClick}>
                 Add Comment
             </Button>
         </div>

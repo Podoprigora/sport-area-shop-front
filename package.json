@@ -97,6 +97,7 @@
         "redux-logger": "^3.0.6",
         "reselect": "^4.0.0",
         "scroll": "^3.0.1",
+        "timeago.js": "^4.0.2",
         "yup": "^0.29.3"
     }
 }

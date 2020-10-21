@@ -24,7 +24,7 @@ const HelperText = (props) => {
 };
 
 HelperText.propTypes = {
-    children: PropTypes.string,
+    children: PropTypes.node,
     error: PropTypes.bool,
     className: PropTypes.string
 };

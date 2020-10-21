@@ -57,20 +57,6 @@ const CatalogGrid = (props) => {
     }, [loading, toggleMask]);
 
     useEffect(() => {
-        if (loadingMoreLoading) {
-            const scrollTop = document.documentElement.scrollTop;
-
-            return () => {
-                document.documentElement.scrollTo({
-                    top: scrollTop
-                });
-            };
-        }
-
-        return undefined;
-    }, [loadingMoreLoading]);
-
-    useEffect(() => {
         if (loading && !loadingMoreLoading) {
             return () => {
                 document.documentElement.scrollTo({

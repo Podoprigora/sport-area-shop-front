@@ -104,7 +104,7 @@ const WisthlistTbar = (props) => {
                 value={sortBy}
                 disabled={!numOfItems}
                 onChange={handleSortByChange}
-                style={{ marginLeft: 'auto' }}
+                style={{ marginLeft: 'auto', minWidth: '18rem' }}
             />
         </div>
     );

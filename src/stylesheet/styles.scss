@@ -52,6 +52,7 @@
 @import "./vendors/vendors";
 
 @import "./abstracts/component-variables";
+@import "./components/comment";
 @import "./components/header";
 @import "./components/category-menu";
 @import "./components/mobile-category-menu";
@@ -66,6 +67,7 @@
 @import "./components/product-trade";
 @import "./components/product-gallery";
 @import "./components/product-features";
+@import "./components/product-comments-list";
 @import "./components/skeletons";
 @import "./components/loading-screen";
 @import "./components/filters-list";

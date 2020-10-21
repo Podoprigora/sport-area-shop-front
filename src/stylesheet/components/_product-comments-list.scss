@@ -1,0 +1,19 @@
+.product-comments-list {
+	&__item {
+		display: block;
+	}
+
+	&__show-replies-btn {
+		margin-left: -$spacing-scale-2;
+	}
+
+	&__load-more {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&__replies-list {
+		margin-left: $spacing-scale-8;
+	}
+}

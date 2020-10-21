@@ -41,7 +41,7 @@ const CatalogTbar = (props) => {
             </Hidden>
             <CatalogSortByDropdown
                 value={sortBy}
-                className="u-margin-l-auto"
+                style={{ minWidth: '18rem', marginLeft: 'auto' }}
                 onChange={handleSortChange}
             />
         </div>

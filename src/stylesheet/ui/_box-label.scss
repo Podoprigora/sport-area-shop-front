@@ -40,6 +40,12 @@
 		}
 	}
 
+	&--condensed {
+		#{$this}__text {
+			padding: 0;
+		}
+	}
+
 	&__content {
 		display: flex;
 		justify-content: center;

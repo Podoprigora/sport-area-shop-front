@@ -20,6 +20,7 @@ const Button = React.forwardRef(function Button(props, ref) {
         className,
         centered,
         disabled,
+        link,
         plain,
         transparent,
         autoWidth,
@@ -97,6 +98,7 @@ const Button = React.forwardRef(function Button(props, ref) {
                 {
                     'btn--primary': primary,
                     'btn--plain': plain,
+                    'btn--link': link,
                     'btn--transparent': transparent,
                     'btn--centered': centered,
                     'btn--focus-visible': focusVisible,
@@ -143,6 +145,7 @@ Button.propTypes = {
     arrow: PropTypes.bool,
     slim: PropTypes.bool,
     truncate: PropTypes.bool,
+    link: PropTypes.bool,
     arrowSize: PropTypes.oneOf(['small', 'medium', 'large', null]),
     style: PropTypes.object,
     onFocus: PropTypes.func,

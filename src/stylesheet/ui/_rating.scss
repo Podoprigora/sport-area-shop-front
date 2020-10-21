@@ -58,13 +58,10 @@
 	&__icon {
 		background-image: url('../resources/images/stargrade.svg');
 		background-size: cover;
-
-		// color: $rating-icon-color;
 		transition: transform .15s ease-out;
 
 		&--selected {
 			background-image: url('../resources/images/stargrade-selected.svg');
-			// color: $rating-icon-selected-color;
 		}
 	}
 }

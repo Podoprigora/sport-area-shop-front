@@ -80,7 +80,8 @@
 			border-color: $btn-primary-bg-color;
 		}
 
-		&#{$this}--transparent {
+		&#{$this}--transparent,
+		&#{$this}--link {
 			color: $color-primary;
 
 			#{$this}__icon {
@@ -112,8 +113,26 @@
 		}
 	}
 
+	&--link {
+		background-color: transparent;
+		padding: 0;
+		min-width: 0;
+		border: none;
+		box-shadow: none;
+
+		&:hover:not(#{$this}--disabled):not(#{$this}--loading) {
+			background-color: transparent;
+			color: $link-hover-color;
+		}
+
+		&#{$this}--focus-visible {
+			box-shadow: $btn-primary-focus-box-shadow;
+		}
+	}
+
 	&--small {
 		font-size: $btn-small-font-size;
+		min-height: $btn-small-min-height;
 	}
 
 	&--medium {

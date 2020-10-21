@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 const BoxLabel = React.forwardRef(function BoxLabel(props, ref) {
-    const { children, className, label, labelAlign, disabled, ...other } = props;
+    const { children, className, label, labelAlign, disabled, condensed, ...other } = props;
 
     const childElement = React.cloneElement(children, {
         disabled
@@ -13,7 +13,8 @@ const BoxLabel = React.forwardRef(function BoxLabel(props, ref) {
         <label
             className={classNames('box-label', className, {
                 [`box-label--align-${labelAlign}`]: labelAlign,
-                'box-label--disabled': disabled
+                'box-label--disabled': disabled,
+                'box-label--condensed': condensed
             })}
             ref={ref}
             {...other}
@@ -27,9 +28,10 @@ const BoxLabel = React.forwardRef(function BoxLabel(props, ref) {
 BoxLabel.propTypes = {
     children: PropTypes.element.isRequired,
     className: PropTypes.string,
-    label: PropTypes.string,
+    label: PropTypes.node,
     labelAlign: PropTypes.oneOf(['left', 'right', 'top', 'bottom']),
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    condensed: PropTypes.bool
 };
 
 export default BoxLabel;

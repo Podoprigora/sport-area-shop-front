@@ -7,6 +7,8 @@ import MessageSquareIcon from '@svg-icons/feather/MessageSquareIcon';
 import data from '@remote/json/product-comments.json';
 import ProductCommentsTbar from './ProductCommentsTbar';
 import ProductCommentsList from './ProductCommentsList';
+import ProductCommentsMask from './ProductCommentsMask';
+import ProductCommentEditorWindow from './ProductCommentEditorWindow';
 
 const ProductComments = (props) => {
     const nodeRef = useRef(null);
@@ -17,16 +19,22 @@ const ProductComments = (props) => {
         }
     }, []);
 
+    const items = data.filter((item) => item.parentId === 0);
+
     return (
-        <Panel ref={nodeRef}>
-            <PanelHeader title="Comments" icon={MessageSquareIcon}>
-                <span className="u-text-large">(10)</span>
-            </PanelHeader>
-            <PanelBody>
-                <ProductCommentsTbar />
-                <ProductCommentsList className="paper paper--outlined" />
-            </PanelBody>
-        </Panel>
+        <>
+            <Panel ref={nodeRef}>
+                <PanelHeader title="Comments" icon={MessageSquareIcon}>
+                    <span className="u-text-large">(10)</span>
+                </PanelHeader>
+                <PanelBody style={{ position: 'relative' }}>
+                    <ProductCommentsMask />
+                    <ProductCommentsTbar />
+                    <ProductCommentsList items={items} />
+                </PanelBody>
+            </Panel>
+            <ProductCommentEditorWindow />
+        </>
     );
 };
 

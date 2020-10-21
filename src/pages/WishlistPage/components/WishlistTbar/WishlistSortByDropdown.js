@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useRef, useState } from 'react';
+import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -15,53 +15,53 @@ const options = [
     { id: 'price-down', title: 'Price down' }
 ];
 
+const defaultDisplayValue = 'Sort by';
+
 const WishlistSortByDropdown = (props) => {
-    const { value, defaultValue = '', style, onChange, ...other } = props;
+    const { value, defaultValue = '', onChange, ...other } = props;
 
     const [selectedState, setSelectedState] = useControlled(value, defaultValue);
 
-    const handleItemClick = (id) => (ev) => {
-        setSelectedState(id);
+    const menuItems = useMemo(() => {
+        return options.map((item) => {
+            const { id, title } = item;
+            const selected = id === selectedState;
 
-        if (onChange) {
-            onChange(ev, id);
+            const handleItemClick = (ev) => {
+                setSelectedState(id);
+
+                if (onChange) {
+                    onChange(ev, id);
+                }
+            };
+
+            return (
+                <ListItem button key={id} value={id} selected={selected} onClick={handleItemClick}>
+                    <ListItemText flex>{title}</ListItemText>
+                    {selected && (
+                        <ListItemIcon>
+                            <CheckIcon size="small" />
+                        </ListItemIcon>
+                    )}
+                </ListItem>
+            );
+        });
+    }, [selectedState, setSelectedState, onChange]);
+
+    const displayValue = useMemo(() => {
+        if (!selectedState) {
+            return defaultDisplayValue;
         }
-    };
 
-    const menuItems = options.map((item) => {
-        const { id, title } = item;
-        const selected = id === selectedState;
+        return options.reduce((result, item) => {
+            const { id, title } = item;
 
-        return (
-            <ListItem button key={id} value={id} selected={selected} onClick={handleItemClick(id)}>
-                <ListItemText flex>{title}</ListItemText>
-                {selected && (
-                    <ListItemIcon>
-                        <CheckIcon size="small" />
-                    </ListItemIcon>
-                )}
-            </ListItem>
-        );
-    });
-
-    const defaultDisplayValue = 'Sort by';
-    const displayValue = selectedState
-        ? options.reduce((result, item) => {
-              const { id, title } = item;
-
-              return id === selectedState ? title : result;
-          }, defaultDisplayValue)
-        : defaultDisplayValue;
+            return id === selectedState ? title : result;
+        }, defaultDisplayValue);
+    }, [selectedState]);
 
     return (
-        <ButtonMenu
-            text={displayValue}
-            plain
-            arrow
-            icon={SortIcon}
-            style={{ minWidth: '18rem', ...style }}
-            {...other}
-        >
+        <ButtonMenu text={displayValue} plain arrow icon={SortIcon} {...other}>
             <Menu autoWidth>{menuItems}</Menu>
         </ButtonMenu>
     );
@@ -70,7 +70,6 @@ const WishlistSortByDropdown = (props) => {
 WishlistSortByDropdown.propTypes = {
     value: PropTypes.string,
     defaultValue: PropTypes.string,
-    style: PropTypes.object,
     onChange: PropTypes.func
 };
 

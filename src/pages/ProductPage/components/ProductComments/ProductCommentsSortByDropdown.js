@@ -1,33 +1,40 @@
-import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
+import React, { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 import useControlled from '@ui/hooks/useControlled';
-import { ListItem, ListItemText, ListItemIcon } from '@ui/List';
+import { ListItem, ListItemIcon, ListItemText } from '@ui/List';
 import CheckIcon from '@svg-icons/feather/CheckIcon';
-import Menu from '@ui/Menu';
-import SortIcon from '@svg-icons/material/SortIcon';
 import ButtonMenu from '@ui/ButtonMenu';
+import SortIcon from '@svg-icons/material/SortIcon';
+import Menu from '@ui/Menu';
 
 const options = [
-    { id: 'relevance', name: 'Relevance' },
-    { id: 'price-up', name: 'Price up' },
-    { id: 'price-down', name: 'Price down' },
-    { id: 'brand-new', name: 'Brand new' },
-    { id: 'top-seller', name: 'Top seller' },
-    { id: 'name', name: 'Name' }
+    { id: 'top', title: 'Top comments' },
+    { id: 'newest', title: 'Newest first' }
 ];
 
-const defaultDisplayValue = 'Sort by';
+const defaultDisplayValue = 'Sort By';
 
-const CatalogSortByDropdown = (props) => {
+const ProductCommentsSortByDropdown = (props) => {
     const { value, defaultValue = '', onChange, ...other } = props;
 
     const [selectedState, setSelectedState] = useControlled(value, defaultValue);
 
+    const displayValue = useMemo(() => {
+        if (!selectedState) {
+            return defaultDisplayValue;
+        }
+
+        return options.reduce((result, item) => {
+            const { id, title } = item;
+
+            return id === selectedState ? title : result;
+        }, defaultDisplayValue);
+    }, [selectedState]);
+
     const menuItems = useMemo(() => {
         return options.map((item) => {
-            const { id, name } = item;
+            const { id, title } = item;
             const selected = id === selectedState;
 
             const handleItemClick = (ev) => {
@@ -39,8 +46,8 @@ const CatalogSortByDropdown = (props) => {
             };
 
             return (
-                <ListItem button key={id} value={id} selected={selected} onClick={handleItemClick}>
-                    <ListItemText flex>{name}</ListItemText>
+                <ListItem key={id} button selected={selected} onClick={handleItemClick}>
+                    <ListItemText flex>{title}</ListItemText>
                     {selected && (
                         <ListItemIcon>
                             <CheckIcon size="small" />
@@ -51,18 +58,6 @@ const CatalogSortByDropdown = (props) => {
         });
     }, [selectedState, setSelectedState, onChange]);
 
-    const displayValue = useMemo(() => {
-        if (!selectedState) {
-            return defaultDisplayValue;
-        }
-
-        return options.reduce((result, item) => {
-            const { id, name } = item;
-
-            return id === selectedState ? name : result;
-        }, defaultDisplayValue);
-    }, [selectedState]);
-
     return (
         <ButtonMenu text={displayValue} plain arrow icon={SortIcon} {...other}>
             <Menu autoWidth>{menuItems}</Menu>
@@ -70,10 +65,11 @@ const CatalogSortByDropdown = (props) => {
     );
 };
 
-CatalogSortByDropdown.propTypes = {
+ProductCommentsSortByDropdown.propTypes = {
     value: PropTypes.string,
     defaultValue: PropTypes.string,
+    style: PropTypes.object,
     onChange: PropTypes.func
 };
 
-export default memo(CatalogSortByDropdown);
+export default memo(ProductCommentsSortByDropdown);

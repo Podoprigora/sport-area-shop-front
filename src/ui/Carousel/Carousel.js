@@ -5,12 +5,17 @@ import classNames from 'classnames';
 import throttle from 'lodash/throttle';
 
 import useControlled from '@ui/hooks/useControlled';
+import usePrevious from '@ui/hooks/usePrevious';
 import useEventCallback from '@ui/hooks/useEventCallback';
 import useEventListener from '@ui/hooks/useEventListener';
 import useForkRef from '@ui/hooks/useForkRef';
 import useMountedRef from '@ui/hooks/useMountedRef';
 import CarouselControl from './CarouselControl';
 import CarouselIndicators from './CarouselIndicators';
+
+function getAnimationDirectionByIndex(currentIndex = 0, previousIndex = 0) {
+    return currentIndex >= previousIndex ? 'left' : 'right';
+}
 
 const Carousel = React.forwardRef(function Carousel(props, ref) {
     const {
@@ -30,6 +35,7 @@ const Carousel = React.forwardRef(function Carousel(props, ref) {
     const [isMouseEntered, setIsMouseEntered] = useState(false);
 
     const [activeIndex, setActiveIndex] = useControlled(activeIndexProp, 0);
+    const prevActiveIndex = usePrevious(activeIndex);
 
     const animDirectionRef = useRef('left');
     const mouseEnterTimerIdRef = useRef(null);
@@ -43,6 +49,10 @@ const Carousel = React.forwardRef(function Carousel(props, ref) {
 
     const itemsLengthRef = useRef(0);
     itemsLengthRef.current = React.Children.count(children);
+
+    if (typeof activeIndexProp !== 'undefined') {
+        animDirectionRef.current = getAnimationDirectionByIndex(activeIndexProp, prevActiveIndex);
+    }
 
     const doChange = useEventCallback((ev, value) => {
         if (onChange) {
@@ -149,7 +159,7 @@ const Carousel = React.forwardRef(function Carousel(props, ref) {
     });
 
     const handleIndicatorSelect = useEventCallback((ev, index) => {
-        animDirectionRef.current = index >= activeIndex ? 'left' : 'right';
+        animDirectionRef.current = getAnimationDirectionByIndex(index, activeIndex);
 
         setActiveIndex(index);
         doChange(ev, index);

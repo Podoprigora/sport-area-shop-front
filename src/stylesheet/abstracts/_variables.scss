@@ -44,7 +44,11 @@ $spacing-scale-7: $spacing * 1.75; // 1.4rem
 $spacing-scale-8: $spacing * 2; // 1.6rem
 $spacing-scale-9: $spacing * 2.25; // 1.8rem
 $spacing-scale-10: $spacing * 2.5; // 2rem
+$spacing-scale-11: $spacing * 2.75; // 2.2rem
 $spacing-scale-12: $spacing * 3; // 2.4rem
+$spacing-scale-13: $spacing * 3.25; // 2.6rem
+$spacing-scale-14: $spacing * 3.5; // 2.8rem
+$spacing-scale-15: $spacing * 3.75; // 3rem
 $spacing-scale-18: $spacing * 4.5; // 3.6rem
 $spacing-scale-24: $spacing * 6; // 4.8rem
 
@@ -59,7 +63,12 @@ $spacing-scale: (
 	"7": $spacing-scale-7,
 	"8": $spacing-scale-8,
 	"9": $spacing-scale-9,
+	"10": $spacing-scale-10,
+	"11": $spacing-scale-11,
 	"12": $spacing-scale-12,
+	"13": $spacing-scale-13,
+	"14": $spacing-scale-14,
+	"15": $spacing-scale-15,
 	"18": $spacing-scale-18,
 	"24": $spacing-scale-24
 );
@@ -115,9 +124,11 @@ $border-radius-lg: .5rem;
 $border-radius: $border-radius-lg;
 
 // Box shadow
-$box-shadow-sm: 0 2px 1px -1px rgba($black, 0.12), 0 1px 1px 0 rgba($black, 0.05), 0 1px 3px 0 rgba($black, 0.122);
-$box-shadow-md: 0 2px 1px -1px rgba($black, 0.12), 0 1px 1px 0 rgba($black, 0.1), 0 2px 4px 0 rgba($black, .2);
-$box-shadow-lg: 0 4px 16px -1px rgba(0, 0, 0, 0.25);
+$box-shadow-sm: 0 .2rem .1rem -.1rem rgba($black, 0.12), 0 .1rem .1rem 0 rgba($black, 0.05),
+	0 .1rem .3rem 0 rgba($black, 0.122);
+$box-shadow-md: 0 .2rem .1rem -.1rem rgba($black, 0.12), 0 .1rem .1rem 0 rgba($black, 0.1),
+	0 .2rem .4rem 0 rgba($black, .2);
+$box-shadow-lg: 0 .4rem 1.6rem -.1rem rgba(0, 0, 0, 0.25);
 $box-shadow: $box-shadow-md;
 
 // Icon
@@ -142,18 +153,19 @@ $btn-font-weight: 500;
 $btn-text-transform: none;
 $btn-text-letter-spacing: .4px;
 $btn-box-shadow: $box-shadow-sm;
-$btn-focus-box-shadow: 0 0px 0px 1px rgba($color-primary, .4), 0 0px 0px 4px $color-active;
+$btn-focus-box-shadow: 0 0px 0px .1rem rgba($color-primary, .4), 0 0px 0px .4rem $color-active;
 $btn-padding-x: $spacing-scale-6;
 $btn-padding-y: 0;
 $btn-border-width: .2rem;
 $btn-border-radius: $border-radius-lg;
 $btn-min-height: 3.6rem;
+$btn-small-min-height: 3.1rem;
 $btn-min-width: 8.4rem;
 $btn-disabled-opacity: .4;
 
 $btn-primary-bg-color: $color-primary;
 $btn-primary-color: $white;
-$btn-primary-focus-box-shadow: 0 0px 0px 1px rgba($white, .1), 0 0px 0px 4px $color-active;
+$btn-primary-focus-box-shadow: 0 0px 0px .1rem rgba($white, .1), 0 0px 0px .4rem $color-active;
 
 // Icon button
 $icon-btn-hover-bg-color: $white;
@@ -169,7 +181,7 @@ $badge-size: 2rem;
 $badge-padding: 0 $spacing-scale-3;
 $badge-color: $white;
 $badge-bg-color: $color-secondary;
-$badge-box-shadow: 0 0 2px 2px $body-bg-color;
+$badge-box-shadow: 0 0 .2rem .2rem $body-bg-color;
 $badge-font-size: $font-size-small;
 
 // Tooltip
@@ -281,9 +293,9 @@ $cell-list-item-painted-box-shadow: 0 0 0 1px $border-color-dark;
 $cell-list-item-selected-bg-color: lighten($color-primary, 51%);
 $cell-list-item-selected-box-shadow: 0 0 0 1px $color-primary;
 $cell-list-item-hover-font-weight: 500;
-$cell-list-item-hover-box-shadow: 0 0 0 2px $color-primary;
+$cell-list-item-hover-box-shadow: 0 0 0 .2rem $color-primary;
 $cell-list-item-focus-font-weight: 500;
-$cell-list-item-focus-box-shadow: 0 0 0 2px $color-primary;
+$cell-list-item-focus-box-shadow: 0 0 0 .2rem $color-primary;
 
 // Alerts
 $alert-error-color: $red;
@@ -317,8 +329,8 @@ $paper-box-shadow: $box-shadow-sm;
 $expanded-panel-border-color: $border-color-light;
 $expanded-panel-border-width: 0px 0 1px 0;
 $expanded-panel-header-hover-color: $color-primary;
-$expanded-panel-header-focus-box-shadow: inset 0 0px 0px 3px $color-active,
-	inset 0 0px 0px 4px rgba($color-primary, 0.5);
+$expanded-panel-header-focus-box-shadow: inset 0 0px 0px .3rem $color-active,
+	inset 0 0px 0px .4rem rgba($color-primary, 0.5);
 $expanded-panel-title-padding-x: 0;
 $expanded-panel-title-padding-y: $spacing-scale-7;
 $expanded-panel-body-padding-x: 0;
