@@ -21,11 +21,11 @@ const TopsellerCarouselItem = (props) => {
             <ProductActionAddToWishlist id={id} />
             <ProductFlag discount={discount} />
 
-            <ProductLink>
+            <ProductLink id={id}>
                 <ProductImage image={image} name={name} />
             </ProductLink>
 
-            <ProductLink>
+            <ProductLink id={id}>
                 <ProductTitle brand={brand} name={name} />
             </ProductLink>
 

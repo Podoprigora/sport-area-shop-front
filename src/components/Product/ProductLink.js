@@ -1,24 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import useEventCallback from '@ui/hooks/useEventCallback';
+import { Link } from 'react-router-dom';
 
 const ProductLink = (props) => {
-    const { children, className, ...other } = props;
+    const { children, id, anchorToComments, className, ...other } = props;
 
-    const handleClick = useEventCallback((ev) => {
-        ev.preventDefault();
-    });
+    const to = {};
+
+    if (id) {
+        to.pathname = `/product/${id}`;
+    }
+
+    if (anchorToComments) {
+        to.state = { ...to.state, anchorToComments: true };
+    }
 
     return (
-        <a href="#" className={classNames('product__link', className)} onClick={handleClick}>
+        <Link to={to} className={classNames('product__link', className)}>
             {children}
-        </a>
+        </Link>
     );
 };
 
 ProductLink.propTypes = {
     children: PropTypes.node.isRequired,
+    id: PropTypes.number,
+    anchorToComments: PropTypes.bool,
     className: PropTypes.string
 };
 

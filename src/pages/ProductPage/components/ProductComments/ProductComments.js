@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
 
 import Panel, { PanelHeader, PanelBody } from '@ui/Panel';
 import MessageSquareIcon from '@svg-icons/feather/MessageSquareIcon';
@@ -11,13 +12,16 @@ import ProductCommentsMask from './ProductCommentsMask';
 import ProductCommentEditorWindow from './ProductCommentEditorWindow';
 
 const ProductComments = (props) => {
+    const location = useLocation();
     const nodeRef = useRef(null);
 
     useEffect(() => {
-        if (nodeRef.current) {
-            // nodeRef.current.scrollIntoView();
+        if (nodeRef.current && location?.state?.anchorToComments) {
+            nodeRef.current.scrollIntoView({
+                behavior: 'smooth'
+            });
         }
-    }, []);
+    }, [location]);
 
     const items = data.filter((item) => item.parentId === 0);
 

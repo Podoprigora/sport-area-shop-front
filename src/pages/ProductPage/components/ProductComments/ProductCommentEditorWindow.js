@@ -18,7 +18,7 @@ const ProductCommentEditorWindow = (props) => {
     });
 
     const handleSave = useEventCallback(() => {
-        if (formikRef.current && formikRef.current.handleSubmit) {
+        if (formikRef.current?.handleSubmit) {
             formikRef.current.handleSubmit();
         }
     });

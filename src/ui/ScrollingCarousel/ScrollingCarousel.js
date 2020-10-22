@@ -30,6 +30,10 @@ const ScrollingCarousel = ({
     // Handlers
 
     const updateDisplayControlsState = useEventCallback(() => {
+        if (!scrollerNode.current) {
+            return;
+        }
+
         const { clientWidth, scrollWidth, scrollLeft } = scrollerNode.current;
         const displayControlPrev = scrollLeft > 0;
         const displayControlNext = clientWidth + scrollLeft < scrollWidth;

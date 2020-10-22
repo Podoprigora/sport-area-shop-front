@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 
+import { ReactRouterScrollToTop } from '@ui/ReactRouter';
 import Header from '@components/Header';
 import Main from '@components/Main';
 import Footer from '@components/Footer';
@@ -28,6 +29,7 @@ const PagesView = (props) => {
 
     return (
         <>
+            <ReactRouterScrollToTop />
             <ScreenMask />
             <Header />
             <Main>
