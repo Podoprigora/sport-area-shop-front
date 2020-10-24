@@ -1,0 +1,115 @@
+{
+    "id": 1000,
+    "brand": "NAKETANO",
+    "name": "Family Biz - Hooded Jacket for Women - Grey",
+    "oldPrice": 74.95,
+    "price": 67.47,
+    "currency": "EUR",
+    "sizes": [
+        {
+            "id": 2001,
+            "name": "XS",
+            "outOfStock": false
+        },
+        {
+            "id": 2002,
+            "name": "S",
+            "outOfStock": false
+        },
+        {
+            "id": 2003,
+            "name": "M",
+            "outOfStock": false
+        },
+        {
+            "id": 2004,
+            "name": "L",
+            "outOfStock": true
+        },
+        {
+            "id": 2005,
+            "name": "XL",
+            "outOfStock": true
+        }
+    ],
+    "images": [
+        "remote/images/product/naketano-family-biz-hooded-jacket-women-grey.jpg",
+        "remote/images/product/naketano-family-biz-hooded-jacket-women-grey2.jpg",
+        "remote/images/product/naketano-family-biz-hooded-jacket-women-grey3.jpg"
+    ],
+    "thumbnails": [
+        "remote/images/product/thumbnails/naketano-family-biz-hooded-jacket-women-grey.jpg",
+        "remote/images/product/thumbnails/naketano-family-biz-hooded-jacket-women-grey2.jpg",
+        "remote/images/product/thumbnails/naketano-family-biz-hooded-jacket-women-grey3.jpg"
+    ],
+    "features": {
+        "items": [
+            "Regular fit",
+            "Large hood, Double-layer hood, Drawstring hood",
+            "High collar",
+            "Asymmetric zip, Zip with a logo zipper pull",
+            "Side pockets",
+            "Ribbed sleeve cuffs",
+            "Ribbed waistband",
+            "Mottled look",
+            "Logo emblem, Logo patch",
+            "Sweat material, Warming material"
+        ],
+        "material": "Fabric: 65% Cotton, 35% Polyester",
+        "modelSize": "Size: S, Breast x waist x hips: 82 x 60 x 88 cm, Height: 172 cm",
+        "manufacturerColor": "grey melange",
+        "washingInstructions": "Machine washable at 30°C, Do not tumble dry, Iron at a low temperature",
+        "containsNon-textilePartsOfAnimalOrigin": "No"
+    },
+    "comments": {
+        "items": [
+            {
+                "id": 1011,
+                "parentId": 0,
+                "username": "Demo Customer",
+                "text": "Really like this jacket I purchased the XL because I wanted an oversize jacket and it is definitely that. It was actually too big at first and fit more like a dress. But after washing it and partially drying it (I put it in the dryer until it was damp and then hung it on a drying rack) it is a good length to wear with boots and leggings For reference I am 5'4\" tall, around 155 lbs and a size 12. I purchased the grey in large and I think it will fit better initially but I will be careful not to put it into the dryer. The only reason I didnt give it 5 starts is because I expected the ribbed bottom to go all the way around and it doesn't - the cable knit is to the bottom in the back. Will also wear with jeans and flats.",
+                "date": "2020-10-16",
+                "rating": 5,
+                "likes": 2,
+                "dislikes": 0
+            },
+            {
+                "id": 1012,
+                "parentId": 0,
+                "username": "KB",
+                "text": "As usual, excellent Naketano quality! The sweater is cozy, soft and warm, but by no means bulky. At reg. Size 40-42 fits L perfectly.",
+                "date": "2020-10-10",
+                "rating": 5
+            },
+            {
+                "id": 1009,
+                "parentId": 0,
+                "username": "AW",
+                "text": "The jacket is very nice, super comfortable and a nice quality. Based on the reviews, I ordered it one size larger. I usually wear S or size 36, here I ordered M and it fits very well. Especially if you still want to wear something under your jacket. Maybe I will order it in a different color",
+                "date": "2020-10-08",
+                "rating": 3
+            },
+            {
+                "id": 1008,
+                "parentId": 0,
+                "username": "Cassowary",
+                "text": "Really a very nice sweater from Naketano. The color is really great, well done, really nice and cozy with the huge collar and very good quality. I was also very happy about the arrival of the sweater. Tried on - it was too tight for me - unfortunately I have to deduct a star because the size for XXL is quite small. Pity! Since I am stronger and want to dress fashionably, it is always very difficult to get large sizes, and if so, it is usually sold out very quickly. It would be nice if there were more in larger sizes. Otherwise I can highly recommend the sweater!",
+                "date": "2020-08-29",
+                "rating": 4
+            },
+            {
+                "id": 1001,
+                "parentId": 0,
+                "username": "Solneeshka",
+                "text": "Love the jacket. It's very comfy, color doesn't run, great for a snuggly feel. I'm giving it 4 stars because it shrank a ton after I washed it the first time, and again after I washed it the second time. I had bought a size up so it would fit big, I had to roll the sleeves once at the wrist, which is exactly what I was going for (like the fit in the picture). Now, the sleeves come up above my wrists a bit. Just be aware, it will shrink. Other than that, love it and foresee wearing it a ton this winter!",
+                "date": "2020-07-08",
+                "rating": 4,
+                "likes": 1,
+                "dislikes": 1,
+                "userLiked": 1
+            }
+        ],
+        "total": 8,
+        "totalRating": 4
+    }
+}

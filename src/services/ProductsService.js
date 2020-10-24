@@ -1,7 +1,8 @@
-import brandnewData from '@remote/json/brandnew.json';
-import topsellerData from '@remote/json/topseller.json';
-import productsData from '@remote/json/products.json';
-import productFilters from '@remote/json/product-filters.json';
+import brandnewData from '@remote/json/brandnew';
+import topsellerData from '@remote/json/topseller';
+import productsData from '@remote/json/products';
+import productFilters from '@remote/json/product-filters';
+import product from '@remote/json/product';
 
 import { suffleArray } from '@utils/convertingData';
 import fakeRequest from './fakeRequest';
@@ -43,5 +44,9 @@ export default class ProductsService {
 
     static async fetchFilters() {
         return fakeRequest(productFilters, { success: true, delay: 1500 });
+    }
+
+    static async fetchOne(id) {
+        return fakeRequest(product, { success: true, delay: 1000 });
     }
 }

@@ -52,7 +52,7 @@
     },
     {
         "id": 1005,
-        "parentId": 1000,
+        "parentId": 1004,
         "username": "Renee",
         "text": "I have already worn it a few times and did not want to take it off.",
         "date": "2020-07-10"
@@ -63,5 +63,29 @@
         "username": "Jessielead63",
         "text": "This is currently my favorite jacket.",
         "date": "2020-07-10"
+    },
+    {
+        "id": 1008,
+        "parentId": 0,
+        "username": "Cassowary",
+        "text": "Really a very nice sweater from Naketano. The color is really great, well done, really nice and cozy with the huge collar and very good quality. I was also very happy about the arrival of the sweater. Tried on - it was too tight for me - unfortunately I have to deduct a star because the size for XXL is quite small. Pity! Since I am stronger and want to dress fashionably, it is always very difficult to get large sizes, and if so, it is usually sold out very quickly. It would be nice if there were more in larger sizes. Otherwise I can highly recommend the sweater!",
+        "date": "2020-08-29",
+        "rating": 4
+    },
+    {
+        "id": 1009,
+        "parentId": 0,
+        "username": "AW",
+        "text": "The jacket is very nice, super comfortable and a nice quality. Based on the reviews, I ordered it one size larger. I usually wear S or size 36, here I ordered M and it fits very well. Especially if you still want to wear something under your jacket. Maybe I will order it in a different color",
+        "date": "2020-10-08",
+        "rating": 3
+    },
+    {
+        "id": 1010,
+        "parentId": 0,
+        "username": "KB",
+        "text": "As usual, excellent Naketano quality! The sweater is cozy, soft and warm, but by no means bulky. At reg. Size 40-42 fits L perfectly.",
+        "date": "2020-10-10",
+        "rating": 5
     }
 ]

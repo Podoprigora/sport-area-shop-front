@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Hidden from '@ui/Hidden';
+import ProductSkeleton from '@components/Skeletons/ProductSkeleton';
 import { Page, PageAside, PageContent, PageSection } from '@components/Page';
 import ProductTrade from './components/ProductTrade';
 import ProductGallery from './components/ProductGallery';
@@ -17,6 +18,16 @@ import ProductTradeActionAddToWishlist from './components/ProductTrade/ProductTr
 import ProductTradeDeliveryList from './components/ProductTrade/ProductTradeDeliveryList';
 
 const ProductPageView = (props) => {
+    const { loading } = props;
+
+    if (loading) {
+        return (
+            <div className="paper paper--outlined u-padding-6">
+                <ProductSkeleton />
+            </div>
+        );
+    }
+
     return (
         <Page className="product-page">
             <PageSection className="product-page__main-section">
@@ -59,6 +70,8 @@ const ProductPageView = (props) => {
     );
 };
 
-ProductPageView.propTypes = {};
+ProductPageView.propTypes = {
+    loading: PropTypes.bool
+};
 
 export default ProductPageView;
