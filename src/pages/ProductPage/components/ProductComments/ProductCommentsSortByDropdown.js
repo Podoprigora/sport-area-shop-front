@@ -16,7 +16,7 @@ const options = [
 const defaultDisplayValue = 'Sort By';
 
 const ProductCommentsSortByDropdown = (props) => {
-    const { value, defaultValue = '', onChange, ...other } = props;
+    const { value, defaultValue = '', onChange } = props;
 
     const [selectedState, setSelectedState] = useControlled(value, defaultValue);
 
@@ -59,7 +59,7 @@ const ProductCommentsSortByDropdown = (props) => {
     }, [selectedState, setSelectedState, onChange]);
 
     return (
-        <ButtonMenu text={displayValue} plain arrow icon={SortIcon} {...other}>
+        <ButtonMenu text={displayValue} plain arrow icon={SortIcon} style={{ minWidth: '14rem' }}>
             <Menu autoWidth>{menuItems}</Menu>
         </ButtonMenu>
     );
@@ -68,7 +68,6 @@ const ProductCommentsSortByDropdown = (props) => {
 ProductCommentsSortByDropdown.propTypes = {
     value: PropTypes.string,
     defaultValue: PropTypes.string,
-    style: PropTypes.object,
     onChange: PropTypes.func
 };
 

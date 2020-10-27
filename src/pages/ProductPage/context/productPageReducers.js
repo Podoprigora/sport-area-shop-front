@@ -1,25 +1,39 @@
+import produce, { current } from 'immer';
 import reducerFactory from '@ui/utils/reducerFactory';
-
-export const TOGGLE_LOADING = 'TOGGLE_LOADING';
-export const REQUEST_PRODUCT = 'REQUEST_PRODUCT';
-export const RECEIVE_PRODUCT = ' RECEIVE_PRODUCT';
 
 const defaultFeaturesState = {
     items: []
 };
 
-const defaultCommentsState = {
+const defaultCommentState = {
+    id: null,
+    parentId: null,
+    userId: null,
+    username: '',
+    text: '',
+    date: null,
+    rating: 0,
+    likes: 0,
+    userLiked: 0,
+    repliesCount: 0,
+    expandedReplies: false,
+    replies: []
+};
+
+export const defaultCommentsState = {
+    loading: false,
+    shouldRefetch: false,
     allIds: [],
     itemsById: {},
     selectedPages: [1],
-    sortBy: null,
+    sortBy: 'newest',
     total: 0,
     itemsPerPage: 5,
     totalRating: 0
 };
 
 export const productPageDefaultState = {
-    loading: false,
+    loading: true,
     id: null,
     brand: '',
     name: '',
@@ -27,72 +41,252 @@ export const productPageDefaultState = {
     oldPrice: null,
     currency: '',
     sizes: [],
-    selectedSize: null,
+    selectedSizeId: null,
     images: [],
     thumbnails: [],
     features: defaultFeaturesState,
-    comments: defaultCommentsState
+    comments: defaultCommentsState,
+    errors: {}
 };
 
-function loadingReducer(state, loading = false) {
-    return { ...state, loading };
-}
+const productReducer = produce((draft, payload) => {
+    Object.assign(draft, payload);
+});
 
-function commentsReducer(state, commentsPayload = {}) {
-    const { items = [], ...otherCommentsPayload } = commentsPayload;
-    let newCommentsState = { ...defaultCommentsState, ...state.comments, ...otherCommentsPayload };
+const loadingReducer = produce((draft, loading = false) => {
+    draft.loading = loading;
+});
 
-    newCommentsState = items.reduce((result, item) => {
-        const { id } = item || {};
-        const newAllIds = [...result?.allIds];
-        const newItemsById = { ...result?.itemsById };
+const selectedSizeIdReducer = produce((draft, id) => {
+    draft.selectedSizeId = id;
+});
+
+const commentsReducer = produce((draft, payload, append = false) => {
+    const { items = [], ...otherPayload } = payload;
+    const commentsDraft = draft.comments;
+
+    Object.assign(commentsDraft, otherPayload);
+
+    if (!append) {
+        commentsDraft.itemsById = {};
+        commentsDraft.allIds = [];
+    }
+
+    const commentsItemsByIdDraft = commentsDraft.itemsById;
+    const commentsAllIdsDraft = commentsDraft.allIds;
+
+    items.forEach((item) => {
+        const { id } = item;
 
         if (id) {
-            if (newAllIds.indexOf(id) === -1) {
-                newAllIds.push(id);
+            if (commentsItemsByIdDraft) {
+                commentsItemsByIdDraft[id] = { ...defaultCommentState, ...item };
             }
 
-            if (!newItemsById?.id) {
-                newItemsById[id] = item;
+            if (commentsAllIdsDraft && commentsAllIdsDraft.indexOf(id) === -1) {
+                commentsAllIdsDraft.push(id);
             }
-
-            return {
-                ...result,
-                allIds: newAllIds,
-                itemsById: newItemsById
-            };
         }
+    });
+});
 
-        return result;
-    }, newCommentsState);
+const commentsNextPageReducer = produce((draft) => {
+    const commentsSelectedPagesDraft = draft.comments.selectedPages;
+    const lastPage = commentsSelectedPagesDraft[commentsSelectedPagesDraft.length - 1];
 
-    return { ...state, comments: newCommentsState };
-}
+    commentsSelectedPagesDraft.push(lastPage + 1);
+});
+
+const commentsDefaultPageReducer = produce((draft) => {
+    draft.comments.selectedPages = defaultCommentsState.selectedPages;
+});
+
+const commentsLoadingReducer = produce((draft, loading = false) => {
+    draft.comments.loading = loading;
+});
+
+const commentReducer = produce((draft, payload) => {
+    const { id, ...otherPayload } = payload;
+    const existedCommentDraft = draft.comments.itemsById[id];
+
+    if (existedCommentDraft) {
+        Object.assign(existedCommentDraft, otherPayload);
+    } else {
+        draft.comments.itemsById[id] = payload;
+    }
+});
+
+const commentLikesReducer = produce((draft, id) => {
+    const comment = draft.comments.itemsById[id];
+
+    if (comment) {
+        if (!comment.userLiked) {
+            comment.userLiked = 1;
+            comment.likes += 1;
+        } else if (comment.likes > 0) {
+            comment.userLiked = 0;
+            comment.likes -= 1;
+        }
+    }
+});
+
+const addCommentReplyReducer = produce((draft, payload) => {
+    const { parentId } = payload;
+
+    const comment = draft.comments.itemsById[parentId];
+
+    if (comment) {
+        comment.replies.push(payload);
+        comment.repliesCount += 1;
+    }
+});
+
+const toggleCommentRepliesReducer = produce((draft, payload) => {
+    const { id, toggle } = payload;
+
+    const comment = draft.comments.itemsById[id];
+
+    if (comment) {
+        comment.expandedReplies = toggle ?? !comment.expandedReplies;
+    }
+});
+
+const commentsSortByReducer = produce((draft, value) => {
+    draft.comments.sortBy = value;
+});
+
+const commentsShouldRefetchReducer = produce((draft, refetch = false) => {
+    draft.comments.shouldRefetch = refetch;
+});
 
 // Strategies
+
+export const TOGGLE_LOADING = 'TOGGLE_LOADING';
+export const REQUEST_PRODUCT = 'REQUEST_PRODUCT';
+export const RECEIVE_PRODUCT = ' RECEIVE_PRODUCT';
+export const SELECT_SIZE = 'SELECT_SIZE';
+export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
+export const REQUEST_COMMENTS = 'REQUEST_COMMENTS';
+export const RECEIVE_MORE_COMMENTS = 'RECEIVE_MORE_COMMENTS';
+export const TOGGLE_COMMENTS_LOADING = 'TOGGLE_COMMENTS_LOADING';
+export const RECEIVE_COMMENT_REPLIES = 'RECEIVE_COMMENT_REPLIES';
+export const LIKE_COMMENT = 'LIKE_COMMENT';
+export const ADD_COMMENT_REPLY = 'ADD_COMMENT_REPLY';
+export const TOGGLE_COMMENT_REPLIES = 'TOGGLE_COMMENT_REPLIES';
+export const SELECT_COMMENTS_SORT = 'SELECT_COMMENTS_SORT';
 
 const strategies = {
     [TOGGLE_LOADING]: toggleLoadingStrategy,
     [REQUEST_PRODUCT]: requestProductStrategy,
-    [RECEIVE_PRODUCT]: receiveProductStrategy
+    [RECEIVE_PRODUCT]: receiveProductStrategy,
+    [SELECT_SIZE]: selectSizeStrategy,
+    [REQUEST_COMMENTS]: requestCommentsStrategy,
+    [RECEIVE_COMMENTS]: receiveCommentsStrategy,
+    [RECEIVE_MORE_COMMENTS]: receiveMoreCommentsStrategy,
+    [RECEIVE_COMMENT_REPLIES]: receiveCommentRepliesStategy,
+    [TOGGLE_COMMENTS_LOADING]: toggleCommentsLoadingStrategy,
+    [LIKE_COMMENT]: likeCommentStrategy,
+    [ADD_COMMENT_REPLY]: addCommentReplyStrategy,
+    [TOGGLE_COMMENT_REPLIES]: toggleCommentRepliesStrategy,
+    [SELECT_COMMENTS_SORT]: selectCommentsSortStrategy
 };
 
 function toggleLoadingStrategy(state, { toggle = false }) {
-    const newState = loadingReducer(state, toggle);
-    return newState;
+    return loadingReducer(state, toggle);
 }
 
 function requestProductStrategy() {
-    const newState = loadingReducer(productPageDefaultState, true);
-    return newState;
+    return loadingReducer(productPageDefaultState, true);
 }
 
 function receiveProductStrategy(state, payload) {
-    const { comments: commentsPayload, ...other } = payload || {};
-    let newState = { ...state, ...other };
+    const { comments: commentsPayload, ...otherPayload } = payload || {};
 
+    let newState = productReducer(state, otherPayload);
     newState = loadingReducer(newState, false);
     newState = commentsReducer(newState, commentsPayload);
+
+    return newState;
+}
+
+function selectSizeStrategy(state, payload) {
+    const { id } = payload;
+
+    return selectedSizeIdReducer(state, id);
+}
+
+// Comments strategies
+
+function requestCommentsStrategy(state) {
+    return commentsLoadingReducer(state, true);
+}
+
+function receiveCommentsStrategy(state, payload) {
+    let newState = commentsReducer(state, payload);
+    newState = commentsDefaultPageReducer(newState);
+    newState = commentsLoadingReducer(newState, false);
+    newState = commentsShouldRefetchReducer(newState, false);
+
+    return newState;
+}
+
+function toggleCommentsLoadingStrategy(state, payload) {
+    const { toggle = false } = payload;
+
+    return commentsLoadingReducer(state, toggle);
+}
+
+function receiveMoreCommentsStrategy(state, payload) {
+    let newState = commentsReducer(state, payload, true);
+    newState = commentsNextPageReducer(newState);
+    newState = commentsLoadingReducer(newState, false);
+
+    return newState;
+}
+
+function receiveCommentRepliesStategy(state, payload) {
+    const { id, items = [] } = payload;
+
+    if (!id) {
+        return state;
+    }
+
+    const existedCommentReplies = state?.comments?.itemsById[id]?.replies || [];
+
+    return commentReducer(state, { id, replies: [...items, ...existedCommentReplies] });
+}
+
+function likeCommentStrategy(state, payload) {
+    const { id } = payload;
+
+    if (!id) {
+        return state;
+    }
+
+    return commentLikesReducer(state, id);
+}
+
+function addCommentReplyStrategy(state, payload) {
+    const { parentId } = payload;
+
+    let newState = addCommentReplyReducer(state, payload);
+
+    if (parentId) {
+        newState = toggleCommentRepliesReducer(newState, { id: parentId, toggle: true });
+    }
+
+    return newState;
+}
+
+function toggleCommentRepliesStrategy(state, payload) {
+    return toggleCommentRepliesReducer(state, payload);
+}
+
+function selectCommentsSortStrategy(state, payload) {
+    const { value } = payload;
+
+    let newState = commentsSortByReducer(state, value);
+    newState = commentsShouldRefetchReducer(newState, true);
 
     return newState;
 }

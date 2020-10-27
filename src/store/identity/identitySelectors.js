@@ -15,5 +15,11 @@ export const authSelector = createSelector(getIdentity, (identityState) => {
 export const usernameSelector = createSelector(getIdentity, (identityState) => {
     const user = getUser(identityState);
 
-    return [user.firstName, user.lastName].join(' ');
+    return [user?.firstName, user?.lastName].join(' ');
+});
+
+export const userIdSelector = createSelector(getIdentity, (identityState) => {
+    const user = getUser(identityState);
+
+    return user?.id;
 });

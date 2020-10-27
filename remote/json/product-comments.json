@@ -1,17 +1,8 @@
 [
     {
-        "id": 1000,
-        "parentId": 0,
-        "username": "Demo Customer",
-        "text": "Really like this jacket I purchased the XL because I wanted an oversize jacket and it is definitely that. It was actually too big at first and fit more like a dress. But after washing it and partially drying it (I put it in the dryer until it was damp and then hung it on a drying rack) it is a good length to wear with boots and leggings For reference I am 5'4\" tall, around 155 lbs and a size 12. I purchased the grey in large and I think it will fit better initially but I will be careful not to put it into the dryer. The only reason I didnt give it 5 starts is because I expected the ribbed bottom to go all the way around and it doesn't - the cable knit is to the bottom in the back. Will also wear with jeans and flats.",
-        "date": "2020-10-16",
-        "rating": 5,
-        "likes": 2,
-        "dislikes": 0
-    },
-    {
         "id": 1001,
         "parentId": 0,
+        "userId": 19,
         "username": "Solneeshka",
         "text": "Love the jacket. It's very comfy, color doesn't run, great for a snuggly feel. I'm giving it 4 stars because it shrank a ton after I washed it the first time, and again after I washed it the second time. I had bought a size up so it would fit big, I had to roll the sleeves once at the wrist, which is exactly what I was going for (like the fit in the picture). Now, the sleeves come up above my wrists a bit. Just be aware, it will shrink. Other than that, love it and foresee wearing it a ton this winter!",
         "date": "2020-07-08",
@@ -23,6 +14,7 @@
     {
         "id": 1002,
         "parentId": 0,
+        "userId": 18,
         "username": "Aly Cox",
         "text": "The overall quality is good but the knit itself is a bit thin. Since I bought this as a layering piece, I'm fine with that. You'll definitely want to put something under this unless you're OK with flashing your goodies around the office. It's not scratchy. The color is true to the photo, at least for the olive green. The sleeves are thick enough but the cables on the front are an issue. The cables themselves are fine. The area between them is the problem and that's where this jacket thins out.",
         "date": "2020-07-09",
@@ -33,6 +25,7 @@
     {
         "id": 1003,
         "parentId": 0,
+        "userId": 17,
         "username": "SabrinaC",
         "text": "I like it but gave 4 stars because it's snug in the arms. I purchased a large, due to bust size, and sometimes think if I go extra large the arms will hang. They won't with this because of the banding on the lower arms that can be rolled up. I wasn't sure if it would stretch out either after wear all day, and one other reason why I went with large. It's not light, or very heavy, would do on a cold day. I'll wear it and see how it goes, and if so I'll go up a size. It does cover right over the buttocks and if want to wear leggings, a size up would probably be best.",
         "date": "2020-07-09",
@@ -43,6 +36,7 @@
     {
         "id": 1004,
         "parentId": 0,
+        "userId": 16,
         "username": "amandawind922",
         "text": "Love this jacket! But runs large. I ordered a medium, I normally wear a large or xl. 158 lbs 38d 5'5... comes past my butt, doesn't make me look square. Next time I'll order a small",
         "date": "2020-07-10",
@@ -52,14 +46,16 @@
     },
     {
         "id": 1005,
-        "parentId": 1004,
+        "parentId": 1013,
+        "userId": 15,
         "username": "Renee",
         "text": "I have already worn it a few times and did not want to take it off.",
         "date": "2020-07-10"
     },
     {
         "id": 1007,
-        "parentId": 1004,
+        "parentId": 1013,
+        "userId": 14,
         "username": "Jessielead63",
         "text": "This is currently my favorite jacket.",
         "date": "2020-07-10"
@@ -67,6 +63,7 @@
     {
         "id": 1008,
         "parentId": 0,
+        "userId": 13,
         "username": "Cassowary",
         "text": "Really a very nice sweater from Naketano. The color is really great, well done, really nice and cozy with the huge collar and very good quality. I was also very happy about the arrival of the sweater. Tried on - it was too tight for me - unfortunately I have to deduct a star because the size for XXL is quite small. Pity! Since I am stronger and want to dress fashionably, it is always very difficult to get large sizes, and if so, it is usually sold out very quickly. It would be nice if there were more in larger sizes. Otherwise I can highly recommend the sweater!",
         "date": "2020-08-29",
@@ -75,17 +72,31 @@
     {
         "id": 1009,
         "parentId": 0,
+        "userId": 12,
         "username": "AW",
         "text": "The jacket is very nice, super comfortable and a nice quality. Based on the reviews, I ordered it one size larger. I usually wear S or size 36, here I ordered M and it fits very well. Especially if you still want to wear something under your jacket. Maybe I will order it in a different color",
         "date": "2020-10-08",
         "rating": 3
     },
     {
-        "id": 1010,
+        "id": 1012,
         "parentId": 0,
+        "userId": 11,
         "username": "KB",
         "text": "As usual, excellent Naketano quality! The sweater is cozy, soft and warm, but by no means bulky. At reg. Size 40-42 fits L perfectly.",
         "date": "2020-10-10",
         "rating": 5
+    },
+    {
+        "id": 1013,
+        "parentId": 0,
+        "userId": 1,
+        "username": "Demo Customer",
+        "text": "Really like this jacket I purchased the XL because I wanted an oversize jacket and it is definitely that. It was actually too big at first and fit more like a dress. But after washing it and partially drying it (I put it in the dryer until it was damp and then hung it on a drying rack) it is a good length to wear with boots and leggings For reference I am 5'4\" tall, around 155 lbs and a size 12. I purchased the grey in large and I think it will fit better initially but I will be careful not to put it into the dryer. The only reason I didnt give it 5 starts is because I expected the ribbed bottom to go all the way around and it doesn't - the cable knit is to the bottom in the back. Will also wear with jeans and flats.",
+        "date": "2020-10-16",
+        "rating": 5,
+        "likes": 2,
+        "dislikes": 0,
+        "repliesCount": 2
     }
 ]

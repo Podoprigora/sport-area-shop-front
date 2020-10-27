@@ -1,4 +1,4 @@
 export * from './ProductPageContext';
 export * from './productPageReducers';
-export { ProductPageContextLog } from './ProductPageContextLog';
+export * from './productPageSelectors';
 export { default } from './ProductPageProvider';

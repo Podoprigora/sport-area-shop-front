@@ -24,7 +24,9 @@ const Rating = React.forwardRef(function Rating(props, ref) {
         onBlur
     } = props;
 
-    const numValueProp = valueProp ? parseInt(valueProp, 10) : null;
+    let numValueProp = parseInt(valueProp, 10);
+    numValueProp = !Number.isNaN(numValueProp) ? numValueProp : null;
+
     const numDefaultValueProp = defaultValueProp ? parseInt(defaultValueProp, 10) : 0;
 
     const [value, setValue] = useControlled(numValueProp, numDefaultValueProp);

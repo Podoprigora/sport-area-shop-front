@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import TopsellerCarouselWithFetchingDataOnDemand from '@components/TopsellerCarouselWithFetchingDataOnDemand';
+import { useProductPageState } from '@pages/ProductPage/context';
 
-// TODO: Get cagegoryId from context after product initial data was loaded
 const ProductTopseller = (props) => {
-    const [categoryId, setCategoryId] = useState(null);
+    const { categoryId } = useProductPageState();
 
-    setTimeout(() => {
-        setCategoryId(100);
-    }, 500);
+    return useMemo(() => {
+        if (!categoryId) {
+            return null;
+        }
 
-    return <TopsellerCarouselWithFetchingDataOnDemand categoryId={categoryId} />;
+        return <TopsellerCarouselWithFetchingDataOnDemand categoryId={categoryId} />;
+    }, [categoryId]);
 };
 
 export default ProductTopseller;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import Comment from '@components/Comment';
@@ -11,6 +11,4 @@ const ProductCommentRepliesListItem = (props) => {
     );
 };
 
-ProductCommentRepliesListItem.propTypes = {};
-
-export default ProductCommentRepliesListItem;
+export default memo(ProductCommentRepliesListItem);

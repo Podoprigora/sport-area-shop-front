@@ -10,8 +10,6 @@ import ProductTradePrice from './ProductTradePrice';
 import ProductTradeTitle from './ProductTradeTitle';
 
 const ProductTrade = (props) => {
-    const { variant = 'default', className } = props;
-
     return (
         <div className="product-trade product">
             <ProductTradeTitle className="product-trade__section" />
@@ -28,7 +26,6 @@ const ProductTrade = (props) => {
 };
 
 ProductTrade.propTypes = {
-    variant: PropTypes.oneOf(['default', 'title']),
     className: PropTypes.string
 };
 

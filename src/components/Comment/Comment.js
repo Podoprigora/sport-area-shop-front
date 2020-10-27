@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { format as timeAgoFormat } from 'timeago.js';
 
-import fakeRequest from '@services/fakeRequest';
 import useEventCallback from '@ui/hooks/useEventCallback';
 import Rating from '@ui/Rating';
 import Button from '@ui/Button';
@@ -20,9 +19,13 @@ const Comment = (props) => {
         rating = 0,
         text,
         likes,
+        disableLike,
         userLiked,
-        className
+        className,
+        onLike,
+        onAddReply
     } = props;
+
     const [openReplyForm, setOpenReplyForm] = useState(false);
 
     const handleReplyClick = useCallback((ev) => {
@@ -33,10 +36,24 @@ const Comment = (props) => {
         setOpenReplyForm(false);
     }, []);
 
-    const handleAddReply = useEventCallback(async (value) => {
-        return fakeRequest({ success: true }, 1500).then(() => {
-            console.log(value);
-        });
+    const handleAddReply = useCallback(
+        async (value) => {
+            if (onAddReply) {
+                await onAddReply({ parentId: id, text: value });
+                setOpenReplyForm(false);
+            }
+
+            return undefined;
+        },
+        [id, onAddReply]
+    );
+
+    const handleLike = useEventCallback((ev) => {
+        if (onLike) {
+            return onLike(ev, id);
+        }
+
+        return undefined;
     });
 
     const isReply = type === 'reply';
@@ -56,7 +73,12 @@ const Comment = (props) => {
             <div className="comment__text">{text}</div>
             {!isReply && (
                 <div className="comment__fbar">
-                    <CommentLikeControl qty={likes} selected={!!userLiked} />
+                    <CommentLikeControl
+                        qty={likes}
+                        selected={!!userLiked}
+                        disabled={disableLike}
+                        onClick={handleLike}
+                    />
                     <Button
                         transparent
                         slim
@@ -87,9 +109,12 @@ Comment.propTypes = {
     text: PropTypes.string.isRequired,
     rating: PropTypes.number,
     likes: PropTypes.number,
+    disableLike: PropTypes.bool,
     dislikes: PropTypes.number,
     userLiked: PropTypes.number,
-    className: PropTypes.string
+    className: PropTypes.string,
+    onLike: PropTypes.func,
+    onAddReply: PropTypes.func
 };
 
 export default Comment;

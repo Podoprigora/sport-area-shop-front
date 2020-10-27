@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 
 import Panel, { PanelHeader, PanelBody } from '@ui/Panel';
-import MessageSquareIcon from '@svg-icons/feather/MessageSquareIcon';
 
-import data from '@remote/json/product-comments.json';
 import ProductCommentsTbar from './ProductCommentsTbar';
 import ProductCommentsList from './ProductCommentsList';
 import ProductCommentsMask from './ProductCommentsMask';
 import ProductCommentEditorWindow from './ProductCommentEditorWindow';
+import ProductCommentsPanelHeader from './ProductCommentsPanelHeader';
 
 const ProductComments = (props) => {
     const location = useLocation();
@@ -23,18 +22,14 @@ const ProductComments = (props) => {
         }
     }, [location]);
 
-    const items = data.filter((item) => item.parentId === 0);
-
     return (
         <>
             <Panel ref={nodeRef}>
-                <PanelHeader title="Comments" icon={MessageSquareIcon}>
-                    <span className="u-text-large">(10)</span>
-                </PanelHeader>
+                <ProductCommentsPanelHeader />
                 <PanelBody style={{ position: 'relative' }}>
                     <ProductCommentsMask />
                     <ProductCommentsTbar />
-                    <ProductCommentsList items={items} />
+                    <ProductCommentsList />
                 </PanelBody>
             </Panel>
             <ProductCommentEditorWindow />

@@ -1,38 +1,59 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import CellList, { CellListItem } from '@ui/CellList';
 import HelperText from '@ui/HelperText';
-
-const sizes = ['XS', 'S', 'L', 'XL'];
+import { useProductPageActions, useProductPageState } from '@pages/ProductPage/context';
 
 const ProductTradeSizes = (props) => {
     const { className } = props;
 
-    return (
-        <div className={classNames('product-trade__sizes', className)}>
-            <span className="product-trade__sizes-label">Select a size:</span>
+    const { sizes = [], selectedSizeId } = useProductPageState();
+    const { selectSize } = useProductPageActions();
 
-            <CellList className="product-trade__sizes-list">
-                {sizes.map((item, index) => {
-                    return (
-                        <CellListItem
-                            key={index}
-                            selected={index === 1}
-                            disabled={index === sizes.length - 1}
-                            painted
-                            className="product-trade__sizes-item "
-                        >
-                            {item}
-                        </CellListItem>
-                    );
-                })}
-            </CellList>
+    return useMemo(() => {
+        if (!sizes.length) {
+            return null;
+        }
 
-            {/* <HelperText error>Please select an available size.</HelperText> */}
-        </div>
-    );
+        return (
+            <div className={classNames('product-trade__sizes', className)}>
+                <span className="product-trade__sizes-label">Select a size:</span>
+
+                <CellList className="product-trade__sizes-list">
+                    {sizes.map((size) => {
+                        const { id, name, outOfStock = false } = size || {};
+
+                        const handleClick = (ev) => {
+                            if (selectSize) {
+                                selectSize(id);
+                            }
+                        };
+
+                        if (!id || !name) {
+                            return null;
+                        }
+
+                        return (
+                            <CellListItem
+                                key={id}
+                                selected={id === selectedSizeId}
+                                disabled={outOfStock}
+                                painted
+                                className="product-trade__sizes-item"
+                                onClick={handleClick}
+                            >
+                                {name}
+                            </CellListItem>
+                        );
+                    })}
+                </CellList>
+
+                {/* <HelperText error>Please select an available size.</HelperText> */}
+            </div>
+        );
+    }, [sizes, selectedSizeId, className, selectSize]);
 };
 
 ProductTradeSizes.propTypes = {
