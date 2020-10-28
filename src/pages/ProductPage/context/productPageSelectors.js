@@ -1,8 +1,35 @@
 import { useMemo } from 'react';
 import { productPageDefaultState, defaultCommentsState } from './productPageReducers';
 
+// Helpers
+
+function getComments(state) {
+    return state?.comments ?? defaultCommentsState;
+}
+
+function getCommentsAllIds(state) {
+    const commentsState = getComments(state);
+
+    return commentsState?.allIds ?? [];
+}
+
+function getCommentsItemsById(state) {
+    const commentsState = getComments(state);
+
+    return commentsState?.itemsById ?? {};
+}
+
+function getComment(state, id) {
+    const itemsById = getCommentsItemsById(state, id);
+
+    return itemsById[id];
+}
+
+// Selectors
+
 function commentsSelector(state) {
-    const { allIds = [], itemsById = {} } = state?.comments || {};
+    const allIds = getCommentsAllIds(state);
+    const itemsById = getCommentsItemsById(state);
 
     return allIds.reduce((result, id) => {
         if (itemsById[id]) {
@@ -13,36 +40,37 @@ function commentsSelector(state) {
 }
 
 function commentsFetchPropsSelector(state) {
-    const { sortBy, shouldRefetch, itemsPerPage, loading } =
-        state?.comments || defaultCommentsState;
+    const { sortBy, shouldRefetch, itemsPerPage, loading } = getComments(state);
 
     return { sortBy, shouldRefetch, itemsPerPage, loading };
 }
 
 function commentsCountSelector(state) {
-    const total = state?.comments?.total;
+    const { total = 0 } = getComments(state);
 
-    return total || 0;
+    return total;
 }
 
 function commentsSortSelector(state) {
-    return state?.comments?.sortBy;
+    const { sortBy } = getComments(state);
+
+    return sortBy;
 }
 
 function selectedCommentsPageSelector(state) {
-    const selectedPages = [...state?.comments?.selectedPages];
+    const { selectedPages = [] } = getComments(state);
 
     return selectedPages.length > 0 ? selectedPages[selectedPages.length - 1] : 1;
 }
 
 function commentsItemsPerPageSelector(state) {
-    const itemsPerPage = state?.comments?.itemsPerPage;
+    const { itemsPerPage } = getComments(state);
 
-    return itemsPerPage || 1;
+    return itemsPerPage;
 }
 
 function commentsLoadingSelector(state) {
-    const loading = state?.comments?.loading;
+    const { loading } = getComments(state);
 
     return !!loading;
 }
@@ -52,24 +80,19 @@ function getCommentRepliesByIdSelector(state, id) {
         return null;
     }
 
-    const item = state?.comments?.itemsById[id];
+    const item = getComment(state, id);
 
     return (item && item?.replies) || [];
 }
 
 function getCommentByIdSelector(state, id) {
-    if (!id) {
-        return null;
-    }
-
-    const comment = state?.comments?.itemsById[id];
-    return comment || null;
+    return getComment(state, id);
 }
 
 function ratingSelector(state) {
-    const totalRating = state?.comments?.totalRating;
+    const { totalRating = 0 } = getComments(state);
 
-    return totalRating || 0;
+    return totalRating;
 }
 
 export const useProductPageSelectors = (state = productPageDefaultState) => {
