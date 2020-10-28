@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import ProductLink from './ProductLink';
 
 const ProductSizes = (props) => {
-    const { items = [] } = props;
+    const { id: productId, items = [] } = props;
 
-    if (items.lenght === 0) {
+    if (!productId || items.lenght === 0) {
         return null;
     }
 
@@ -14,9 +14,20 @@ const ProductSizes = (props) => {
             <div className="product__sizes-label">Sizes:</div>
             <div className="product__sizes-body">
                 {items.map((size, index) => {
+                    const { id, name } = size;
+
+                    if (!id || !name) {
+                        return null;
+                    }
+
                     return (
-                        <ProductLink key={index} className="product__size-link">
-                            {size}
+                        <ProductLink
+                            key={id}
+                            id={productId}
+                            selectedSize={id}
+                            className="product__size-link"
+                        >
+                            {name}
                         </ProductLink>
                     );
                 })}
@@ -26,7 +37,10 @@ const ProductSizes = (props) => {
 };
 
 ProductSizes.propTypes = {
-    items: PropTypes.array
+    id: PropTypes.number.isRequired,
+    items: PropTypes.arrayOf(
+        PropTypes.shape({ id: PropTypes.number.isRequired, name: PropTypes.string.isRequired })
+    )
 };
 
 export default ProductSizes;

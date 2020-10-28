@@ -1,13 +1,16 @@
 import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useProductPageActions } from './context';
 
 const ProductPageEffects = (props) => {
     const { children } = props;
 
     const { id } = useParams();
-    const { asyncFetchProduct, asyncRefetchComments } = useProductPageActions();
+    const location = useLocation();
+    const { asyncFetchProduct, asyncRefetchComments, selectSize } = useProductPageActions();
+
+    const selectedSize = location?.state?.selectedSize;
 
     const fetchProduct = useCallback(async () => {
         if (!asyncFetchProduct) {
@@ -40,6 +43,12 @@ const ProductPageEffects = (props) => {
     useEffect(() => {
         refetchComments();
     }, [refetchComments]);
+
+    useEffect(() => {
+        if (selectedSize) {
+            selectSize(selectedSize);
+        }
+    }, [selectedSize, selectSize]);
 
     return children;
 };

@@ -54,7 +54,7 @@ const CatalogGridItem = (props) => {
 
                 {shouldDisplayHiddenContent && (
                     <div className="catalog-grid__item-hidden-content">
-                        <ProductSizes items={sizes} />
+                        <ProductSizes id={id} items={sizes} />
                     </div>
                 )}
             </div>

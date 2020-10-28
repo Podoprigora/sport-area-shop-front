@@ -19,7 +19,8 @@ import {
     TOGGLE_COMMENT_REPLIES,
     SELECT_COMMENTS_SORT,
     RECEIVE_COMMENTS,
-    REQUEST_COMMENTS
+    REQUEST_COMMENTS,
+    SET_ERROR
 } from './productPageReducers';
 import ProductPageContextLog from './ProductPageContextLog';
 import { useProductPageSelectors } from './productPageSelectors';
@@ -40,6 +41,10 @@ const ProductPageProvider = (props) => {
 
     const selectSize = useEventCallback((id) => {
         dispatch({ type: SELECT_SIZE, payload: { id } });
+    });
+
+    const setError = useEventCallback((key, value) => {
+        dispatch({ type: SET_ERROR, payload: { key, value } });
     });
 
     const selectCommentsSort = useEventCallback((value) => {
@@ -140,6 +145,7 @@ const ProductPageProvider = (props) => {
         return {
             toggleLoading,
             selectSize,
+            setError,
             selectCommentsSort,
             toggleCommentReplies,
             asyncFetchProduct,
@@ -153,6 +159,7 @@ const ProductPageProvider = (props) => {
     }, [
         toggleLoading,
         selectSize,
+        setError,
         selectCommentsSort,
         toggleCommentReplies,
         asyncFetchProduct,

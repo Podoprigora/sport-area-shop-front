@@ -31,6 +31,11 @@
             "id": 2005,
             "name": "XL",
             "outOfStock": false
+        },
+        {
+            "id": 2006,
+            "name": "XXL",
+            "outOfStock": false
         }
     ],
     "images": [

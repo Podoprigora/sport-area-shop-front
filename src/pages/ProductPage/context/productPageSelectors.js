@@ -25,6 +25,11 @@ function getComment(state, id) {
     return itemsById[id];
 }
 
+function getErrorByKey(state, key) {
+    const error = state?.errorsByKey[key];
+    return error;
+}
+
 // Selectors
 
 function commentsSelector(state) {
@@ -89,6 +94,10 @@ function getCommentByIdSelector(state, id) {
     return getComment(state, id);
 }
 
+function getErrorByKeySelector(state, key) {
+    return getErrorByKey(state, key);
+}
+
 function ratingSelector(state) {
     const { totalRating = 0 } = getComments(state);
 
@@ -107,6 +116,7 @@ export const useProductPageSelectors = (state = productPageDefaultState) => {
             commentsLoading: commentsLoadingSelector(state),
             getCommentById: (id) => getCommentByIdSelector(state, id),
             getCommentRepliesById: (id) => getCommentRepliesByIdSelector(state, id),
+            getErrorByKey: (key) => getErrorByKeySelector(state, key),
             rating: ratingSelector(state)
         };
     }, [state]);

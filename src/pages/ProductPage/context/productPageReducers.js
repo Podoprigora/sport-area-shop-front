@@ -46,7 +46,7 @@ export const productPageDefaultState = {
     thumbnails: [],
     features: defaultFeaturesState,
     comments: defaultCommentsState,
-    errors: {}
+    errorsByKey: {}
 };
 
 const productReducer = produce((draft, payload) => {
@@ -59,6 +59,16 @@ const loadingReducer = produce((draft, loading = false) => {
 
 const selectedSizeIdReducer = produce((draft, id) => {
     draft.selectedSizeId = id;
+});
+
+const errorsByKeyReducer = produce((draft, payload) => {
+    const { key, value } = payload;
+
+    if (value) {
+        draft.errorsByKey[key] = value;
+    } else if (draft.errorsByKey[key]) {
+        delete draft.errorsByKey[key];
+    }
 });
 
 const commentsReducer = produce((draft, payload, append = false) => {
@@ -165,6 +175,7 @@ export const TOGGLE_LOADING = 'TOGGLE_LOADING';
 export const REQUEST_PRODUCT = 'REQUEST_PRODUCT';
 export const RECEIVE_PRODUCT = ' RECEIVE_PRODUCT';
 export const SELECT_SIZE = 'SELECT_SIZE';
+export const SET_ERROR = ' SET_ERROR';
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
 export const REQUEST_COMMENTS = 'REQUEST_COMMENTS';
 export const RECEIVE_MORE_COMMENTS = 'RECEIVE_MORE_COMMENTS';
@@ -180,6 +191,7 @@ const strategies = {
     [REQUEST_PRODUCT]: requestProductStrategy,
     [RECEIVE_PRODUCT]: receiveProductStrategy,
     [SELECT_SIZE]: selectSizeStrategy,
+    [SET_ERROR]: setErrorStrategy,
     [REQUEST_COMMENTS]: requestCommentsStrategy,
     [RECEIVE_COMMENTS]: receiveCommentsStrategy,
     [RECEIVE_MORE_COMMENTS]: receiveMoreCommentsStrategy,
@@ -212,7 +224,17 @@ function receiveProductStrategy(state, payload) {
 function selectSizeStrategy(state, payload) {
     const { id } = payload;
 
-    return selectedSizeIdReducer(state, id);
+    let newState = selectedSizeIdReducer(state, id);
+
+    if (id) {
+        newState = errorsByKeyReducer(newState, { key: 'sizes', value: null });
+    }
+
+    return newState;
+}
+
+function setErrorStrategy(state, payload) {
+    return errorsByKeyReducer(state, payload);
 }
 
 // Comments strategies

@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 
 const ProductLink = (props) => {
-    const { children, id, anchorToComments, className, ...other } = props;
+    const { children, id, anchorToComments, selectedSize, className, ...other } = props;
 
     const to = {};
 
@@ -14,6 +14,10 @@ const ProductLink = (props) => {
 
     if (anchorToComments) {
         to.state = { ...to.state, anchorToComments: true };
+    }
+
+    if (selectedSize) {
+        to.state = { ...to.state, selectedSize };
     }
 
     return (
@@ -27,6 +31,7 @@ ProductLink.propTypes = {
     children: PropTypes.node.isRequired,
     id: PropTypes.number,
     anchorToComments: PropTypes.bool,
+    selectedSize: PropTypes.number,
     className: PropTypes.string
 };
 
