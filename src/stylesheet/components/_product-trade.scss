@@ -102,20 +102,30 @@
 		justify-content: flex-start;
 		align-items: center;
 
-		&-item--add-to-cart {
-			flex: 1;
-			margin-right: $spacing-scale-8;
-		}
+		&-item {
+			&--add-to-cart {
+				flex: 1;
+				margin-right: $spacing-scale-8;
+			}
 
-		&-item--selected.btn {
-			background-color: $white;
-			border-color: $color-primary;
-			color: $color-primary;
-			box-shadow: none;
-			transition: opacity .15s;
+			&--add-to-wishlist {
+				color: $amber;
+			}
 
-			& .btn__icon {
-				stroke: $color-primary;
+			&--progress {
+				margin: 0 $spacing-scale-5;
+			}
+
+			&--selected.btn {
+				background-color: $white;
+				border-color: $color-primary;
+				color: $color-primary;
+				box-shadow: none;
+				transition: opacity .15s;
+
+				& .btn__icon {
+					stroke: $color-primary;
+				}
 			}
 		}
 	}

@@ -39,7 +39,9 @@ const ProductCommentEditorWindow = (props) => {
             if (asyncSaveProductComment) {
                 try {
                     setLoading(true);
+
                     await asyncSaveProductComment(values);
+
                     closeWindow(windowName);
                     showAlert({
                         type: 'success',

@@ -16,16 +16,6 @@ const defaultState = {
     sortBy: 'added-date'
 };
 
-const strategies = {
-    [ADD_TO_WISHLIST]: addToWishlistStrategy,
-    [RECEIVE_INITIAL_WISHLIST]: receiveInitialWishlistStrategy,
-    [RECEIVE_WISHLIST]: receiveWishlistStrategy,
-    [CHANGE_WISHLIST_SORT]: changeWishlistSortStrategy,
-    [SELECT_WISHLIST_ITEM]: selectWishlistItemStrategy,
-    [SELECT_ALL_WISHLIST_ITEMS]: selectAllWishlistItemsStrategy,
-    [DELETE_WISHLIST_SELECTED_ITEMS]: deleteWishlistSelectedItemsStrategy
-};
-
 function allIdsReducer(state, items = []) {
     const newState = items.map(({ id }) => id);
 
@@ -44,6 +34,18 @@ function byIdReducer(state, items = []) {
 function sortByReducer(state, value) {
     return { ...state, sortBy: value };
 }
+
+// Strategies
+
+const strategies = {
+    [ADD_TO_WISHLIST]: addToWishlistStrategy,
+    [RECEIVE_INITIAL_WISHLIST]: receiveInitialWishlistStrategy,
+    [RECEIVE_WISHLIST]: receiveWishlistStrategy,
+    [CHANGE_WISHLIST_SORT]: changeWishlistSortStrategy,
+    [SELECT_WISHLIST_ITEM]: selectWishlistItemStrategy,
+    [SELECT_ALL_WISHLIST_ITEMS]: selectAllWishlistItemsStrategy,
+    [DELETE_WISHLIST_SELECTED_ITEMS]: deleteWishlistSelectedItemsStrategy
+};
 
 function addToWishlistStrategy(state, payload) {
     const { id: idProp = null } = payload;
