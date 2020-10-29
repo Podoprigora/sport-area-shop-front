@@ -1,60 +1,75 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 
+import useMountedRef from '@ui/hooks/useMountedRef';
+import CircularProgress from '@ui/CircularProgress';
 import ShoppingCartIcon from '@svg-icons/feather/ShoppingCartIcon';
 import Button from '@ui/Button';
-import CircularProgress from '@ui/CircularProgress';
 import CheckCircleIcon from '@svg-icons/feather/CheckCircleIcon';
+
+import { makeCartIdByProductSelector, useCartActions } from '@store/cart';
 import { useProductPageActions, useProductPageState } from '@pages/ProductPage/context';
-import useEventCallback from '@ui/hooks/useEventCallback';
 
 const ProductTradeActionAddToCart = (props) => {
-    const { selectedSizeId } = useProductPageState();
+    const { selectedSizeId, id } = useProductPageState();
     const { setError } = useProductPageActions();
 
-    const [loading, setLoading] = useState(false);
-    const [toggle, setToggle] = useState(false);
+    const { asyncAddToCart } = useCartActions();
+    const cartIdSelector = useMemo(
+        () => makeCartIdByProductSelector({ productId: id, sizeId: selectedSizeId }),
+        [id, selectedSizeId]
+    );
+    const cartId = useSelector(cartIdSelector);
+    const isProductInCart = !!cartId;
 
-    const handleClick = useEventCallback(() => {
+    const [loading, setLoading] = useState(false);
+    const isMoutedRef = useMountedRef();
+
+    const handleClick = useCallback(async () => {
         if (!selectedSizeId) {
             setError('sizes', 'Please select an available size.');
             return;
         }
 
-        setLoading(true);
-
-        setTimeout(() => {
-            setLoading(false);
-            setToggle((prevState) => !prevState);
-        }, 2500);
-    });
+        if (asyncAddToCart) {
+            try {
+                setLoading(true);
+                await asyncAddToCart({ cartId, productId: id, sizeId: selectedSizeId });
+            } catch (e) {
+                console.error(e);
+            } finally {
+                if (isMoutedRef.current) {
+                    setLoading(false);
+                }
+            }
+        }
+    }, [id, selectedSizeId, cartId, isMoutedRef, asyncAddToCart, setError]);
 
     return useMemo(() => {
         return (
             <Button
                 primary
-                plain={toggle}
+                plain={isProductInCart}
                 size="large"
-                centered={!toggle}
-                icon={toggle ? CheckCircleIcon : ShoppingCartIcon}
+                centered={!isProductInCart}
+                icon={isProductInCart ? CheckCircleIcon : ShoppingCartIcon}
                 loading={loading}
                 loadingComponent={<CircularProgress />}
                 disabled={loading}
                 className={classNames(
                     'product-trade__actions-item product-trade__actions-item--add-to-cart',
                     {
-                        'product-trade__actions-item--selected': toggle
+                        'product-trade__actions-item--selected': isProductInCart
                     }
                 )}
                 onClick={handleClick}
             >
-                {toggle ? 'The item already in the cart' : 'Add to Cart'}
+                {isProductInCart ? 'The item already in the cart' : 'Add to Cart'}
             </Button>
         );
-    }, [handleClick, loading, toggle]);
+    }, [handleClick, loading, isProductInCart]);
 };
-
-ProductTradeActionAddToCart.propTypes = {};
 
 export default ProductTradeActionAddToCart;

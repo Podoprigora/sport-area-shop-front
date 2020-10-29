@@ -19,16 +19,16 @@ const ProductTradeActionAddToWishlist = (props) => {
     const isMountedRef = useMountedRef();
 
     const { id } = useProductPageState();
+    const isAuth = useSelector(authSelector);
 
     const isProductAddedToWishlistSelector = useMemo(
         () => makeIsProductAddedToWishlistSelector(),
         []
     );
-
-    const isAuth = useSelector(authSelector);
     const isProductAddedToWishlist = useSelector((state) =>
         isProductAddedToWishlistSelector(state, id)
     );
+
     const { asyncAddToWishlist } = useWishlistActions();
     const { openWindow } = useWindowManager();
 
@@ -84,7 +84,5 @@ const ProductTradeActionAddToWishlist = (props) => {
         );
     }, [id, pending, isProductAddedToWishlist, isAuth, handleClick]);
 };
-
-ProductTradeActionAddToWishlist.propTypes = {};
 
 export default ProductTradeActionAddToWishlist;

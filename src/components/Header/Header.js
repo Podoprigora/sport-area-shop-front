@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 
 import Logo from '@resources/images/sport-area-logo.svg';
 import HeaderSearch from './HeaderSearch';
-import HeaderActions from './HeaderActions';
+
 import HeaderUser from './HeaderUser';
 import HeaderCategoryMenu from './HeaderCategoryMenu';
+import HeaderWishlistAction from './HeaderWishlistAction';
+import HeaderCartAction from './HeaderCartAction';
 
 const Header = (props) => {
     return (
@@ -22,7 +24,10 @@ const Header = (props) => {
                 <div className="container header__container">
                     <HeaderCategoryMenu />
                     <HeaderSearch />
-                    <HeaderActions />
+                    <div className="header__actions">
+                        <HeaderWishlistAction />
+                        <HeaderCartAction />
+                    </div>
                 </div>
             </div>
         </header>
