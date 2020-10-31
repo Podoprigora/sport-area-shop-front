@@ -7,10 +7,22 @@
         "price": 79.95,
         "currency": "EUR",
         "sizes": [
-            "M",
-            "L",
-            "XL",
-            "XXL"
+            {
+                "id": 2003,
+                "name": "M"
+            },
+            {
+                "id": 2004,
+                "name": "L"
+            },
+            {
+                "id": 2005,
+                "name": "XL"
+            },
+            {
+                "id": 2006,
+                "name": "XXL"
+            }
         ],
         "rating": 4,
         "comments": 2,
@@ -24,11 +36,26 @@
         "price": 79.95,
         "currency": "EUR",
         "sizes": [
-            "XS",
-            "S",
-            "M",
-            "L",
-            "XL"
+            {
+                "id": 2001,
+                "name": "XS"
+            },
+            {
+                "id": 2002,
+                "name": "S"
+            },
+            {
+                "id": 2003,
+                "name": "M"
+            },
+            {
+                "id": 2004,
+                "name": "L"
+            },
+            {
+                "id": 2005,
+                "name": "XL"
+            }
         ],
         "rating": 5,
         "comments": 1,
@@ -42,11 +69,26 @@
         "price": 69.95,
         "currency": "EUR",
         "sizes": [
-            "S",
-            "M",
-            "L",
-            "XL",
-            "XXL"
+            {
+                "id": 2002,
+                "name": "S"
+            },
+            {
+                "id": 2003,
+                "name": "M"
+            },
+            {
+                "id": 2004,
+                "name": "L"
+            },
+            {
+                "id": 2005,
+                "name": "XL"
+            },
+            {
+                "id": 2006,
+                "name": "XXL"
+            }
         ],
         "rating": 4,
         "comments": 1,
@@ -60,11 +102,26 @@
         "price": 69.95,
         "currency": "EUR",
         "sizes": [
-            "S",
-            "M",
-            "L",
-            "XL",
-            "XXL"
+            {
+                "id": 2002,
+                "name": "S"
+            },
+            {
+                "id": 2003,
+                "name": "M"
+            },
+            {
+                "id": 2004,
+                "name": "L"
+            },
+            {
+                "id": 2005,
+                "name": "XL"
+            },
+            {
+                "id": 2006,
+                "name": "XXL"
+            }
         ],
         "isNew": true
     },
@@ -76,10 +133,22 @@
         "price": 79.95,
         "currency": "EUR",
         "sizes": [
-            "M",
-            "L",
-            "XL",
-            "XXL"
+            {
+                "id": 2003,
+                "name": "M"
+            },
+            {
+                "id": 2004,
+                "name": "L"
+            },
+            {
+                "id": 2005,
+                "name": "XL"
+            },
+            {
+                "id": 2006,
+                "name": "XXL"
+            }
         ],
         "isNew": true
     },
@@ -91,11 +160,26 @@
         "price": 79.95,
         "currency": "EUR",
         "sizes": [
-            "XS",
-            "S",
-            "M",
-            "L",
-            "XL"
+            {
+                "id": 2001,
+                "name": "XS"
+            },
+            {
+                "id": 2002,
+                "name": "S"
+            },
+            {
+                "id": 2003,
+                "name": "M"
+            },
+            {
+                "id": 2004,
+                "name": "L"
+            },
+            {
+                "id": 2005,
+                "name": "XL"
+            }
         ],
         "isNew": true
     },
@@ -107,10 +191,22 @@
         "price": 69.95,
         "currency": "EUR",
         "sizes": [
-            "S",
-            "M",
-            "L",
-            "XL"
+            {
+                "id": 2002,
+                "name": "S"
+            },
+            {
+                "id": 2003,
+                "name": "M"
+            },
+            {
+                "id": 2004,
+                "name": "L"
+            },
+            {
+                "id": 2005,
+                "name": "XL"
+            }
         ],
         "isNew": true
     },
@@ -122,10 +218,22 @@
         "price": 64.95,
         "currency": "EUR",
         "sizes": [
-            "S",
-            "M",
-            "L",
-            "XL"
+            {
+                "id": 2002,
+                "name": "S"
+            },
+            {
+                "id": 2003,
+                "name": "M"
+            },
+            {
+                "id": 2004,
+                "name": "L"
+            },
+            {
+                "id": 2005,
+                "name": "XL"
+            }
         ],
         "isNew": true
     },
@@ -137,11 +245,26 @@
         "price": 69.95,
         "currency": "EUR",
         "sizes": [
-            "XS",
-            "S",
-            "M",
-            "L",
-            "XL"
+            {
+                "id": 2001,
+                "name": "XS"
+            },
+            {
+                "id": 2002,
+                "name": "S"
+            },
+            {
+                "id": 2003,
+                "name": "M"
+            },
+            {
+                "id": 2004,
+                "name": "L"
+            },
+            {
+                "id": 2005,
+                "name": "XL"
+            }
         ],
         "isNew": true
     },
@@ -153,11 +276,26 @@
         "price": 64.95,
         "currency": "EUR",
         "sizes": [
-            "XS",
-            "S",
-            "M",
-            "L",
-            "XL"
+            {
+                "id": 2001,
+                "name": "XS"
+            },
+            {
+                "id": 2002,
+                "name": "S"
+            },
+            {
+                "id": 2003,
+                "name": "M"
+            },
+            {
+                "id": 2004,
+                "name": "L"
+            },
+            {
+                "id": 2005,
+                "name": "XL"
+            }
         ],
         "isNew": true
     },
@@ -169,11 +307,26 @@
         "price": 59.95,
         "currency": "EUR",
         "sizes": [
-            "XS",
-            "S",
-            "M",
-            "L",
-            "XL"
+            {
+                "id": 2001,
+                "name": "XS"
+            },
+            {
+                "id": 2002,
+                "name": "S"
+            },
+            {
+                "id": 2003,
+                "name": "M"
+            },
+            {
+                "id": 2004,
+                "name": "L"
+            },
+            {
+                "id": 2005,
+                "name": "XL"
+            }
         ],
         "isNew": true
     },
@@ -185,11 +338,26 @@
         "price": 59.95,
         "currency": "EUR",
         "sizes": [
-            "XS",
-            "S",
-            "M",
-            "L",
-            "XL"
+            {
+                "id": 2001,
+                "name": "XS"
+            },
+            {
+                "id": 2002,
+                "name": "S"
+            },
+            {
+                "id": 2003,
+                "name": "M"
+            },
+            {
+                "id": 2004,
+                "name": "L"
+            },
+            {
+                "id": 2005,
+                "name": "XL"
+            }
         ],
         "isNew": true
     },
@@ -201,10 +369,22 @@
         "price": 69.95,
         "currency": "EUR",
         "sizes": [
-            "S",
-            "M",
-            "L",
-            "XL"
+            {
+                "id": 2002,
+                "name": "S"
+            },
+            {
+                "id": 2003,
+                "name": "M"
+            },
+            {
+                "id": 2004,
+                "name": "L"
+            },
+            {
+                "id": 2005,
+                "name": "XL"
+            }
         ],
         "rating": 2,
         "comments": 2
@@ -217,11 +397,26 @@
         "price": 69.95,
         "currency": "EUR",
         "sizes": [
-            "S",
-            "M",
-            "L",
-            "XL",
-            "XXL"
+            {
+                "id": 2002,
+                "name": "S"
+            },
+            {
+                "id": 2003,
+                "name": "M"
+            },
+            {
+                "id": 2004,
+                "name": "L"
+            },
+            {
+                "id": 2005,
+                "name": "XL"
+            },
+            {
+                "id": 2006,
+                "name": "XXL"
+            }
         ],
         "rating": 4,
         "comments": 3
@@ -234,11 +429,26 @@
         "price": 59.95,
         "currency": "EUR",
         "sizes": [
-            "S",
-            "M",
-            "L",
-            "XL",
-            "XXL"
+            {
+                "id": 2002,
+                "name": "S"
+            },
+            {
+                "id": 2003,
+                "name": "M"
+            },
+            {
+                "id": 2004,
+                "name": "L"
+            },
+            {
+                "id": 2005,
+                "name": "XL"
+            },
+            {
+                "id": 2006,
+                "name": "XXL"
+            }
         ],
         "rating": 3,
         "comments": 5
@@ -251,11 +461,26 @@
         "price": 49.95,
         "currency": "EUR",
         "sizes": [
-            "XS",
-            "S",
-            "M",
-            "L",
-            "XL"
+            {
+                "id": 2001,
+                "name": "XS"
+            },
+            {
+                "id": 2002,
+                "name": "S"
+            },
+            {
+                "id": 2003,
+                "name": "M"
+            },
+            {
+                "id": 2004,
+                "name": "L"
+            },
+            {
+                "id": 2005,
+                "name": "XL"
+            }
         ],
         "rating": 4,
         "comments": 2
@@ -269,7 +494,10 @@
         "price": 38.95,
         "currency": "EUR",
         "sizes": [
-            "XS"
+            {
+                "id": 2001,
+                "name": "XS"
+            }
         ],
         "rating": 5,
         "comments": 10
@@ -283,9 +511,18 @@
         "price": 36.95,
         "currency": "EUR",
         "sizes": [
-            "S",
-            "M",
-            "L"
+            {
+                "id": 2002,
+                "name": "S"
+            },
+            {
+                "id": 2003,
+                "name": "M"
+            },
+            {
+                "id": 2004,
+                "name": "L"
+            }
         ],
         "rating": 4,
         "comments": 8
@@ -299,12 +536,30 @@
         "price": 30.95,
         "currency": "EUR",
         "sizes": [
-            "XS",
-            "S",
-            "M",
-            "L",
-            "XL",
-            "XXL"
+            {
+                "id": 2001,
+                "name": "XS"
+            },
+            {
+                "id": 2002,
+                "name": "S"
+            },
+            {
+                "id": 2003,
+                "name": "M"
+            },
+            {
+                "id": 2004,
+                "name": "L"
+            },
+            {
+                "id": 2005,
+                "name": "XL"
+            },
+            {
+                "id": 2006,
+                "name": "XXL"
+            }
         ],
         "rating": 5,
         "comments": 11
@@ -318,8 +573,14 @@
         "price": 35.95,
         "currency": "EUR",
         "sizes": [
-            "XS",
-            "S"
+            {
+                "id": 2001,
+                "name": "XS"
+            },
+            {
+                "id": 2002,
+                "name": "S"
+            }
         ],
         "rating": 3,
         "comments": 5
@@ -333,9 +594,18 @@
         "price": 65.95,
         "currency": "EUR",
         "sizes": [
-            "XS",
-            "L",
-            "M"
+            {
+                "id": 2001,
+                "name": "XS"
+            },
+            {
+                "id": 2002,
+                "name": "S"
+            },
+            {
+                "id": 2003,
+                "name": "M"
+            }
         ],
         "rating": 3.5,
         "comments": 3
@@ -348,8 +618,14 @@
         "price": 44.95,
         "currency": "EUR",
         "sizes": [
-            "M",
-            "L"
+            {
+                "id": 2003,
+                "name": "M"
+            },
+            {
+                "id": 2004,
+                "name": "L"
+            }
         ],
         "rating": 4,
         "comments": 1
@@ -363,10 +639,22 @@
         "price": 70.95,
         "currency": "EUR",
         "sizes": [
-            "XS",
-            "S",
-            "M",
-            "L"
+            {
+                "id": 2001,
+                "name": "XS"
+            },
+            {
+                "id": 2002,
+                "name": "S"
+            },
+            {
+                "id": 2003,
+                "name": "M"
+            },
+            {
+                "id": 2004,
+                "name": "L"
+            }
         ],
         "rating": 5,
         "comments": 8
@@ -380,8 +668,14 @@
         "price": 38.95,
         "currency": "EUR",
         "sizes": [
-            "XS",
-            "S"
+            {
+                "id": 2001,
+                "name": "XS"
+            },
+            {
+                "id": 2002,
+                "name": "S"
+            }
         ],
         "rating": 4,
         "comments": 4
