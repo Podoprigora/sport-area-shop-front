@@ -12,6 +12,33 @@
 		stroke: $color-secondary;
 	}
 
+	&--small {
+		width: 2.4rem;
+		height: 2.4rem;
+
+		#{$this}__svg-circle {
+			stroke-width: 4px;
+		}
+	}
+
+	&--medium {
+		width: 3.6rem;
+		height: 3.6rem;
+
+		#{$this}__svg-circle {
+			stroke-width: 3px;
+		}
+	}
+
+	&--large {
+		width: 6rem;
+		height: 6rem;
+
+		#{$this}__svg-circle {
+			stroke-width: 2.25px;
+		}
+	}
+
 	&__svg {
 		animation: circular-progress-rotate-animation 1.2s linear infinite;
 	}
