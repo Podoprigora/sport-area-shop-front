@@ -1,4 +1,12 @@
-import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+    memo,
+    useCallback,
+    useEffect,
+    useLayoutEffect,
+    useMemo,
+    useRef,
+    useState
+} from 'react';
 import PropTypes from 'prop-types';
 
 import useEventCallback from '@ui/hooks/useEventCallback';
@@ -68,7 +76,7 @@ const ProductCommentRepliesList = (props) => {
         }
     }, [id, asyncFetchCommentReplies, isMountedRef]);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (expanded) {
             fetchReplies();
         }
@@ -89,7 +97,7 @@ const ProductCommentRepliesList = (props) => {
                 className="product-comments-list__show-replies-btn"
                 onClick={handleToggleBtnClick}
             >
-                {expanded && !loading ? 'Hide' : 'Show'} {getRepliesCountText(count)}
+                {!expanded || loading ? 'Show' : 'Hide'} {getRepliesCountText(count)}
             </Button>
             {expanded && items.length > 0 && (
                 <div className="product-comments-list__replies-list">

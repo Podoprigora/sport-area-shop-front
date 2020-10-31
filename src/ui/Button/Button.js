@@ -83,8 +83,8 @@ const Button = React.forwardRef(function Button(props, ref) {
         loading &&
         loadingComponent &&
         React.cloneElement(loadingComponent, {
-            className: classNames('btn__icon', loadingComponent.props.className),
-            size: loadingComponent.props.size || 'small'
+            className: classNames('btn__icon btn__progress', loadingComponent.props.className),
+            size: loadingComponent.props.size || size
         });
 
     return (

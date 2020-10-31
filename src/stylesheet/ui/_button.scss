@@ -234,4 +234,30 @@
 	&__arrow {
 		flex-shrink: 0;
 	}
+
+	&__progress {
+		&.circular-progress--small {
+			@extend .icon--small;
+
+			.circular-progress__svg-circle {
+				stroke-width: .4rem;
+			}
+		}
+
+		&.circular-progress--medium {
+			@extend .icon--medium;
+
+			.circular-progress__svg-circle {
+				stroke-width: .4rem;
+			}
+		}
+
+		&.circular-progress--large {
+			@extend .icon--large;
+
+			.circular-progress__svg-circle {
+				stroke-width: .4rem;
+			}
+		}
+	}
 }
