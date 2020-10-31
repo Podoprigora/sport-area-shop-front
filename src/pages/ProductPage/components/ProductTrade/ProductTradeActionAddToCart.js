@@ -36,7 +36,7 @@ const ProductTradeActionAddToCart = (props) => {
         if (asyncAddToCart) {
             try {
                 setLoading(true);
-                await asyncAddToCart({ cartId, productId: id, sizeId: selectedSizeId });
+                await asyncAddToCart({ id: cartId, productId: id, sizeId: selectedSizeId });
             } catch (e) {
                 console.error(e);
             } finally {
@@ -53,6 +53,7 @@ const ProductTradeActionAddToCart = (props) => {
                 primary
                 plain={isProductInCart}
                 size="large"
+                truncate
                 centered={!isProductInCart}
                 icon={isProductInCart ? CheckCircleIcon : ShoppingCartIcon}
                 loading={loading}

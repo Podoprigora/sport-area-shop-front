@@ -4,11 +4,11 @@ import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 
 const ProductLink = (props) => {
-    const { children, id, anchorToComments, selectedSize, className, ...other } = props;
+    const { children, id, anchorToComments, selectedSize, className, disabled, ...other } = props;
 
     const to = {};
 
-    if (id) {
+    if (id && !disabled) {
         to.pathname = `/product/${id}`;
     }
 
@@ -21,7 +21,7 @@ const ProductLink = (props) => {
     }
 
     return (
-        <Link to={to} className={classNames('product__link', className)}>
+        <Link to={to} className={classNames('product__link', className)} {...other}>
             {children}
         </Link>
     );
@@ -32,7 +32,8 @@ ProductLink.propTypes = {
     id: PropTypes.number,
     anchorToComments: PropTypes.bool,
     selectedSize: PropTypes.number,
-    className: PropTypes.string
+    className: PropTypes.string,
+    disabled: PropTypes.bool
 };
 
 export default ProductLink;

@@ -71,7 +71,7 @@ const WindowHeader = (props) => {
                     onClick={handleCloseClick}
                     onTouchEnd={handleCloseTouchEnd}
                 >
-                    {renderCloseIcon ? renderCloseIcon(props) : <ClearCloseIcon size="medium" />}
+                    {renderCloseIcon ? renderCloseIcon(props) : <ClearCloseIcon />}
                 </IconButton>
             )}
         </div>

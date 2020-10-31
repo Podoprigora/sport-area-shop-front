@@ -8,28 +8,27 @@ import useEventCallback from '@ui/hooks/useEventCallback';
 import { numOfCartItemsSelector } from '@store/cart';
 import Badge from '@ui/Badge';
 import Tooltip from '@ui/Tooltip';
+import { useWindowManager } from '@ui/WindowManager';
 
 const HeaderCartAction = (props) => {
     const numOfCartItems = useSelector(numOfCartItemsSelector);
+    const { openWindow } = useWindowManager();
 
     const handleClick = useEventCallback(() => {
-        console.log('cart btn click');
+        openWindow('CartWindow');
     });
 
     const badgeValue = numOfCartItems > 0 ? numOfCartItems : 0;
-    const tooltipTitle = !numOfCartItems ? 'Your cart is empty' : '';
 
     return useMemo(() => {
         return (
-            <Tooltip title={tooltipTitle}>
-                <IconButton primary size="large" onClick={handleClick}>
-                    <Badge value={badgeValue}>
-                        <ShoppingCartIcon />
-                    </Badge>
-                </IconButton>
-            </Tooltip>
+            <IconButton primary size="large" onClick={handleClick}>
+                <Badge value={badgeValue}>
+                    <ShoppingCartIcon />
+                </Badge>
+            </IconButton>
         );
-    }, [badgeValue, tooltipTitle, handleClick]);
+    }, [badgeValue, handleClick]);
 };
 
 export default HeaderCartAction;

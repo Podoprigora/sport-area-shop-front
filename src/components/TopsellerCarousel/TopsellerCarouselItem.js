@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -13,7 +13,17 @@ import {
 import Calc from '@utils/Calc';
 
 const TopsellerCarouselItem = (props) => {
-    const { id, name, brand, image, price, oldPrice, currency } = props;
+    const {
+        id,
+        name,
+        brand,
+        image,
+        price,
+        oldPrice,
+        currency,
+        'data-draggable': dataDraggable
+    } = props;
+
     const discount = Calc.discountPersent(oldPrice, price);
 
     return (
@@ -21,11 +31,11 @@ const TopsellerCarouselItem = (props) => {
             <ProductActionAddToWishlist id={id} />
             <ProductFlag discount={discount} />
 
-            <ProductLink id={id}>
+            <ProductLink id={id} disabled={dataDraggable}>
                 <ProductImage image={image} name={name} />
             </ProductLink>
 
-            <ProductLink id={id}>
+            <ProductLink id={id} disabled={dataDraggable}>
                 <ProductTitle brand={brand} name={name} />
             </ProductLink>
 
@@ -41,7 +51,8 @@ TopsellerCarouselItem.propTypes = {
     image: PropTypes.string,
     price: PropTypes.number,
     oldPrice: PropTypes.number,
-    currency: PropTypes.string
+    currency: PropTypes.string,
+    'data-draggable': PropTypes.bool
 };
 
-export default TopsellerCarouselItem;
+export default memo(TopsellerCarouselItem);

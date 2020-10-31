@@ -14,6 +14,6 @@ export default class Format {
             default:
         }
 
-        return `${currencySign}${value}`;
+        return `${currencySign} ${value}`;
     }
 }

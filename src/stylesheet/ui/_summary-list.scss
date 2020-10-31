@@ -1,0 +1,51 @@
+.summary-list {
+	$this: &;
+
+	display: table;
+	background-color: $body-bg-color;
+	padding: $spacing-scale-5 $spacing-scale-7;
+
+	&__item {
+		display: table-row;
+		width: 100%;
+		font-weight: 500;
+		font-size: 1.6rem;
+		color: $heading-color;
+		text-align: right;
+
+		& > * {
+			padding: 0;
+			display: table-cell;
+		}
+
+		&--large {
+			font-size: 2rem;
+
+			& #{$this}__label {
+				font-size: inherit;
+			}
+		}
+
+		&--small {
+			font-size: 1.2rem;
+
+			& #{$this}__label {
+				font-size: inherit;
+				padding-top: 0;
+				padding-bottom: 0;
+			}
+		}
+	}
+
+	&__label {
+		font-size: $font-size;
+		vertical-align: top;
+		padding: $spacing-scale-2 $spacing-scale-8 $spacing-scale-2 0;
+		width: 100%;
+	}
+
+	&__value {
+		vertical-align: middle;
+		white-space: nowrap;
+	}
+}

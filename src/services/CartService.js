@@ -13,10 +13,43 @@ export default class CartService {
         const savedData = {
             id: cartId,
             ...(!id
-                ? { productId, sizeId, size: sizeItem?.name, image, name, brand, price, currency }
+                ? {
+                      productId,
+                      sizeId,
+                      size: sizeItem?.name,
+                      image,
+                      name,
+                      brand,
+                      price,
+                      currency,
+                      vat: 0.16
+                  }
                 : {})
         };
 
         return fakeRequest({ success: true, item: savedData }, { success: true, delay: 500 });
+    }
+
+    static async getAvailableQuantity({ id, qty }) {
+        let data = {
+            success: true,
+            item: {
+                id,
+                qty
+            }
+        };
+
+        if (qty > 3) {
+            data = {
+                success: false,
+                error: 'Not enough goods to sell',
+                item: {
+                    id,
+                    qty: 3
+                }
+            };
+        }
+
+        return fakeRequest(data, { success: true, delay: 250 });
     }
 }

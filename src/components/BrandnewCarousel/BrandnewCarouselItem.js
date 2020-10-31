@@ -12,18 +12,18 @@ import {
 } from '@components/Product';
 
 const BrandnewCarouselItem = (props) => {
-    const { id, name, brand, image, price, currency } = props;
+    const { id, name, brand, image, price, currency, 'data-draggable': dataDraggable } = props;
 
     return (
         <Product className="products-carousel__item">
             <ProductActionAddToWishlist id={id} />
             <ProductFlag isNew />
 
-            <ProductLink id={id}>
+            <ProductLink id={id} disabled={dataDraggable}>
                 <ProductImage image={image} name={name} />
             </ProductLink>
 
-            <ProductLink id={id}>
+            <ProductLink id={id} disabled={dataDraggable}>
                 <ProductTitle brand={brand} name={name} />
             </ProductLink>
 
@@ -38,7 +38,8 @@ BrandnewCarouselItem.propTypes = {
     brand: PropTypes.string,
     image: PropTypes.string,
     price: PropTypes.number,
-    currency: PropTypes.string
+    currency: PropTypes.string,
+    'data-draggable': PropTypes.bool
 };
 
 export default memo(BrandnewCarouselItem);

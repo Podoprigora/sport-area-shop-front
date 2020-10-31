@@ -19,6 +19,7 @@ import WishlistPage from '@pages/WishlistPage';
 import TestPage from '@pages/TestPage';
 import ProtectedRoute from '@components/ProtectedRoute';
 import ProductPage from '@pages/ProductPage';
+import { CartWindow } from '@components/Cart';
 
 const PagesView = (props) => {
     const { loading, error } = props;
@@ -61,6 +62,7 @@ const PagesView = (props) => {
                 <LoginWindow />
                 <RegisterWindow />
                 <ForgotPasswordWindow />
+                <CartWindow />
             </Main>
             <Footer />
             <ScrollToTopButton />

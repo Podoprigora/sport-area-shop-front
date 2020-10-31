@@ -16,6 +16,58 @@ const getCartItemsById = (cartState) => {
 
 export const cartSelector = createSelector(getCart, (cartState) => cartState);
 
+export const cartItemsSelector = createSelector(getCart, (cartState) => {
+    const allIds = getCartAllIds(cartState);
+    const itemsById = getCartItemsById(cartState);
+
+    const items = allIds.reduce((result, id) => {
+        const item = itemsById[id];
+
+        if (item) {
+            const { qty, price } = item;
+            const newItem = { ...item, amount: qty * price };
+
+            return [...result, newItem];
+        }
+
+        return result;
+    }, []);
+
+    return items;
+});
+
+export const cartTotalsSelector = createSelector(getCart, (cartState) => {
+    const allIds = getCartAllIds(cartState);
+    const itemsById = getCartItemsById(cartState);
+
+    const totals = {
+        qty: 0,
+        price: 0,
+        currency: null,
+        vat: null
+    };
+
+    allIds.forEach((id) => {
+        const item = itemsById[id];
+        const { currency, qty = 1, price = 0, vat = 0 } = item;
+
+        if (item) {
+            totals.qty += qty;
+            totals.price += qty * price;
+
+            if (!totals.currency && currency) {
+                totals.currency = currency;
+            }
+
+            if (!totals.vat && vat) {
+                totals.vat = vat;
+            }
+        }
+    });
+
+    return totals;
+});
+
 export const numOfCartItemsSelector = createSelector(getCart, (cartState) => {
     const ids = getCartAllIds(cartState);
 

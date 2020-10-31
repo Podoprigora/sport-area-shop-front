@@ -19,7 +19,7 @@
 	box-shadow: $btn-box-shadow;
 	cursor: pointer;
 	@include disable-tap-highlight-color;
-	transition: all .15s ease-out;
+	transition: $btn-transition;
 
 	&:hover:not(#{$this}--disabled):not(#{$this}--loading) {
 		background-color: $btn-hover-bg-color;

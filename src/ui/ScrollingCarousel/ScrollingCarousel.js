@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import scroll from 'scroll';
@@ -21,6 +21,7 @@ const ScrollingCarousel = ({
         next: false
     });
     const [scrollable, setScrollable] = useState(false);
+    const [isActivatedDragState, setIsActivatedDragState] = useState(false);
     const scrollerContentNode = useRef(null);
     const scrollerNode = useRef(null);
     const isDraggableContent = useRef(false);
@@ -55,7 +56,7 @@ const ScrollingCarousel = ({
     const handleScrollerContentMouseDown = (ev) => {
         ev.preventDefault();
 
-        isActivatedDrag.current = false;
+        setIsActivatedDragState(false);
         isDraggableContent.current = true;
         startScrollPositionX.current = ev.clientX + scrollerNode.current.scrollLeft;
     };
@@ -79,7 +80,7 @@ const ScrollingCarousel = ({
             scrollerNode.current.scrollLeft = startScrollPositionX.current - ev.clientX;
 
             setTimeout(() => {
-                isActivatedDrag.current = true;
+                setIsActivatedDragState(true);
             }, 166);
         }
     };
@@ -130,13 +131,15 @@ const ScrollingCarousel = ({
 
     // Render
 
-    const items = React.Children.map(children, (child, i) => {
-        return (
-            <div key={i} className="scrolling-carousel__item">
-                {child}
-            </div>
-        );
-    });
+    const items = useMemo(() => {
+        return React.Children.map(children, (child, i) => {
+            return (
+                <div key={i} className="scrolling-carousel__item">
+                    {React.cloneElement(child, { 'data-draggable': isActivatedDragState })}
+                </div>
+            );
+        });
+    }, [children, isActivatedDragState]);
 
     return (
         <div

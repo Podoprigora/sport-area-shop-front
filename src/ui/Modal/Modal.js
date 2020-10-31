@@ -16,13 +16,10 @@ const isOverflowing = () => {
 };
 
 const setBodyOverflow = (overflow = true) => {
-    const { style } = document.body;
-
-    // console.log(`calc(100% - ${scrollbarSize()})px`);
+    const { style, clientWidth } = document.body;
 
     style['overflow'] = overflow ? null : 'hidden';
-    // style['width'] = overflow ? null : `calc(100% - ${scrollbarSize()}px)`;
-    style['paddingRight'] = overflow ? null : `${scrollbarSize()}px`;
+    style['width'] = overflow ? null : `${clientWidth}px`;
 };
 
 const getHasTransition = (props) => {

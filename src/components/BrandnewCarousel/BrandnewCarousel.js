@@ -17,12 +17,6 @@ import BrandnewCarouselItem from './BrandnewCarouselItem';
 const BrandnewCarousel = (props) => {
     const { data, className, loading, error, onItemClick, onReload, ...other } = props;
 
-    const handleItemClick = useEventCallback((ev, item) => {
-        if (onItemClick) {
-            onItemClick(ev, item);
-        }
-    });
-
     if (loading) {
         return <ProductsCarouselSkeleton />;
     }
