@@ -12,7 +12,15 @@ import {
 } from '@components/Product';
 
 const BrandnewCarouselItem = (props) => {
-    const { id, name, brand, image, price, currency, 'data-draggable': dataDraggable } = props;
+    const {
+        id,
+        name,
+        brand,
+        image,
+        price,
+        currency,
+        'data-draggable': dataDraggable = false
+    } = props;
 
     return (
         <Product className="products-carousel__item">

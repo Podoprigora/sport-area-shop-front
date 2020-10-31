@@ -21,7 +21,7 @@ const TopsellerCarouselItem = (props) => {
         price,
         oldPrice,
         currency,
-        'data-draggable': dataDraggable
+        'data-draggable': dataDraggable = false
     } = props;
 
     const discount = Calc.discountPersent(oldPrice, price);

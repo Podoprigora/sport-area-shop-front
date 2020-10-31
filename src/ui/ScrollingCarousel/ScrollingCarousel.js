@@ -22,20 +22,21 @@ const ScrollingCarousel = ({
     });
     const [scrollable, setScrollable] = useState(false);
     const [isActivatedDragState, setIsActivatedDragState] = useState(false);
-    const scrollerContentNode = useRef(null);
-    const scrollerNode = useRef(null);
-    const isDraggableContent = useRef(false);
-    const isActivatedDrag = useRef(false);
-    const startScrollPositionX = useRef(0);
+
+    const scrollerContentNodeRef = useRef(null);
+    const scrollerNodeRef = useRef(null);
+    const isDraggableContentRef = useRef(false);
+    const startScrollPositionXRef = useRef(0);
+    const activeDragItemIndexRef = useRef(null);
 
     // Handlers
 
     const updateDisplayControlsState = useEventCallback(() => {
-        if (!scrollerNode.current) {
+        if (!scrollerNodeRef.current) {
             return;
         }
 
-        const { clientWidth, scrollWidth, scrollLeft } = scrollerNode.current;
+        const { clientWidth, scrollWidth, scrollLeft } = scrollerNodeRef.current;
         const displayControlPrev = scrollLeft > 0;
         const displayControlNext = clientWidth + scrollLeft < scrollWidth;
         const hasScrolling = scrollWidth > clientWidth;
@@ -57,27 +58,27 @@ const ScrollingCarousel = ({
         ev.preventDefault();
 
         setIsActivatedDragState(false);
-        isDraggableContent.current = true;
-        startScrollPositionX.current = ev.clientX + scrollerNode.current.scrollLeft;
+        isDraggableContentRef.current = true;
+        startScrollPositionXRef.current = ev.clientX + scrollerNodeRef.current.scrollLeft;
     };
 
     const handleScrollerContentMouseUp = (ev) => {
         ev.preventDefault();
 
-        isDraggableContent.current = false;
+        isDraggableContentRef.current = false;
     };
 
     const handleScrollerContentMouseLeave = (ev) => {
         ev.preventDefault();
 
-        isDraggableContent.current = false;
+        isDraggableContentRef.current = false;
     };
 
     const handleScrollerContentMouseMove = (ev) => {
         ev.preventDefault();
 
-        if (isDraggableContent.current === true) {
-            scrollerNode.current.scrollLeft = startScrollPositionX.current - ev.clientX;
+        if (isDraggableContentRef.current === true) {
+            scrollerNodeRef.current.scrollLeft = startScrollPositionXRef.current - ev.clientX;
 
             setTimeout(() => {
                 setIsActivatedDragState(true);
@@ -87,10 +88,10 @@ const ScrollingCarousel = ({
 
     const scrollContent = useCallback((direction = 'left') => {
         const nextScrollPosition =
-            (direction === 'left' ? -1 : 1) * scrollerNode.current.clientWidth +
-            scrollerNode.current.scrollLeft;
+            (direction === 'left' ? -1 : 1) * scrollerNodeRef.current.clientWidth +
+            scrollerNodeRef.current.scrollLeft;
 
-        scroll.left(scrollerNode.current, nextScrollPosition);
+        scroll.left(scrollerNodeRef.current, nextScrollPosition);
     }, []);
 
     const handleClickControlNext = useCallback(
@@ -132,10 +133,23 @@ const ScrollingCarousel = ({
     // Render
 
     const items = useMemo(() => {
+        const handleItemMouseDown = (index) => (ev) => {
+            activeDragItemIndexRef.current = index;
+        };
+
         return React.Children.map(children, (child, i) => {
+            const isItemDraggable = activeDragItemIndexRef.current === i;
+
             return (
-                <div key={i} className="scrolling-carousel__item">
-                    {React.cloneElement(child, { 'data-draggable': isActivatedDragState })}
+                <div
+                    role="presentation"
+                    key={i}
+                    className="scrolling-carousel__item"
+                    onMouseDown={handleItemMouseDown(i)}
+                >
+                    {isActivatedDragState && isItemDraggable
+                        ? React.cloneElement(child, { 'data-draggable': isItemDraggable })
+                        : child}
                 </div>
             );
         });
@@ -159,14 +173,14 @@ const ScrollingCarousel = ({
                 <Scrollbar
                     autoHeight
                     autoHeightMax="auto"
-                    ref={scrollerNode}
+                    ref={scrollerNodeRef}
                     disabled={disableScrollbar}
                     onScroll={handleScroll}
                 >
                     <div
                         role="presentation"
                         className="scrolling-carousel__scroller-content"
-                        ref={scrollerContentNode}
+                        ref={scrollerContentNodeRef}
                         onMouseDown={handleScrollerContentMouseDown}
                         onMouseUp={handleScrollerContentMouseUp}
                         onMouseMove={handleScrollerContentMouseMove}
