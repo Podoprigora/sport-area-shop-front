@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Window, { WindowActions, WindowBody, WindowHeader, WindowLoadingMask } from '@ui/Window';
 import ShoppingCartIcon from '@svg-icons/feather/ShoppingCartIcon';
@@ -7,6 +7,7 @@ import Button from '@ui/Button';
 import useMediaQuery from '@ui/hooks/useMediaQuery';
 import { useWindowManager } from '@ui/WindowManager';
 import useEventCallback from '@ui/hooks/useEventCallback';
+import useControlled from '@ui/hooks/useControlled';
 
 const windowName = 'CartWindow';
 
@@ -15,12 +16,26 @@ const CartWindowView = (props) => {
 
     const { isOpenWindow, closeWindow } = useWindowManager();
     const fullScreen = useMediaQuery('(max-width: 576px)');
+    const [displayChildren, setDisplayChildren] = useState(false);
 
     const handleClose = useEventCallback(() => {
         closeWindow(windowName);
     });
 
+    const handleTransitionEntered = useEventCallback(() => {
+        setDisplayChildren(true);
+    });
+    const handleTransitionExit = useEventCallback(() => {
+        setDisplayChildren(false);
+    });
+
     const open = isOpenWindow(windowName);
+
+    let childrenNode = children;
+
+    if (fullScreen) {
+        childrenNode = displayChildren && children;
+    }
 
     return (
         <Window
@@ -30,6 +45,10 @@ const CartWindowView = (props) => {
             maxWidth={750}
             disableRestoreFocus
             className="cart cart-window"
+            transitionProps={{
+                onEntered: handleTransitionEntered,
+                onExit: handleTransitionExit
+            }}
             onClose={handleClose}
         >
             <WindowLoadingMask open={loading} />
@@ -38,7 +57,7 @@ const CartWindowView = (props) => {
                 onClose={handleClose}
                 renderIcon={() => <ShoppingCartIcon />}
             />
-            <WindowBody className="cart-window__body">{children}</WindowBody>
+            <WindowBody className="cart-window__body">{childrenNode}</WindowBody>
             {!disableActions && (
                 <WindowActions>
                     <Button

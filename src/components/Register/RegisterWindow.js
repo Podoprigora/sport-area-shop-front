@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, memo, useState } from 'react';
 import PropTypes from 'prop-types';
 
+import useMediaQuery from '@ui/hooks/useMediaQuery';
 import useMountedRef from '@ui/hooks/useMountedRef';
 import Window, { WindowLoadingMask } from '@ui/Window';
 import WindowHeader from '@ui/Window/WindowHeader';
@@ -16,8 +17,7 @@ const RegisterWindow = (props) => {
 
     const isMountedRef = useMountedRef();
     const { isOpenWindow, openWindow, closeWindow } = useWindowManager();
-
-    const open = isOpenWindow('RegisterWindow');
+    const fullScreen = useMediaQuery('(max-width: 576px)');
 
     const handleClose = useEventCallback((ev) => {
         closeWindow('RegisterWindow');
@@ -57,9 +57,12 @@ const RegisterWindow = (props) => {
         [isMountedRef, handleSignIn]
     );
 
+    const open = isOpenWindow('RegisterWindow');
+
     return (
         <Window
             open={open}
+            fullScreen={fullScreen}
             centered
             maxWidth={560}
             disableEscapeKeyDown={mask}

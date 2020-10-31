@@ -9,6 +9,7 @@ import ClearCloseIcon from '@svg-icons/material/ClearCloseIcon';
 
 const MobileCategoryMenuWindow = (props) => {
     const { open, children, onClose, onBack } = props;
+    const [displayChildren, setDisplayChildren] = useState(false);
 
     const handleClose = useEventCallback((ev) => {
         if (ev) {
@@ -28,8 +29,26 @@ const MobileCategoryMenuWindow = (props) => {
         }
     });
 
+    const handleTransitionEntered = useEventCallback(() => {
+        setDisplayChildren(true);
+    });
+
+    const handleTransitionExit = useEventCallback(() => {
+        setDisplayChildren(false);
+    });
+
     return (
-        <Window open={open} draggable={false} backdrop={false} fullScreen onClose={handleClose}>
+        <Window
+            open={open}
+            draggable={false}
+            backdrop={false}
+            fullScreen
+            transitionProps={{
+                onEntered: handleTransitionEntered,
+                onExit: handleTransitionExit
+            }}
+            onClose={handleClose}
+        >
             <WindowHeader>
                 <IconButton onClick={handleBack} onTouchEnd={handleBack}>
                     <ChevronLeftIcon />
@@ -39,7 +58,7 @@ const MobileCategoryMenuWindow = (props) => {
                     <ClearCloseIcon />
                 </IconButton>
             </WindowHeader>
-            <WindowBody className="mobile-category-menu">{children}</WindowBody>
+            <WindowBody className="mobile-category-menu">{displayChildren && children}</WindowBody>
         </Window>
     );
 };

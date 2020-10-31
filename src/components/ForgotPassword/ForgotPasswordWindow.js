@@ -1,6 +1,7 @@
 import React, { memo, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
+import useMediaQuery from '@ui/hooks/useMediaQuery';
 import useMountedRef from '@ui/hooks/useMountedRef';
 import { useWindowManager } from '@ui/WindowManager';
 import Window from '@ui/Window';
@@ -17,6 +18,7 @@ const ForgotPasswordWindow = (props) => {
     const [mask, setMask] = useState(false);
     const { isOpenWindow, openWindow, closeWindow } = useWindowManager();
     const isMountedRef = useMountedRef();
+    const fullScreen = useMediaQuery('(max-width: 576px)');
 
     const handleClose = useEventCallback(() => {
         closeWindow('ForgotPasswordWindow');
@@ -63,6 +65,7 @@ const ForgotPasswordWindow = (props) => {
         <Window
             open={open}
             centered
+            fullScreen={fullScreen}
             maxWidth={480}
             disableEscapeKeyDown={mask}
             disableBackdropClick={mask}

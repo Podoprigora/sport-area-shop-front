@@ -1,6 +1,7 @@
 import React, { useCallback, memo, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import useMediaQuery from '@ui/hooks/useMediaQuery';
 import useEventCallback from '@ui/hooks/useEventCallback';
 import useMountedRef from '@ui/hooks/useMountedRef';
 import Alert, { AlertTitle } from '@ui/Alert';
@@ -18,8 +19,8 @@ const LoginWindow = (props) => {
     const isMountedRef = useMountedRef();
     const { isOpenWindow, getWindowParams, openWindow, closeWindow } = useWindowManager();
     const { asyncLogin } = useIdentityActions();
+    const fullScreen = useMediaQuery('(max-width: 576px)');
 
-    const open = isOpenWindow('LoginWindow');
     const { resetPasswordAlert = false, registrationAlert = false } =
         getWindowParams('LoginWindow') || {};
 
@@ -62,11 +63,14 @@ const LoginWindow = (props) => {
         [isMountedRef, handleClose, asyncLogin]
     );
 
+    const open = isOpenWindow('LoginWindow');
+
     return (
         <Window
             open={open}
             centered
-            draggable
+            draggable={!fullScreen}
+            fullScreen={fullScreen}
             maxWidth={480}
             disableEscapeKeyDown={mask}
             disableBackdropClick={mask}
