@@ -1,6 +1,6 @@
 ## SportArea shop front-end
 
-Experimental e-comerce front-end built with [React](https://github.com/facebook/react/).
+Experimental e-commerce front-end built with [React](https://github.com/facebook/react/).
 
 The main purpose of this project is mastering of [React](https://github.com/facebook/react/) and receive hands-on experience to build complex components to facilitate development upcoming projects. Another point of this project is preparing library of reusable components.
 
