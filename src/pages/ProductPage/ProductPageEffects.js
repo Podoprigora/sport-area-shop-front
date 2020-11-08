@@ -1,6 +1,9 @@
 import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation, useParams } from 'react-router-dom';
+
+import useNotification from '@ui/Notification';
+import { useAsyncError } from '@ui/ErrorBoundary';
 import { useProductPageActions } from './context';
 
 const ProductPageEffects = (props) => {
@@ -8,6 +11,8 @@ const ProductPageEffects = (props) => {
 
     const { id } = useParams();
     const location = useLocation();
+    const { showAlert } = useNotification();
+    const asyncThrowError = useAsyncError();
     const { asyncFetchProduct, asyncRefetchComments, selectSize } = useProductPageActions();
 
     const selectedSize = location?.state?.selectedSize;
@@ -20,9 +25,9 @@ const ProductPageEffects = (props) => {
         try {
             await asyncFetchProduct(id);
         } catch (e) {
-            console.error(e);
+            asyncThrowError(e);
         }
-    }, [id, asyncFetchProduct]);
+    }, [id, asyncFetchProduct, asyncThrowError]);
 
     const refetchComments = useCallback(async () => {
         if (!asyncRefetchComments) {
@@ -32,9 +37,13 @@ const ProductPageEffects = (props) => {
         try {
             await asyncRefetchComments();
         } catch (e) {
-            console.error(e);
+            showAlert({
+                type: 'error',
+                frame: true,
+                message: "Server's error occurred!"
+            });
         }
-    }, [asyncRefetchComments]);
+    }, [asyncRefetchComments, showAlert]);
 
     useEffect(() => {
         fetchProduct();

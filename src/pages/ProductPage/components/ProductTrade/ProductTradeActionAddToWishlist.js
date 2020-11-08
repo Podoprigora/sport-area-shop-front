@@ -12,11 +12,13 @@ import CircularProgress from '@ui/CircularProgress';
 import useMountedRef from '@ui/hooks/useMountedRef';
 import FavoriteIcon from '@svg-icons/material/FavoriteIcon';
 import { useWindowManager } from '@ui/WindowManager';
-import HeartIcon from '@svg-icons/feather/HeartIcon';
+import useNotification from '@ui/Notification';
 
 const ProductTradeActionAddToWishlist = (props) => {
     const [pending, setPending] = useState(false);
     const isMountedRef = useMountedRef();
+
+    const { showAlert } = useNotification();
 
     const { id } = useProductPageState();
     const isAuth = useSelector(authSelector);
@@ -43,14 +45,18 @@ const ProductTradeActionAddToWishlist = (props) => {
                 setPending(true);
                 await asyncAddToWishlist(id);
             } catch (e) {
-                console.error(e);
+                showAlert({
+                    type: 'error',
+                    frame: true,
+                    message: "Server's error occurred, when add to wishlist!"
+                });
             } finally {
                 if (isMountedRef.current) {
                     setPending(false);
                 }
             }
         }
-    }, [asyncAddToWishlist, id, isAuth, isMountedRef, openWindow]);
+    }, [asyncAddToWishlist, id, isAuth, isMountedRef, openWindow, showAlert]);
 
     return useMemo(() => {
         if (!id) {

@@ -1,5 +1,4 @@
-import React, { useCallback, memo, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useCallback, memo, useState } from 'react';
 
 import useMediaQuery from '@ui/hooks/useMediaQuery';
 import useEventCallback from '@ui/hooks/useEventCallback';
@@ -14,7 +13,7 @@ import { useIdentityActions } from '@store/identity';
 
 import LoginForm from './LoginForm';
 
-const LoginWindow = (props) => {
+const LoginWindow = () => {
     const [mask, setMask] = useState(false);
     const isMountedRef = useMountedRef();
     const { isOpenWindow, getWindowParams, openWindow, closeWindow } = useWindowManager();
@@ -53,7 +52,6 @@ const LoginWindow = (props) => {
                 if (isMountedRef.current && typeof e === 'object') {
                     throw e;
                 }
-                console.log(e);
             } finally {
                 if (isMountedRef.current) {
                     setMask(false);

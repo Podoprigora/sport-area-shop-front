@@ -20,7 +20,9 @@ import {
     SELECT_COMMENTS_SORT,
     RECEIVE_COMMENTS,
     REQUEST_COMMENTS,
-    SET_ERROR
+    SET_ERROR,
+    TOGGLE_COMMENTS_LOADING,
+    RECEIVE_COMMENTS_ERROR
 } from './productPageReducers';
 import ProductPageContextLog from './ProductPageContextLog';
 import { useProductPageSelectors } from './productPageSelectors';
@@ -80,11 +82,17 @@ const ProductPageProvider = (props) => {
         if (productId && shouldRefetch && !loading) {
             dispatch({ type: REQUEST_COMMENTS });
 
-            return ProductsService.fetchProductComments({ productId, start, limit, sortBy }).then(
-                (response) => {
+            return ProductsService.fetchProductComments({ productId, start, limit, sortBy })
+                .then((response) => {
+                    throw new Error('Error');
+                })
+                .then((response) => {
                     dispatch({ type: RECEIVE_COMMENTS, payload: { items: response } });
-                }
-            );
+                })
+                .catch((e) => {
+                    dispatch({ type: RECEIVE_COMMENTS_ERROR });
+                    throw e;
+                });
         }
 
         return undefined;

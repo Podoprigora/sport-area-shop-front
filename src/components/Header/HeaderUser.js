@@ -8,6 +8,7 @@ import ButtonMenu from '@ui/ButtonMenu';
 import Menu from '@ui/Menu';
 import { ListItem, ListItemIcon, ListItemText } from '@ui/List';
 import Divider from '@ui/Divider';
+import useNotification from '@ui/Notification';
 
 import UserIcon from '@svg-icons/feather/UserIcon';
 import ShoppingBagIcon from '@svg-icons/feather/ShoppingBagIcon';
@@ -21,9 +22,10 @@ import useScreenMask from '@contexts/ScreenMaskContext';
 
 import HeaderUserAuthActions from './HeaderUserAuthActions';
 
-const HeaderUser = (props) => {
+const HeaderUser = () => {
     const auth = useSelector(authSelector);
 
+    const { showAlert } = useNotification();
     const { asyncLogout } = useIdentityActions();
     const { toggleMask } = useScreenMask();
     const isMountedRef = useMountedRef();
@@ -34,7 +36,11 @@ const HeaderUser = (props) => {
                 toggleMask(true);
                 await asyncLogout(true);
             } catch (e) {
-                console.error(e);
+                showAlert({
+                    type: 'error',
+                    frame: true,
+                    message: 'Server error occurred!'
+                });
             } finally {
                 if (isMountedRef.current) {
                     toggleMask(false);

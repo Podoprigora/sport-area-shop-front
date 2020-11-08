@@ -56,14 +56,20 @@ const CartWindow = () => {
                 setLoading(true);
                 await asyncAddToCart(item);
             } catch (e) {
-                console.error(e);
+                showAlert({
+                    type: 'error',
+                    message: "We can't delete item from cart, server error occurred!",
+                    autoClose: true,
+                    autoCloseDelay: 5000,
+                    frame: true
+                });
             } finally {
                 if (isMountedRef.current) {
                     setLoading(false);
                 }
             }
         },
-        [asyncAddToCart, isMountedRef]
+        [asyncAddToCart, isMountedRef, showAlert]
     );
 
     const isCartEmpty = cartItems.length === 0;

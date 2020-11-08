@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { useWishlistActions, makeIsProductAddedToWishlistSelector } from '@store/wishlist';
 import { authSelector } from '@store/identity';
 import { useWindowManager } from '@ui/WindowManager';
+import useNotification from '@ui/Notification';
 import ProductActionAddToWishlistView from './ProductActionAddToWishlistView';
 
 const ProductActionAddToWishlist = (props) => {
@@ -12,6 +13,7 @@ const ProductActionAddToWishlist = (props) => {
 
     const isAuth = useSelector(authSelector);
     const { openWindow } = useWindowManager();
+    const { showAlert } = useNotification();
 
     const isProductAddedToWishlistSelector = useMemo(
         () => makeIsProductAddedToWishlistSelector(),
@@ -34,11 +36,15 @@ const ProductActionAddToWishlist = (props) => {
             setLoading(true);
             await asyncAddToWishlist(id);
         } catch (e) {
-            console.error(e);
+            showAlert({
+                type: 'error',
+                frame: true,
+                message: "Server's error occurred, when add to wishlist!"
+            });
         } finally {
             setLoading(false);
         }
-    }, [id, isAuth, asyncAddToWishlist, openWindow]);
+    }, [isAuth, asyncAddToWishlist, id, openWindow, showAlert]);
 
     const selected = isAuth && isProductAddedToWishlist;
 

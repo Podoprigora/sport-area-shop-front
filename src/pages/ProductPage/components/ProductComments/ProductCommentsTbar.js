@@ -12,7 +12,7 @@ import {
 
 import ProductCommentsSortByDropdown from './ProductCommentsSortByDropdown';
 
-const ProductCommentsTbar = (props) => {
+const ProductCommentsTbar = () => {
     const state = useProductPageState();
     const { commentsSort } = useProductPageSelectors(state);
     const { selectCommentsSort } = useProductPageActions();
@@ -38,7 +38,5 @@ const ProductCommentsTbar = (props) => {
         </div>
     );
 };
-
-ProductCommentsTbar.propTypes = {};
 
 export default ProductCommentsTbar;

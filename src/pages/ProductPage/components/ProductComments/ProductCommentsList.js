@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
+import useNotification from '@ui/Notification';
 import useEventCallback from '@ui/hooks/useEventCallback';
 import Empty from '@ui/Empty';
 import MessageSquareIcon from '@svg-icons/feather/MessageSquareIcon';
@@ -16,13 +17,14 @@ import {
 import ProductCommentsListItem from './ProductCommentsListItem';
 import ProductCommentsListLoadMore from './ProductCommentsListLoadMore';
 
-const ProductCommentsList = (props) => {
+const ProductCommentsList = () => {
     const [loading, setLoading] = useState(false);
+
+    const { showAlert } = useNotification();
 
     const state = useProductPageState();
     const { comments, commentsCount } = useProductPageSelectors(state);
     const {
-        toggleCommentReplies,
         asyncLikeComment,
         asyncAddCommentReply,
         asyncFetchMoreComments
@@ -45,19 +47,29 @@ const ProductCommentsList = (props) => {
                 setLoading(true);
                 await asyncFetchMoreComments();
             } catch (e) {
-                console.error(e);
+                showAlert({
+                    type: 'error',
+                    frame: true,
+                    message: "We can't fetch comments, server error occurred!"
+                });
             } finally {
                 if (isMoutedRef.current) {
                     setLoading(false);
                 }
             }
         },
-        [asyncFetchMoreComments, isMoutedRef]
+        [asyncFetchMoreComments, isMoutedRef, showAlert]
     );
 
     const handleLike = useEventCallback((ev, id) => {
         if (asyncLikeComment && identityUserId) {
-            return asyncLikeComment(productId, id);
+            return asyncLikeComment(productId, id).catch((e) => {
+                showAlert({
+                    type: 'error',
+                    frame: true,
+                    message: "We can't complete action, server error occurred!"
+                });
+            });
         }
 
         return undefined;
@@ -67,7 +79,13 @@ const ProductCommentsList = (props) => {
         const payload = { ...reply, productId };
 
         if (asyncAddCommentReply) {
-            return asyncAddCommentReply(payload);
+            return asyncAddCommentReply(payload).catch((e) => {
+                showAlert({
+                    type: 'error',
+                    frame: true,
+                    message: "We can't add your reply, server error occurred!"
+                });
+            });
         }
 
         return undefined;

@@ -22,6 +22,7 @@ const defaultCommentState = {
 
 export const defaultCommentsState = {
     loading: false,
+    error: null,
     shouldRefetch: false,
     allIds: [],
     itemsById: {},
@@ -177,6 +178,7 @@ export const RECEIVE_PRODUCT = ' RECEIVE_PRODUCT';
 export const SELECT_SIZE = 'SELECT_SIZE';
 export const SET_ERROR = ' SET_ERROR';
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
+export const RECEIVE_COMMENTS_ERROR = 'RECEIVE_COMMENTS_ERROR';
 export const REQUEST_COMMENTS = 'REQUEST_COMMENTS';
 export const RECEIVE_MORE_COMMENTS = 'RECEIVE_MORE_COMMENTS';
 export const TOGGLE_COMMENTS_LOADING = 'TOGGLE_COMMENTS_LOADING';
@@ -194,6 +196,7 @@ const strategies = {
     [SET_ERROR]: setErrorStrategy,
     [REQUEST_COMMENTS]: requestCommentsStrategy,
     [RECEIVE_COMMENTS]: receiveCommentsStrategy,
+    [RECEIVE_COMMENTS_ERROR]: receiveCommentsErrorStrategy,
     [RECEIVE_MORE_COMMENTS]: receiveMoreCommentsStrategy,
     [RECEIVE_COMMENT_REPLIES]: receiveCommentRepliesStategy,
     [TOGGLE_COMMENTS_LOADING]: toggleCommentsLoadingStrategy,
@@ -247,6 +250,13 @@ function receiveCommentsStrategy(state, payload) {
     let newState = commentsReducer(state, payload);
     newState = commentsDefaultPageReducer(newState);
     newState = commentsLoadingReducer(newState, false);
+    newState = commentsShouldRefetchReducer(newState, false);
+
+    return newState;
+}
+
+function receiveCommentsErrorStrategy(state) {
+    let newState = commentsLoadingReducer(state, false);
     newState = commentsShouldRefetchReducer(newState, false);
 
     return newState;

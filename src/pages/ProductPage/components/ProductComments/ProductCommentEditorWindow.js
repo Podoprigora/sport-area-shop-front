@@ -50,7 +50,11 @@ const ProductCommentEditorWindow = (props) => {
                         autoClose: true
                     });
                 } catch (e) {
-                    console.error(e);
+                    showAlert({
+                        type: 'error',
+                        message: "We can't save your comment, some server's error occurred!",
+                        frame: true
+                    });
                 } finally {
                     if (isMoutedRef.current) {
                         setLoading(false);

@@ -16,46 +16,63 @@ import ScrollToTopButton from '@components/ScrollToTopButton';
 import MainPage from '@pages/MainPage';
 import CatalogPage from '@pages/CatalogPage';
 import WishlistPage from '@pages/WishlistPage';
-import TestPage from '@pages/TestPage';
 import ProtectedRoute from '@components/ProtectedRoute';
 import ProductPage from '@pages/ProductPage';
 import { CartWindow } from '@components/Cart';
+import AppErrorBoundary, { AppErrorBoundaryAlert } from '@components/AppErrorBoundary';
+import NotFoundPage from '@pages/NotFoundPage';
 
 const PagesView = (props) => {
     const { loading, error } = props;
+
+    if (error) {
+        return <AppErrorBoundaryAlert error={error} main />;
+    }
 
     if (loading || !!error) {
         return <PagesLoadingScreen />;
     }
 
     return (
-        <>
+        <AppErrorBoundary main>
             <ReactRouterScrollToTop />
             <ScreenMask />
             <Header />
             <Main>
                 <Switch>
                     <Route exact path="/">
-                        <MainPage />
-                    </Route>
-                    <Route path="/test">
-                        <TestPage />
+                        <AppErrorBoundary>
+                            <MainPage />
+                        </AppErrorBoundary>
                     </Route>
                     <Route path="/product/:id">
-                        <ProductPage />
+                        <AppErrorBoundary>
+                            <ProductPage />
+                        </AppErrorBoundary>
                     </Route>
                     <ProtectedRoute path="/wishlist">
-                        <WishlistPage />
+                        <AppErrorBoundary>
+                            <WishlistPage />
+                        </AppErrorBoundary>
                     </ProtectedRoute>
 
                     <Route exact path="/:category">
-                        <CatalogPage />
+                        <AppErrorBoundary>
+                            <CatalogPage />
+                        </AppErrorBoundary>
                     </Route>
                     <Route exact path="/:category/:subCategory">
-                        <CatalogPage />
+                        <AppErrorBoundary>
+                            <CatalogPage />
+                        </AppErrorBoundary>
                     </Route>
                     <Route exact path="/:category/:subCategory/:subCategoryItem">
-                        <CatalogPage />
+                        <AppErrorBoundary>
+                            <CatalogPage />
+                        </AppErrorBoundary>
+                    </Route>
+                    <Route>
+                        <NotFoundPage />
                     </Route>
                 </Switch>
 
@@ -66,13 +83,13 @@ const PagesView = (props) => {
             </Main>
             <Footer />
             <ScrollToTopButton />
-        </>
+        </AppErrorBoundary>
     );
 };
 
 PagesView.propTypes = {
     loading: PropTypes.bool,
-    error: PropTypes.bool
+    error: PropTypes.any
 };
 
 export default memo(PagesView);

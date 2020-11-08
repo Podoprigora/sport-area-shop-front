@@ -1,15 +1,18 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
+import useMountedRef from '@ui/hooks/useMountedRef';
+import useNotification from '@ui/Notification';
 import useScreenMask from '@contexts/ScreenMaskContext';
 import { useWishlistActions, wishlistSortBySelector } from '@store/wishlist';
 import WishlistPageView from './WishlistPageView';
 
-const WishlistPage = (props) => {
+const WishlistPage = () => {
     const sortBy = useSelector(wishlistSortBySelector);
     const { asyncFetchWishlist } = useWishlistActions();
     const { isMaskShown, toggleMask } = useScreenMask();
+    const { showAlert } = useNotification();
+    const isMountedRef = useMountedRef();
 
     useEffect(() => {
         (async () => {
@@ -17,12 +20,18 @@ const WishlistPage = (props) => {
                 toggleMask(true);
                 await asyncFetchWishlist();
             } catch (e) {
-                console.error(e);
+                showAlert({
+                    type: 'error',
+                    frame: true,
+                    message: "We can't display data, server error occurred!"
+                });
             } finally {
-                toggleMask(false);
+                if (isMountedRef.current) {
+                    toggleMask(false);
+                }
             }
         })();
-    }, [sortBy, asyncFetchWishlist, toggleMask]);
+    }, [sortBy, asyncFetchWishlist, toggleMask, isMountedRef, showAlert]);
 
     useEffect(() => {
         if (isMaskShown) {

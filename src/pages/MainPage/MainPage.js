@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useMemo, useState } from 'react';
 
 import BrandsService from '@services/BrandsService';
 import ProductsService from '@services/ProductsService';
@@ -11,8 +10,9 @@ import BrandnewCarousel from '@components/BrandnewCarousel';
 import TopsellerCarousel from '@components/TopsellerCarousel';
 import useAsyncRequest from '@ui/hooks/useAsyncRequest';
 import useEventCallback from '@ui/hooks/useEventCallback';
+import AppErrorBoundary from '@components/AppErrorBoundary';
 
-const MainPage = (props) => {
+const MainPage = () => {
     const [errors, setErrors] = useState(() => Array.from(Array(4)));
 
     const { data, loading } = useAsyncRequest({
@@ -88,32 +88,53 @@ const MainPage = (props) => {
         topsellerRequest();
     });
 
-    return (
-        <Page>
-            <PageSection>
-                <AdwSlider data={adwSlidersData} loading={loading} />
-            </PageSection>
-            <PageSection>
-                <BrandsCarousel data={brandsData} />
-            </PageSection>
-            <PageSection>
-                <BrandnewCarousel
-                    data={brandnewData ?? brandnewData2}
-                    loading={loading || brandnewLoading}
-                    error={brandnewError ?? brandnewError2}
-                    onReload={handleReloadBrandnew}
-                />
-            </PageSection>
-            <PageSection>
-                <TopsellerCarousel
-                    data={topsellerData2 ?? topsellerData}
-                    loading={loading || topsellerLoading}
-                    error={topsellerError ?? topsellerError2}
-                    onReload={handleReloadTopseller}
-                />
-            </PageSection>
-        </Page>
-    );
+    // Make a error
+    // console.log(loading());
+
+    return useMemo(() => {
+        return (
+            <Page>
+                <PageSection>
+                    <AdwSlider data={adwSlidersData} loading={loading} />
+                </PageSection>
+                <PageSection>
+                    <BrandsCarousel data={brandsData} />
+                </PageSection>
+                <PageSection>
+                    <BrandnewCarousel
+                        data={brandnewData ?? brandnewData2}
+                        loading={loading || brandnewLoading}
+                        error={brandnewError ?? brandnewError2}
+                        onReload={handleReloadBrandnew}
+                    />
+                </PageSection>
+                <PageSection>
+                    <TopsellerCarousel
+                        data={topsellerData2 ?? topsellerData}
+                        loading={loading || topsellerLoading}
+                        error={topsellerError ?? topsellerError2}
+                        onReload={handleReloadTopseller}
+                    />
+                </PageSection>
+            </Page>
+        );
+    }, [
+        adwSlidersData,
+        brandnewData,
+        brandnewData2,
+        brandnewError,
+        brandnewError2,
+        brandnewLoading,
+        brandsData,
+        handleReloadBrandnew,
+        handleReloadTopseller,
+        loading,
+        topsellerData,
+        topsellerData2,
+        topsellerError,
+        topsellerError2,
+        topsellerLoading
+    ]);
 };
 
 export default MainPage;

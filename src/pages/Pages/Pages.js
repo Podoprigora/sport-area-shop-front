@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
+import useNotification from '@ui/Notification';
 import useMountedRef from '@ui/hooks/useMountedRef';
 import { useCategoriesActions } from '@store/categories';
 import { authSelector, useIdentityActions } from '@store/identity';
@@ -9,10 +9,12 @@ import { useWishlistActions } from '@store/wishlist';
 
 import PagesView from './PagesView';
 
-const Pages = (props) => {
+const Pages = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const isAuth = useSelector(authSelector);
+
+    const { showAlert } = useNotification();
 
     const { asyncFetchCategories } = useCategoriesActions();
     const { asyncFetchIdentity } = useIdentityActions();
@@ -35,7 +37,6 @@ const Pages = (props) => {
 
             if (validPromise instanceof Promise) {
                 return validPromise.catch((e) => {
-                    console.error(e);
                     setError(e);
                 });
             }
@@ -55,12 +56,15 @@ const Pages = (props) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const promises = [asyncFetchInitialWishlist()];
+            const promises = [asyncFetchInitialWishlist(false)];
             try {
                 await Promise.all(promises);
             } catch (e) {
-                console.error(e);
-                setError(e);
+                showAlert({
+                    type: 'error',
+                    frame: true,
+                    message: "We cant't receive wishlist, server error occurred!"
+                });
             }
         };
 
@@ -71,7 +75,7 @@ const Pages = (props) => {
         }
 
         return undefined;
-    }, [isAuth, asyncFetchInitialWishlist]);
+    }, [isAuth, asyncFetchInitialWishlist, showAlert]);
 
     useEffect(() => {
         hadInitialFetchRecentlyRef.current = false;

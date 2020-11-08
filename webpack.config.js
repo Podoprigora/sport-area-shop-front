@@ -90,7 +90,8 @@ module.exports = (env = {}) => {
                                     '@babel/plugin-proposal-class-properties',
                                     '@babel/plugin-transform-runtime',
                                     '@babel/plugin-syntax-dynamic-import',
-                                    '@babel/plugin-transform-react-jsx'
+                                    '@babel/plugin-transform-react-jsx',
+                                    '@babel/plugin-transform-react-jsx-source'
                                 ]
                             }
                         },

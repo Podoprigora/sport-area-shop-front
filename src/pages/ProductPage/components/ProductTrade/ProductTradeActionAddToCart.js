@@ -11,8 +11,10 @@ import CheckCircleIcon from '@svg-icons/feather/CheckCircleIcon';
 
 import { makeCartIdByProductSelector, useCartActions } from '@store/cart';
 import { useProductPageActions, useProductPageState } from '@pages/ProductPage/context';
+import useNotification from '@ui/Notification';
 
 const ProductTradeActionAddToCart = (props) => {
+    const { showAlert } = useNotification();
     const { selectedSizeId, id } = useProductPageState();
     const { setError } = useProductPageActions();
 
@@ -38,14 +40,18 @@ const ProductTradeActionAddToCart = (props) => {
                 setLoading(true);
                 await asyncAddToCart({ id: cartId, productId: id, sizeId: selectedSizeId });
             } catch (e) {
-                console.error(e);
+                showAlert({
+                    type: 'error',
+                    frame: true,
+                    message: "Server's error occurred, when add to wishlist!"
+                });
             } finally {
                 if (isMoutedRef.current) {
                     setLoading(false);
                 }
             }
         }
-    }, [id, selectedSizeId, cartId, isMoutedRef, asyncAddToCart, setError]);
+    }, [id, selectedSizeId, cartId, isMoutedRef, asyncAddToCart, setError, showAlert]);
 
     return useMemo(() => {
         return (

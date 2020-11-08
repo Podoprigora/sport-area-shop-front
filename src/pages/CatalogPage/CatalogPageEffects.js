@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useParams, useHistory, useLocation } from 'react-router-dom';
 
 import useUrlSearchParams from '@ui/hooks/useUrlSearchParams';
+import { useAsyncError } from '@ui/ErrorBoundary';
 import useMountedRef from '@ui/hooks/useMountedRef';
 import ProductsService from '@services/ProductsService';
 
@@ -24,6 +25,7 @@ const parseUrlSearchParams = (params = {}) => {
 const CatalogPageEffects = (props) => {
     const { children } = props;
 
+    const throwAsyncError = useAsyncError();
     const state = useCatalogPageState();
     const {
         loading,
@@ -98,8 +100,8 @@ const CatalogPageEffects = (props) => {
                     });
                 }
             } catch (e) {
-                console.log(e);
                 toggleLoading(false);
+                throwAsyncError(e);
             }
         })();
     }, [
@@ -110,7 +112,8 @@ const CatalogPageEffects = (props) => {
         isMountedRef,
         requestItems,
         receiveItems,
-        toggleLoading
+        toggleLoading,
+        throwAsyncError
     ]);
 
     useEffect(() => {
@@ -131,8 +134,8 @@ const CatalogPageEffects = (props) => {
                     });
                 }
             } catch (e) {
-                console.log(e);
                 toggleLoading(false);
+                throwAsyncError(e);
             }
         };
 
@@ -146,7 +149,8 @@ const CatalogPageEffects = (props) => {
         isMountedRef,
         receiveItems,
         requestItems,
-        toggleLoading
+        toggleLoading,
+        throwAsyncError
     ]);
 
     useEffect(() => {

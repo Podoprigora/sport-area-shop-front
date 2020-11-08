@@ -1,18 +1,11 @@
-import React, {
-    memo,
-    useCallback,
-    useEffect,
-    useLayoutEffect,
-    useMemo,
-    useRef,
-    useState
-} from 'react';
+import React, { memo, useCallback, useLayoutEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import useEventCallback from '@ui/hooks/useEventCallback';
-import ChevronUpIcon from '@svg-icons/feather/ChevronUpIcon';
-import CircularProgress from '@ui/CircularProgress';
 import useMountedRef from '@ui/hooks/useMountedRef';
+import useNotification from '@ui/Notification';
+import CircularProgress from '@ui/CircularProgress';
+import ChevronUpIcon from '@svg-icons/feather/ChevronUpIcon';
 import ChevronDownIcon from '@svg-icons/feather/ChevronDownIcon';
 import Button from '@ui/Button';
 import {
@@ -38,6 +31,8 @@ function getRepliesCountText(count = 0) {
 
 const ProductCommentRepliesList = (props) => {
     const { id, count, expanded } = props;
+
+    const { showAlert } = useNotification();
 
     const state = useProductPageState();
     const { getCommentRepliesById } = useProductPageSelectors(state);
@@ -68,13 +63,17 @@ const ProductCommentRepliesList = (props) => {
                 setLoading(false);
             }
         } catch (e) {
-            console.error(e);
-
+            showAlert({
+                type: 'error',
+                frame: true,
+                message: "We can't fetch replies, server error occurred!"
+            });
+        } finally {
             if (isMountedRef.current) {
                 setLoading(false);
             }
         }
-    }, [id, asyncFetchCommentReplies, isMountedRef]);
+    }, [id, asyncFetchCommentReplies, isMountedRef, showAlert]);
 
     useLayoutEffect(() => {
         if (expanded) {
