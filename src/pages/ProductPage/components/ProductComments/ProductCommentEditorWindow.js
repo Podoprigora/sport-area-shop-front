@@ -52,7 +52,7 @@ const ProductCommentEditorWindow = (props) => {
                 } catch (e) {
                     showAlert({
                         type: 'error',
-                        message: "We can't save your comment, some server's error occurred!",
+                        message: "We can't save your comment, some server error occurred!",
                         frame: true
                     });
                 } finally {

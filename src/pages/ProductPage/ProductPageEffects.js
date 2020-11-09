@@ -40,7 +40,7 @@ const ProductPageEffects = (props) => {
             showAlert({
                 type: 'error',
                 frame: true,
-                message: "Server's error occurred!"
+                message: 'Server error occurred!'
             });
         }
     }, [asyncRefetchComments, showAlert]);

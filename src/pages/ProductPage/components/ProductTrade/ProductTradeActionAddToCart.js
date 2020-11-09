@@ -1,5 +1,4 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 
@@ -13,7 +12,7 @@ import { makeCartIdByProductSelector, useCartActions } from '@store/cart';
 import { useProductPageActions, useProductPageState } from '@pages/ProductPage/context';
 import useNotification from '@ui/Notification';
 
-const ProductTradeActionAddToCart = (props) => {
+const ProductTradeActionAddToCart = () => {
     const { showAlert } = useNotification();
     const { selectedSizeId, id } = useProductPageState();
     const { setError } = useProductPageActions();
@@ -43,7 +42,7 @@ const ProductTradeActionAddToCart = (props) => {
                 showAlert({
                     type: 'error',
                     frame: true,
-                    message: "Server's error occurred, when add to wishlist!"
+                    message: 'Server error occurred, when add to cart!'
                 });
             } finally {
                 if (isMoutedRef.current) {

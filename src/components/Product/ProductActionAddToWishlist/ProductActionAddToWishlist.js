@@ -39,7 +39,7 @@ const ProductActionAddToWishlist = (props) => {
             showAlert({
                 type: 'error',
                 frame: true,
-                message: "Server's error occurred, when add to wishlist!"
+                message: 'Server error occurred, when add to wishlist!'
             });
         } finally {
             setLoading(false);
