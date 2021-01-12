@@ -4,9 +4,9 @@ import classNames from 'classnames';
 
 import useMountedRef from '@ui/hooks/useMountedRef';
 import CircularProgress from '@ui/CircularProgress';
-import ShoppingCartIcon from '@svg-icons/feather/ShoppingCartIcon';
+import ShoppingCartIcon from '@ui/svg-icons/feather/ShoppingCartIcon';
 import Button from '@ui/Button';
-import CheckCircleIcon from '@svg-icons/feather/CheckCircleIcon';
+import CheckCircleIcon from '@ui/svg-icons/feather/CheckCircleIcon';
 
 import { makeCartIdByProductSelector, useCartActions } from '@store/cart';
 import { useProductPageActions, useProductPageState } from '@pages/ProductPage/context';

@@ -1,8 +1,8 @@
 import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Window, { WindowActions, WindowBody, WindowHeader, WindowLoadingMask } from '@ui/Window';
-import ShoppingCartIcon from '@svg-icons/feather/ShoppingCartIcon';
-import ChevronLeftIcon from '@svg-icons/feather/ChevronLeftIcon';
+import ShoppingCartIcon from '@ui/svg-icons/feather/ShoppingCartIcon';
+import ChevronLeftIcon from '@ui/svg-icons/feather/ChevronLeftIcon';
 import Button from '@ui/Button';
 import useMediaQuery from '@ui/hooks/useMediaQuery';
 import { useWindowManager } from '@ui/WindowManager';

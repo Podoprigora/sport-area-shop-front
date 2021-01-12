@@ -2,11 +2,11 @@ import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import SortIcon from '@svg-icons/material/SortIcon';
+import SortIcon from '@ui/svg-icons/material/SortIcon';
 import Menu from '@ui/Menu';
 import useControlled from '@ui/hooks/useControlled';
 import { ListItem, ListItemIcon, ListItemText } from '@ui/List';
-import CheckIcon from '@svg-icons/feather/CheckIcon';
+import CheckIcon from '@ui/svg-icons/feather/CheckIcon';
 import ButtonMenu from '@ui/ButtonMenu';
 
 const options = [

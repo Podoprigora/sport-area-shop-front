@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import IconButton from '@ui/IconButton';
-import ShoppingCartIcon from '@svg-icons/feather/ShoppingCartIcon';
+import ShoppingCartIcon from '@ui/svg-icons/feather/ShoppingCartIcon';
 import useEventCallback from '@ui/hooks/useEventCallback';
 import { numOfCartItemsSelector } from '@store/cart';
 import Badge from '@ui/Badge';

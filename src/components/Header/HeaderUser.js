@@ -10,12 +10,12 @@ import { ListItem, ListItemIcon, ListItemText } from '@ui/List';
 import Divider from '@ui/Divider';
 import useNotification from '@ui/Notification';
 
-import UserIcon from '@svg-icons/feather/UserIcon';
-import ShoppingBagIcon from '@svg-icons/feather/ShoppingBagIcon';
-import HeartIcon from '@svg-icons/feather/HeartIcon';
-import CreditCardIcon from '@svg-icons/feather/CreditCardIcon';
-import KeyIcon from '@svg-icons/feather/KeyIcon';
-import LogOutIcon from '@svg-icons/feather/LogOutIcon';
+import UserIcon from '@ui/svg-icons/feather/UserIcon';
+import ShoppingBagIcon from '@ui/svg-icons/feather/ShoppingBagIcon';
+import HeartIcon from '@ui/svg-icons/feather/HeartIcon';
+import CreditCardIcon from '@ui/svg-icons/feather/CreditCardIcon';
+import KeyIcon from '@ui/svg-icons/feather/KeyIcon';
+import LogOutIcon from '@ui/svg-icons/feather/LogOutIcon';
 
 import { authSelector, useIdentityActions } from '@store/identity';
 import useScreenMask from '@contexts/ScreenMaskContext';

@@ -32,14 +32,12 @@ module.exports = (env = {}) => {
         },
         resolve: {
             alias: {
-                '@svg-icons': path.resolve(__dirname, './src/ui/SvgIcons'),
-                '@ui': path.resolve(__dirname, './src/ui'),
+                '@ui': path.resolve(__dirname, './src/pa-ui-kit/components'),
                 '@utils': path.resolve(__dirname, './src/utils'),
                 '@store': path.resolve(__dirname, './src/store'),
                 '@contexts': path.resolve(__dirname, './src/contexts'),
                 '@components': path.resolve(__dirname, './src/components'),
                 '@pages': path.resolve(__dirname, './src/pages'),
-                '@resources': path.resolve(__dirname, './src/stylesheet/resources'),
                 '@services': path.resolve(__dirname, './src/services'),
                 '@remote': path.resolve(__dirname, './remote')
             }
@@ -135,11 +133,10 @@ module.exports = (env = {}) => {
                         }
                     ]
                 },
-
                 {
                     test: /.(png|jpe?g|gif|svg)$/i,
                     loader: 'url-loader',
-                    exclude: [path.resolve(__dirname, 'src/stylesheet/resources/icons')],
+                    exclude: /[\\\/]svg\-icons[\\\/]/i,
                     options: {
                         limit: 8192,
                         name: '[name]-[contenthash].[ext]',
@@ -149,12 +146,13 @@ module.exports = (env = {}) => {
                 {
                     test: /.svg$/i,
                     loader: '@svgr/webpack',
-                    include: [path.resolve(__dirname, 'src/stylesheet/resources/icons')],
+                    include: /[\\\/]svg\-icons[\\\/]/i,
                     issuer: {
-                        test: /\.js?$/
+                        test: /\.(js|jsx)$/
                     },
                     options: {
-                        dimensions: false
+                        dimensions: false,
+                        ref: true
                     }
                 }
             ]

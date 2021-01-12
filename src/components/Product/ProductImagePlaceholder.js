@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import ImagePlaceholder from '@resources/images/image-placeholder.svg';
+import ImagePlaceholder from '../../assets/images/image-placeholder.svg';
 
 const ProductImagePlaceholder = (props) => {
     const { className, ...other } = props;

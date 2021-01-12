@@ -14,7 +14,7 @@ import Link from '@ui/Link';
 import RadioGroupField from '@ui/FormikForm/RadioGroupField';
 import Radio from '@ui/Radio';
 import BoxLabel from '@ui/BoxLabel';
-import UserPlusIcon from '@svg-icons/feather/UserPlusIcon';
+import UserPlusIcon from '@ui/svg-icons/feather/UserPlusIcon';
 import useEventCallback from '@ui/hooks/useEventCallback';
 import PasswordField from '@components/PasswordField';
 import BirsdayMonthsSelectInput from './BirsdayMonthsSelectInput';

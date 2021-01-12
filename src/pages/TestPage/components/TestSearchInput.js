@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import useMountedRef from '@ui/hooks/useMountedRef';
 import Autocomplete from '@ui/Autocomplete';
 import { ListItem, ListItemIcon, ListItemText } from '@ui/List';
-import SearchIcon from '@svg-icons/feather/SearchIcon';
+import SearchIcon from '@ui/svg-icons/feather/SearchIcon';
 import Input from '@ui/Input';
 import AutocompleteField from '@ui/FormikForm/AutocompleteField';
 

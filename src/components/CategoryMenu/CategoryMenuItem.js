@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import useEventCallback from '@ui/hooks/useEventCallback';
-import ChevronRightIcon from '@svg-icons/feather/ChevronRightIcon';
+import ChevronRightIcon from '@ui/svg-icons/feather/ChevronRightIcon';
 import { useCategoryMenu } from './CategoryMenuContext';
 
 const CategoryMenuItem = (props) => {

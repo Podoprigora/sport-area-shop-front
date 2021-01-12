@@ -1,0 +1,31 @@
+@import "./pa-ui-kit-theme/theme.scss";
+
+@import "./components/variables";
+
+@import "./components/comment";
+@import "./components/header";
+@import "./components/category-menu";
+@import "./components/mobile-category-menu";
+@import "./components/main";
+@import "./components/footer";
+@import "./components/page";
+@import "./components/brands-carousel";
+@import "./components/brands-carousel";
+@import "./components/products-carousel";
+@import "./components/catalog-grid";
+@import "./components/product";
+@import "./components/product-trade";
+@import "./components/product-gallery";
+@import "./components/product-features";
+@import "./components/product-comments-list";
+@import "./components/skeletons";
+@import "./components/loading-screen";
+@import "./components/filters-list";
+@import "./components/scroll-to-top-button";
+@import "./components/tbar";
+@import "./components/cart";
+
+@import "./components/catalog-page";
+@import "./components/product-page";
+
+@import "../pa-ui-kit/sass/utils";

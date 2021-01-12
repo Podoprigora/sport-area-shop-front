@@ -7,8 +7,8 @@ import Button from '@ui/Button';
 import Hidden from '@ui/Hidden';
 import useEventCallback from '@ui/hooks/useEventCallback';
 import useMountedRef from '@ui/hooks/useMountedRef';
-import CheckAllIcon from '@svg-icons/feather/CheckAllIcon';
-import TrashIcon from '@svg-icons/feather/TrashIcon';
+import CheckAllIcon from '@ui/svg-icons/feather/CheckAllIcon';
+import TrashIcon from '@ui/svg-icons/feather/TrashIcon';
 
 import useScreenMask from '@contexts/ScreenMaskContext';
 import {

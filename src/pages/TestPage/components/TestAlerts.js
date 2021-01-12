@@ -1,10 +1,10 @@
 import React from 'react';
 import Alert, { AlertTitle, AlertActions } from '@ui/Alert';
 import IconButton from '@ui/IconButton';
-import ClearCloseIcon from '@svg-icons/material/ClearCloseIcon';
-import HeartIcon from '@svg-icons/feather/HeartIcon';
+import ClearCloseIcon from '@ui/svg-icons/material/ClearCloseIcon';
+import HeartIcon from '@ui/svg-icons/feather/HeartIcon';
 import Button from '@ui/Button';
-import ChevronRightIcon from '@svg-icons/feather/ChevronRightIcon';
+import ChevronRightIcon from '@ui/svg-icons/feather/ChevronRightIcon';
 
 const TestAlerts = (props) => {
     return (

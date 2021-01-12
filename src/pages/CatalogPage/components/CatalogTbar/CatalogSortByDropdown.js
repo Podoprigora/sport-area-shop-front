@@ -4,9 +4,9 @@ import classNames from 'classnames';
 
 import useControlled from '@ui/hooks/useControlled';
 import { ListItem, ListItemText, ListItemIcon } from '@ui/List';
-import CheckIcon from '@svg-icons/feather/CheckIcon';
+import CheckIcon from '@ui/svg-icons/feather/CheckIcon';
 import Menu from '@ui/Menu';
-import SortIcon from '@svg-icons/material/SortIcon';
+import SortIcon from '@ui/svg-icons/material/SortIcon';
 import ButtonMenu from '@ui/ButtonMenu';
 
 const options = [

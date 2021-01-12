@@ -9,7 +9,7 @@ import Button from '@ui/Button';
 import CheckboxField from '@ui/FormikForm/CheckboxField';
 import FlexRow from '@ui/FlexRow';
 import Link from '@ui/Link';
-import LoginIcon from '@svg-icons/feather/LoginIcon';
+import LoginIcon from '@ui/svg-icons/feather/LoginIcon';
 import FormRow from '@ui/FormikForm/FormRow';
 import useEventCallback from '@ui/hooks/useEventCallback';
 import PasswordField from '@components/PasswordField';

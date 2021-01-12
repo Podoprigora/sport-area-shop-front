@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import List, { ListItem, ListItemIcon, ListItemText } from '@ui/List';
-import InfoIcon from '@svg-icons/feather/InfoIcon';
+import InfoIcon from '@ui/svg-icons/feather/InfoIcon';
 
 const ProductTradeModelInfo = (props) => {
     const { className } = props;

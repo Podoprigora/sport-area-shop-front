@@ -7,10 +7,10 @@ import { makeIsProductAddedToWishlistSelector, useWishlistActions } from '@store
 import { useSelector } from 'react-redux';
 import { authSelector } from '@store/identity';
 import { useProductPageState } from '@pages/ProductPage/context';
-import FavoriteOutlineIcon from '@svg-icons/material/FavoriteOutlineIcon';
+import FavoriteOutlineIcon from '@ui/svg-icons/material/FavoriteOutlineIcon';
 import CircularProgress from '@ui/CircularProgress';
 import useMountedRef from '@ui/hooks/useMountedRef';
-import FavoriteIcon from '@svg-icons/material/FavoriteIcon';
+import FavoriteIcon from '@ui/svg-icons/material/FavoriteIcon';
 import { useWindowManager } from '@ui/WindowManager';
 import useNotification from '@ui/Notification';
 

@@ -1,7 +1,7 @@
 import React, { memo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-import RotateCwIcon from '@svg-icons/feather/RotateCwIcon';
+import RotateCwIcon from '@ui/svg-icons/feather/RotateCwIcon';
 import CircularProgress from '@ui/CircularProgress';
 import Button from '@ui/Button';
 

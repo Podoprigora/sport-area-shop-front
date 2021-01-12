@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import List, { ListItem, ListItemIcon, ListItemText } from '@ui/List';
 import Divider from '@ui/Divider';
-import NavigateNextChevronRightIcon from '@svg-icons/material/NavigateNextChevronRightIcon';
+import NavigateNextChevronRightIcon from '@ui/svg-icons/material/NavigateNextChevronRightIcon';
 
 function formatFeatureItemTitleByKey(key = '') {
     let result = String(key).replace(/[A-W]/g, (match) => {

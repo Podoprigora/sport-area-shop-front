@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-import ShoppingCartIcon from '@svg-icons/feather/ShoppingCartIcon';
+import ShoppingCartIcon from '@ui/svg-icons/feather/ShoppingCartIcon';
 import Button from '@ui/Button';
 import Window from '@ui/Window';
 import Tooltip from '@ui/Tooltip';
 import WindowHeader from '@ui/Window/WindowHeader';
 import WindowBody from '@ui/Window/WindowBody';
 import WindowActions from '@ui/Window/WindowActions';
-import ShoppingBasketIcon from '@svg-icons/material/ShoppingBasketIcon';
+import ShoppingBasketIcon from '@ui/svg-icons/material/ShoppingBasketIcon';
 
 const TestWindow = (props) => {
     const [openWindow, setOpenWindow] = useState(false);

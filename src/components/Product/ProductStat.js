@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Rating from '@ui/Rating';
-import MessageSquareIcon from '@svg-icons/feather/MessageSquareIcon';
+import MessageSquareIcon from '@ui/svg-icons/feather/MessageSquareIcon';
 
 const ProductStat = (props) => {
     const { rating, comments, size = 'small', className } = props;

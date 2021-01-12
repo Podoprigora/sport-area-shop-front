@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import useNotification from '@ui/Notification';
 import useEventCallback from '@ui/hooks/useEventCallback';
 import Empty from '@ui/Empty';
-import MessageSquareIcon from '@svg-icons/feather/MessageSquareIcon';
+import MessageSquareIcon from '@ui/svg-icons/feather/MessageSquareIcon';
 import useMountedRef from '@ui/hooks/useMountedRef';
 
 import { userIdSelector } from '@store/identity';

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 import IconButton from '@ui/IconButton';
-import HeartIcon from '@svg-icons/feather/HeartIcon';
+import HeartIcon from '@ui/svg-icons/feather/HeartIcon';
 import Badge from '@ui/Badge';
 import Tooltip from '@ui/Tooltip';
 import { useWindowManager } from '@ui/WindowManager';

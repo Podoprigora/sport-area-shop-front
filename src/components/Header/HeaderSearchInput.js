@@ -5,12 +5,12 @@ import match from 'autosuggest-highlight/match';
 
 import Autocomplete from '@ui/Autocomplete';
 import Input from '@ui/Input';
-import SearchIcon from '@svg-icons/feather/SearchIcon';
+import SearchIcon from '@ui/svg-icons/feather/SearchIcon';
 import { ListItem, ListItemText, ListItemIcon, ListItemAction } from '@ui/List';
-import HistoryRestoreIcon from '@svg-icons/material/HistoryRestoreIcon';
+import HistoryRestoreIcon from '@ui/svg-icons/material/HistoryRestoreIcon';
 
 import IconButton from '@ui/IconButton';
-import ClearCloseIcon from '@svg-icons/material/ClearCloseIcon';
+import ClearCloseIcon from '@ui/svg-icons/material/ClearCloseIcon';
 
 const getItemText = ({ title }) => title;
 

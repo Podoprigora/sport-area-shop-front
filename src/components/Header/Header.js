@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
-import Logo from '@resources/images/sport-area-logo.svg';
+import Logo from '../../assets/images/sport-area-logo.svg';
 import HeaderSearch from './HeaderSearch';
 
 import HeaderUser from './HeaderUser';

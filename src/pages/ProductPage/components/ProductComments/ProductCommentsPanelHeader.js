@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { PanelHeader } from '@ui/Panel';
-import MessageSquareIcon from '@svg-icons/feather/MessageSquareIcon';
+import MessageSquareIcon from '@ui/svg-icons/feather/MessageSquareIcon';
 import { useProductPageState } from '@pages/ProductPage/context';
 import { useProductPageSelectors } from '@pages/ProductPage/context/productPageSelectors';
 

@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
-import Logo from '@resources/images/sport-area-logo.svg';
 import LinearProgress from '@ui/LinearProgress';
+import Logo from '../../assets/images/sport-area-logo.svg';
 
 const PagesLoadingScreen = (props) => {
     return (

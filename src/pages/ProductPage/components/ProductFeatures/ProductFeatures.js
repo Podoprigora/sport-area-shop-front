@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import Panel, { PanelHeader, PanelBody } from '@ui/Panel';
-import FileTextIcon from '@svg-icons/feather/FileTextIcon';
+import FileTextIcon from '@ui/svg-icons/feather/FileTextIcon';
 
 import { useProductPageState } from '@pages/ProductPage/context';
 import ProductFeatureList from './ProductFeatureList';

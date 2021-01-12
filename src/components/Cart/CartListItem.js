@@ -5,8 +5,8 @@ import { ListItem } from '@ui/List';
 import NumberInput from '@ui/NumberInput';
 import Format from '@utils/Format';
 import IconButton from '@ui/IconButton';
-import XCircleIcon from '@svg-icons/feather/XCircleIcon';
 import useEventCallback from '@ui/hooks/useEventCallback';
+import XCircleIcon from '@ui/svg-icons/feather/XCircleIcon';
 
 const CartListItem = (props) => {
     const {

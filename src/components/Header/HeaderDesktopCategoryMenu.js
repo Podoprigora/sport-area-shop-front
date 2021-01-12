@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 import Button from '@ui/Button';
-import MenuIcon from '@svg-icons/material/MenuIcon';
+import MenuIcon from '@ui/svg-icons/material/MenuIcon';
 import CategoryMenu from '@components/CategoryMenu';
 import Hidden from '@ui/Hidden';
 import useEventCallback from '@ui/hooks/useEventCallback';

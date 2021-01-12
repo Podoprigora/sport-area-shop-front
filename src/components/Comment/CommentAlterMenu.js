@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import IconButton from '@ui/IconButton';
-import MoreVirticalIcon from '@svg-icons/feather/MoreVerticalIcon';
+import MoreVirticalIcon from '@ui/svg-icons/feather/MoreVerticalIcon';
 import Menu from '@ui/Menu';
 import { ListItem, ListItemIcon, ListItemText } from '@ui/List';
-import TrashIcon from '@svg-icons/feather/TrashIcon';
-import EditIcon from '@svg-icons/feather/EditIcon';
+import TrashIcon from '@ui/svg-icons/feather/TrashIcon';
+import EditIcon from '@ui/svg-icons/feather/EditIcon';
 import useEventCallback from '@ui/hooks/useEventCallback';
 
 const CommentAlterMenu = (props) => {

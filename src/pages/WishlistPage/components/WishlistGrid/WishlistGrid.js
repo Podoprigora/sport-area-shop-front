@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
-import InboxIcon from '@svg-icons/feather/InboxIcon';
+import InboxIcon from '@ui/svg-icons/feather/InboxIcon';
 import useEventCallback from '@ui/hooks/useEventCallback';
 import Empty from '@ui/Empty';
 import useScreenMask from '@contexts/ScreenMaskContext';

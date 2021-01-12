@@ -5,8 +5,8 @@ import useEventCallback from '@ui/hooks/useEventCallback';
 import useMountedRef from '@ui/hooks/useMountedRef';
 import useNotification from '@ui/Notification';
 import CircularProgress from '@ui/CircularProgress';
-import ChevronUpIcon from '@svg-icons/feather/ChevronUpIcon';
-import ChevronDownIcon from '@svg-icons/feather/ChevronDownIcon';
+import ChevronUpIcon from '@ui/svg-icons/feather/ChevronUpIcon';
+import ChevronDownIcon from '@ui/svg-icons/feather/ChevronDownIcon';
 import Button from '@ui/Button';
 import {
     useProductPageActions,

@@ -6,11 +6,11 @@ import ScrollingCarousel from '@ui/ScrollingCarousel';
 import Panel from '@ui/Panel';
 import PanelHeader from '@ui/Panel/PanelHeader';
 import PanelBody from '@ui/Panel/PanelBody';
-import TagIcon from '@ui/SvgIcons/feather/TagIcon';
-import ChevronRightIcon from '@ui/SvgIcons/feather/ChevronRightIcon';
+import TagIcon from '@ui/svg-icons/feather/TagIcon';
+import ChevronRightIcon from '@ui/svg-icons/feather/ChevronRightIcon';
 import Link from '@ui/Link';
-
 import FetchDataErrorAlert from '@components/Alerts/FetchDataErrorAlert';
+
 import ProductsCarouselSkeleton from '../Skeletons/ProductsCarouselSkeleton';
 import BrandnewCarouselItem from './BrandnewCarouselItem';
 

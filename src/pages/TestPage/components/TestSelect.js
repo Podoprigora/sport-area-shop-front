@@ -3,11 +3,11 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import Input, { InputIconButton } from '@ui/Input';
-import SearchIcon from '@svg-icons/feather/SearchIcon';
+import SearchIcon from '@ui/svg-icons/feather/SearchIcon';
 import SelectInput from '@ui/SelectInput';
-import ClearCloseIcon from '@svg-icons/material/ClearCloseIcon';
+import ClearCloseIcon from '@ui/svg-icons/material/ClearCloseIcon';
 import { ListItem, ListItemText, ListItemIcon, ListSubheader } from '@ui/List';
-import ShoppingBasketIcon from '@svg-icons/material/ShoppingBasketIcon';
+import ShoppingBasketIcon from '@ui/svg-icons/material/ShoppingBasketIcon';
 import { MenuItem } from '@ui/Menu';
 import Divider from '@ui/Divider';
 import Form from '@ui/FormikForm/Form';

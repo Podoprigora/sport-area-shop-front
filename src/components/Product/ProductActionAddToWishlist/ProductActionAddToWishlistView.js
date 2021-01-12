@@ -2,8 +2,8 @@ import React, { memo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import IconButton from '@ui/IconButton';
-import FavoriteOutlineIcon from '@svg-icons/material/FavoriteOutlineIcon';
-import FavoriteIcon from '@svg-icons/material/FavoriteIcon';
+import FavoriteOutlineIcon from '@ui/svg-icons/material/FavoriteOutlineIcon';
+import FavoriteIcon from '@ui/svg-icons/material/FavoriteIcon';
 import CircularProgress from '@ui/CircularProgress';
 
 const ProductActionAddToWishlistView = (props) => {

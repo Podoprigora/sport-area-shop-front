@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import Button from '@ui/Button';
-import ChevronDownIcon from '@svg-icons/feather/ChevronDownIcon';
+import ChevronDownIcon from '@ui/svg-icons/feather/ChevronDownIcon';
 import useEventCallback from '@ui/hooks/useEventCallback';
 import CircularProgress from '@ui/CircularProgress';
 

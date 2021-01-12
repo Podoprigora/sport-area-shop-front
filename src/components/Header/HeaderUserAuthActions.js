@@ -4,8 +4,8 @@ import Link from '@ui/Link';
 import { useWindowManager } from '@ui/WindowManager';
 import useEventCallback from '@ui/hooks/useEventCallback';
 
-import UserPlusIcon from '@svg-icons/feather/UserPlusIcon';
-import LoginIcon from '@svg-icons/feather/LoginIcon';
+import UserPlusIcon from '@ui/svg-icons/feather/UserPlusIcon';
+import LoginIcon from '@ui/svg-icons/feather/LoginIcon';
 
 const HeaderUserAuthActions = () => {
     const { openWindow } = useWindowManager();

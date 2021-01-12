@@ -5,15 +5,13 @@
         "jsx": "preserve",
         "baseUrl": ".",
         "paths": { 
-            "@svg-icons/*": ["./src/ui/SvgIcons/*"],
-            "@ui/*": ["./src/ui/*"],
+            "@ui/*": ["./src/pa-ui-kit/components/*"],
             "@utils/*": ["./src/utils/*"],
             "@contexts/*": ["./src/contexts/*"],
             "@store/*": ["./src/store/*"],
             "@components/*": ["./src/components/*"],
             "@pages/*": ["./src/pages/*"],
             "@services/*": ["./src/services/*"],
-            "@resources/*": ["./src/stylesheet/resources/*"],
             "@remote/*": ["./remote/*"]
         }
     },

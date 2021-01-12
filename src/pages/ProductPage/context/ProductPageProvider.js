@@ -84,9 +84,6 @@ const ProductPageProvider = (props) => {
 
             return ProductsService.fetchProductComments({ productId, start, limit, sortBy })
                 .then((response) => {
-                    throw new Error('Error');
-                })
-                .then((response) => {
                     dispatch({ type: RECEIVE_COMMENTS, payload: { items: response } });
                 })
                 .catch((e) => {

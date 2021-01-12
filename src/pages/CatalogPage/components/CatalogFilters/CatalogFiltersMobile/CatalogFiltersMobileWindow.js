@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import Window, { WindowHeader, WindowTitle, WindowBody, WindowActions } from '@ui/Window';
 import IconButton from '@ui/IconButton';
-import ChevronLeftIcon from '@svg-icons/feather/ChevronLeftIcon';
-import ClearCloseIcon from '@svg-icons/material/ClearCloseIcon';
+import ChevronLeftIcon from '@ui/svg-icons/feather/ChevronLeftIcon';
+import ClearCloseIcon from '@ui/svg-icons/material/ClearCloseIcon';
 import Button from '@ui/Button';
 import useEventCallback from '@ui/hooks/useEventCallback';
 

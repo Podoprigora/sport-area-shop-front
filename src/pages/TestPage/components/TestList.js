@@ -7,16 +7,16 @@ import List, {
     ListItemAction,
     ListSubheader
 } from '@ui/List';
-import ShoppingBasketIcon from '@svg-icons/material/ShoppingBasketIcon';
-import FavoriteOutlineIcon from '@svg-icons/material/FavoriteOutlineIcon';
+import ShoppingBasketIcon from '@ui/svg-icons/material/ShoppingBasketIcon';
+import FavoriteOutlineIcon from '@ui/svg-icons/material/FavoriteOutlineIcon';
 import Checkbox from '@ui/Checkbox';
 import Divider from '@ui/Divider';
 import Button from '@ui/Button';
-import ShoppingCartIcon from '@svg-icons/feather/ShoppingCartIcon';
+import ShoppingCartIcon from '@ui/svg-icons/feather/ShoppingCartIcon';
 import IconButton from '@ui/IconButton';
-import CreatemodeEditIcon from '@svg-icons/material/CreatemodeEditIcon';
-import ClearCloseIcon from '@svg-icons/material/ClearCloseIcon';
-import SearchIcon from '@svg-icons/feather/SearchIcon';
+import CreatemodeEditIcon from '@ui/svg-icons/material/CreatemodeEditIcon';
+import ClearCloseIcon from '@ui/svg-icons/material/ClearCloseIcon';
+import SearchIcon from '@ui/svg-icons/feather/SearchIcon';
 import Input from '@ui/Input';
 import useEventListener from '@ui/hooks/useEventListener';
 import Scrollbar from '@ui/Scrollbar';

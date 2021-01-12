@@ -5,7 +5,7 @@ import useEventCallback from '@ui/hooks/useEventCallback';
 import { useWindowManager } from '@ui/WindowManager';
 import Hidden from '@ui/Hidden';
 import Button from '@ui/Button';
-import FilterIcon from '@svg-icons/feather/FilterIcon';
+import FilterIcon from '@ui/svg-icons/feather/FilterIcon';
 import {
     useCatalogPageState,
     useCatalogPageSelectors,

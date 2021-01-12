@@ -1,7 +1,7 @@
 import React, { memo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-import KeyboardArrowRightIcon from '@svg-icons/material/KeyboardArrowRightIcon';
+import KeyboardArrowRightIcon from '@ui/svg-icons/material/KeyboardArrowRightIcon';
 import useEventCallback from '@ui/hooks/useEventCallback';
 import { useCategoryMenu } from './CategoryMenuContext';
 

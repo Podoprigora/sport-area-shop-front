@@ -4,7 +4,7 @@ import { CSSTransition } from 'react-transition-group';
 
 import useScrollTrigger from '@ui/hooks/useScrollTrigger';
 import IconButton from '@ui/IconButton';
-import ArrowUpIcon from '@svg-icons/feather/ArrowUpIcon';
+import ArrowUpIcon from '@ui/svg-icons/feather/ArrowUpIcon';
 
 const ScrollToTopButton = (props) => {
     const trigger = useScrollTrigger({ threshold: 400, disableReverseScroll: true });
