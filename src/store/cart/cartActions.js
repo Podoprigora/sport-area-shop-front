@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import useEventCallback from '@ui/hooks/useEventCallback';
-import CartService from '@services/CartService';
+import { CartService } from '@services/CartService';
 import { ADD_TO_CART, CHANGE_CART_ITEM, REMOVE_FROM_CART } from './cartReducer';
 
 export function useCartActions() {

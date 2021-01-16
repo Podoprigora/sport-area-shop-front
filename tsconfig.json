@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+      "lib": ["dom", "dom.iterable", "esnext"],
+      "allowJs": true,
+      "skipLibCheck": true,
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "strict": true,
+      "forceConsistentCasingInFileNames": true,
+      "noFallthroughCasesInSwitch": true,
+      "module": "esnext",
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      "isolatedModules": true,
+      "noEmit": true,
+      "jsx": "react",
+      "paths": {
+          "@ui/*": ["./src/pa-ui-kit/components/*"],
+          "@utils/*": ["./src/utils/*"],
+          "@store/*": ["./src/store/*"],
+          "@contexts/*": ["./src/contexts/*"],
+          "@components/*": ["./src/components/*"],
+          "@pages/*": ["./src/pages/*"],
+          "@services/*": ["./src/services/*"],
+          "@remote/*": ["./remote/*"]
+      }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "backup"]
+}

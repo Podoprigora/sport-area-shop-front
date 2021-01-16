@@ -1,25 +1,25 @@
-const path = require('path');
-
 module.exports = {
-    extends: ['airbnb', 'prettier', 'prettier/react'],
-    plugins: ['prettier', 'react-hooks'],
-    parser: 'babel-eslint',
+    parser: '@typescript-eslint/parser',
     parserOptions: {
-        ecmaVersion: 2016,
+        ecmaVersion: 2018,
         sourceType: 'module',
         ecmaFeatures: {
             jsx: true
-        }
+        },
+        project: './tsconfig.json'
     },
+    plugins: ['@typescript-eslint', 'react-hooks'],
+    extends: [
+        'plugin:prettier/recommended',
+        'airbnb-typescript',
+        'plugin:react/recommended',
+        'plugin:@typescript-eslint/recommended',
+        'prettier/@typescript-eslint'
+    ],
     env: {
         es6: true,
         browser: true,
         node: true
-    },
-    settings: {
-        'import/resolver': {
-            webpack: { config: 'webpack.config.js' }
-        }
     },
     rules: {
         camelcase: 0,
@@ -35,16 +35,21 @@ module.exports = {
         'linebreak-style': ['error', 'windows'],
         'arrow-body-style': 0,
         'dot-notation': 0,
+        'object-curly-newline': 0,
         'jsx-a11y/anchor-is-valid': 0,
         'jsx-a11y/label-has-for': 0,
         'jsx-a11y/label-has-associated-control': 0,
         'jsx-a11y/tabindex-no-positive': 0,
         'jsx-a11y/no-noninteractive-tabindex': 0,
         'prefer-destructuring': 0,
-        'no-use-before-define': ['error', { functions: false, classes: true }],
+        'prefer-arrow-callback': 0,
+        'operator-linebreak': 0,
+        // 'no-use-before-define': ['error', { functions: false, classes: true }],
 
+        'react/jsx-indent': 0,
+        'react/jsx-indent-props': 0,
         'react/no-danger': 0,
-        'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+        'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
         'react/prefer-stateless-function': 0,
         'react/no-array-index-key': 0,
         'react/forbid-prop-types': 0,
@@ -68,7 +73,23 @@ module.exports = {
         'react-hooks/exhaustive-deps': 'warn',
         'react/sort-comp': 0,
         'react/no-find-dom-node': 0,
+        'react/display-name': 0,
 
-        'import/prefer-default-export': 0
-    }
+        'import/prefer-default-export': 0,
+        'import/no-unresolved': 0
+    },
+    settings: {
+        react: {
+            pragma: 'React',
+            version: 'detect'
+        }
+    },
+    overrides: [
+        {
+            files: ['*.ts', '*.tsx', '*.js', '*.jsx'],
+            rules: {
+                '@typescript-eslint/explicit-module-boundary-types': 'off'
+            }
+        }
+    ]
 };

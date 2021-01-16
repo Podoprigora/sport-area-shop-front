@@ -1,7 +1,7 @@
-import productData from '@remote/json/product';
+import productData from '@remote/json/product.json';
 import fakeRequest from './fakeRequest';
 
-export default class CartService {
+class CartService {
     static async add({ id, productId, sizeId }) {
         const cartId = id || new Date().getTime();
 
@@ -53,3 +53,5 @@ export default class CartService {
         return fakeRequest(data, { success: true, delay: 250 });
     }
 }
+
+export { CartService };

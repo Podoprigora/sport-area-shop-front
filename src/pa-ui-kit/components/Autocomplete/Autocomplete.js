@@ -449,7 +449,11 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
 
             const itemText = getItemText(item);
 
-            return <MenuItem {...itemProps}>{itemText}</MenuItem>;
+            return (
+                <MenuItem key={index} {...itemProps}>
+                    {itemText}
+                </MenuItem>
+            );
         });
     }, [
         filteredItems,

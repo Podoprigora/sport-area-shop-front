@@ -4,8 +4,9 @@ import { HashRouter } from 'react-router-dom';
 import StoreProvider from '@store';
 import AppContext from '@contexts/AppContext';
 
-import '../../sass/index.scss';
 import Pages from '@pages/Pages';
+
+import '../../sass/index.scss';
 
 const App = () => {
     return (

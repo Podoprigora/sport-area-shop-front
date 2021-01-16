@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = (env = {}) => {
     const devMode = env.DEV;
@@ -10,11 +11,23 @@ module.exports = (env = {}) => {
     return {
         mode: devMode ? 'development' : 'production',
         entry: {
-            app: ['@babel/polyfill', './src/index.js']
+            app: ['./src/index.tsx']
         },
         plugins: [
             ...(!devMode ? [new CleanWebpackPlugin()] : []),
-            ...(!devMode ? [new CopyPlugin([{ from: './remote', to: 'remote' }])] : []),
+            ...(!devMode
+                ? [
+                      new CopyPlugin({
+                          patterns: [{ from: './remote', to: 'remote' }]
+                      })
+                  ]
+                : []),
+            new ForkTsCheckerWebpackPlugin({
+                async: false,
+                eslint: {
+                    files: './src/**/*.{ts,tsx}'
+                }
+            }),
             new MiniCssExtractPlugin({
                 filename: devMode ? '[name].css' : 'resources/[name]-[contenthash].css',
                 chunkFilename: devMode ? '[name].css' : 'resources/[name]-[contenthash].css'
@@ -31,6 +44,7 @@ module.exports = (env = {}) => {
             chunkFilename: '[name]-[contenthash].js'
         },
         resolve: {
+            extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
             alias: {
                 '@ui': path.resolve(__dirname, './src/pa-ui-kit/components'),
                 '@utils': path.resolve(__dirname, './src/utils'),
@@ -44,7 +58,7 @@ module.exports = (env = {}) => {
         },
         optimization: {
             runtimeChunk: 'single',
-            moduleIds: 'hashed',
+            moduleIds: 'deterministic',
             splitChunks: {
                 cacheGroups: {
                     vendor: {
@@ -77,24 +91,23 @@ module.exports = (env = {}) => {
         module: {
             rules: [
                 {
-                    test: /\.js$/,
+                    test: /\.(js|ts)x?$/,
                     exclude: /node_modules/,
                     use: [
                         {
                             loader: 'babel-loader',
                             options: {
-                                presets: ['@babel/preset-env', '@babel/preset-react'],
+                                presets: [
+                                    '@babel/preset-env',
+                                    '@babel/preset-react',
+                                    '@babel/preset-typescript'
+                                ],
                                 plugins: [
-                                    '@babel/plugin-proposal-class-properties',
                                     '@babel/plugin-transform-runtime',
-                                    '@babel/plugin-syntax-dynamic-import',
-                                    '@babel/plugin-transform-react-jsx',
-                                    '@babel/plugin-transform-react-jsx-source'
+                                    '@babel/plugin-proposal-class-properties',
+                                    '@babel/plugin-syntax-dynamic-import'
                                 ]
                             }
-                        },
-                        {
-                            loader: 'eslint-loader'
                         }
                     ]
                 },
@@ -118,8 +131,7 @@ module.exports = (env = {}) => {
                         {
                             loader: 'postcss-loader',
                             options: {
-                                sourceMap: devMode,
-                                plugins: () => [require('autoprefixer')]
+                                sourceMap: devMode
                             }
                         },
                         {
@@ -147,9 +159,9 @@ module.exports = (env = {}) => {
                     test: /.svg$/i,
                     loader: '@svgr/webpack',
                     include: /[\\\/]svg\-icons[\\\/]/i,
-                    issuer: {
-                        test: /\.(js|jsx)$/
-                    },
+                    // issuer: {
+                    //     test: /\.(js|jsx)$/
+                    // },
                     options: {
                         dimensions: false,
                         ref: true
