@@ -10,11 +10,11 @@ module.exports = {
     },
     plugins: ['@typescript-eslint', 'react-hooks'],
     extends: [
-        'plugin:prettier/recommended',
         'airbnb-typescript',
-        'plugin:react/recommended',
         'plugin:@typescript-eslint/recommended',
-        'prettier/@typescript-eslint'
+        'prettier/@typescript-eslint',
+        'plugin:react/recommended',
+        'plugin:prettier/recommended'
     ],
     env: {
         es6: true,
@@ -32,7 +32,6 @@ module.exports = {
         'no-prototype-builtins': 0,
         'no-template-curly-in-string': 0, // For Formik error message template
         'func-names': 0,
-        'linebreak-style': ['error', 'windows'],
         'arrow-body-style': 0,
         'dot-notation': 0,
         'object-curly-newline': 0,
@@ -43,8 +42,6 @@ module.exports = {
         'jsx-a11y/no-noninteractive-tabindex': 0,
         'prefer-destructuring': 0,
         'prefer-arrow-callback': 0,
-        'operator-linebreak': 0,
-        // 'no-use-before-define': ['error', { functions: false, classes: true }],
 
         'react/jsx-indent': 0,
         'react/jsx-indent-props': 0,
@@ -76,7 +73,10 @@ module.exports = {
         'react/display-name': 0,
 
         'import/prefer-default-export': 0,
-        'import/no-unresolved': 0
+        'import/no-unresolved': 0,
+        'import/no-extraneous-dependencies': 0,
+
+        'prettier/prettier': 0
     },
     settings: {
         react: {

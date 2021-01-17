@@ -1,6 +1,4 @@
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const autoprefixer = require('autoprefixer');
 
 module.exports = {
     webpackFinal: async (config) => {
@@ -21,12 +19,6 @@ module.exports = {
             }
         };
 
-        config.plugins.push(
-            new MiniCssExtractPlugin({
-                filename: '[name].css'
-            })
-        );
-
         const svgRule = config.module.rules.find(({ test }) => /svg|jpg|jpeg|png/gi.test(test));
 
         if (svgRule) {
@@ -42,9 +34,9 @@ module.exports = {
             test: /.svg$/i,
             loader: '@svgr/webpack',
             include: /[\\\/]svg\-icons[\\\/]/i,
-            issuer: {
-                test: /\.js?$/
-            },
+            // issuer: {
+            //     test: /\.js?$/
+            // },
             options: {
                 dimensions: false
             }
@@ -57,10 +49,7 @@ module.exports = {
                 test: /\.(scss|css)$/,
                 use: [
                     {
-                        loader: MiniCssExtractPlugin.loader,
-                        options: {
-                            publicPath: '../'
-                        }
+                        loader: 'style-loader'
                     },
                     {
                         loader: 'css-loader',
@@ -72,8 +61,7 @@ module.exports = {
                     {
                         loader: 'postcss-loader',
                         options: {
-                            sourceMap: true,
-                            plugins: () => [autoprefixer]
+                            sourceMap: true
                         }
                     },
                     {

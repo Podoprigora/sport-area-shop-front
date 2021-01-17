@@ -2,7 +2,7 @@ import productData from '@remote/json/product.json';
 import fakeRequest from './fakeRequest';
 
 class CartService {
-    static async add({ id, productId, sizeId }) {
+    static async add({ id, productId, sizeId }: { id: number; productId: number; sizeId: number }) {
         const cartId = id || new Date().getTime();
 
         const { name, brand, sizes = [], price, currency, thumbnails = [] } = productData || {};
@@ -30,9 +30,10 @@ class CartService {
         return fakeRequest({ success: true, item: savedData }, { success: true, delay: 500 });
     }
 
-    static async getAvailableQuantity({ id, qty }) {
+    static async getAvailableQuantity({ id, qty }: { id: number; qty: number }) {
         let data = {
             success: true,
+            error: '',
             item: {
                 id,
                 qty
