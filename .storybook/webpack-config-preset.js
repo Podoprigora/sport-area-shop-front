@@ -4,6 +4,15 @@ module.exports = {
     webpackFinal: async (config) => {
         config.resolve = {
             ...config.resolve,
+            extensions: [
+                ...config.resolve.extensions,
+                '.js',
+                '.jsx',
+                '.ts',
+                '.tsx',
+                '.json',
+                '.svg'
+            ],
             alias: {
                 ...config.resolve.alias,
                 ...{
@@ -34,9 +43,9 @@ module.exports = {
             test: /.svg$/i,
             loader: '@svgr/webpack',
             include: /[\\\/]svg\-icons[\\\/]/i,
-            // issuer: {
-            //     test: /\.js?$/
-            // },
+            issuer: {
+                test: /\.(js|ts)x?$/
+            },
             options: {
                 dimensions: false
             }

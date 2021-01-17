@@ -2,12 +2,14 @@
 // Source: https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/utils/useIsFocusVisible.js
 // based on https://github.com/WICG/focus-visible/blob/v4.1.5/src/focus-visible.js
 
-import { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import ReactDOM from 'react-dom';
+
+type InputTypesWhilelist = { [key: string]: boolean };
 
 let hadKeyboardEvent = true;
 let hadFocusVisibleRecently = true;
-let hadFocusVisiblerecentlyTimeout = null;
+let hadFocusVisiblerecentlyTimeout: number | undefined;
 
 const inputTypesWhitelist = {
     text: true,
@@ -22,12 +24,12 @@ const inputTypesWhitelist = {
     week: true,
     datetime: true,
     'datetime-local': true
-};
+} as InputTypesWhilelist;
 
-function focusTriggersKeyboardModality(node) {
-    const { type, tagName } = node;
+function focusTriggersKeyboardModality(node: HTMLInputElement | null): boolean {
+    const { type = '', tagName } = node || {};
 
-    if (tagName === 'INPUT' && inputTypesWhitelist[type] && !node.readOnly) {
+    if (tagName === 'INPUT' && inputTypesWhitelist[type] && !node?.readOnly) {
         return true;
     }
 
@@ -35,26 +37,26 @@ function focusTriggersKeyboardModality(node) {
         return true;
     }
 
-    if (node.isContentEditable) {
+    if (node?.isContentEditable) {
         return true;
     }
 
     return false;
 }
 
-function handleKeyDown(event) {
-    if (event.metaKey || event.altKey || event.ctrlKey) {
+function handleKeyDown(event: KeyboardEvent): void {
+    if (event?.metaKey || event?.altKey || event?.ctrlKey) {
         return;
     }
 
     hadKeyboardEvent = true;
 }
 
-function handlePointerDown() {
+function handlePointerDown(): void {
     hadKeyboardEvent = false;
 }
 
-function handleVisibilityChange() {
+function handleVisibilityChange(this: HTMLDocument): void {
     if (this.visibilityState === 'hidden') {
         if (hadFocusVisibleRecently) {
             hadKeyboardEvent = true;
@@ -62,7 +64,7 @@ function handleVisibilityChange() {
     }
 }
 
-function prepare(doc) {
+function prepare(doc: HTMLDocument) {
     doc.addEventListener('keydown', handleKeyDown, true);
     doc.addEventListener('mausedown', handlePointerDown, true);
     doc.addEventListener('pointerdown', handlePointerDown, true);
@@ -70,7 +72,7 @@ function prepare(doc) {
     doc.addEventListener('visibilitychange', handleVisibilityChange, true);
 }
 
-export function teardown(doc) {
+export function teardown(doc: HTMLDocument) {
     doc.removeEventListener('keydown', handleKeyDown, true);
     doc.removeEventListener('mausedown', handlePointerDown, true);
     doc.removeEventListener('pointerdown', handlePointerDown, true);
@@ -78,23 +80,26 @@ export function teardown(doc) {
     doc.removeEventListener('visibilitychange', handleVisibilityChange, true);
 }
 
-function isFocusVisible(event) {
+function isFocusVisible(event: React.FocusEvent): boolean {
     const { target } = event;
 
-    return hadKeyboardEvent || focusTriggersKeyboardModality(target);
+    return hadKeyboardEvent || focusTriggersKeyboardModality(target as HTMLInputElement);
 }
 
-function handleBlurVisible() {
+function handleBlurVisible(): void {
     hadFocusVisibleRecently = true;
+
     window.clearTimeout(hadFocusVisiblerecentlyTimeout);
+
     hadFocusVisiblerecentlyTimeout = window.setTimeout(() => {
         hadFocusVisibleRecently = false;
     }, 100);
 }
 
-export default function useIsFocusVisible() {
-    const ref = useCallback((instance) => {
+export function useIsFocusVisible() {
+    const ref = useCallback((instance: HTMLElement | null): void => {
         const node = ReactDOM.findDOMNode(instance);
+
         if (node !== null) {
             prepare(node.ownerDocument);
         }

@@ -7,3 +7,7 @@ Solution how to fix it:
 npx --legacy-peer-deps sb init
 ```
 
+# To solve TS error for function: 'this' implicitly has type 'any' because it does not have a type annotation.
+https://github.com/Microsoft/TypeScript/issues/19639#issuecomment-590680337
+
+

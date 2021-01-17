@@ -43,6 +43,7 @@ module.exports = {
         'prefer-destructuring': 0,
         'prefer-arrow-callback': 0,
 
+        'react/prop-types': 0,
         'react/jsx-indent': 0,
         'react/jsx-indent-props': 0,
         'react/no-danger': 0,
@@ -88,7 +89,8 @@ module.exports = {
         {
             files: ['*.ts', '*.tsx', '*.js', '*.jsx'],
             rules: {
-                '@typescript-eslint/explicit-module-boundary-types': 'off'
+                '@typescript-eslint/explicit-module-boundary-types': 'off',
+                '@typescript-eslint/no-explicit-any': ['error', { ignoreRestArgs: true }]
             }
         }
     ]

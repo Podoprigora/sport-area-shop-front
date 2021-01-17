@@ -1,22 +1,83 @@
-import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import classNames from 'classnames';
 
-import useForkRef from '@ui/hooks/useForkRef';
-import KeyboardArrowDownIcon from '@ui/svg-icons/material/KeyboardArrowDown';
-import useEventCallback from '@ui/hooks/useEventCallback';
-import useIsFocusVisible from '@ui/hooks/useIsFocusVisible';
+import { useForkRef } from '../hooks/useForkRef';
+import { useEventCallback } from '../hooks/useEventCallback';
+import { useIsFocusVisible } from '../hooks/useIsFocusVisible';
+import KeyboardArrowDownIcon from '../svg-icons/material/KeyboardArrowDown';
 
-const Button = React.forwardRef(function Button(props, ref) {
+type Align = 'left' | 'top' | 'bottom' | 'right';
+type Size = 'small' | 'medium' | 'large';
+type IconSize = Size | 'xlarge';
+
+type ClassNames = {
+    [key: string]: string;
+};
+
+type Style = {
+    [key: string]: string | number;
+};
+
+export interface ButtonProps {
+    children?: React.ReactNode;
+    size?: Size;
+    primary?: boolean;
+    icon?: React.ReactNode;
+    loadingComponent?: React.ReactNode;
+    loading?: boolean;
+    iconAlign?: Align;
+    iconSize?: IconSize;
+    className?: string;
+    centered?: boolean;
+    disabled?: boolean;
+    link?: boolean;
+    plain?: boolean;
+    transparent?: boolean;
+    autoWidth?: boolean;
+    maxWidth?: number;
+    autoFocus?: boolean;
+    arrow?: boolean;
+    arrowSize?: Size;
+    slim?: boolean;
+    truncate?: boolean;
+    style?: Style;
+    onFocus?: (ev: React.SyntheticEvent) => void;
+    onBlur?: (ev: React.SyntheticEvent) => void;
+}
+
+type IconProps = {
+    className?: string;
+    size?: IconSize;
+};
+
+function createIconElement(element: React.ReactNode, props: IconProps): React.ReactNode {
+    if (!element) {
+        return null;
+    }
+
+    if (React.isValidElement(element)) {
+        return React.cloneElement(element, {
+            ...props,
+            ...(element.props?.size && { size: element.props?.size })
+        });
+    }
+
+    return React.createElement(element as React.ElementType, props);
+}
+
+const Button = React.forwardRef(function Button(
+    props: ButtonProps,
+    ref: React.Ref<HTMLButtonElement>
+) {
     const {
         children,
         size = 'medium',
         primary,
-        icon: Icon,
+        icon,
         loadingComponent,
         loading = false,
         iconAlign = 'left',
-        iconSize = null,
+        iconSize,
         className,
         centered,
         disabled,
@@ -38,9 +99,9 @@ const Button = React.forwardRef(function Button(props, ref) {
     const [focusVisible, setFocusVisible] = useState(false);
     const { isFocusVisible, onBlurVisible, ref: focusVisibleRef } = useIsFocusVisible();
 
-    const handleRef = useForkRef(focusVisibleRef, ref);
+    const handleRef = useForkRef<HTMLButtonElement>(focusVisibleRef, ref);
 
-    const handleFocus = useEventCallback((ev) => {
+    const handleFocus = useEventCallback((ev: React.FocusEvent<HTMLElement>): void => {
         if (isFocusVisible(ev)) {
             setFocusVisible(true);
         }
@@ -52,7 +113,7 @@ const Button = React.forwardRef(function Button(props, ref) {
 
     const handleBlur = useEventCallback((ev) => {
         if (focusVisible) {
-            onBlurVisible(ev);
+            onBlurVisible();
             setFocusVisible(false);
         }
 
@@ -65,25 +126,33 @@ const Button = React.forwardRef(function Button(props, ref) {
         small: 'btn--small',
         medium: 'btn--medium',
         large: 'btn--large'
-    };
+    } as ClassNames;
 
     const iconAlignClassnames = {
         left: 'btn--icon-align-left',
         top: 'btn--icon-align-top',
         bottom: 'btn--icon-align-bottom',
         right: 'btn--icon-align-right'
-    };
+    } as ClassNames;
 
     const componentStyle = {
         ...(maxWidth && { width: '100%', maxWidth }),
         ...style
     };
 
+    const iconElement =
+        !loading &&
+        createIconElement(icon, {
+            className: 'btn__icon',
+            size: iconSize || size
+        });
+
     const loadingComponentElement =
         loading &&
         loadingComponent &&
+        React.isValidElement(loadingComponent) &&
         React.cloneElement(loadingComponent, {
-            className: classNames('btn__icon btn__progress', loadingComponent.props.className),
+            className: classNames('btn__icon btn__progress', loadingComponent.props?.className),
             size: loadingComponent.props.size || size
         });
 
@@ -117,7 +186,7 @@ const Button = React.forwardRef(function Button(props, ref) {
             onBlur={handleBlur}
             {...other}
         >
-            {!!Icon && !loading && <Icon className="btn__icon" size={iconSize || size} />}
+            {iconElement}
             {loadingComponentElement && loadingComponentElement}
             {children && <span className="btn__text">{children}</span>}
             {arrow && <KeyboardArrowDownIcon className="btn__arrow" size={arrowSize} />}
@@ -125,31 +194,4 @@ const Button = React.forwardRef(function Button(props, ref) {
     );
 });
 
-Button.propTypes = {
-    children: PropTypes.node,
-    icon: PropTypes.elementType,
-    loadingComponent: PropTypes.node,
-    className: PropTypes.string,
-    size: PropTypes.oneOf(['small', 'medium', 'large']),
-    iconSize: PropTypes.oneOf(['small', 'medium', 'large', 'xlarge', null]),
-    iconAlign: PropTypes.oneOf(['left', 'top', 'bottom', 'right']),
-    primary: PropTypes.bool,
-    centered: PropTypes.bool,
-    disabled: PropTypes.bool,
-    plain: PropTypes.bool,
-    loading: PropTypes.bool,
-    transparent: PropTypes.bool,
-    autoWidth: PropTypes.bool,
-    maxWidth: PropTypes.number,
-    autoFocus: PropTypes.bool,
-    arrow: PropTypes.bool,
-    slim: PropTypes.bool,
-    truncate: PropTypes.bool,
-    link: PropTypes.bool,
-    arrowSize: PropTypes.oneOf(['small', 'medium', 'large', null]),
-    style: PropTypes.object,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func
-};
-
-export default Button;
+export { Button };

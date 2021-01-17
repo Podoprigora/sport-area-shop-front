@@ -1,16 +1,12 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
 
-import Button from '../components/Button';
+import { Button, ButtonProps } from '../components/Button';
 import Tooltip from '../components/Tooltip';
 import CircularProgress from '../components/CircularProgress';
 import UserIcon from '../components/svg-icons/feather/UserIcon';
 import StarIcon from '../components/svg-icons/feather/StarIcon';
 import ShoppingCartIcon from '../components/svg-icons/feather/ShoppingCartIcon';
-
-type ButtonProps = {
-    [key: string]: any;
-};
 
 export default {
     component: Button,

@@ -1,6 +1,6 @@
 import User from '../../../assets/svg-icons/icomoon-feather/user.svg';
-import withIconAttributes from '../../withSvgIconAttributes';
+import { withSvgIconAttributes } from '../../withSvgIconAttributes';
 
-const UserIcon = withIconAttributes(User);
+const UserIcon = withSvgIconAttributes(User);
 
 export default UserIcon;

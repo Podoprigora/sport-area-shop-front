@@ -1,9 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const withSvgIconAttributes = (SvgIconComponent) => {
-    const EnhencedComponent = React.forwardRef((props, ref) => {
+export type SvgIconProps = {
+    className?: string;
+    size?: 'small' | 'medium' | 'large' | 'xlarge';
+    primary?: boolean;
+};
+
+export const withSvgIconAttributes = (SvgIconComponent: React.ElementType) => {
+    const EnhencedComponent = React.forwardRef<HTMLElement, SvgIconProps>((props, ref) => {
         const { className, size, primary, ...other } = props;
 
         return (
@@ -20,17 +25,5 @@ const withSvgIconAttributes = (SvgIconComponent) => {
         );
     });
 
-    EnhencedComponent.propTypes = {
-        className: PropTypes.string,
-        size: PropTypes.oneOf(['small', 'medium', 'large', 'xlarge', null]),
-        primary: PropTypes.bool
-    };
-
     return React.memo(EnhencedComponent);
 };
-
-withSvgIconAttributes.propTypes = {
-    SvgIconComponent: PropTypes.element
-};
-
-export default withSvgIconAttributes;
