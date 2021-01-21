@@ -87,7 +87,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
 
     const [focusVisible, setFocusVisible] = useState(false);
     const { isFocusVisible, onBlurVisible, ref: focusVisibleRef } = useIsFocusVisible();
-
     const handleRef = useForkRef<HTMLButtonElement>(focusVisibleRef, ref);
 
     const handleFocus = useEventCallback((ev: React.FocusEvent<HTMLButtonElement>): void => {
