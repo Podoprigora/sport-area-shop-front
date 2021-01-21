@@ -26,10 +26,10 @@ const inputTypesWhitelist = {
     'datetime-local': true
 } as InputTypesWhilelist;
 
-function focusTriggersKeyboardModality(node: HTMLInputElement | null): boolean {
-    const { type = '', tagName } = node || {};
+function focusTriggersKeyboardModality(node: HTMLElement): boolean {
+    const { type = '', tagName, readOnly, isContentEditable } = node as HTMLInputElement;
 
-    if (tagName === 'INPUT' && inputTypesWhitelist[type] && !node?.readOnly) {
+    if (tagName === 'INPUT' && inputTypesWhitelist[type] && !readOnly) {
         return true;
     }
 
@@ -37,7 +37,7 @@ function focusTriggersKeyboardModality(node: HTMLInputElement | null): boolean {
         return true;
     }
 
-    if (node?.isContentEditable) {
+    if (isContentEditable) {
         return true;
     }
 
@@ -80,10 +80,10 @@ export function teardown(doc: HTMLDocument) {
     doc.removeEventListener('visibilitychange', handleVisibilityChange, true);
 }
 
-function isFocusVisible(event: React.FocusEvent): boolean {
+function isFocusVisible(event: React.FocusEvent<HTMLElement>): boolean {
     const { target } = event;
 
-    return hadKeyboardEvent || focusTriggersKeyboardModality(target as HTMLInputElement);
+    return hadKeyboardEvent || focusTriggersKeyboardModality(target);
 }
 
 function handleBlurVisible(): void {
@@ -100,7 +100,7 @@ export function useIsFocusVisible() {
     const ref = useCallback((instance: HTMLElement | null): void => {
         const node = ReactDOM.findDOMNode(instance);
 
-        if (node !== null) {
+        if (node) {
             prepare(node.ownerDocument);
         }
     }, []);

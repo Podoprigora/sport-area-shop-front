@@ -4,15 +4,7 @@ module.exports = {
     webpackFinal: async (config) => {
         config.resolve = {
             ...config.resolve,
-            extensions: [
-                ...config.resolve.extensions,
-                '.js',
-                '.jsx',
-                '.ts',
-                '.tsx',
-                '.json',
-                '.svg'
-            ],
+            extensions: [...config.resolve.extensions, '.js', '.jsx', '.ts', '.tsx', '.json'],
             alias: {
                 ...config.resolve.alias,
                 ...{

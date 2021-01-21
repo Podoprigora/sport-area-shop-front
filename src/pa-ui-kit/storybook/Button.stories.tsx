@@ -8,21 +8,23 @@ import UserIcon from '../components/svg-icons/feather/UserIcon';
 import StarIcon from '../components/svg-icons/feather/StarIcon';
 import ShoppingCartIcon from '../components/svg-icons/feather/ShoppingCartIcon';
 
+// type ButtonProps = React.ComponentPropsWithRef<typeof Button>;
+
 export default {
     component: Button,
     title: 'PA-UI-KIT/Button'
 } as Meta;
 
-const Template: Story<ButtonProps> = (args) => <Button {...args} />;
+const Template: Story<ButtonProps> = (args) => <Button type="button" {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
     children: 'Button',
     primary: true,
     centered: true,
-    icon: UserIcon,
+    icon: <UserIcon />,
     loadingComponent: <CircularProgress />
-};
+} as ButtonProps;
 
 // export const Examples = () => {
 //     return (

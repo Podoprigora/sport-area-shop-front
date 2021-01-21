@@ -1,11 +1,13 @@
 import React from 'react';
 import classNames from 'classnames';
 
-export type SvgIconProps = {
+export type SvgIconSize = 'small' | 'medium' | 'large' | 'xlarge';
+
+export interface SvgIconProps {
     className?: string;
-    size?: 'small' | 'medium' | 'large' | 'xlarge';
+    size?: SvgIconSize;
     primary?: boolean;
-};
+}
 
 export const withSvgIconAttributes = (SvgIconComponent: React.ElementType) => {
     const EnhencedComponent = React.forwardRef<HTMLElement, SvgIconProps>((props, ref) => {

@@ -14,7 +14,7 @@
       "resolveJsonModule": true,
       "isolatedModules": true,
       "noEmit": true,
-      "noImplicitThis": false,
+      "noImplicitThis": true,
       "jsx": "react",
       "paths": {
           "@ui/*": ["./src/pa-ui-kit/components/*"],

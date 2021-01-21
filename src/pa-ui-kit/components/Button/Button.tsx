@@ -1,24 +1,15 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 
-import { useForkRef } from '../hooks/useForkRef';
-import { useEventCallback } from '../hooks/useEventCallback';
-import { useIsFocusVisible } from '../hooks/useIsFocusVisible';
-import KeyboardArrowDownIcon from '../svg-icons/material/KeyboardArrowDown';
+import { useIsFocusVisible, useEventCallback, useForkRef } from '../utils';
+import { SvgIconSize } from '../withSvgIconAttributes';
+import { KeyboardArrowDownIcon } from '../svg-icons/material/KeyboardArrowDown';
 
 type Align = 'left' | 'top' | 'bottom' | 'right';
 type Size = 'small' | 'medium' | 'large';
-type IconSize = Size | 'xlarge';
+type IconSize = SvgIconSize;
 
-type ClassNames = {
-    [key: string]: string;
-};
-
-type Style = {
-    [key: string]: string | number;
-};
-
-export interface ButtonProps {
+export interface ButtonProps extends React.ComponentPropsWithRef<'button'> {
     children?: React.ReactNode;
     size?: Size;
     primary?: boolean;
@@ -40,9 +31,9 @@ export interface ButtonProps {
     arrowSize?: Size;
     slim?: boolean;
     truncate?: boolean;
-    style?: Style;
-    onFocus?: (ev: React.SyntheticEvent) => void;
-    onBlur?: (ev: React.SyntheticEvent) => void;
+    style?: React.CSSProperties;
+    onFocus?: React.FocusEventHandler<HTMLButtonElement>;
+    onBlur?: React.FocusEventHandler<HTMLButtonElement>;
 }
 
 type IconProps = {
@@ -65,13 +56,11 @@ function createIconElement(element: React.ReactNode, props: IconProps): React.Re
     return React.createElement(element as React.ElementType, props);
 }
 
-const Button = React.forwardRef(function Button(
-    props: ButtonProps,
-    ref: React.Ref<HTMLButtonElement>
-) {
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(props, ref) {
     const {
         children,
         size = 'medium',
+        type = 'button',
         primary,
         icon,
         loadingComponent,
@@ -101,7 +90,7 @@ const Button = React.forwardRef(function Button(
 
     const handleRef = useForkRef<HTMLButtonElement>(focusVisibleRef, ref);
 
-    const handleFocus = useEventCallback((ev: React.FocusEvent<HTMLElement>): void => {
+    const handleFocus = useEventCallback((ev: React.FocusEvent<HTMLButtonElement>): void => {
         if (isFocusVisible(ev)) {
             setFocusVisible(true);
         }
@@ -111,7 +100,7 @@ const Button = React.forwardRef(function Button(
         }
     });
 
-    const handleBlur = useEventCallback((ev) => {
+    const handleBlur = useEventCallback((ev: React.FocusEvent<HTMLButtonElement>): void => {
         if (focusVisible) {
             onBlurVisible();
             setFocusVisible(false);
@@ -126,14 +115,14 @@ const Button = React.forwardRef(function Button(
         small: 'btn--small',
         medium: 'btn--medium',
         large: 'btn--large'
-    } as ClassNames;
+    };
 
     const iconAlignClassnames = {
         left: 'btn--icon-align-left',
         top: 'btn--icon-align-top',
         bottom: 'btn--icon-align-bottom',
         right: 'btn--icon-align-right'
-    } as ClassNames;
+    };
 
     const componentStyle = {
         ...(maxWidth && { width: '100%', maxWidth }),
@@ -158,7 +147,7 @@ const Button = React.forwardRef(function Button(
 
     return (
         <button
-            type="button"
+            type={type}
             className={classNames(
                 'btn',
                 sizeClassnames[size],
@@ -187,7 +176,7 @@ const Button = React.forwardRef(function Button(
             {...other}
         >
             {iconElement}
-            {loadingComponentElement && loadingComponentElement}
+            {loadingComponentElement}
             {children && <span className="btn__text">{children}</span>}
             {arrow && <KeyboardArrowDownIcon className="btn__arrow" size={arrowSize} />}
         </button>

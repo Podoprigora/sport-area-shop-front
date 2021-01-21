@@ -72,6 +72,7 @@ module.exports = {
         'react/sort-comp': 0,
         'react/no-find-dom-node': 0,
         'react/display-name': 0,
+        'react/button-has-type': 0,
 
         'import/prefer-default-export': 0,
         'import/no-unresolved': 0,
