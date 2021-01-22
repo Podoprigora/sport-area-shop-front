@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import AlertTriangleIcon from '@ui/svg-icons/feather/AlertTriangleIcon';
 import InfoIcon from '@ui/svg-icons/feather/InfoIcon';
 import CheckCircleIcon from '@ui/svg-icons/feather/CheckCircleIcon';
 import AlertCircleIcon from '@ui/svg-icons/feather/AlertCircleIcon';
+import AlertTriangleIcon from '../svg-icons/feather/AlertTriangleIcon';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     const { type = 'error', children, action, frame, className, ...other } = props;

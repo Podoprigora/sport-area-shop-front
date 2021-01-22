@@ -5,8 +5,6 @@
 import React, { useCallback, useMemo } from 'react';
 import ReactDOM from 'react-dom';
 
-type InputTypesWhilelist = { [key: string]: boolean };
-
 let hadKeyboardEvent = true;
 let hadFocusVisibleRecently = true;
 let hadFocusVisiblerecentlyTimeout: number | undefined;
@@ -24,10 +22,10 @@ const inputTypesWhitelist = {
     week: true,
     datetime: true,
     'datetime-local': true
-} as InputTypesWhilelist;
+} as Record<string, boolean>;
 
-function focusTriggersKeyboardModality(node: HTMLElement): boolean {
-    const { type = '', tagName, readOnly, isContentEditable } = node as HTMLInputElement;
+function focusTriggersKeyboardModality(node: Partial<HTMLInputElement>): boolean {
+    const { type = '', tagName, isContentEditable, readOnly } = node;
 
     if (tagName === 'INPUT' && inputTypesWhitelist[type] && !readOnly) {
         return true;
@@ -97,13 +95,15 @@ function handleBlurVisible(): void {
 }
 
 export function useIsFocusVisible() {
-    const ref = useCallback((instance: HTMLElement | null): void => {
-        const node = ReactDOM.findDOMNode(instance);
+    const ref: React.RefCallback<HTMLElement | undefined> = useCallback((element) => {
+        const node = ReactDOM.findDOMNode(element);
 
         if (node) {
             prepare(node.ownerDocument);
         }
     }, []);
 
-    return useMemo(() => ({ isFocusVisible, onBlurVisible: handleBlurVisible, ref }), [ref]);
+    return useMemo(() => ({ isFocusVisible, onBlurVisible: handleBlurVisible, ref } as const), [
+        ref
+    ]);
 }

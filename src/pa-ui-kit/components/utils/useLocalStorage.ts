@@ -14,7 +14,7 @@ export function useLocalStorage<T>(key: string, defaultData?: T) {
     });
 
     const setItem = useCallback(
-        (item: T | ((val: T | undefined) => T)) => {
+        (item: React.SetStateAction<T | undefined>) => {
             try {
                 const value = item instanceof Function ? item(storedValue) : item;
                 setStoredValue(value);

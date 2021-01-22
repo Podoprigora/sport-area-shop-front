@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
 
 import { Button, ButtonProps } from '../components/Button';
@@ -15,9 +15,19 @@ export default {
     title: 'PA-UI-KIT/Button'
 } as Meta;
 
-const Template: Story<ButtonProps> = (args) => <Button type="button" {...args} />;
+const DefaultTemplate: Story<ButtonProps> = (args) => {
+    const ref = useRef<HTMLButtonElement>(null);
 
-export const Default = Template.bind({});
+    useEffect(() => {
+        if (ref.current) {
+            ref.current.focus();
+        }
+    }, []);
+
+    return <Button type="button" ref={ref} {...args} />;
+};
+
+export const Default = DefaultTemplate.bind({});
 Default.args = {
     children: 'Button',
     primary: true,

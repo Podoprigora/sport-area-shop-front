@@ -1,7 +1,8 @@
-import React, { useCallback, useRef, useState, memo } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import useEventCallback from '@ui/hooks/useEventCallback';
+
+import { useEventCallback } from '../utils';
 
 const RatingItem = (props) => {
     const {
@@ -20,7 +21,7 @@ const RatingItem = (props) => {
     } = props;
 
     const [focused, setFocused] = useState(false);
-    const inputRef = useRef(null);
+    const inputRef = useRef<HTMLInputElement>();
     const hiddenFocusRef = useRef(false);
 
     const handleChange = useEventCallback((ev) => {
@@ -129,4 +130,4 @@ RatingItem.propTypes = {
     onMouseEnter: PropTypes.func
 };
 
-export default RatingItem;
+export { RatingItem };

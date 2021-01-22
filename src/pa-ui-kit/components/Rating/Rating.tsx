@@ -1,11 +1,10 @@
-import React, { useCallback, useState, useRef, memo, useMemo } from 'react';
+import React, { useCallback, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import useControlled from '@ui/hooks/useControlled';
-import useForkRef from '@ui/hooks/useForkRef';
+import { useControlled, useForkRef } from '../utils';
 
-import RatingItem from './RatingItem';
+import { RatingItem } from './RatingItem';
 
 const Rating = React.forwardRef(function Rating(props, ref) {
     const {
@@ -42,7 +41,8 @@ const Rating = React.forwardRef(function Rating(props, ref) {
 
     const handleItemChange = useCallback(
         (ev) => {
-            setValue(Number.parseInt(ev.target.value, 10));
+            ev.persist();
+            setValue(() => Number.parseInt(ev.target.value, 10));
 
             if (onChange) {
                 onChange(ev);
@@ -52,7 +52,8 @@ const Rating = React.forwardRef(function Rating(props, ref) {
     );
 
     const handleItemMouseEnter = useCallback((ev) => {
-        setHoveredItemValue(Number.parseInt(ev.target.value, 10));
+        ev.persist();
+        setHoveredItemValue(() => Number.parseInt(ev.target.value, 10));
     }, []);
 
     const handleItemFocus = useCallback(
@@ -74,7 +75,8 @@ const Rating = React.forwardRef(function Rating(props, ref) {
     );
 
     const items = [...Array(max)].map((_, index) => {
-        const selected = hoveredItemValue > 0 ? index < hoveredItemValue : index < value;
+        const selected =
+            hoveredItemValue > 0 ? index < hoveredItemValue : index < (value as number);
         const itemValue = index + 1;
         const checked = itemValue === value;
 
@@ -125,4 +127,4 @@ Rating.propTypes = {
     onBlur: PropTypes.func
 };
 
-export default Rating;
+export { Rating };

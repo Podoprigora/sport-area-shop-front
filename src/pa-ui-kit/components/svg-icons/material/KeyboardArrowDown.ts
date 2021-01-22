@@ -2,5 +2,3 @@ import KeyboardArrowDown from '../../../assets/svg-icons/icomoon-material/keyboa
 import { withSvgIconAttributes } from '../../withSvgIconAttributes';
 
 export const KeyboardArrowDownIcon = withSvgIconAttributes(KeyboardArrowDown);
-
-// export KeyboardArrowDownIcon;

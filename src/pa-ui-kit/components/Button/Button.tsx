@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import classNames from 'classnames';
 
-import { useIsFocusVisible, useEventCallback, useForkRef } from '../utils';
+import { useIsFocusVisible, useEventCallback, useMergedRefs, useForkRef } from '../utils';
 import { SvgIconSize } from '../withSvgIconAttributes';
 import { KeyboardArrowDownIcon } from '../svg-icons/material/KeyboardArrowDown';
 
@@ -25,7 +25,7 @@ export interface ButtonProps extends React.ComponentPropsWithRef<'button'> {
     plain?: boolean;
     transparent?: boolean;
     autoWidth?: boolean;
-    maxWidth?: number;
+    maxWidth?: number | string;
     autoFocus?: boolean;
     arrow?: boolean;
     arrowSize?: Size;
@@ -56,7 +56,10 @@ function createIconElement(element: React.ReactNode, props: IconProps): React.Re
     return React.createElement(element as React.ElementType, props);
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(props, ref) {
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+    props,
+    forwardedRef
+) {
     const {
         children,
         size = 'medium',
@@ -83,11 +86,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
         onFocus,
         onBlur,
         ...other
-    } = props;
+    }: ButtonProps = props;
+
+    const testRef = useRef<HTMLButtonElement>(null);
 
     const [focusVisible, setFocusVisible] = useState(false);
     const { isFocusVisible, onBlurVisible, ref: focusVisibleRef } = useIsFocusVisible();
-    const handleRef = useForkRef<HTMLButtonElement>(focusVisibleRef, ref);
+    const handleRef = useMergedRefs<HTMLButtonElement>(focusVisibleRef, forwardedRef, testRef);
 
     const handleFocus = useEventCallback((ev: React.FocusEvent<HTMLButtonElement>): void => {
         if (isFocusVisible(ev)) {
@@ -114,19 +119,19 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
         small: 'btn--small',
         medium: 'btn--medium',
         large: 'btn--large'
-    };
+    } as const;
 
     const iconAlignClassnames = {
         left: 'btn--icon-align-left',
         top: 'btn--icon-align-top',
         bottom: 'btn--icon-align-bottom',
         right: 'btn--icon-align-right'
-    };
+    } as const;
 
     const componentStyle = {
         ...(maxWidth && { width: '100%', maxWidth }),
         ...style
-    };
+    } as const;
 
     const iconElement =
         !loading &&
