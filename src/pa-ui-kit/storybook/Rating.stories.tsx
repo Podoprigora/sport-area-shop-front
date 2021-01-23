@@ -12,7 +12,6 @@ const Template: Story<RatingProps> = (args) => <Rating {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-    // value: 'sadf asdf',
     defaultValue: 4,
     max: 5
-};
+} as RatingProps;

@@ -9,3 +9,4 @@ export * from './useControlled';
 export * from './setRef';
 
 export * from './isString';
+export * from './defineEventTarget';
