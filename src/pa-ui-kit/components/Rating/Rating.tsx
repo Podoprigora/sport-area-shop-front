@@ -1,12 +1,26 @@
 import React, { useCallback, useState, useRef } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { useControlled, useForkRef } from '../utils';
+import { useControlled, useMergedRefs } from '../utils';
+import { RatingItem, RatingItemSize } from './RatingItem';
 
-import { RatingItem } from './RatingItem';
+export interface RatingProps {
+    name?: string;
+    value?: string | number;
+    defaultValue?: string | number;
+    disabled?: boolean;
+    readOnly?: boolean;
+    max?: number;
+    size?: RatingItemSize;
+    className?: string;
+    style?: React.CSSProperties;
+    tabIndex?: string | number;
+    onChange?: React.ChangeEventHandler<HTMLInputElement>;
+    onFocus?: React.FocusEventHandler<HTMLInputElement>;
+    onBlur?: React.FocusEventHandler<HTMLInputElement>;
+}
 
-const Rating = React.forwardRef(function Rating(props, ref) {
+const Rating = React.forwardRef<HTMLDivElement, RatingProps>(function Rating(props, forwardedRef) {
     const {
         name,
         value: valueProp,
@@ -21,17 +35,17 @@ const Rating = React.forwardRef(function Rating(props, ref) {
         onChange,
         onFocus,
         onBlur
-    } = props;
+    }: RatingProps = props;
 
-    let numValueProp = parseInt(valueProp, 10);
-    numValueProp = !Number.isNaN(numValueProp) ? numValueProp : null;
-
-    const numDefaultValueProp = defaultValueProp ? parseInt(defaultValueProp, 10) : 0;
+    const numValueProp = valueProp ? parseInt(valueProp as string, 10) : undefined;
+    const numDefaultValueProp = defaultValueProp ? parseInt(defaultValueProp as string, 10) : 0;
 
     const [value, setValue] = useControlled(numValueProp, numDefaultValueProp);
     const [hoveredItemValue, setHoveredItemValue] = useState(0);
-    const nodeRef = useRef(null);
-    const handleNodeRef = useForkRef(nodeRef, ref);
+    const nodeRef = useRef<HTMLDivElement>(null);
+    const handleNodeRef = useMergedRefs(nodeRef, forwardedRef);
+
+    // Events handlers
 
     const handleMouseLeave = useCallback(() => {
         if (!disabled && !readOnly) {
@@ -40,9 +54,12 @@ const Rating = React.forwardRef(function Rating(props, ref) {
     }, [disabled, readOnly]);
 
     const handleItemChange = useCallback(
-        (ev) => {
+        (ev: React.ChangeEvent<HTMLInputElement>) => {
             ev.persist();
-            setValue(() => Number.parseInt(ev.target.value, 10));
+
+            const targetValue = ev.target.value;
+
+            setValue(() => Number.parseInt(targetValue, 10));
 
             if (onChange) {
                 onChange(ev);
@@ -51,13 +68,16 @@ const Rating = React.forwardRef(function Rating(props, ref) {
         [setValue, onChange]
     );
 
-    const handleItemMouseEnter = useCallback((ev) => {
+    const handleItemMouseEnter = useCallback((ev: React.MouseEvent<HTMLInputElement>) => {
         ev.persist();
-        setHoveredItemValue(() => Number.parseInt(ev.target.value, 10));
+
+        const targetValue = ev.currentTarget.value;
+
+        setHoveredItemValue(() => Number.parseInt(targetValue, 10));
     }, []);
 
     const handleItemFocus = useCallback(
-        (ev) => {
+        (ev: React.FocusEvent<HTMLInputElement>) => {
             if (onFocus) {
                 onFocus(ev);
             }
@@ -66,13 +86,15 @@ const Rating = React.forwardRef(function Rating(props, ref) {
     );
 
     const handleItemBlur = useCallback(
-        (ev) => {
+        (ev: React.FocusEvent<HTMLInputElement>) => {
             if (onBlur) {
                 onBlur(ev);
             }
         },
         [onBlur]
     );
+
+    // Render
 
     const items = [...Array(max)].map((_, index) => {
         const selected =
@@ -110,21 +132,5 @@ const Rating = React.forwardRef(function Rating(props, ref) {
         </div>
     );
 });
-
-Rating.propTypes = {
-    name: PropTypes.string,
-    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    disabled: PropTypes.bool,
-    readOnly: PropTypes.bool,
-    max: PropTypes.number,
-    size: PropTypes.string,
-    className: PropTypes.string,
-    style: PropTypes.object,
-    tabIndex: PropTypes.number,
-    onChange: PropTypes.func,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func
-};
 
 export { Rating };

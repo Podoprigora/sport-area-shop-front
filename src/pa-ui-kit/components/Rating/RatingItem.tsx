@@ -1,10 +1,26 @@
 import React, { useCallback, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { useEventCallback } from '../utils';
+import { isString, useEventCallback } from '../utils';
 
-const RatingItem = (props) => {
+export type RatingItemSize = 'small' | 'medium' | 'large';
+
+export interface RatingItemProps {
+    name?: string;
+    checked?: boolean;
+    selected?: boolean;
+    value?: number;
+    size?: RatingItemSize;
+    disabled?: boolean;
+    readOnly?: boolean;
+    tabIndex?: number | string;
+    onChange: React.ChangeEventHandler<HTMLInputElement>;
+    onFocus: React.FocusEventHandler<HTMLInputElement>;
+    onBlur: React.FocusEventHandler<HTMLInputElement>;
+    onMouseEnter: React.MouseEventHandler<HTMLInputElement>;
+}
+
+const RatingItem = (props: RatingItemProps) => {
     const {
         name,
         value = 0,
@@ -18,26 +34,28 @@ const RatingItem = (props) => {
         onMouseEnter,
         onFocus,
         onBlur
-    } = props;
+    }: RatingItemProps = props;
 
     const [focused, setFocused] = useState(false);
-    const inputRef = useRef<HTMLInputElement>();
+    const inputRef = useRef<HTMLInputElement>(null);
     const hiddenFocusRef = useRef(false);
 
-    const handleChange = useEventCallback((ev) => {
+    // Events handlers
+
+    const handleChange = useEventCallback((ev: React.ChangeEvent<HTMLInputElement>): void => {
         if (onChange && !readOnly) {
             onChange(ev);
         }
     });
 
-    const handleMouseEnter = useEventCallback((ev) => {
+    const handleMouseEnter = useEventCallback((ev: React.MouseEvent<HTMLInputElement>): void => {
         if (onMouseEnter && !disabled && !readOnly) {
             onMouseEnter(ev);
         }
     });
 
     const handleMouseDown = useCallback(
-        (ev) => {
+        (ev: React.MouseEvent<HTMLInputElement>): void => {
             if (!readOnly) {
                 ev.preventDefault();
 
@@ -51,7 +69,7 @@ const RatingItem = (props) => {
     );
 
     const handleFocus = useCallback(
-        (ev) => {
+        (ev: React.FocusEvent<HTMLInputElement>): void => {
             if (!readOnly) {
                 if (!hiddenFocusRef.current) {
                     setFocused(true);
@@ -66,7 +84,7 @@ const RatingItem = (props) => {
     );
 
     const handleBlur = useCallback(
-        (ev) => {
+        (ev: React.FocusEvent<HTMLInputElement>): void => {
             if (!readOnly) {
                 hiddenFocusRef.current = false;
                 setFocused(false);
@@ -78,6 +96,10 @@ const RatingItem = (props) => {
         },
         [readOnly, onBlur]
     );
+
+    // Render
+
+    const formatedTabIndex = isString(tabIndex) ? parseInt(tabIndex, 10) : tabIndex;
 
     return (
         <div
@@ -102,7 +124,7 @@ const RatingItem = (props) => {
                     checked={checked}
                     className="rating__input"
                     disabled={disabled}
-                    tabIndex={readOnly ? -1 : tabIndex}
+                    tabIndex={formatedTabIndex ? -1 : formatedTabIndex}
                     ref={inputRef}
                     onChange={handleChange}
                     onMouseEnter={handleMouseEnter}
@@ -113,21 +135,6 @@ const RatingItem = (props) => {
             )}
         </div>
     );
-};
-
-RatingItem.propTypes = {
-    name: PropTypes.string,
-    checked: PropTypes.bool,
-    selected: PropTypes.bool,
-    value: PropTypes.number,
-    size: PropTypes.oneOf(['small', 'medium', 'large']),
-    disabled: PropTypes.bool,
-    readOnly: PropTypes.bool,
-    tabIndex: PropTypes.number,
-    onChange: PropTypes.func,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func,
-    onMouseEnter: PropTypes.func
 };
 
 export { RatingItem };

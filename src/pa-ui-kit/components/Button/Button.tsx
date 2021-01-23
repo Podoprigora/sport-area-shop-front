@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import classNames from 'classnames';
 
-import { useIsFocusVisible, useEventCallback, useMergedRefs, useForkRef } from '../utils';
+import { useIsFocusVisible, useEventCallback, useMergedRefs } from '../utils';
 import { SvgIconSize } from '../withSvgIconAttributes';
 import { KeyboardArrowDownIcon } from '../svg-icons/material/KeyboardArrowDown';
 
