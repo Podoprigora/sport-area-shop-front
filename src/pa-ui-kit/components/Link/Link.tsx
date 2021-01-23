@@ -1,12 +1,22 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import useEventCallback from '@ui/hooks/useEventCallback';
-import useForkRef from '@ui/hooks/useForkRef';
-import useIsFocusVisible from '@ui/hooks/useIsFocusVisible';
+import { useEventCallback, useMergedRefs, useIsFocusVisible } from '../utils';
+import { SvgIconProps } from '../withSvgIconAttributes';
 
-const Link = React.forwardRef(function Link(props, ref) {
+export interface LinkProps extends React.ComponentPropsWithRef<'a'> {
+    children?: React.ReactNode;
+    size?: 'small' | 'medium' | 'large';
+    icon?: React.ReactElement<SvgIconProps>;
+    iconAlign?: 'left' | 'right';
+    primary?: boolean;
+    disabled?: boolean;
+    className?: string;
+    onFocus?: React.FocusEventHandler<HTMLAnchorElement>;
+    onBlur?: React.FocusEventHandler<HTMLAnchorElement>;
+}
+
+const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(function Link(props, forwardedRef) {
     const {
         children,
         icon,
@@ -18,12 +28,12 @@ const Link = React.forwardRef(function Link(props, ref) {
         onFocus,
         onBlur,
         ...other
-    } = props;
+    }: LinkProps = props;
 
     const [focusVisible, setFocusVisible] = useState(false);
     const { isFocusVisible, onBlurVisible, ref: focusVisibleRef } = useIsFocusVisible();
 
-    const handleRef = useForkRef(focusVisibleRef, ref);
+    const handleRef = useMergedRefs<HTMLAnchorElement>(focusVisibleRef, forwardedRef);
 
     const handleFocus = useEventCallback((ev) => {
         if (isFocusVisible(ev)) {
@@ -37,7 +47,7 @@ const Link = React.forwardRef(function Link(props, ref) {
 
     const handleBlur = useEventCallback((ev) => {
         if (focusVisible) {
-            onBlurVisible(ev);
+            onBlurVisible();
             setFocusVisible(false);
         }
 
@@ -47,9 +57,9 @@ const Link = React.forwardRef(function Link(props, ref) {
     });
 
     const iconElement =
-        icon &&
-        React.createElement(icon, {
-            size,
+        React.isValidElement(icon) &&
+        React.cloneElement(icon, {
+            size: icon.props.size || size,
             className: classNames('link__icon', {
                 [`link__icon--${iconAlign}`]: iconAlign
             })
@@ -75,16 +85,4 @@ const Link = React.forwardRef(function Link(props, ref) {
     );
 });
 
-Link.propTypes = {
-    children: PropTypes.node,
-    size: PropTypes.oneOf(['small', 'medium', 'large']),
-    icon: PropTypes.elementType,
-    iconAlign: PropTypes.oneOf(['left', 'right']),
-    primary: PropTypes.bool,
-    disabled: PropTypes.bool,
-    className: PropTypes.string,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func
-};
-
-export default Link;
+export { Link };
