@@ -7,7 +7,7 @@
     "serve": "httpster -p 3010 -d ./dist",
     "start": "webpack serve --env DEV",
     "build": "webpack --env PROD",
-    "storybook": "start-storybook -p 6006 --ci",
+    "storybook": "start-storybook -p 1006 --ci",
     "build-storybook": "build-storybook"
   },
   "author": "Alexandr Podoprigora",

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames';
 
 import { useIsFocusVisible, useEventCallback, useMergedRefs } from '../utils';
@@ -88,11 +88,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
         ...other
     }: ButtonProps = props;
 
-    const testRef = useRef<HTMLButtonElement>(null);
-
     const [focusVisible, setFocusVisible] = useState(false);
     const { isFocusVisible, onBlurVisible, ref: focusVisibleRef } = useIsFocusVisible();
-    const handleRef = useMergedRefs<HTMLButtonElement>(focusVisibleRef, forwardedRef, testRef);
+    const handleRef = useMergedRefs<HTMLButtonElement>(focusVisibleRef, forwardedRef);
 
     const handleFocus = useEventCallback((ev: React.FocusEvent<HTMLButtonElement>): void => {
         if (isFocusVisible(ev)) {
