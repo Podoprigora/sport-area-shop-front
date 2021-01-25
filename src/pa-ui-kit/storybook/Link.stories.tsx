@@ -6,7 +6,14 @@ import { KeyboardArrowRightIcon } from '../components/svg-icons/material';
 
 export default {
     component: Link,
-    title: 'PA-UI-KIT/Link'
+    title: 'PA-UI-KIT/Link',
+    argTypes: {
+        icon: {
+            control: {
+                type: null
+            }
+        }
+    }
 } as Meta;
 
 const Template: Story<LinkProps> = (args) => <Link {...args} />;

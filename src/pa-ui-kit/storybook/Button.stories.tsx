@@ -12,7 +12,19 @@ import ShoppingCartIcon from '../components/svg-icons/feather/ShoppingCartIcon';
 
 export default {
     component: Button,
-    title: 'PA-UI-KIT/Button'
+    title: 'PA-UI-KIT/Button',
+    argTypes: {
+        icon: {
+            control: {
+                type: null
+            }
+        },
+        loadingComponent: {
+            control: {
+                type: null
+            }
+        }
+    }
 } as Meta;
 
 const DefaultTemplate: Story<ButtonProps> = (args) => {

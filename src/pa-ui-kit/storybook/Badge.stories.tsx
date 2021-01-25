@@ -5,6 +5,8 @@ import { Badge, BadgeProps } from '../components/Badge';
 import { HeartIcon as HeartIconInner } from '../components/svg-icons/feather';
 import { IconButton } from '../components/IconButton';
 import { Button } from '../components/Button';
+import { FlexRow } from '../components/FlexRow';
+import { FlexCol } from '../components/FlexCol';
 
 export default {
     component: Badge,
@@ -18,17 +20,20 @@ const HeartIcon = () => {
 
 export const Default: Story<BadgeProps> = (args) => {
     return (
-        <div className="u-flex u-flex-justify-flex-start u-flex-align-items-center">
-            <IconButton className="u-margin-r-12">
-                <Badge value="8" {...args} inline={false}>
-                    <HeartIcon />
+        <FlexRow justify="flex-start" alignItems="center">
+            <FlexCol md="auto" className="u-margin-r-md-8 u-margin-b-down-md-8">
+                <IconButton>
+                    <Badge value="8" {...args} inline={false}>
+                        <HeartIcon />
+                    </Badge>
+                </IconButton>
+            </FlexCol>
+            <FlexCol md="auto">
+                <Badge value="20" {...args}>
+                    <Button centered>Action</Button>
                 </Badge>
-            </IconButton>
-
-            <Badge value="20" {...args}>
-                <Button centered>Action</Button>
-            </Badge>
-        </div>
+            </FlexCol>
+        </FlexRow>
     );
 };
 Default.args = {
