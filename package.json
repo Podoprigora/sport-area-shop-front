@@ -8,7 +8,7 @@
     "start": "webpack serve --env DEV",
     "build": "webpack --env PROD",
     "storybook": "start-storybook -p 1006 --ci",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook --docs -o ./dist/storybook"
   },
   "author": "Alexandr Podoprigora",
   "license": "ISC",
