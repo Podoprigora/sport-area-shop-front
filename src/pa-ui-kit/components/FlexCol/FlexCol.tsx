@@ -1,21 +1,19 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { hasObjectKey } from '../utils';
+import { ElementOf } from '../utils';
 
 type ColSize = boolean | string | number;
 
-export interface FlexColProps extends React.ComponentPropsWithRef<'div'> {
-    className?: string;
-    xs?: ColSize;
-    sm?: ColSize;
-    md?: ColSize;
-    lg?: ColSize;
-    xl?: ColSize;
-    xxl?: ColSize;
-}
-
 const BP_SIZES = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'] as const;
+
+type BpSizes = {
+    [K in ElementOf<typeof BP_SIZES>]?: ColSize;
+};
+
+export interface FlexColProps extends BpSizes, React.ComponentPropsWithRef<'div'> {
+    className?: string;
+}
 
 const FlexCol = React.forwardRef<HTMLDivElement, FlexColProps>(function FlexCol(
     props,
@@ -25,19 +23,17 @@ const FlexCol = React.forwardRef<HTMLDivElement, FlexColProps>(function FlexCol(
     const bpClasses: string[] = [];
 
     BP_SIZES.forEach((bp) => {
-        if (hasObjectKey(other, bp)) {
-            const bpVal = other[bp];
+        const bpVal = other[bp];
 
-            if (bpVal) {
-                delete other[bp];
+        if (bpVal) {
+            delete other[bp];
 
-                const bpClassBase = (bp as string) === 'xs' ? 'u-flex-col' : `u-flex-col-${bp}`;
+            const bpClassBase = bp === 'xs' ? 'u-flex-col' : `u-flex-col-${bp}`;
 
-                if (bpVal === true) {
-                    bpClasses.push(bpClassBase);
-                } else {
-                    bpClasses.push(`${bpClassBase}-${bpVal}`);
-                }
+            if (bpVal === true) {
+                bpClasses.push(bpClassBase);
+            } else {
+                bpClasses.push(`${bpClassBase}-${bpVal}`);
             }
         }
     });
