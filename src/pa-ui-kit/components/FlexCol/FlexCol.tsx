@@ -3,19 +3,17 @@ import classNames from 'classnames';
 
 import { ElementOf } from '../utils';
 
-type ColSize = boolean | string | number;
-
 const BP_SIZES = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'] as const;
 
 type BpSizes = {
-    [K in ElementOf<typeof BP_SIZES>]?: ColSize;
+    [K in ElementOf<typeof BP_SIZES>]?: boolean | string | number;
 };
 
 export interface FlexColProps extends BpSizes, React.ComponentPropsWithRef<'div'> {
     className?: string;
 }
 
-const FlexCol = React.forwardRef<HTMLDivElement, FlexColProps>(function FlexCol(
+export const FlexCol = React.forwardRef<HTMLDivElement, FlexColProps>(function FlexCol(
     props,
     forwardedRef
 ) {
@@ -44,5 +42,3 @@ const FlexCol = React.forwardRef<HTMLDivElement, FlexColProps>(function FlexCol(
 
     return <div className={classNames(...bpClasses, className)} ref={forwardedRef} {...other} />;
 });
-
-export { FlexCol };

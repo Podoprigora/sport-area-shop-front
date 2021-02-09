@@ -16,7 +16,10 @@ export interface LinkProps extends React.ComponentPropsWithRef<'a'> {
     onBlur?: React.FocusEventHandler<HTMLAnchorElement>;
 }
 
-const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(function Link(props, forwardedRef) {
+export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(function Link(
+    props,
+    forwardedRef
+) {
     const {
         children,
         icon,
@@ -84,5 +87,3 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(function Link(props,
         </a>
     );
 });
-
-export { Link };

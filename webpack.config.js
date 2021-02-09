@@ -117,7 +117,6 @@ module.exports = (env = {}) => {
                         {
                             loader: MiniCssExtractPlugin.loader,
                             options: {
-                                // hmr: devMode,
                                 publicPath: '../'
                             }
                         },
@@ -158,9 +157,6 @@ module.exports = (env = {}) => {
                     test: /.svg$/i,
                     loader: '@svgr/webpack',
                     include: /[\\\/]svg\-icons[\\\/]/i,
-                    // issuer: {
-                    //     test: /\.(js|jsx)$/
-                    // },
                     options: {
                         dimensions: false,
                         ref: true

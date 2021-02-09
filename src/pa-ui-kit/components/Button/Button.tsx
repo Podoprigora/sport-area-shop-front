@@ -56,7 +56,7 @@ function createIconElement(element: React.ReactNode, props: IconProps): React.Re
     return React.createElement(element as React.ElementType, props);
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     props,
     forwardedRef
 ) {
@@ -184,5 +184,3 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
         </button>
     );
 });
-
-export { Button };

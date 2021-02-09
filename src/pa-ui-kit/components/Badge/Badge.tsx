@@ -13,13 +13,13 @@ export interface BadgeProps extends React.ComponentProps<'div'> {
         | 'center-left';
     showZero?: boolean;
     offset?: [string | number, string | number];
-    inline: boolean;
+    inline?: boolean;
     style?: React.CSSProperties;
     className?: string;
     wrapProps?: React.ComponentProps<'div'>;
 }
 
-const Badge = (props: BadgeProps) => {
+export const Badge = (props: BadgeProps) => {
     const {
         children,
         value,
@@ -90,5 +90,3 @@ const Badge = (props: BadgeProps) => {
         </div>
     );
 };
-
-export { Badge };

@@ -20,7 +20,10 @@ export interface RatingProps {
     onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
 
-const Rating = React.forwardRef<HTMLDivElement, RatingProps>(function Rating(props, forwardedRef) {
+export const Rating = React.forwardRef<HTMLDivElement, RatingProps>(function Rating(
+    props,
+    forwardedRef
+) {
     const {
         name,
         value: valueProp,
@@ -132,5 +135,3 @@ const Rating = React.forwardRef<HTMLDivElement, RatingProps>(function Rating(pro
         </div>
     );
 });
-
-export { Rating };

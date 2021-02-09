@@ -20,7 +20,7 @@ export interface RatingItemProps {
     onMouseEnter: React.MouseEventHandler<HTMLInputElement>;
 }
 
-const RatingItem = (props: RatingItemProps) => {
+export const RatingItem = (props: RatingItemProps) => {
     const {
         name,
         value = 0,
@@ -136,5 +136,3 @@ const RatingItem = (props: RatingItemProps) => {
         </div>
     );
 };
-
-export { RatingItem };

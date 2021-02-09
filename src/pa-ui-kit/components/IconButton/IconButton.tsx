@@ -14,7 +14,7 @@ export interface IconButtonProps extends React.ComponentPropsWithRef<'button'> {
     onBlur?: React.FocusEventHandler<HTMLButtonElement>;
 }
 
-const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(function IconButton(
+export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(function IconButton(
     props,
     forwardedRef
 ) {
@@ -81,5 +81,3 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(function
         </button>
     );
 });
-
-export { IconButton };

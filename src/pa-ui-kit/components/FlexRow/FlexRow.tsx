@@ -17,7 +17,7 @@ export interface FlexRowProps extends React.ComponentPropsWithRef<'div'> {
     spacing?: string | number;
 }
 
-const FlexRow = React.forwardRef<HTMLDivElement, FlexRowProps>(function FlexRow(
+export const FlexRow = React.forwardRef<HTMLDivElement, FlexRowProps>(function FlexRow(
     props,
     forwardedRef
 ) {
@@ -59,5 +59,3 @@ const FlexRow = React.forwardRef<HTMLDivElement, FlexRowProps>(function FlexRow(
         </div>
     );
 });
-
-export { FlexRow };
