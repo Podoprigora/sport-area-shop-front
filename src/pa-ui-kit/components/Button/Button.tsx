@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { useIsFocusVisible, useEventCallback, useMergedRefs } from '../utils';
 import { SvgIconSize } from '../withSvgIconAttributes';
-import { KeyboardArrowDownIcon } from '../svg-icons/material/KeyboardArrowDown';
+import { KeyboardArrowDownIcon } from '../svg-icons/material';
 
 type Align = 'left' | 'top' | 'bottom' | 'right';
 type Size = 'small' | 'medium' | 'large';

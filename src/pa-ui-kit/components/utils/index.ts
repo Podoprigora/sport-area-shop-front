@@ -10,4 +10,3 @@ export * from './setRef';
 
 export * from './isString';
 export * from './defineEventTarget';
-export * from './types';

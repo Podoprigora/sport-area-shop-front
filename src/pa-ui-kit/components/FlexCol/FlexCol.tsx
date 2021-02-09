@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { ElementOf } from '../utils';
+import { ElementOf } from '../utils/types';
 
 const BP_SIZES = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'] as const;
 
