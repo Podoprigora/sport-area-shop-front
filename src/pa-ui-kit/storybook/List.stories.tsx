@@ -51,14 +51,16 @@ function generateListItems(length: number): DummyItems {
 
         return {
             id,
-            title: `Lorem ipsum dolor sit amet ${id}.`
+            title: `Lorem ipsum dolor sit amet ${id}`
         };
     });
 }
 
 // Default List
 
-type DefaultListItemProps = ListItemProps & { count?: number };
+interface DefaultListItemProps extends ListItemProps {
+    count?: number;
+}
 
 const defaultListItems = generateListItems(5);
 
@@ -242,7 +244,7 @@ export const VirtualizedList: Story<ListProps> = (args) => {
         }
     }, []);
 
-    const handleItemSelect = useCallback((ev, index) => {
+    const handleItemSelect = useCallback((ev: React.SyntheticEvent, index: number) => {
         setChecked((prevState) => {
             const foundIndex = prevState.indexOf(index);
 
