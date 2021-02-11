@@ -28,7 +28,8 @@ const VirtualizedListItem = (props) => {
                 <Checkbox tabIndex="-1" checked={selected.indexOf(index) !== -1} />
             </ListItemAction>
             <ListItemText flex>
-                {title} <strong>{index}</strong>
+                {title}
+                <strong>{index}</strong>
             </ListItemText>
             <ListItemText>(34)</ListItemText>
         </ListItem>

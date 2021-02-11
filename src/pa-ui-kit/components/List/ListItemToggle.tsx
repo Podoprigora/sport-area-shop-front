@@ -1,14 +1,21 @@
 import React, { useCallback } from 'react';
-import PropTypes from 'prop-types';
 
-import KeyboardArrowUpIcon from '@ui/svg-icons/material/KeyboardArrowUp';
-import KeyboardArrowDownIcon from '@ui/svg-icons/material/KeyboardArrowDown';
+import { KeyboardArrowUpIcon, KeyboardArrowDownIcon } from '../svg-icons/material';
 
-import ListItem from './ListItem';
-import ListItemIcon from './ListItemIcon';
-import ListItemText from './ListItemText';
+import { ListItem, ListItemProps } from './ListItem';
+import { ListItemIcon } from './ListItemIcon';
+import { ListItemText } from './ListItemText';
 
-const ListItemToggle = (props) => {
+export type ListItemPropsOnClick = Pick<ListItemProps, 'onClick'>;
+
+export interface ListItemToggleProps extends ListItemPropsOnClick {
+    children?: React.ReactNode;
+    expanded?: boolean;
+    items?: React.ReactNode;
+    maxLength?: number;
+}
+
+export const ListItemToggle = (props: ListItemToggleProps) => {
     const { children, expanded, onClick } = props;
 
     const handleClick = useCallback(
@@ -33,11 +40,3 @@ const ListItemToggle = (props) => {
         </ListItem>
     );
 };
-
-ListItemToggle.propTypes = {
-    children: PropTypes.node,
-    expanded: PropTypes.bool,
-    onClick: PropTypes.func
-};
-
-export default ListItemToggle;

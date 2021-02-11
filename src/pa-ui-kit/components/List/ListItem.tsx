@@ -1,14 +1,31 @@
 import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import useForkRef from '@ui/hooks/useForkRef';
-import useIsFocusVisible from '@ui/hooks/useIsFocusVisible';
-import useEventCallback from '@ui/hooks/useEventCallback';
-
+import { useMergedRefs, useIsFocusVisible, useEventCallback } from '../utils';
+import { FlexRowAlignItems } from '../FlexRow';
 import { ListItemContext } from './ListItemContext';
 
-const ListItem = React.forwardRef(function ListItem(props, ref) {
+export interface ListItemProps extends React.ComponentPropsWithRef<'div'> {
+    /**
+     * Normally contains ListItemText, ListItemIcon, ListItemAction
+     */
+    children?: React.ReactNode;
+    button?: boolean;
+    autoFocus?: boolean;
+    selected?: boolean;
+    disabled?: boolean;
+    highlighted?: boolean;
+    alignItems?: FlexRowAlignItems;
+    onClick?: React.MouseEventHandler<HTMLDivElement>;
+    onFocus?: React.FocusEventHandler<HTMLDivElement>;
+    onBlur?: React.FocusEventHandler<HTMLDivElement>;
+    onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
+}
+
+export const ListItem = React.forwardRef<HTMLDivElement, ListItemProps>(function ListItem(
+    props,
+    forwardedRef
+) {
     const {
         button,
         autoFocus,
@@ -27,13 +44,12 @@ const ListItem = React.forwardRef(function ListItem(props, ref) {
     } = props;
 
     const [focusVisible, setFocusVisible] = useState(false);
-    const { isFocusVisible, onBlurVisible, ref: focusVisibleRef } = useIsFocusVisible();
+    const { isFocusVisible, onBlurVisible, focusVisibleRef } = useIsFocusVisible<HTMLDivElement>();
 
-    const innerRef = useRef(null);
-    const handleOwnRef = useForkRef(innerRef, focusVisibleRef);
-    const handleRef = useForkRef(handleOwnRef, ref);
+    const elementRef = useRef<HTMLDivElement>(null);
+    const handleRef = useMergedRefs(elementRef, focusVisibleRef, forwardedRef);
 
-    const handleFocus = useEventCallback((ev) => {
+    const handleFocus = useEventCallback((ev: React.FocusEvent<HTMLDivElement>) => {
         if (isFocusVisible(ev)) {
             setFocusVisible(true);
         }
@@ -43,9 +59,9 @@ const ListItem = React.forwardRef(function ListItem(props, ref) {
         }
     });
 
-    const handleBlur = useEventCallback((ev) => {
+    const handleBlur = useEventCallback((ev: React.FocusEvent<HTMLDivElement>) => {
         if (focusVisible) {
-            onBlurVisible(ev);
+            onBlurVisible();
             setFocusVisible(false);
         }
 
@@ -55,7 +71,7 @@ const ListItem = React.forwardRef(function ListItem(props, ref) {
     });
 
     const handleClick = useCallback(
-        (ev) => {
+        (ev: React.MouseEvent<HTMLDivElement>) => {
             if (onClick && !disabled) {
                 onClick(ev);
             }
@@ -63,11 +79,15 @@ const ListItem = React.forwardRef(function ListItem(props, ref) {
         [onClick, disabled]
     );
 
+    // TODO: Remove handleClick callback when Enter key's pressed and come up with better approach
     const handleKeyDown = useCallback(
-        (ev) => {
+        (ev: React.KeyboardEvent<HTMLDivElement>) => {
             if (ev.key === 'Enter') {
                 ev.preventDefault();
-                handleClick(ev);
+
+                handleClick(
+                    ev as React.KeyboardEvent<HTMLDivElement> & React.MouseEvent<HTMLDivElement>
+                );
             }
 
             if (onKeyDown) {
@@ -78,14 +98,14 @@ const ListItem = React.forwardRef(function ListItem(props, ref) {
     );
 
     useEffect(() => {
-        if (autoFocus && button && !disabled) {
-            innerRef.current.focus({ preventScroll: false });
+        if (autoFocus && button && !disabled && elementRef.current) {
+            elementRef.current.focus({ preventScroll: false });
         }
     }, [autoFocus, button, disabled]);
 
     const componentProps = {
         role: button ? 'button' : 'listitem',
-        tabIndex: button && !disabled ? 0 : null,
+        tabIndex: button && !disabled ? 0 : undefined,
         'aria-disabled': disabled,
         className: classNames('list__item', className, {
             'list__item--button': button,
@@ -93,6 +113,7 @@ const ListItem = React.forwardRef(function ListItem(props, ref) {
             'list__item--highlighted': highlighted,
             'list__item--disabled': disabled,
             'list__item--focus-visible': focusVisible,
+            // TODO: Try to make use of FlexRow instead
             [`u-flex-align-items-${alignItems}`]: alignItems
         }),
         ...other,
@@ -112,21 +133,5 @@ const ListItem = React.forwardRef(function ListItem(props, ref) {
         </ListItemContext.Provider>
     );
 });
-
-ListItem.propTypes = {
-    children: PropTypes.node,
-    className: PropTypes.string,
-    alignItems: PropTypes.oneOf(['flex-start', 'flex-end', 'center', 'stretch', 'baseline']),
-    button: PropTypes.bool,
-    autoFocus: PropTypes.bool,
-    selected: PropTypes.bool,
-    disabled: PropTypes.bool,
-    highlighted: PropTypes.bool,
-    onClick: PropTypes.func,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func,
-    onKeyDown: PropTypes.func,
-    onMouseDown: PropTypes.func
-};
 
 export default ListItem;

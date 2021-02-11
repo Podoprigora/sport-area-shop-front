@@ -89,7 +89,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function 
     }: ButtonProps = props;
 
     const [focusVisible, setFocusVisible] = useState(false);
-    const { isFocusVisible, onBlurVisible, ref: focusVisibleRef } = useIsFocusVisible();
+    const { isFocusVisible, onBlurVisible, focusVisibleRef } = useIsFocusVisible();
     const handleRef = useMergedRefs<HTMLButtonElement>(focusVisibleRef, forwardedRef);
 
     const handleFocus = useEventCallback((ev: React.FocusEvent<HTMLButtonElement>): void => {

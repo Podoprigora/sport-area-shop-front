@@ -31,7 +31,7 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(f
     }: IconButtonProps = props;
 
     const [focusVisible, setFocusVisible] = useState(false);
-    const { isFocusVisible, onBlurVisible, ref: focusVisibleRef } = useIsFocusVisible();
+    const { isFocusVisible, onBlurVisible, focusVisibleRef } = useIsFocusVisible();
 
     const handleRef = useMergedRefs<HTMLButtonElement>(focusVisibleRef, forwardedRef);
 

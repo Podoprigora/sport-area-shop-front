@@ -1,7 +1,18 @@
 module.exports = {
     stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
-    addons: ['@storybook/addon-links', '@storybook/addon-essentials', './webpack-config-preset.js'],
+    addons: [
+        '@storybook/addon-actions',
+        '@storybook/addon-links',
+        {
+            name: '@storybook/addon-docs',
+            options: {
+                configureJSX: true
+            }
+        },
+        './webpack-config-preset.js'
+    ],
     typescript: {
-        check: true
+        check: true,
+        reactDocgen: 'react-docgen-typescript'
     }
 };

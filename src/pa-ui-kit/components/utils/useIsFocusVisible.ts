@@ -95,7 +95,7 @@ function handleBlurVisible(): void {
 }
 
 export function useIsFocusVisible<T extends HTMLElement | undefined>() {
-    const ref: React.RefCallback<T> = useCallback((element) => {
+    const focusVisibleRef: React.RefCallback<T> = useCallback((element) => {
         const node = ReactDOM.findDOMNode(element);
 
         if (node) {
@@ -103,7 +103,8 @@ export function useIsFocusVisible<T extends HTMLElement | undefined>() {
         }
     }, []);
 
-    return useMemo(() => ({ isFocusVisible, onBlurVisible: handleBlurVisible, ref } as const), [
-        ref
-    ]);
+    return useMemo(
+        () => ({ isFocusVisible, onBlurVisible: handleBlurVisible, focusVisibleRef } as const),
+        [focusVisibleRef]
+    );
 }

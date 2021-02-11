@@ -34,7 +34,7 @@ export const CheckboxBase = React.forwardRef<HTMLInputElement, CheckboxBaseProps
 
         const [focusVisible, setFocusVisible] = useState(false);
         const [checked, setChecked] = useControlled(checkedProp, !!defaultChecked);
-        const { isFocusVisible, onBlurVisible, ref: focusVisibleRef } = useIsFocusVisible<
+        const { isFocusVisible, onBlurVisible, focusVisibleRef } = useIsFocusVisible<
             HTMLInputElement
         >();
 

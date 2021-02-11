@@ -264,6 +264,7 @@ $window-margin: $spacing-scale-12;
 $window-body-painted-bg-color: $body-bg-color;
 
 // List
+$list-bg-color: $white;
 $list-padding-x: 0;
 $list-padding-y: $spacing-scale-4;
 $list-item-padding-y: $spacing-scale-4;
@@ -273,6 +274,7 @@ $list-item-text-padding-x: 0;
 $list-item-disabled-opacity: .6;
 $list-item-empty-color: $grey-darken-1;
 $list-item-empty-font-style: italic;
+$list-subheader-bg-color: $list-bg-color;
 $list-subheader-font-size: $font-size-small;
 $list-subheader-font-weight: 500;
 $list-subheader-letter-spacing: .3px;

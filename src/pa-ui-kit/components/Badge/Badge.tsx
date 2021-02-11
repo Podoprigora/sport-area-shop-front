@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import classNames from 'classnames';
 
 export interface BadgeProps extends React.ComponentProps<'div'> {
-    children: React.ReactElement;
+    children?: React.ReactElement;
     value?: string | number;
     placement?:
         | 'top-right'
@@ -21,7 +21,7 @@ export interface BadgeProps extends React.ComponentProps<'div'> {
 
 export const Badge = (props: BadgeProps) => {
     const {
-        children,
+        children = null,
         value,
         placement = 'top-right',
         showZero = false,

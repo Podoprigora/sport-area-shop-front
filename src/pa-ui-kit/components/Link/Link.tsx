@@ -34,7 +34,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(function Link
     }: LinkProps = props;
 
     const [focusVisible, setFocusVisible] = useState(false);
-    const { isFocusVisible, onBlurVisible, ref: focusVisibleRef } = useIsFocusVisible();
+    const { isFocusVisible, onBlurVisible, focusVisibleRef } = useIsFocusVisible();
 
     const handleRef = useMergedRefs<HTMLAnchorElement>(focusVisibleRef, forwardedRef);
 

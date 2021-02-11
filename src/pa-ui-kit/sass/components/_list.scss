@@ -1,6 +1,9 @@
 .list {
+	$this: &;
+
 	display: block;
 	position: relative;
+	background-color: $list-bg-color;
 	padding: $list-padding-y $list-padding-x;
 	overflow: auto;
 
@@ -86,10 +89,14 @@
 	}
 
 	&__subheader {
+		position: sticky;
+		top: 0;
+		background-color: $list-subheader-bg-color;
 		font-size: $list-subheader-font-size;
 		font-weight: $list-subheader-font-weight;
 		letter-spacing: $list-subheader-letter-spacing;
 		color: $list-subheader-color;
 		padding: $list-subheader-padding-y $list-item-padding-x;
+		z-index: 1;
 	}
 }

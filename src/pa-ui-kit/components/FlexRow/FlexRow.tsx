@@ -1,19 +1,26 @@
 import React from 'react';
 import classNames from 'classnames';
 
+export type FlexRowDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';
+export type FlexRowJustify =
+    | 'flex-start'
+    | 'flex-end'
+    | 'center'
+    | 'space-between'
+    | 'space-around'
+    | 'space-evenly';
+export type FlexRowAlignItems = 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baseline';
+
 export interface FlexRowProps extends React.ComponentPropsWithRef<'div'> {
+    /**
+     * Normally contains the set of FlexCol components
+     */
     children?: React.ReactNode;
     noWrap?: boolean;
     className?: string;
-    direction?: 'row' | 'row-reverse' | 'column' | 'column-reverse';
-    justify?:
-        | 'flex-start'
-        | 'flex-end'
-        | 'center'
-        | 'space-between'
-        | 'space-around'
-        | 'space-evenly';
-    alignItems?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baseline';
+    direction?: FlexRowDirection;
+    justify?: FlexRowJustify;
+    alignItems?: FlexRowAlignItems;
     spacing?: string | number;
 }
 

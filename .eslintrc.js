@@ -73,6 +73,7 @@ module.exports = {
         'react/no-find-dom-node': 0,
         'react/display-name': 0,
         'react/button-has-type': 0,
+        'react/jsx-one-expression-per-line': 0,
 
         'import/prefer-default-export': 0,
         'import/no-unresolved': 0,
