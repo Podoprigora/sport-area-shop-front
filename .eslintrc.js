@@ -28,7 +28,7 @@ module.exports = {
         'no-unused-vars': 0,
         'no-underscore-dangle': 0,
         'no-extend-native': 0,
-        'no-param-reassign': 0,
+        'no-restricted-syntax': 0,
         'no-prototype-builtins': 0,
         'no-template-curly-in-string': 0, // For Formik error message template
         'func-names': 0,

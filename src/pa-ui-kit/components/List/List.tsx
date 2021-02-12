@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import classNames from 'classnames';
 import Scrollbars from 'react-custom-scrollbars';
 
-import { useControlled, useEventCallback } from '../utils';
+import { useControlled } from '../utils';
 import { Scrollbar, ScrollbarProps } from '../Scrollbar';
 import { ListItemToggle, ListItemToggleProps } from './ListItemToggle';
 
