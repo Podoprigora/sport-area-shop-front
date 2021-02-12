@@ -125,8 +125,6 @@ Default.args = {
     maxLength: 4
 } as ListProps;
 
-// Scrollable list
-
 const scrollableListItems = generateListItems(20);
 
 const ScrollableListItem = (props: ListItemProps) => {

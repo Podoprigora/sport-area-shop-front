@@ -6,7 +6,9 @@ export * from './useLocalStorage';
 export * from './useMediaQuery';
 export * from './useMountedRef';
 export * from './useControlled';
+export * from './useForceUpdate';
 export * from './setRef';
 
 export * from './isString';
 export * from './defineEventTarget';
+export * from './shallowDiffers';
