@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import classNames from 'classnames';
 import Scrollbars from 'react-custom-scrollbars';
 
@@ -48,13 +48,16 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>(function List(pr
 
     const [expanded, setExpanded] = useControlled(expandedProp, defaultExpanded);
 
-    const handleToggle = useEventCallback((ev: React.SyntheticEvent) => {
-        setExpanded((prevState) => !prevState);
+    const handleToggle = useCallback(
+        (ev: React.SyntheticEvent) => {
+            setExpanded((prevState) => !prevState);
 
-        if (onToggle) {
-            onToggle(ev);
-        }
-    });
+            if (onToggle) {
+                onToggle(ev);
+            }
+        },
+        [setExpanded, onToggle]
+    );
 
     const scrollable = !autoHeight || maxHeight;
     const enhancedScrollbarProps = {

@@ -2,7 +2,8 @@ import React, { useState, memo, useRef, useCallback, useMemo } from 'react';
 import Scrollbars from 'react-custom-scrollbars';
 import {
     FixedSizeList as VirtulizedFizedSizeList,
-    ListChildComponentProps as VirtualizedListChildComponentProps
+    ListChildComponentProps as VirtualizedListChildComponentProps,
+    areEqual
 } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { Story, Meta } from '@storybook/react/types-6-0';
@@ -128,7 +129,7 @@ Default.args = {
 
 const scrollableListItems = generateListItems(20);
 
-const ScrollableListItem = memo((props: ListItemProps) => {
+const ScrollableListItem = (props: ListItemProps) => {
     const { children, ...other } = props;
 
     return (
@@ -144,7 +145,7 @@ const ScrollableListItem = memo((props: ListItemProps) => {
             </ListItemAction>
         </ListItem>
     );
-});
+};
 
 export const ScrollableList: Story<ListProps> = (args) => {
     return (
@@ -183,11 +184,11 @@ ScrollableList.storyName = 'With custom scrollbar';
  * https://react-window.now.sh/#/api/FixedSizeList
  */
 
-type VirtualizedItemDataProp = {
+type VirtualizedItemDataProp = Readonly<{
     items: DummyItems;
     checked: number[];
     onSelect: (ev: React.SyntheticEvent, index: number) => void;
-};
+}>;
 
 interface VirtualizedItemProps extends VirtualizedListChildComponentProps {
     data: VirtualizedItemDataProp;
@@ -195,7 +196,7 @@ interface VirtualizedItemProps extends VirtualizedListChildComponentProps {
 
 const virtualizedListItems = generateListItems(2000);
 
-const VirtualizedListItem = (props: VirtualizedItemProps) => {
+const VirtualizedListItem = memo((props: VirtualizedItemProps) => {
     const { data, index, style } = props;
     const { items, checked, onSelect } = data;
     const { title } = items[index] || {};
@@ -229,7 +230,7 @@ const VirtualizedListItem = (props: VirtualizedItemProps) => {
             </ListItemAction>
         </ListItem>
     );
-};
+}, areEqual);
 
 export const VirtualizedList: Story<ListProps> = (args) => {
     const [checked, setChecked] = useState<number[]>([]);

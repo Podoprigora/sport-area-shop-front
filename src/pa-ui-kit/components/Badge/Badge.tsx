@@ -1,16 +1,18 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
 
+type PlacementProp =
+    | 'top-right'
+    | 'top-left'
+    | 'bottom-right'
+    | 'bottom-left'
+    | 'center-right'
+    | 'center-left';
+
 export interface BadgeProps extends React.ComponentProps<'div'> {
     children?: React.ReactElement;
     value?: string | number;
-    placement?:
-        | 'top-right'
-        | 'top-left'
-        | 'bottom-right'
-        | 'bottom-left'
-        | 'center-right'
-        | 'center-left';
+    placement?: PlacementProp;
     showZero?: boolean;
     offset?: [string | number, string | number];
     inline?: boolean;

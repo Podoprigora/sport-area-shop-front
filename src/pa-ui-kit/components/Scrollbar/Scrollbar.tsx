@@ -29,7 +29,7 @@ export const Scrollbar = React.forwardRef<Scrollbars, ScrollbarProps>(function S
         }
     });
 
-    const handleScroll = useEventCallback((ev: React.UIEvent) => {
+    const handleScroll = useEventCallback((ev: React.UIEvent<HTMLElement>) => {
         ev.stopPropagation();
 
         if (onScroll) {

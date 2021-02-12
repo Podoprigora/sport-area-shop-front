@@ -1,6 +1,6 @@
 // Problem definition: https://wicg.github.io/focus-visible/explainer.html
 // Source: https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/utils/useIsFocusVisible.js
-// based on https://github.com/WICG/focus-visible/blob/v4.1.5/src/focus-visible.js
+// Based on: https://github.com/WICG/focus-visible/blob/v4.1.5/src/focus-visible.js
 
 import React, { useCallback, useMemo } from 'react';
 import ReactDOM from 'react-dom';

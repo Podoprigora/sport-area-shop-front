@@ -19,7 +19,7 @@ export const ListItemToggle = (props: ListItemToggleProps) => {
     const { children, expanded, onClick } = props;
 
     const handleClick = useCallback(
-        (ev) => {
+        (ev: React.MouseEvent<HTMLDivElement>) => {
             if (onClick) {
                 onClick(ev);
             }
