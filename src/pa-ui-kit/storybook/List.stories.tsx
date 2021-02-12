@@ -23,6 +23,8 @@ import { Scrollbar } from '../components/Scrollbar';
 import { Checkbox } from '../components/Checkbox';
 import { Badge } from '../components/Badge';
 import { IconButton } from '../components/IconButton';
+import { Button } from '../components/Button';
+import { useForceUpdate } from '../components/utils';
 
 import { MessageSquareIcon, SearchIcon } from '../components/svg-icons/feather';
 import { ClearCloseIcon } from '../components/svg-icons/material';
@@ -127,7 +129,7 @@ Default.args = {
 
 const scrollableListItems = generateListItems(20);
 
-const ScrollableListItem = (props: ListItemProps) => {
+const ScrollableListItem = memo((props: ListItemProps) => {
     const { children, ...other } = props;
 
     return (
@@ -143,24 +145,34 @@ const ScrollableListItem = (props: ListItemProps) => {
             </ListItemAction>
         </ListItem>
     );
-};
+});
 
 export const ScrollableList: Story<ListProps> = (args) => {
-    return (
-        <List {...args}>
-            {scrollableListItems.map((item) => {
-                const { id, title } = item;
+    const forceUpdate = useForceUpdate();
 
-                return (
-                    <React.Fragment key={id}>
-                        {id % 5 === 0 ? (
-                            <ListSubheader>Search result group {id + 1}</ListSubheader>
-                        ) : null}
-                        <ScrollableListItem>{title}</ScrollableListItem>
-                    </React.Fragment>
-                );
-            })}
-        </List>
+    const handleForceUpdate = useCallback(() => {
+        forceUpdate();
+    }, [forceUpdate]);
+
+    return (
+        <>
+            <Button onClick={handleForceUpdate}>Force update</Button>
+            <br />
+            <List {...args}>
+                {scrollableListItems.map((item) => {
+                    const { id, title } = item;
+
+                    return (
+                        <React.Fragment key={id}>
+                            {id % 5 === 0 ? (
+                                <ListSubheader>Search result group {id + 1}</ListSubheader>
+                            ) : null}
+                            <ScrollableListItem>{title}</ScrollableListItem>
+                        </React.Fragment>
+                    );
+                })}
+            </List>
+        </>
     );
 };
 
@@ -182,14 +194,14 @@ ScrollableList.storyName = 'With custom scrollbar';
  * https://react-window.now.sh/#/api/FixedSizeList
  */
 
-type VirtualizedItemDataProp = Readonly<{
-    items: DummyItems;
-    checked: number[];
+type VirtualizedItemDataProp = {
+    items: Readonly<DummyItems>;
+    checked: Readonly<number[]>;
     onSelect: (ev: React.SyntheticEvent, index: number) => void;
-}>;
+};
 
 interface VirtualizedItemProps extends VirtualizedListChildComponentProps {
-    data: VirtualizedItemDataProp;
+    data: Readonly<VirtualizedItemDataProp>;
 }
 
 const virtualizedListItems = generateListItems(2000);
@@ -232,6 +244,7 @@ const VirtualizedListItem = memo((props: VirtualizedItemProps) => {
 
 export const VirtualizedList: Story<ListProps> = (args) => {
     const [checked, setChecked] = useState<number[]>([]);
+    const forceUpdate = useForceUpdate();
     const listRef = useRef<VirtulizedFizedSizeList>(null);
     const scrollbarRef = useRef<Scrollbars>(null);
 
@@ -255,6 +268,10 @@ export const VirtualizedList: Story<ListProps> = (args) => {
         });
     }, []);
 
+    const handleForceUpdate = useCallback(() => {
+        forceUpdate();
+    }, [forceUpdate]);
+
     const itemData = useMemo<VirtualizedItemDataProp>(() => {
         return {
             items: virtualizedListItems,
@@ -264,30 +281,34 @@ export const VirtualizedList: Story<ListProps> = (args) => {
     }, [handleItemSelect, checked]);
 
     return (
-        <AutoSizer style={{ height: 350, width: '100%' }}>
-            {({ height }) => {
-                return (
-                    <List
-                        maxHeight={height}
-                        scrollbarRef={scrollbarRef}
-                        onScroll={handleScroll}
-                        {...args}
-                    >
-                        <VirtulizedFizedSizeList
-                            height={height}
-                            width="100%"
-                            itemSize={40}
-                            itemCount={virtualizedListItems.length}
-                            itemData={itemData}
-                            ref={listRef}
-                            style={{ overflow: 'initial' }}
+        <>
+            <Button onClick={handleForceUpdate}>Force update</Button>
+            <br />
+            <AutoSizer style={{ height: 350, width: '100%' }}>
+                {({ height }) => {
+                    return (
+                        <List
+                            maxHeight={height}
+                            scrollbarRef={scrollbarRef}
+                            onScroll={handleScroll}
+                            {...args}
                         >
-                            {VirtualizedListItem}
-                        </VirtulizedFizedSizeList>
-                    </List>
-                );
-            }}
-        </AutoSizer>
+                            <VirtulizedFizedSizeList
+                                height={height}
+                                width="100%"
+                                itemSize={40}
+                                itemCount={virtualizedListItems.length}
+                                itemData={itemData}
+                                ref={listRef}
+                                style={{ overflow: 'initial' }}
+                            >
+                                {VirtualizedListItem}
+                            </VirtulizedFizedSizeList>
+                        </List>
+                    );
+                }}
+            </AutoSizer>
+        </>
     );
 };
 

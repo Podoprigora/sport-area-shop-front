@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-export function useForceUpdate() {
+export function useForceUpdate(): () => void {
     const [, setValue] = useState(0);
 
     return useCallback(() => {
