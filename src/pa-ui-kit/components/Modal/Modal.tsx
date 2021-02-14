@@ -1,15 +1,39 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo, useLayoutEffect } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { scrollbarSize } from 'dom-helpers';
+import { CSSTransitionProps } from 'react-transition-group/CSSTransition';
 
-import Portal from '@ui/Portal';
-import Backdrop from '@ui/Backdrop';
-import FocusBounding from '@ui/FocusBounding';
-import useEventCallback from '@ui/hooks/useEventCallback';
-import setRef from '@ui/utils/setRef';
-import useEventListener from '@ui/hooks/useEventListener';
-import ModalManager from './ModalManager';
+import { FocusBounding } from '../FocusBounding';
+import { Backdrop } from '../Backdrop';
+import { Portal } from '../Portal';
+import { setRef, useEventCallback, useEventListener } from '../utils';
+import { ModalManager } from './ModalManager';
+
+export interface ModalProps extends React.ComponentPropsWithRef<'div'> {
+    /**
+     * Contains a valid ReactElement or null
+     */
+    children?: React.ReactElement | null;
+    open?: boolean;
+    centered?: boolean;
+    backdrop?: boolean;
+    /**
+     * Sets overflow auto for modal conent
+     */
+    overflow?: boolean;
+    backdropTransitionProps?: CSSTransitionProps;
+    disableEscapeKeyDown?: boolean;
+    disableBackdropClick?: boolean;
+    disableFocusBounding?: boolean;
+    disableRestoreFocus?: boolean;
+    /**
+     * If false, the body element style overflow will be set as hidden
+     */
+    disableScrollLock?: boolean;
+    onEscapeKeyDown?: React.KeyboardEventHandler;
+    onClose?: () => void;
+    onOpen?: () => void;
+}
 
 const isOverflowing = () => {
     return window.innerWidth > document.documentElement.clientWidth;
@@ -18,17 +42,22 @@ const isOverflowing = () => {
 const setBodyOverflow = (overflow = true) => {
     const { style } = document.body;
 
-    style['overflow'] = overflow ? null : 'hidden';
-    style['paddingRight'] = overflow ? null : `${scrollbarSize()}px`;
+    if (overflow) {
+        style.removeProperty('overflow');
+        style.removeProperty('padding-right');
+    } else {
+        style.setProperty('overflow', 'hidden');
+        style.setProperty('padding-right', `${scrollbarSize()}px`);
+    }
 };
 
-const getHasTransition = (props) => {
+const getHasTransition = (props: ModalProps): boolean => {
     return props.children && props.children.props.hasOwnProperty('in');
 };
 
 const manager = new ModalManager();
 
-const Modal = React.forwardRef(function Modal(props, ref) {
+export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(function Modal(props, ref) {
     const {
         children,
         open,
@@ -49,13 +78,17 @@ const Modal = React.forwardRef(function Modal(props, ref) {
     } = props;
 
     const [exited, setExited] = useState(true);
-    const [modalNode, setModalNode] = useState(null);
-    const backdropRef = useRef(null);
-    const triggerRef = useRef(null);
+    const [modalNode, setModalNode] = useState<HTMLDivElement | null>(null);
+    const backdropRef = useRef<HTMLDivElement | null>(null);
+    const triggerRef = useRef<HTMLElement | null>(null);
     const hasTransition = getHasTransition(props);
 
     const isTopModal = useCallback(() => {
-        return modalNode && manager.isTopModal(modalNode);
+        if (modalNode) {
+            return manager.isTopModal(modalNode);
+        }
+
+        return false;
     }, [modalNode]);
 
     // Handlers
@@ -75,7 +108,7 @@ const Modal = React.forwardRef(function Modal(props, ref) {
     const handleEnter = useEventCallback(() => {
         setExited(false);
 
-        if (props.children.props && props.children.props.onEnter) {
+        if (props.children && props.children.props && props.children.props.onEnter) {
             props.children.props.onEnter();
         }
     });
@@ -83,20 +116,20 @@ const Modal = React.forwardRef(function Modal(props, ref) {
     const handleExited = useEventCallback(() => {
         setExited(true);
 
-        if (props.children.props && props.children.props.onExited) {
+        if (props.children && props.children.props && props.children.props.onExited) {
             props.children.props.onExited();
         }
     });
 
     const handleDocumentKeyDown = useCallback(
-        (ev) => {
+        (ev: React.KeyboardEvent) => {
             ev.stopPropagation();
 
             if (!modalNode) {
                 return;
             }
 
-            const isValidTarget = modalNode.contains(ev.target);
+            const isValidTarget = modalNode.contains(ev.target as Node);
 
             if (ev.key === 'Escape' && !disableEscapeKeyDown && isValidTarget && isTopModal()) {
                 if (onEscapeKeyDown) {
@@ -110,12 +143,12 @@ const Modal = React.forwardRef(function Modal(props, ref) {
     );
 
     const handleClick = useCallback(
-        (ev) => {
+        (ev: React.MouseEvent) => {
             if (
                 !backdrop &&
                 !disableBackdropClick &&
                 modalNode &&
-                modalNode.isEqualNode(ev.target)
+                modalNode.isEqualNode(ev.target as Node)
             ) {
                 handleClose();
             }
@@ -124,14 +157,14 @@ const Modal = React.forwardRef(function Modal(props, ref) {
     );
 
     const handleBackdropClick = useCallback(
-        (ev) => {
+        (ev: React.MouseEvent) => {
             ev.preventDefault();
             ev.stopPropagation();
 
             if (
                 !disableBackdropClick &&
                 backdropRef.current &&
-                backdropRef.current.isEqualNode(ev.target)
+                backdropRef.current.isEqualNode(ev.target as Node)
             ) {
                 handleClose();
             }
@@ -163,10 +196,12 @@ const Modal = React.forwardRef(function Modal(props, ref) {
         }
 
         if (open) {
-            triggerRef.current = document.activeElement;
+            triggerRef.current = document.activeElement as HTMLElement;
 
             return () => {
-                triggerRef.current.focus();
+                if (triggerRef.current) {
+                    triggerRef.current.focus();
+                }
             };
         }
 
@@ -195,7 +230,7 @@ const Modal = React.forwardRef(function Modal(props, ref) {
     useEffect(() => {
         if (!disableScrollLock && modalNode && !isOverflowing()) {
             return () => {
-                if (manager.modals.length === 0) {
+                if (manager.length === 0) {
                     setBodyOverflow(true);
                 }
             };
@@ -217,7 +252,7 @@ const Modal = React.forwardRef(function Modal(props, ref) {
             return {
                 onEnter: handleEnter,
                 onExited: handleExited
-            };
+            } as const;
         }
 
         return {};
@@ -227,7 +262,9 @@ const Modal = React.forwardRef(function Modal(props, ref) {
         return null;
     }
 
-    const childrenContent = React.cloneElement(children, childProps);
+    const childrenContent = React.isValidElement(children)
+        ? React.cloneElement(children, childProps)
+        : null;
 
     return (
         <Portal onRendered={handlePortalRendered}>
@@ -263,26 +300,3 @@ const Modal = React.forwardRef(function Modal(props, ref) {
         </Portal>
     );
 });
-
-const propTypes = {
-    open: PropTypes.bool,
-    children: PropTypes.node,
-    className: PropTypes.string,
-    centered: PropTypes.bool,
-    backdrop: PropTypes.bool,
-    overflow: PropTypes.bool,
-    backdropTransitionProps: PropTypes.object,
-    disableEscapeKeyDown: PropTypes.bool,
-    disableBackdropClick: PropTypes.bool,
-    disableFocusBounding: PropTypes.bool,
-    disableRestoreFocus: PropTypes.bool,
-    disableScrollLock: PropTypes.bool,
-    onEscapeKeyDown: PropTypes.func,
-    onClose: PropTypes.func,
-    onOpen: PropTypes.func
-};
-
-Modal.propTypes = propTypes;
-
-export default Modal;
-export { propTypes };

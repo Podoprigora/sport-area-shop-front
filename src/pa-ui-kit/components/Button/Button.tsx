@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import classNames from 'classnames';
 
 import { useIsFocusVisible, useEventCallback, useMergedRefs } from '../utils';
@@ -92,6 +92,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function 
     const { isFocusVisible, onBlurVisible, focusVisibleRef } = useIsFocusVisible();
     const handleRef = useMergedRefs<HTMLButtonElement>(focusVisibleRef, forwardedRef);
 
+    // Handlers
     const handleFocus = useEventCallback((ev: React.FocusEvent<HTMLButtonElement>): void => {
         if (isFocusVisible(ev)) {
             setFocusVisible(true);
@@ -112,6 +113,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function 
             onBlur(ev);
         }
     });
+
+    // Render
 
     const sizeClassnames = {
         small: 'btn--small',

@@ -1,9 +1,11 @@
-export default class ModalManager {
-    constructor() {
-        this.modals = [];
+export class ModalManager {
+    private modals: HTMLElement[] = [];
+
+    get length() {
+        return this.modals.length;
     }
 
-    add(modal) {
+    add(modal: HTMLElement): number {
         let modalIndex = this.modals.indexOf(modal);
 
         if (modalIndex !== -1) {
@@ -16,7 +18,7 @@ export default class ModalManager {
         return modalIndex;
     }
 
-    remove(modal) {
+    remove(modal: HTMLElement): number {
         const modalIndex = this.modals.indexOf(modal);
 
         if (modalIndex === -1) {
@@ -28,7 +30,7 @@ export default class ModalManager {
         return modalIndex;
     }
 
-    isTopModal(modal) {
+    isTopModal(modal: HTMLElement): boolean {
         return this.modals.length > 0 && this.modals[this.modals.length - 1] === modal;
     }
 }

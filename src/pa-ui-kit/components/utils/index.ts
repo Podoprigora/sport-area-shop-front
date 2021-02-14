@@ -7,6 +7,7 @@ export * from './useMediaQuery';
 export * from './useMountedRef';
 export * from './useControlled';
 export * from './useForceUpdate';
+export * from './useEventListener';
 export * from './setRef';
 
 export * from './isString';
