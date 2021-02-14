@@ -1,5 +1,4 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { CSSTransition } from 'react-transition-group';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Button } from '../components/Button';

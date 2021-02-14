@@ -11,14 +11,14 @@ import { ModalManager } from './ModalManager';
 
 export interface ModalProps extends React.ComponentPropsWithRef<'div'> {
     /**
-     * Contains a valid ReactElement or null
+     * Contains a valid `ReactElement` or `null`
      */
     children?: React.ReactElement | null;
     open?: boolean;
     centered?: boolean;
     backdrop?: boolean;
     /**
-     * Sets overflow auto for modal conent
+     * If true - will set `overflow` as `auto` for modal content
      */
     overflow?: boolean;
     backdropTransitionProps?: CSSTransitionProps;
@@ -27,7 +27,7 @@ export interface ModalProps extends React.ComponentPropsWithRef<'div'> {
     disableFocusBounding?: boolean;
     disableRestoreFocus?: boolean;
     /**
-     * If false, the body element style overflow will be set as hidden
+     * If false - will set the body element style `overflow` as `hidden`
      */
     disableScrollLock?: boolean;
     onEscapeKeyDown?: React.KeyboardEventHandler;

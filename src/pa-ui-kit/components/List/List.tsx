@@ -8,19 +8,19 @@ import { ListItemToggle, ListItemToggleProps } from './ListItemToggle';
 
 export interface ListProps extends React.ComponentPropsWithRef<'div'> {
     /**
-     * Normally contains of ListItem items
+     * Normally contains of `ListItem` items
      */
     children?: React.ReactNode;
     className?: string;
     /**
-     * If there are more items than maxLenght hide the rest
+     * If there are more items than `maxLenght` hide the rest
      * and display toggle control to display hidden items
      */
     maxLength?: number;
     maxHeight?: number;
     autoHeight?: boolean;
     /**
-     * Related to maxLength property and govern visibility of hidden items
+     * Related to `maxLength` property and govern visibility of hidden items
      */
     expanded?: boolean;
     defaultExpanded?: boolean;

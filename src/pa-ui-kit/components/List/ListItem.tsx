@@ -7,7 +7,7 @@ import { ListItemContext } from './ListItemContext';
 
 export interface ListItemProps extends React.ComponentPropsWithRef<'div'> {
     /**
-     * Normally contains ListItemText, ListItemIcon, ListItemAction
+     * Normally contains `ListItemText`, `ListItemIcon`, `ListItemAction`
      */
     children?: React.ReactNode;
     button?: boolean;
