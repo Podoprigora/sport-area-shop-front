@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo, useLayoutEffect } from 'react';
 import classNames from 'classnames';
+import FocusLock from 'react-focus-lock';
 import { scrollbarSize } from 'dom-helpers';
 import { CSSTransitionProps } from 'react-transition-group/CSSTransition';
 
-import { FocusBounding } from '../FocusBounding';
 import { Backdrop } from '../Backdrop';
 import { Portal } from '../Portal';
 import { setRef, useEventCallback, useEventListener } from '../utils';
@@ -196,13 +196,8 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(function Modal
         }
 
         if (open) {
+            // Initialize an active element to restore focus after close
             triggerRef.current = document.activeElement as HTMLElement;
-
-            return () => {
-                if (triggerRef.current) {
-                    triggerRef.current.focus();
-                }
-            };
         }
 
         return undefined;
@@ -214,6 +209,11 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(function Modal
 
             return () => {
                 manager.remove(modalNode);
+
+                // Restore focus
+                if (triggerRef.current) {
+                    triggerRef.current?.focus();
+                }
             };
         }
 
@@ -242,10 +242,6 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(function Modal
     useEventListener('keydown', handleDocumentKeyDown);
 
     // Render
-
-    const isDisabledFocusBounding = useCallback(() => {
-        return !isTopModal();
-    }, [isTopModal]);
 
     const childProps = useMemo(() => {
         if (hasTransition) {
@@ -290,9 +286,9 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(function Modal
                     />
                 )}
                 {!disableFocusBounding ? (
-                    <FocusBounding disabled={isDisabledFocusBounding}>
+                    <FocusLock autoFocus={false} returnFocus={false}>
                         {childrenContent}
-                    </FocusBounding>
+                    </FocusLock>
                 ) : (
                     childrenContent
                 )}

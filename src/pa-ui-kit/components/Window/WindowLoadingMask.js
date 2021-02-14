@@ -24,7 +24,7 @@ const WindowLoadingMask = (props) => {
     };
 
     const currentProgressComponent = React.cloneElement(
-        progressComponents[variant] || progressComponents['_default'],
+        progressComponents[variant] || progressComponents._default,
         {
             ...progressProps
         }

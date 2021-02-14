@@ -1,3 +1,7 @@
+/**
+ * This component is deprecated.
+ * Use react-focus-lock instead https://github.com/theKashey/react-focus-lock.
+ */
 import React, { useRef, useCallback, useEffect, KeyboardEvent } from 'react';
 import ReactDOM from 'react-dom';
 
