@@ -39,7 +39,7 @@ const DefaultTemplate: Story<ButtonProps> = (args) => {
     return <Button type="button" ref={ref} {...args} />;
 };
 
-export const Default = DefaultTemplate.bind({});
+export const Default: Story = DefaultTemplate.bind({});
 Default.args = {
     children: 'Button',
     primary: true,

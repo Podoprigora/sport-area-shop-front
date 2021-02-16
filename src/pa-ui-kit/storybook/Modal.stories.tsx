@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Button } from '../components/Button';
@@ -18,16 +18,9 @@ export default {
 
 export const Default: Story<ModalProps> = (args) => {
     const [open, setOpen] = useState(false);
-    const closeButtonRef = useRef<HTMLButtonElement>(null);
 
     const handleShowModalClick = useCallback(() => {
         setOpen(true);
-    }, []);
-
-    const handleOpen = useCallback(() => {
-        if (closeButtonRef.current) {
-            closeButtonRef.current.focus();
-        }
     }, []);
 
     const handleClose = useCallback(() => {
@@ -42,14 +35,10 @@ export const Default: Story<ModalProps> = (args) => {
 
     return (
         <>
-            <Button onClick={handleShowModalClick}>Show Modal</Button>
-            <Modal
-                open={open}
-                {...args}
-                onOpen={handleOpen}
-                onClose={handleClose}
-                onEscapeKeyDown={handleClose}
-            >
+            <Button primary onClick={handleShowModalClick}>
+                Show Modal
+            </Button>
+            <Modal open={open} {...args} onClose={handleClose} onEscapeKeyDown={handleClose}>
                 <div
                     style={{
                         width: 300,
@@ -62,7 +51,7 @@ export const Default: Story<ModalProps> = (args) => {
                     <div style={{ marginBottom: 50 }}>Modal content</div>
                     <Default {...args} />
                     <div style={{ marginTop: 50 }}>
-                        <Button centered ref={closeButtonRef} onClick={handleClose}>
+                        <Button plain centered autoFocus onClick={handleClose}>
                             Close
                         </Button>
                     </div>

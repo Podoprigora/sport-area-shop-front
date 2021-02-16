@@ -42,4 +42,4 @@ export const Default: Story<FlexRowProps> = (args) => {
         </FlexRow>
     );
 };
-Default.args = {};
+Default.args = {} as FlexRowProps;

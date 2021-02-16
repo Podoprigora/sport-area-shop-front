@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta, Story } from '@storybook/react/types-6-0';
+import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Badge, BadgeProps } from '../components/Badge';
 import { HeartIcon as HeartIconInner } from '../components/svg-icons/feather';
@@ -39,4 +39,4 @@ export const Default: Story<BadgeProps> = (args) => {
 Default.args = {
     placement: 'bottom-right',
     offset: [0, 0]
-};
+} as BadgeProps;

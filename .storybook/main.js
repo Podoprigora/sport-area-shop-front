@@ -9,6 +9,7 @@ module.exports = {
                 configureJSX: true
             }
         },
+        '@storybook/addon-controls',
         './webpack-config-preset.js'
     ],
     typescript: {

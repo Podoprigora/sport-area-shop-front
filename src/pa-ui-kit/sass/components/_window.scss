@@ -52,9 +52,9 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: $spacing-scale-6;
+		color: $heading-color;
 
 		&-icon {
-			color: $color-primary;
 			flex-shrink: 0;
 			margin: 0 $spacing-scale-4;
 		}
@@ -82,9 +82,14 @@
 
 	&__body {
 		flex: auto;
-		overflow: auto;
+		padding: $spacing-scale-6;
 		border-top: 1px solid $border-color;
 		border-bottom: 1px solid $border-color;
+		overflow: auto;
+
+		&--no-padding {
+			padding: 0;
+		}
 
 		&--painted {
 			background-color: $window-body-painted-bg-color;
@@ -92,35 +97,50 @@
 	}
 
 	&__actions {
-		display: flex;
-		flex-flow: row nowrap;
-		align-items: center;
-		padding: $spacing-scale-6;
+		padding-top: $spacing-scale-6;
+		padding-left: $spacing-scale-6;
 
-		&--justify-left {
-			justify-content: flex-start;
+		& > * {
+			padding-right: $spacing-scale-6;
+			padding-bottom: $spacing-scale-6;
 		}
 
-		&--justify-right {
-			justify-content: flex-end;
-		}
-
-		&--justify-center {
-			justify-content: center;
-		}
-
-		&--justify-stretch {
-			justify-content: stretch;
-
-			& > * {
-				flex: 1;
-			}
-		}
-
-		& > *:not(:first-child) {
-			margin-left: $spacing-scale-6;
+		& > :not(.u-flex-col, .u-flex-col-auto) {
+			margin-right: $spacing-scale-6;
+			margin-bottom: $spacing-scale-6;
 		}
 	}
+
+	// &__actions {
+	// 	display: flex;
+	// 	flex-flow: row nowrap;
+	// 	align-items: center;
+	// 	padding: $spacing-scale-6;
+
+	// 	&--justify-start {
+	// 		justify-content: flex-start;
+	// 	}
+
+	// 	&--justify-end {
+	// 		justify-content: flex-end;
+	// 	}
+
+	// 	&--justify-center {
+	// 		justify-content: center;
+	// 	}
+
+	// 	&--justify-stretch {
+	// 		justify-content: stretch;
+
+	// 		& > * {
+	// 			flex: 1;
+	// 		}
+	// 	}
+
+	// 	& > *:not(:first-child) {
+	// 		margin-left: $spacing-scale-6;
+	// 	}
+	// }
 
 	&-appear {
 		transform: translate3d(0, -5rem, 0) !important;

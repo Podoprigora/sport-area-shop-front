@@ -19,7 +19,7 @@ export default {
 
 const Template: Story<IconButtonProps> = (args) => <IconButton {...args} />;
 
-export const Default = Template.bind({});
+export const Default: Story<IconButtonProps> = Template.bind({});
 Default.args = {
     children: <ShoppingBagIcon />
 } as IconButtonProps;
@@ -39,7 +39,7 @@ export const Sizes: Story<IconButtonProps> = (args) => {
         </FlexRow>
     );
 };
-Sizes.args = {};
+Sizes.args = {} as IconButtonProps;
 Sizes.parameters = {
     docs: {
         description: {

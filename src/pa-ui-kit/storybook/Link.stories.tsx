@@ -23,4 +23,4 @@ Default.args = {
     children: 'Default link',
     icon: <KeyboardArrowRightIcon />,
     iconAlign: 'right'
-};
+} as LinkProps;

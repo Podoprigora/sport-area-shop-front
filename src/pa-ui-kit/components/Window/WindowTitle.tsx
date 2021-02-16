@@ -1,15 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import Heading from '@ui/Heading';
+import { Heading, HeadingProps } from '../Heading';
 
-const WindowTitle = (props) => {
-    const { children, className, fullWidth, ...other } = props;
+export interface WindowTitleProps extends HeadingProps {
+    fullWidth?: boolean;
+}
+
+export const WindowTitle = (props: WindowTitleProps) => {
+    const { children, size = '5', className, fullWidth, ...other } = props;
 
     return (
         <Heading
-            size="5"
+            size={size}
             gutterBottom={false}
             className={classNames('window__header-title', className, {
                 'window__header-title--fullwidth': fullWidth
@@ -20,11 +23,3 @@ const WindowTitle = (props) => {
         </Heading>
     );
 };
-
-WindowTitle.propTypes = {
-    children: PropTypes.string,
-    className: PropTypes.string,
-    fullWidth: PropTypes.bool
-};
-
-export default WindowTitle;

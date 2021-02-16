@@ -1,18 +1,36 @@
 import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
+import { CSSTransitionProps } from 'react-transition-group/CSSTransition';
 
-import Modal, { propTypes as modalPropTypes } from '@ui/Modal';
-import DraggableWrap from '@ui/DraggableWrap';
-import { WindowContext } from './WindowContext';
+import { Modal, ModalProps } from '../Modal';
+import { DraggableWrap } from '../DraggableWrap';
+import { createCtx } from '../utils';
 
-const Window = React.forwardRef(function Window(props, ref) {
+export interface WindowProps extends Omit<ModalProps, 'children'> {
+    /**
+     * Normally contains of `WindowHeader`, `WindowBody`, `WindowActions` components.
+     */
+    children?: React.ReactNode;
+    maxWidth?: number;
+    fullScreen?: boolean;
+    draggable?: boolean;
+    transitionProps?: CSSTransitionProps;
+}
+
+export type WindowContextValue = {
+    draggable?: boolean;
+};
+
+const WindowContext = createCtx<WindowContextValue>();
+
+export const useWindowContext = WindowContext.useContext;
+
+export const Window = React.forwardRef<HTMLDivElement, WindowProps>(function Window(props, ref) {
     const {
         open,
         onClose,
         children,
-        title,
         className,
         maxWidth,
         fullScreen,
@@ -23,10 +41,10 @@ const Window = React.forwardRef(function Window(props, ref) {
     } = props;
 
     const customStyles = {
-        ...(maxWidth && { maxWidth })
+        ...(maxWidth && !fullScreen && { maxWidth })
     };
 
-    const contextValue = useMemo(
+    const contextValue = useMemo<WindowContextValue>(
         () => ({
             draggable
         }),
@@ -60,15 +78,3 @@ const Window = React.forwardRef(function Window(props, ref) {
         </Modal>
     );
 });
-
-Window.propTypes = {
-    ...modalPropTypes,
-    title: PropTypes.string,
-    maxWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    fullScreen: PropTypes.bool,
-    draggable: PropTypes.bool,
-    transitionProps: PropTypes.object,
-    style: PropTypes.object
-};
-
-export default Window;

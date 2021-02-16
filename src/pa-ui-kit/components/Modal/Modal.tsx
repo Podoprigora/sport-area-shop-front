@@ -262,6 +262,17 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(function Modal
         ? React.cloneElement(children, childProps)
         : null;
 
+    const backdropContent = backdrop ? (
+        <Backdrop
+            open={open}
+            transition={hasTransition}
+            className="modal__backdrop"
+            transitionProps={backdropTransitionProps}
+            ref={backdropRef}
+            onClick={handleBackdropClick}
+        />
+    ) : null;
+
     return (
         <Portal onRendered={handlePortalRendered}>
             <div
@@ -272,25 +283,20 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(function Modal
                     'modal--overflow': overflow
                 })}
                 onClick={handleClick}
+                tabIndex={-1}
                 ref={setModalNode}
                 {...other}
             >
-                {backdrop && (
-                    <Backdrop
-                        open={open}
-                        transition={hasTransition}
-                        className="modal__backdrop"
-                        transitionProps={backdropTransitionProps}
-                        ref={backdropRef}
-                        onClick={handleBackdropClick}
-                    />
-                )}
                 {!disableFocusBounding ? (
-                    <FocusLock autoFocus={false} returnFocus={false}>
+                    <FocusLock autoFocus returnFocus={false} className="modal__focus-trap">
+                        {backdropContent}
                         {childrenContent}
                     </FocusLock>
                 ) : (
-                    childrenContent
+                    <>
+                        {backdropContent}
+                        {childrenContent}
+                    </>
                 )}
             </div>
         </Portal>

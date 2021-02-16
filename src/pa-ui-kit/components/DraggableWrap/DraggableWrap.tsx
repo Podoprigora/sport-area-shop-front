@@ -1,12 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
 
-const DraggableWrap = (props) => {
+export interface DraggableWrapProps extends React.ComponentProps<typeof Draggable> {
+    children?: React.ReactElement;
+    disabled?: boolean;
+}
+
+export const DraggableWrap = (props: DraggableWrapProps) => {
     const { children, disabled, ...other } = props;
 
     if (disabled) {
-        return children;
+        return children || null;
     }
 
     return (
@@ -15,10 +19,3 @@ const DraggableWrap = (props) => {
         </Draggable>
     );
 };
-
-DraggableWrap.propTypes = {
-    children: PropTypes.element,
-    disabled: PropTypes.bool
-};
-
-export default DraggableWrap;
