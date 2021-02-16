@@ -158,7 +158,7 @@ export const ScrollableList: Story<ListProps> = (args) => {
         <>
             <Button onClick={handleForceUpdate}>Force update</Button>
             <br />
-            <List {...args}>
+            <List maxHeight={350} {...args}>
                 {scrollableListItems.map((item) => {
                     const { id, title } = item;
 
@@ -176,9 +176,7 @@ export const ScrollableList: Story<ListProps> = (args) => {
     );
 };
 
-ScrollableList.args = {
-    maxHeight: 350
-} as ListProps;
+ScrollableList.args = {} as ListProps;
 ScrollableList.storyName = 'With custom scrollbar';
 
 /**
