@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import {
@@ -7,7 +7,8 @@ import {
     WindowHeader,
     WindowBody,
     WindowActions,
-    WindowTitle
+    WindowTitle,
+    WindowLoadingMask
 } from '../components/Window';
 import { Button } from '../components/Button';
 import { ShoppingBagIcon, ChevronLeftIcon } from '../components/svg-icons/feather';
@@ -17,7 +18,7 @@ import { IconButton } from '../components/IconButton';
 export default {
     title: 'PA-UI-KIT/Window',
     component: Window,
-    subcomponents: { WindowHeader, WindowTitle, WindowBody, WindowActions },
+    subcomponents: { WindowHeader, WindowTitle, WindowBody, WindowActions, WindowLoadingMask },
     argTypes: {
         open: {
             control: {
@@ -137,3 +138,66 @@ FullScreen.args = {
     fullScreen: true,
     backdrop: false
 } as WindowProps;
+
+// Window with loading mask Story
+
+export const WindowWithLoadingMask: Story<WindowProps> = (args) => {
+    const { open, handleOpen, handleClose } = useWindow();
+    const [maskOpen, setMaskOpen] = useState(false);
+    const windowRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        if (open) {
+            setMaskOpen(true);
+
+            return () => {
+                setMaskOpen(false);
+            };
+        }
+
+        return undefined;
+    }, [open]);
+
+    return (
+        <>
+            <Button primary onClick={handleOpen}>
+                Open Window
+            </Button>
+            <Window
+                {...args}
+                open={open}
+                maxWidth={400}
+                onClose={handleClose}
+                onEscapeKeyDown={handleClose}
+                ref={windowRef}
+            >
+                <WindowLoadingMask open={maskOpen} title="Loading ..." anchorRef={windowRef} />
+                <WindowHeader title="With loading mask" />
+                <WindowBody>
+                    <div>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium
+                            sed animi, maxime deserunt suscipit labore illum eum voluptatibus
+                            doloremque omnis corporis soluta repellat, cupiditate nobis in qui at
+                            eaque odit? Id reiciendis fugit unde itaque officia quod exercitationem
+                            iusto quae! Rerum, labore, nesciunt incidunt omnis odit earum quod
+                            aliquam illum adipisci mollitia ut reprehenderit doloribus natus
+                            voluptas architecto doloremque eaque? Molestiae eligendi ab quod atque
+                            magnam itaque voluptatum, doloremque iusto repellendus reiciendis
+                        </p>
+                    </div>
+                </WindowBody>
+                <WindowActions direction="column" alignItems="center">
+                    <Button autoWidth onClick={handleClose}>
+                        Close
+                    </Button>
+                </WindowActions>
+            </Window>
+        </>
+    );
+};
+WindowWithLoadingMask.args = {
+    centered: true,
+    backdrop: true
+} as WindowProps;
+WindowWithLoadingMask.storyName = 'With loading mask';

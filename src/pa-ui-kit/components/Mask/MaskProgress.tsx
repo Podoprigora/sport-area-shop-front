@@ -1,13 +1,15 @@
 import React from 'react';
 import classNames from 'classnames';
 
+export type MaskProgressPositionProp = 'top' | 'bottom' | 'center';
+
 export interface MaskProgressProps extends React.ComponentPropsWithRef<'div'> {
     /**
      * Normally contains `CircularProgress` or `LinearProgress` components
      */
     children?: React.ReactElement;
     title?: string;
-    position?: 'top' | 'bottom' | 'center';
+    position?: MaskProgressPositionProp;
     primary?: boolean;
     secondary?: boolean;
 }
