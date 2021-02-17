@@ -9,7 +9,7 @@ export function createCtx<T extends Record<string, unknown> | null>() {
         const contextValue = React.useContext(Context);
 
         if (contextValue === undefined) {
-            throw new Error('useContext must be inside a privide with a value!');
+            throw new Error('useContext must be inside a provider with a value!');
         }
 
         return contextValue;

@@ -44,7 +44,7 @@ export const Window = React.forwardRef<HTMLDivElement, WindowProps>(function Win
         ...(maxWidth && !fullScreen && { maxWidth })
     };
 
-    const contextValue = useMemo<WindowContextValue>(
+    const contextValue = useMemo(
         () => ({
             draggable
         }),

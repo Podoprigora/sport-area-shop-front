@@ -10,6 +10,7 @@ import {
     WindowTitle,
     WindowLoadingMask
 } from '../components/Window';
+import { useWindowManager, WindowManagerProvider } from '../components/WindowManager';
 import { Button } from '../components/Button';
 import { ShoppingBagIcon, ChevronLeftIcon } from '../components/svg-icons/feather';
 import { ClearCloseIcon } from '../components/svg-icons/material';
@@ -18,7 +19,13 @@ import { IconButton } from '../components/IconButton';
 export default {
     title: 'PA-UI-KIT/Window',
     component: Window,
-    subcomponents: { WindowHeader, WindowTitle, WindowBody, WindowActions, WindowLoadingMask },
+    subcomponents: {
+        WindowHeader,
+        WindowTitle,
+        WindowBody,
+        WindowActions,
+        WindowLoadingMask
+    },
     argTypes: {
         open: {
             control: {
@@ -201,3 +208,111 @@ WindowWithLoadingMask.args = {
     backdrop: true
 } as WindowProps;
 WindowWithLoadingMask.storyName = 'With loading mask';
+
+// WindowManager Story
+
+export const WindowManager: Story<WindowProps> = (args) => {
+    const { openWindow, closeWindow, isOpenWindow } = useWindowManager();
+
+    const handleOpenClick = useCallback(() => {
+        openWindow('DefaultWindow');
+    }, [openWindow]);
+
+    const handleClose = useCallback(() => {
+        closeWindow('DefaultWindow');
+    }, [closeWindow]);
+
+    const open = isOpenWindow('DefaultWindow');
+
+    return (
+        <>
+            <Button transparent onClick={handleOpenClick}>
+                Open Window
+            </Button>
+            <Window {...args} open={open} onClose={handleClose} onEscapeKeyDown={handleClose}>
+                <WindowHeader
+                    title="Default"
+                    icon={<ShoppingBagIcon primary />}
+                    onClose={handleClose}
+                />
+                <WindowBody>
+                    <div>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum sunt
+                            temporibus, error animi necessitatibus tempora! Provident fugiat,
+                            perspiciatis at repellat sapiente odio. Placeat, a quaerat maxime iusto
+                            quas hic est.
+                        </p>
+                    </div>
+                </WindowBody>
+                <WindowActions justify="flex-end" alignItems="center">
+                    <Button primary disabled>
+                        Save
+                    </Button>
+                    <Button onClick={handleClose}>Close</Button>
+                </WindowActions>
+            </Window>
+        </>
+    );
+};
+WindowManager.args = {
+    centered: true,
+    maxWidth: 400
+} as WindowProps;
+WindowManager.decorators = [
+    (WrappedStory) => {
+        return (
+            <WindowManagerProvider>
+                <WrappedStory />
+            </WindowManagerProvider>
+        );
+    }
+];
+WindowManager.parameters = {
+    docs: {
+        source: {
+            code: `        
+const WindowManager = (args: WindowProps) => {
+    const { openWindow, closeWindow, isOpenWindow } = useWindowManager();
+
+    const handleOpenClick = useCallback(() => {
+        openWindow('DefaultWindow');
+    }, [openWindow]);
+
+    const handleClose = useCallback(() => {
+        closeWindow('DefaultWindow');
+    }, [closeWindow]);
+
+    const open = isOpenWindow('DefaultWindow');
+
+    return (
+        <>
+            <Button transparent onClick={handleOpenClick}>
+                Open Window
+            </Button>
+            <Window {...args} open={open} onClose={handleClose} onEscapeKeyDown={handleClose}>
+                <WindowHeader
+                    title="Default"
+                    icon={<ShoppingBagIcon primary />}
+                    onClose={handleClose}
+                />
+                <WindowBody>
+                    <div>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        </p>
+                    </div>
+                </WindowBody>
+                <WindowActions justify="flex-end" alignItems="center">
+                    <Button primary disabled>
+                        Save
+                    </Button>
+                    <Button onClick={handleClose}>Close</Button>
+                </WindowActions>
+            </Window>
+        </>
+    );
+}`
+        }
+    }
+};
