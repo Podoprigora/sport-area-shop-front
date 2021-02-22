@@ -1,8 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const AlertActions = (props) => {
+export interface AlertActionsProps extends React.ComponentPropsWithoutRef<'div'> {
+    /**
+     * Contains a set of `Button` like element.
+     */
+    children?: React.ReactNode;
+}
+
+export const AlertActions = (props: AlertActionsProps) => {
     const { children, className, ...other } = props;
 
     return (
@@ -11,10 +17,3 @@ const AlertActions = (props) => {
         </div>
     );
 };
-
-AlertActions.propTypes = {
-    children: PropTypes.node,
-    className: PropTypes.string
-};
-
-export { AlertActions };
