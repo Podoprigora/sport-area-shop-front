@@ -1,21 +1,40 @@
 import React, { useMemo, useState, useCallback, useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
 
-import useControlled from '@ui/hooks/useControlled';
-import { NotificationContext } from './NorificationContext';
-import NotificationList from './NotificationList';
+import { createCtx, useControlled } from '../utils';
+import { PickPropType } from '../utils/types';
 
-const NotificationProvider = (props) => {
+import { NotificationList, NotificationListPosition } from './NotificationList';
+import { NotificationItemProps } from './NotificationItem';
+
+type ShowAlertProps = Omit<NotificationItemProps, keyof React.ComponentProps<'div'>> & {
+    position?: NotificationListPosition;
+};
+
+export type NotificationContextValue = {
+    showAlert: (props: ShowAlertProps) => void;
+    hideAlert: (id?: PickPropType<NotificationItemProps, 'id'>) => void;
+};
+
+export interface NotificationProviderProps {
+    children?: React.ReactNode;
+    position?: NotificationListPosition;
+    maxStackSize?: number;
+}
+
+const NotificationContext = createCtx<NotificationContextValue>();
+export const useNotification = NotificationContext.useContext;
+
+export const NotificationProvider = (props: NotificationProviderProps) => {
     const { children, position: defaultPositionProp = 'top-center', maxStackSize = 4 } = props;
-    const [position, setPosition] = useControlled(null, defaultPositionProp);
+    const [position, setPosition] = useControlled(undefined, defaultPositionProp);
 
-    const [items, setItems] = useState([]);
+    const [items, setItems] = useState<NotificationItemProps[]>([]);
     const [entering, setEntering] = useState(false);
 
-    const isBottomPositionRef = useRef(position.indexOf('bottom') !== -1);
+    const isBottomPositionRef = useRef(position?.indexOf('bottom') !== -1);
 
     const handleShowAlert = useCallback(
-        (alertProps = {}) => {
+        (alertProps: ShowAlertProps) => {
             if (!(alertProps instanceof Object)) {
                 console.error(
                     `Function showAlert should takes a valid params e.g., {type: "warning, message: "Error message!"}`
@@ -43,15 +62,14 @@ const NotificationProvider = (props) => {
         [setPosition]
     );
 
-    const handleHideAlert = useCallback((id) => {
+    const handleHideAlert = useCallback((id?: number) => {
         setItems((prevState) => {
             const lastItem = isBottomPositionRef.current
                 ? prevState[0]
                 : prevState[prevState.length - 1];
 
-            const deletedId = id ?? lastItem?.id;
-
-            const newState = prevState.filter((item) => item?.id !== deletedId);
+            const deletedId = id ?? lastItem.id;
+            const newState = prevState.filter((item) => item.id !== deletedId);
 
             return newState;
         });
@@ -97,11 +115,3 @@ const NotificationProvider = (props) => {
         </NotificationContext.Provider>
     );
 };
-
-NotificationProvider.propTypes = {
-    children: PropTypes.node,
-    position: PropTypes.string,
-    maxStackSize: PropTypes.number
-};
-
-export default NotificationProvider;

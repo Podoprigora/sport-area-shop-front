@@ -8,3 +8,6 @@ export type ElementOf<T> = T extends (infer E)[] ? E : T extends readonly (infer
 
 // Source: https://github.com/Microsoft/TypeScript/issues/25760#issuecomment-614417742
 export type Optional<T, K extends keyof T> = Omit<T, K> & Partial<T>;
+
+// Pick an object property type
+export type PickPropType<T, P extends keyof T> = T[P];

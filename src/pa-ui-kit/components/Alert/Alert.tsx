@@ -15,9 +15,9 @@ export interface AlertProps extends React.ComponentPropsWithRef<'div'> {
     /**
      * The content of Alert
      */
-    children: React.ReactNode;
+    children?: React.ReactNode;
     type?: AlertType;
-    action?: React.ReactElement;
+    action?: React.ReactNode;
     frame?: boolean;
     iconProps?: SvgIconProps;
 }

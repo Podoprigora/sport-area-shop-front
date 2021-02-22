@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Button from '@ui/Button';
 import useNotification from '@ui/Notification';
-import { AlertTitle, AlertActions } from '@ui/Alert';
+import { AlertTitle, AlertActions, Alert } from '@ui/Alert';
 
 const TestNotification = (props) => {
     const { showAlert, hideAlert } = useNotification();
@@ -17,8 +17,8 @@ const TestNotification = (props) => {
                 const { id: alertId } = renderProps;
 
                 return (
-                    <>
-                        {/* <AlertTitle>Success</AlertTitle> */}
+                    <Alert {...renderProps}>
+                        <AlertTitle>Success</AlertTitle>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium quasi
                         quibusdam possimus eos eum reiciendis unde veniam, commodi distinctio autem
                         sit nulla quidem ea minima non dolorem. Fugit, placeat voluptate.
@@ -27,7 +27,7 @@ const TestNotification = (props) => {
                                 Learn More
                             </Button>
                         </AlertActions>
-                    </>
+                    </Alert>
                 );
             }
         });

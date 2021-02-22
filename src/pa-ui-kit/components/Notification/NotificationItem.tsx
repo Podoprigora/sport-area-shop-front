@@ -1,13 +1,25 @@
 import React, { useCallback, useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
 
-import Alert from '@ui/Alert';
-import IconButton from '@ui/IconButton';
-import ClearCloseIcon from '@ui/svg-icons/material/ClearCloseIcon';
+import { IconButton } from '../IconButton';
+import { Alert, AlertProps } from '../Alert';
+import { ClearCloseIcon } from '../svg-icons/material';
 
-import useNotification from './NorificationContext';
+import { useNotification } from './NotificationProvider';
 
-const NotificationItem = (props) => {
+export interface NotificationItemProps extends Omit<AlertProps, 'id'> {
+    id: number;
+    message?: string;
+    closable?: boolean;
+    autoClose?: boolean;
+    autoCloseDelay?: number;
+    /**
+     * Render custom `Alert` content.
+     * Important: don't use `Alert` inside, it's already created!
+     */
+    render?: (props: NotificationItemProps) => React.ReactNode;
+}
+
+export const NotificationItem = (props: NotificationItemProps) => {
     const {
         type,
         id,
@@ -19,7 +31,7 @@ const NotificationItem = (props) => {
         ...other
     } = props;
 
-    const timerRef = useRef(null);
+    const timerRef = useRef<number>();
     const { hideAlert } = useNotification();
 
     const handleClose = useCallback(() => {
@@ -36,14 +48,14 @@ const NotificationItem = (props) => {
 
             return () => {
                 clearTimeout(timerRef.current);
-                timerRef.current = null;
+                timerRef.current = undefined;
             };
         }
 
         return undefined;
     }, [autoClose, autoCloseDelay, handleClose]);
 
-    let actionContent = null;
+    let actionContent: React.ReactNode = null;
 
     if (closable) {
         actionContent = (
@@ -54,13 +66,19 @@ const NotificationItem = (props) => {
     }
 
     if (render) {
-        const alertElement = render({ ...props });
+        const alertContent = render({ ...props });
 
-        if (React.isValidElement(alertElement)) {
-            return React.cloneElement(alertElement, {
-                action: actionContent,
-                className: 'notification__item'
-            });
+        if (React.isValidElement(alertContent)) {
+            return React.createElement(
+                Alert,
+                {
+                    type,
+                    action: actionContent,
+                    className: 'notification__item',
+                    ...other
+                },
+                alertContent
+            );
         }
         return null;
     }
@@ -71,15 +89,3 @@ const NotificationItem = (props) => {
         </Alert>
     );
 };
-
-NotificationItem.propTypes = {
-    id: PropTypes.number.isRequired,
-    type: PropTypes.string,
-    closable: PropTypes.bool,
-    message: PropTypes.string,
-    autoClose: PropTypes.bool,
-    autoCloseDelay: PropTypes.number,
-    render: PropTypes.func
-};
-
-export default NotificationItem;

@@ -5,7 +5,7 @@ import { setRef } from '../utils';
 
 export interface PortalProps {
     children: React.ReactElement;
-    onRendered: () => void;
+    onRendered?: () => void;
 }
 
 export const Portal = React.forwardRef<HTMLElement, PortalProps>(function Portal(

@@ -1,17 +1,32 @@
-import React, { memo, useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useCallback } from 'react';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 
-import Portal from '@ui/Portal';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import NotificationItem from './NotificationItem';
+import { Portal } from '../Portal';
+import { NotificationItem, NotificationItemProps } from './NotificationItem';
 
-const NotificationList = (props) => {
+export type NotificationListPosition =
+    | 'top-left'
+    | 'top-center'
+    | 'top-right'
+    | 'bottom-left'
+    | 'bottom-center'
+    | 'bottom-right';
+
+export interface NotificationListProps {
+    items?: NotificationItemProps[];
+    position?: NotificationListPosition;
+    onTransitionEnter: VoidFunction;
+    onTransitionEntered: VoidFunction;
+}
+
+export const NotificationList = (props: NotificationListProps) => {
     const { items = [], position = 'top-center', onTransitionEnter, onTransitionEntered } = props;
     const [exited, setExited] = useState(true);
 
     const handleEnter = useCallback(() => {
         setExited(false);
+
         if (onTransitionEnter) {
             onTransitionEnter();
         }
@@ -65,19 +80,3 @@ const NotificationList = (props) => {
         </Portal>
     );
 };
-
-NotificationList.propTypes = {
-    items: PropTypes.array,
-    position: PropTypes.oneOf([
-        'top-left',
-        'top-center',
-        'top-right',
-        'bottom-left',
-        'bottom-center',
-        'bottom-right'
-    ]),
-    onTransitionEnter: PropTypes.func,
-    onTransitionEntered: PropTypes.func
-};
-
-export default NotificationList;

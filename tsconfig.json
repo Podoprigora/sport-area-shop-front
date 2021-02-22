@@ -25,7 +25,8 @@
           "@pages/*": ["./src/pages/*"],
           "@services/*": ["./src/services/*"],
           "@remote/*": ["./remote/*"]
-      }
+      },
+      "types": []
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "backup"]
