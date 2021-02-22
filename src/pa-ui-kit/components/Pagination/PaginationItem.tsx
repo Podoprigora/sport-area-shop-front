@@ -1,38 +1,50 @@
 import React, { useRef, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import useIsFocusVisible from '@ui/hooks/useIsFocusVisible';
-import useForkRef from '@ui/hooks/useForkRef';
+import { useIsFocusVisible, useMergedRefs } from '../utils';
 
-const PaginationItem = (props) => {
+export type PaginationItemType = 'item' | 'control';
+
+export interface PaginationItemProps {
+    children: React.ReactNode;
+    type?: PaginationItemType;
+    selected?: boolean;
+    disabled?: boolean;
+    onClick?: React.MouseEventHandler<HTMLButtonElement> &
+        React.TouchEventHandler<HTMLButtonElement>;
+}
+
+export const PaginationItem = (props: PaginationItemProps) => {
     const { type = 'item', children, selected, disabled, onClick } = props;
 
     const [focusVisible, setFocusVisible] = useState(false);
-    const { isFocusVisible, onBlurVisible, ref: focusVisibleRef } = useIsFocusVisible();
-    const nodeRef = useRef(null);
-    const handleRef = useForkRef(nodeRef, focusVisibleRef);
+    const { isFocusVisible, onBlurVisible, focusVisibleRef } = useIsFocusVisible();
+    const nodeRef = useRef<HTMLButtonElement | null>(null);
+    const handleRef = useMergedRefs<HTMLButtonElement>(nodeRef, focusVisibleRef);
 
-    const handleClick = (ev) => {
+    const handleClick = (ev: React.MouseEvent<HTMLButtonElement>) => {
         if (onClick) {
             onClick(ev);
         }
     };
 
-    const handleTouchEnd = (ev) => {
+    const handleTouchEnd = (ev: React.TouchEvent<HTMLButtonElement>) => {
         ev.preventDefault();
-        handleClick(ev);
+
+        if (onClick) {
+            onClick(ev);
+        }
     };
 
-    const handleFocus = (ev) => {
+    const handleFocus = (ev: React.FocusEvent<HTMLButtonElement>) => {
         if (isFocusVisible(ev)) {
             setFocusVisible(true);
         }
     };
 
-    const handleBlur = (ev) => {
+    const handleBlur = () => {
         if (focusVisible) {
-            onBlurVisible(ev);
+            onBlurVisible();
             setFocusVisible(false);
         }
     };
@@ -53,7 +65,7 @@ const PaginationItem = (props) => {
                 'pagination__item--focus-visible': focusVisible
             })}
             disabled={disabled}
-            tabIndex={disabled ? null : 0}
+            tabIndex={disabled ? undefined : 0}
             ref={handleRef}
             onTouchEnd={handleTouchEnd}
             onClick={handleClick}
@@ -64,13 +76,3 @@ const PaginationItem = (props) => {
         </button>
     );
 };
-
-PaginationItem.propTypes = {
-    children: PropTypes.node.isRequired,
-    type: PropTypes.oneOf(['item', 'control']),
-    selected: PropTypes.bool,
-    disabled: PropTypes.bool,
-    onClick: PropTypes.func
-};
-
-export default PaginationItem;

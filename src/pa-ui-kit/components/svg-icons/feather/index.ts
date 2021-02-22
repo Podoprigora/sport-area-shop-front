@@ -4,6 +4,7 @@ export * from './HeartIcon';
 export * from './FileTextIcon';
 export * from './FolderIcon';
 export * from './ChevronLeftIcon';
+export * from './ChevronRightIcon';
 export * from './CheckCircleIcon';
 export * from './ShoppingBagIcon';
 export * from './InfoIcon';

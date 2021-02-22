@@ -1,21 +1,56 @@
 import React, { useCallback, useMemo } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import useControlled from '@ui/hooks/useControlled';
-import useEventCallback from '@ui/hooks/useEventCallback';
-import ChevronLeftIcon from '@ui/svg-icons/feather/ChevronLeftIcon';
-import ChevronRightIcon from '@ui/svg-icons/feather/ChevronRightIcon';
-import PaginationItem from './PaginationItem';
+import { useControlled, useEventCallback } from '../utils';
+import { ChevronLeftIcon, ChevronRightIcon } from '../svg-icons/feather';
+
+import { PaginationItem } from './PaginationItem';
+
+type ExtendedProps = Omit<React.ComponentPropsWithRef<'div'>, 'onChange'>;
+
+export interface PaginationProps extends ExtendedProps {
+    /**
+     * The total count of pages
+     */
+    count?: number;
+    /**
+     * Selected page when component is controlled.
+     */
+    page?: number;
+    /**
+     * Selected page when component is uncontrolled.
+     */
+    defaultPage?: number;
+    selectedPages?: number[];
+    /**
+     * Number of always visible pages before and after the current page.
+     */
+    siblingCount?: number;
+    /**
+     * Number of always visible pages at the beginning and end.
+     */
+    boundaryCount?: number;
+    onChange?: (ev: React.SyntheticEvent, num: number) => void;
+}
+
+type ElipsisItemType =
+    | number
+    | {
+          text: string;
+          num: number;
+      };
 
 // Source: https://dev.to/namirsab/comment/2050
-const range = (start, end) => {
+const range = (start: number, end: number): number[] => {
     const length = end - start + 1;
 
     return Array.from({ length }, (_, i) => start + i);
 };
 
-const Pagination = React.forwardRef(function Pagination(props, ref) {
+export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(function Pagination(
+    props,
+    forwardedRef
+) {
     const {
         count = 1,
         defaultPage = 1,
@@ -35,7 +70,7 @@ const Pagination = React.forwardRef(function Pagination(props, ref) {
     const [page, setPage] = useControlled(currentPage, defaultPage);
 
     const handlePageChange = useCallback(
-        (ev, num) => {
+        (ev: React.SyntheticEvent, num: number) => {
             setPage(num);
 
             if (onChange) {
@@ -45,37 +80,34 @@ const Pagination = React.forwardRef(function Pagination(props, ref) {
         [setPage, onChange]
     );
 
-    const handleItemClick = useEventCallback((num) => (ev) => {
-        handlePageChange(ev, num);
-    });
-
     const handlePrevControlClick = useEventCallback((ev) => {
-        const nextPage = page > 1 ? page - 1 : 1;
+        const nextPage = page && page > 1 ? page - 1 : 1;
 
         handlePageChange(ev, nextPage);
     });
 
     const handleNextControlClick = useEventCallback((ev) => {
-        const nextPage = page < count ? page + 1 : count;
+        const nextPage = page && page < count ? page + 1 : count;
 
         handlePageChange(ev, nextPage);
     });
 
     const items = useMemo(() => {
+        const selectedPage = page ?? 1;
         const startPages = range(1, Math.min(boundaryCount, count));
         const endPages = range(Math.max(count - boundaryCount + 1, boundaryCount + 1), count);
 
         const siblingsStart = Math.max(
-            Math.min(page - siblingCount, count - boundaryCount - siblingCount * 2 - 1),
+            Math.min(selectedPage - siblingCount, count - boundaryCount - siblingCount * 2 - 1),
             boundaryCount + 2
         );
 
         const siblingsEnd = Math.min(
-            Math.max(page + siblingCount, boundaryCount + siblingCount * 2 + 2),
+            Math.max(selectedPage + siblingCount, boundaryCount + siblingCount * 2 + 2),
             endPages.length > 0 ? endPages[0] - 2 : count - 1
         );
 
-        let startElipsis = [];
+        let startElipsis: ElipsisItemType[] = [];
 
         if (siblingsStart <= count) {
             startElipsis = [
@@ -87,7 +119,7 @@ const Pagination = React.forwardRef(function Pagination(props, ref) {
 
         const mainPages = range(siblingsStart, siblingsEnd);
 
-        let endElipsis = [];
+        let endElipsis: ElipsisItemType[] = [];
 
         if (boundaryCount + 1 < count - boundaryCount) {
             endElipsis = [
@@ -96,6 +128,10 @@ const Pagination = React.forwardRef(function Pagination(props, ref) {
                     : count - boundaryCount
             ];
         }
+
+        const handleItemClick = (num: number) => (ev: React.SyntheticEvent) => {
+            handlePageChange(ev, num);
+        };
 
         const pagesItems = [
             ...startPages,
@@ -120,13 +156,13 @@ const Pagination = React.forwardRef(function Pagination(props, ref) {
                 </PaginationItem>
             );
         });
-    }, [page, selectedPages, boundaryCount, siblingCount, count, handleItemClick]);
+    }, [page, selectedPages, boundaryCount, siblingCount, count, handlePageChange]);
 
     const isDisabledPrevControl = page === 1;
     const isDisabledNextControl = page === count;
 
     return (
-        <div className={classNames('pagination', className)} ref={ref}>
+        <div className={classNames('pagination', className)} ref={forwardedRef}>
             <PaginationItem
                 type="control"
                 disabled={isDisabledPrevControl}
@@ -145,16 +181,3 @@ const Pagination = React.forwardRef(function Pagination(props, ref) {
         </div>
     );
 });
-
-Pagination.propTypes = {
-    count: PropTypes.number,
-    page: PropTypes.number,
-    selectedPages: PropTypes.arrayOf(PropTypes.number),
-    defaultPage: PropTypes.number,
-    siblingCount: PropTypes.number,
-    boundaryCount: PropTypes.number,
-    className: PropTypes.string,
-    onChange: PropTypes.func
-};
-
-export default Pagination;
