@@ -9,16 +9,19 @@ import { useExpandedPanel } from './ExpandedPanel';
 export interface ExpandedPanelHeaderProps extends React.ComponentPropsWithRef<'button'> {
     children?: React.ReactNode;
     title?: string;
+    renderExpandedIcon?: (expanded: boolean) => React.ReactElement | null;
 }
 
 export const ExpandedPanelHeader = React.forwardRef<HTMLButtonElement, ExpandedPanelHeaderProps>(
     function ExpandedPanelHeader(props, forwardedRef) {
-        const { children, className, title, onClick, ...other } = props;
+        const { children, className, title, renderExpandedIcon, onClick, ...other } = props;
 
         const [focusVisible, setFocusVisible] = useState(false);
         const { expanded, onToggle } = useExpandedPanel();
         const { isFocusVisible, onBlurVisible, focusVisibleRef } = useIsFocusVisible();
         const handleRef = useMergedRefs<HTMLButtonElement>(forwardedRef, focusVisibleRef);
+
+        // Handlers
 
         const handleClick = useCallback(
             (ev) => {
@@ -49,7 +52,21 @@ export const ExpandedPanelHeader = React.forwardRef<HTMLButtonElement, ExpandedP
             }
         }, [focusVisible, onBlurVisible]);
 
-        const ExpandedIcon = expanded ? KeyboardArrowDownIcon : KeyboardArrowRightIcon;
+        // Render
+
+        let expandedIcon: React.ReactNode;
+
+        if (renderExpandedIcon instanceof Function) {
+            expandedIcon = renderExpandedIcon(expanded);
+        } else {
+            expandedIcon = expanded ? <KeyboardArrowDownIcon /> : <KeyboardArrowRightIcon />;
+        }
+
+        expandedIcon = React.isValidElement(expandedIcon)
+            ? React.cloneElement(expandedIcon, {
+                  className: 'expanded-panel__header-expanded-icon'
+              })
+            : null;
 
         return (
             <button
@@ -63,7 +80,7 @@ export const ExpandedPanelHeader = React.forwardRef<HTMLButtonElement, ExpandedP
                 onBlur={handleBlur}
                 ref={handleRef}
             >
-                <ExpandedIcon className="expanded-panel__header-expanded-icon" />
+                {expandedIcon}
                 {title && <div className="expanded-panel__header-title">{title}</div>}
                 {children && <div className="expanded-panel__header-body">{children}</div>}
             </button>

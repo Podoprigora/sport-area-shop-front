@@ -11,4 +11,8 @@ export * from './InfoIcon';
 export * from './SquareIcon';
 export * from './SearchIcon';
 export * from './MessageSquareIcon';
+export * from './MinusCircleIcon';
+export * from './MinusIcon';
+export * from './PlusCircleIcon';
+export * from './PlusIcon';
 export * from './UserIcon';

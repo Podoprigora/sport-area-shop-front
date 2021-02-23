@@ -8,6 +8,7 @@ import {
     ExpandedPanelProps
 } from '../components/ExpandedPanel';
 import { Heading } from '../components/Heading';
+import { PlusIcon, MinusIcon } from '../components/svg-icons/feather';
 
 import { Default as DefaultList } from './List.stories';
 
@@ -20,7 +21,13 @@ export default {
 export const Default: Story<ExpandedPanelProps> = (args) => {
     return (
         <ExpandedPanel {...args}>
-            <ExpandedPanelHeader title="Default" />
+            <ExpandedPanelHeader
+                title="Default"
+                className="u-flex-direction-row-reverse"
+                renderExpandedIcon={(expanded) => {
+                    return expanded ? <MinusIcon size="small" /> : <PlusIcon size="small" />;
+                }}
+            />
             <ExpandedPanelBody>
                 <div>
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas, maiores?
