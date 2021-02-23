@@ -1,11 +1,19 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
+import { CSSTransitionProps } from 'react-transition-group/CSSTransition';
+import { State as PopperState } from '@popperjs/core';
 
-import Portal from '@ui/Portal';
-import usePopper from './usePopper';
+import { Portal } from '../Portal';
+import { usePopper, UsePopperProps } from './usePopper';
 
-const Popper = (props) => {
+export interface PopperProps extends UsePopperProps {
+    children: (props: Partial<PopperState>) => React.ReactElement;
+    open?: boolean;
+    anchorRef?: React.RefObject<HTMLElement | null>;
+    transitionProps?: Pick<CSSTransitionProps, 'classNames' | 'timeout'>;
+}
+
+export const Popper = (props: PopperProps) => {
     const {
         children,
         anchorRef = { current: null },
@@ -13,8 +21,8 @@ const Popper = (props) => {
         placement,
         strategy,
         modifiers,
-        transitionProps = null
-    } = props;
+        transitionProps
+    }: PopperProps = props;
 
     const { referenceRef, popperRef, popperInstance } = usePopper({
         placement,
@@ -22,6 +30,8 @@ const Popper = (props) => {
         modifiers
     });
     const [exited, setExited] = useState(true);
+
+    // Handlers
 
     const handleTransitionEnter = useCallback(() => {
         setExited(false);
@@ -37,43 +47,32 @@ const Popper = (props) => {
         }
     }, [anchorRef, referenceRef]);
 
+    // Render
+
     if (!open && exited) {
         return null;
     }
 
     const popperState = (popperInstance && popperInstance.state) || {};
+    const childrenElement = children instanceof Function ? children(popperState) : null;
 
     return (
         <Portal>
             <div className="popper" ref={popperRef}>
                 {transitionProps ? (
                     <CSSTransition
-                        {...transitionProps}
                         in={open && !!popperInstance}
                         onEnter={handleTransitionEnter}
                         onExited={handleTransitionExited}
+                        {...transitionProps}
+                        timeout={300}
                     >
-                        {children(popperState)}
+                        {childrenElement}
                     </CSSTransition>
                 ) : (
-                    children(popperState)
+                    childrenElement
                 )}
             </div>
         </Portal>
     );
 };
-
-Popper.propTypes = {
-    children: PropTypes.func.isRequired,
-    anchorRef: PropTypes.object,
-    open: PropTypes.bool.isRequired,
-    placement: PropTypes.string,
-    strategy: PropTypes.string,
-    modifiers: PropTypes.array,
-    transitionProps: PropTypes.exact({
-        classNames: PropTypes.string.isRequired,
-        timeout: PropTypes.number
-    })
-};
-
-export default Popper;

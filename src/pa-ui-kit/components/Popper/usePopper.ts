@@ -1,5 +1,11 @@
-import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
-import { createPopper } from '@popperjs/core';
+import { useState, useEffect, useCallback, useMemo } from 'react';
+import {
+    createPopper,
+    Instance as PopperInstance,
+    Modifier as PopperModifer,
+    Placement as PopperPlacement,
+    PositioningStrategy as PopperPositioningStrategy
+} from '@popperjs/core';
 
 const defaultModifiers = [
     {
@@ -8,13 +14,19 @@ const defaultModifiers = [
             offset: [0, 2]
         }
     }
-];
+] as Partial<PopperModifer<unknown, unknown>>[];
 
-const usePopper = (props = {}) => {
+export interface UsePopperProps {
+    placement?: PopperPlacement;
+    strategy?: PopperPositioningStrategy;
+    modifiers?: PopperModifer<unknown, unknown>[];
+}
+
+export const usePopper = (props: UsePopperProps = {}) => {
     const { placement = 'bottom', strategy = 'fixed', modifiers = [] } = props;
 
-    const [referenceNode, setReferenceNode] = useState(null);
-    const [popperNode, setPopperNode] = useState(null);
+    const [referenceNode, setReferenceNode] = useState<HTMLElement | null>(null);
+    const [popperNode, setPopperNode] = useState<HTMLElement | null>(null);
     const [popperOptions] = useState(() => {
         return {
             placement,
@@ -23,7 +35,7 @@ const usePopper = (props = {}) => {
         };
     });
 
-    const [popperInstance, setPopperInstance] = useState(null);
+    const [popperInstance, setPopperInstance] = useState<PopperInstance | null>(null);
 
     const referenceRef = useCallback((el) => {
         setReferenceNode(el);
@@ -56,8 +68,6 @@ const usePopper = (props = {}) => {
             referenceRef,
             popperRef,
             popperInstance
-        };
+        } as const;
     }, [popperRef, referenceRef, popperInstance]);
 };
-
-export default usePopper;

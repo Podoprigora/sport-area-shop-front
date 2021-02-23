@@ -31,9 +31,9 @@ export const Default: Story<ExpandedPanelProps> = (args) => {
             <ExpandedPanelBody>
                 <div>
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas, maiores?
-                    Dolorum voluptatibus natus delectus quae accusamus numquam excepturi ipsa
-                    dolores deserunt totam, optio voluptatem accusantium amet dignissimos blanditiis
-                    recusandae eos.
+                    Dolorum voluptatibus natus delectus quae accusamus numchildrenElemenquam
+                    excepturi ipsa dolores deserunt totam, optio voluptatem accusantium amet
+                    dignissimos blanditiis recusandae eos.
                 </div>
             </ExpandedPanelBody>
         </ExpandedPanel>
