@@ -19,7 +19,7 @@ const defaultModifiers = [
 export interface UsePopperProps {
     placement?: PopperPlacement;
     strategy?: PopperPositioningStrategy;
-    modifiers?: PopperModifer<unknown, unknown>[];
+    modifiers?: Partial<PopperModifer<unknown, unknown>>[];
 }
 
 export const usePopper = (props: UsePopperProps = {}) => {
