@@ -1,18 +1,19 @@
 import React, { useRef } from 'react';
-import PropTypes from 'prop-types';
 
-import useMountedRef from '@ui/hooks/useMountedRef';
-import useEventListener from '@ui/hooks/useEventListener';
-import useForkRef from '@ui/hooks/useForkRef';
-import useEventCallback from '@ui/hooks/useEventCallback';
+import { useMountedRef, useEventListener, useMergedRefs, useEventCallback } from '../utils';
 
-const ClickAwayListener = (props) => {
+export interface ClickAwayListenerProps {
+    children?: React.ReactElement & { ref?: React.Ref<HTMLElement> };
+    onClickAway: (ev: React.SyntheticEvent) => void;
+}
+
+export const ClickAwayListener = (props: ClickAwayListenerProps) => {
     const { children, onClickAway } = props;
 
     const syntheticEventRef = useRef(false);
     const touchMoveRef = useRef(false);
-    const nodeRef = useRef(null);
-    const handleRef = useForkRef(nodeRef, children.ref);
+    const nodeRef = useRef<HTMLElement | null>(null);
+    const handleRef = useMergedRefs(nodeRef, children?.ref ? children.ref : null);
     const mountedRef = useMountedRef();
 
     const handleClickAway = useEventCallback((ev) => {
@@ -42,15 +43,16 @@ const ClickAwayListener = (props) => {
         }
     });
 
-    const handleTouchMove = useEventCallback((ev) => {
+    const handleTouchMove = useEventCallback(() => {
         touchMoveRef.current = true;
     });
 
     // To keep track events that bubbles up through the portal
-    const createSyntheticHandler = (eventName) => (ev) => {
+    const createSyntheticHandler = (eventName: string) => (ev: React.SyntheticEvent) => {
         syntheticEventRef.current = true;
 
-        const childrenPropsHandler = children.props[eventName];
+        const childrenPropsHandler = children?.props[eventName];
+
         if (childrenPropsHandler) {
             childrenPropsHandler(ev);
         }
@@ -66,12 +68,9 @@ const ClickAwayListener = (props) => {
         onTouchEnd: createSyntheticHandler('onTouchEnd')
     };
 
+    if (!React.isValidElement(children)) {
+        return children || null;
+    }
+
     return React.cloneElement(children, childrenProps);
 };
-
-ClickAwayListener.propTypes = {
-    children: PropTypes.node,
-    onClickAway: PropTypes.func.isRequired
-};
-
-export default ClickAwayListener;

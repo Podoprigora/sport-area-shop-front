@@ -1,28 +1,54 @@
 import React, { useEffect, useCallback, useState, useRef, useMemo } from 'react';
-import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
-
-import useEventCallback from '@ui/hooks/useEventCallback';
-import useForkRef from '@ui/hooks/useForkRef';
-import Modal from '@ui/Modal';
-import { usePopper } from '@ui/Popper';
-import List from '@ui/List';
-import Portal from '@ui/Portal';
-import ClickAwayListener from '@ui/ClickAwayListener';
 import { throttle } from 'lodash';
+import { State as PopperState } from '@popperjs/core';
 
-// Move focus to the next element of Menu item if it's not disabled and it has role of button
-const moveFocus = (menuElement, offset = 1) => {
+import { useEventCallback, useMergedRefs } from '../utils';
+import { Modal } from '../Modal';
+import { PopperProps, usePopper } from '../Popper';
+import { List, ListProps } from '../List';
+import { Portal } from '../Portal';
+import { ClickAwayListener } from '../ClickAwayListener';
+import { PickPropType } from '../utils/types';
+
+export interface MenuProps extends React.ComponentPropsWithRef<'div'> {
+    /**
+     * Normally contains the set of `MenuItem` or `ListItem` components
+     */
+    children?: React.ReactElement | React.ReactElement[];
+    open?: boolean;
+    placement?: PickPropType<PopperProps, 'placement'>;
+    anchorRef?: PickPropType<PopperProps, 'anchorRef'>;
+    /**
+     * Make width of `Menu` is equal to `anchorElement` width.
+     */
+    autoWidth?: boolean;
+    width?: number;
+    listProps?: Partial<ListProps>;
+    /**
+     * Autofocus first item.
+     */
+    autoFocusItem?: boolean;
+    /**
+     * Apply `Modal` as a wrapper component.
+     */
+    modal?: boolean;
+    onClose?: () => void;
+    onItemClick?: (ev: React.SyntheticEvent, index: number) => void;
+}
+
+// Move focus to the next element of Menu item if it's not disabled and it has role of button.
+const moveFocus = (menuElement: HTMLElement, offset = 1) => {
     const activeElement = document.activeElement;
-    let nextElement = null;
+    let nextElement: Element | null = null;
 
     if (activeElement === menuElement) {
-        nextElement = offset > 0 ? menuElement.firstChild : menuElement.lastChild;
-    } else if (offset > 0) {
-        nextElement = activeElement.nextElementSibling || menuElement.firstChild;
-    } else if (offset < 0) {
-        nextElement = activeElement.previousElementSibling || menuElement.lastChild;
+        nextElement = offset > 0 ? menuElement.firstElementChild : menuElement.lastElementChild;
+    } else if (offset > 0 && activeElement) {
+        nextElement = activeElement.nextElementSibling || menuElement.firstElementChild;
+    } else if (offset < 0 && activeElement) {
+        nextElement = activeElement.previousElementSibling || menuElement.lastElementChild;
     }
 
     while (nextElement && nextElement !== activeElement) {
@@ -34,7 +60,8 @@ const moveFocus = (menuElement, offset = 1) => {
                 offset > 0 ? nextElement.nextElementSibling : nextElement.previousElementSibling;
 
             if (!nextElement && activeElement !== menuElement) {
-                nextElement = offset > 0 ? menuElement.firstChild : menuElement.lastChild;
+                nextElement =
+                    offset > 0 ? menuElement.firstElementChild : menuElement.lastElementChild;
             }
         } else {
             break;
@@ -42,13 +69,13 @@ const moveFocus = (menuElement, offset = 1) => {
     }
 
     if (nextElement) {
-        nextElement.focus();
+        (nextElement as HTMLElement).focus();
     }
 };
 
 const defaultActiveIndex = -1;
 
-const Menu = React.forwardRef(function Menu(props, ref) {
+export const Menu = React.forwardRef<HTMLDivElement, MenuProps>(function Menu(props, forwardedRef) {
     const {
         open,
         anchorRef = { current: null },
@@ -63,7 +90,7 @@ const Menu = React.forwardRef(function Menu(props, ref) {
         style,
         onClose,
         onItemClick
-    } = props;
+    }: MenuProps = props;
 
     const { referenceRef, popperRef, popperInstance } = usePopper({
         placement,
@@ -77,63 +104,59 @@ const Menu = React.forwardRef(function Menu(props, ref) {
         ]
     });
     const [exited, setExited] = useState(true);
-    const [menuStyle, setMenuStyle] = useState({
+    const [menuStyle, setMenuStyle] = useState<React.CSSProperties>({
         ...style,
         ...(width && { width })
     });
 
-    const menuRef = useRef(null);
-    const handleMenuRef = useForkRef(menuRef, ref);
-    const activeIndexRef = useRef(defaultActiveIndex);
+    const menuRef = useRef<HTMLDivElement | null>(null);
+    const handleMenuRef = useMergedRefs(menuRef, forwardedRef);
+    const activeIndexRef = useRef<number>(defaultActiveIndex);
 
-    const childrenRef = useRef([]);
-    childrenRef.current = children ? React.Children.toArray(children) : [];
+    const childrenRef = useRef<React.ReactElement[]>([]);
+    childrenRef.current = children
+        ? (React.Children.toArray(children) as React.ReactElement[])
+        : [];
 
     // Handlers
 
-    const handleClose = useEventCallback((ev) => {
+    const handleClose = useEventCallback(() => {
         if (onClose) {
-            onClose(ev);
+            onClose();
         }
     });
 
-    const handleModalClose = useCallback(
-        (ev) => {
-            handleClose(ev);
-        },
-        [handleClose]
-    );
+    const handleModalClose = useCallback(() => {
+        handleClose();
+    }, [handleClose]);
 
-    const handleClickAway = useCallback(
-        (ev) => {
-            handleClose(ev);
-        },
-        [handleClose]
-    );
+    const handleClickAway = useCallback(() => {
+        handleClose();
+    }, [handleClose]);
 
     const handleMenuKeyDown = useEventCallback((ev) => {
         switch (ev.key) {
             case 'Tab':
                 ev.preventDefault();
 
-                handleClose(ev);
+                handleClose();
                 break;
             case 'ArrowDown': {
                 ev.preventDefault();
 
-                moveFocus(menuRef.current, 1);
+                moveFocus(menuRef.current as HTMLElement, 1);
                 break;
             }
             case 'ArrowUp': {
                 ev.preventDefault();
 
-                moveFocus(menuRef.current, -1);
+                moveFocus(menuRef.current as HTMLElement, -1);
                 break;
             }
             case 'Escape': {
                 // Because Modal has contained this kind of functionality
                 if (!modal) {
-                    handleClose(ev);
+                    handleClose();
                 }
                 break;
             }
@@ -158,7 +181,7 @@ const Menu = React.forwardRef(function Menu(props, ref) {
 
     // Set Popper referenceRef
     useEffect(() => {
-        if (anchorRef.current) {
+        if (anchorRef && anchorRef.current) {
             referenceRef(anchorRef.current);
         }
     }, [anchorRef, referenceRef]);
@@ -184,7 +207,7 @@ const Menu = React.forwardRef(function Menu(props, ref) {
     useEffect(() => {
         function updateStyle() {
             if (anchorRef.current && open && autoWidth) {
-                const anchorWidth = anchorRef.current?.offsetWidth;
+                const anchorWidth = anchorRef.current.offsetWidth;
 
                 setMenuStyle((prevStyle) => {
                     return { ...prevStyle, width: anchorWidth };
@@ -216,7 +239,9 @@ const Menu = React.forwardRef(function Menu(props, ref) {
             return null;
         }
 
-        const handleItemClick = (child, index) => (ev) => {
+        const handleItemClick = (child: React.ReactElement, index: number) => (
+            ev: React.SyntheticEvent
+        ) => {
             if (child.props.onClick) {
                 child.props.onClick(ev);
             }
@@ -244,7 +269,7 @@ const Menu = React.forwardRef(function Menu(props, ref) {
 
             return React.cloneElement(child, {
                 autoFocus: activeIndexRef.current === index,
-                tabIndex: '0',
+                tabIndex: 0,
                 onClick: handleItemClick(child, index)
             });
         });
@@ -254,7 +279,7 @@ const Menu = React.forwardRef(function Menu(props, ref) {
         return null;
     }
 
-    const popperState = (popperInstance && popperInstance.state) || {};
+    const popperState: Partial<PopperState> = (popperInstance && popperInstance.state) || {};
     const currentPlacement = popperState.placement || placement;
 
     const popperContent = (
@@ -277,7 +302,7 @@ const Menu = React.forwardRef(function Menu(props, ref) {
                     <div
                         role="menu"
                         className="u-focus-outline-0"
-                        tabIndex="-1"
+                        tabIndex={-1}
                         ref={handleMenuRef}
                         onKeyDown={handleMenuKeyDown}
                     >
@@ -309,21 +334,3 @@ const Menu = React.forwardRef(function Menu(props, ref) {
         </Portal>
     );
 });
-
-Menu.propTypes = {
-    anchorRef: PropTypes.object,
-    open: PropTypes.bool,
-    placement: PropTypes.string,
-    children: PropTypes.node,
-    autoWidth: PropTypes.bool,
-    width: PropTypes.number,
-    listProps: PropTypes.object,
-    className: PropTypes.string,
-    style: PropTypes.object,
-    autoFocusItem: PropTypes.bool,
-    modal: PropTypes.bool,
-    onClose: PropTypes.func,
-    onItemClick: PropTypes.func
-};
-
-export default Menu;
