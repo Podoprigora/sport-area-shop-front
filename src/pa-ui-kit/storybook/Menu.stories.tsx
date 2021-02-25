@@ -35,12 +35,12 @@ export const Default: Story<MenuProps> = (args) => {
                 Open Menu
             </Button>
             <Menu
-                {...args}
                 open={open}
                 anchorRef={anchorRef}
                 width={200}
                 listProps={{ maxHeight: 200 }}
-                modal
+                modal={false}
+                {...args}
                 onClose={handleMenuClose}
                 onItemClick={handleItemClick}
             >

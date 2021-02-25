@@ -165,7 +165,7 @@ export const ScrollableList: Story<ListProps> = (args) => {
                     return (
                         <React.Fragment key={id}>
                             {id % 5 === 0 ? (
-                                <ListSubheader>Search result group {id + 1}</ListSubheader>
+                                <ListSubheader sticky>Search result group {id + 1}</ListSubheader>
                             ) : null}
                             <ScrollableListItem>{title}</ScrollableListItem>
                         </React.Fragment>

@@ -89,14 +89,17 @@
 	}
 
 	&__subheader {
-		position: sticky;
-		top: 0;
 		background-color: $list-subheader-bg-color;
 		font-size: $list-subheader-font-size;
 		font-weight: $list-subheader-font-weight;
 		letter-spacing: $list-subheader-letter-spacing;
 		color: $list-subheader-color;
 		padding: $list-subheader-padding-y $list-item-padding-x;
-		z-index: 1;
+
+		&--sticky {
+			position: sticky;
+			top: 0;
+			z-index: 1;
+		}
 	}
 }
