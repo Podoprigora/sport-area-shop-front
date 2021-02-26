@@ -1,11 +1,23 @@
-import React, { useState, useEffect, useCallback, useRef, forwardRef } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useCallback, useRef, forwardRef } from 'react';
 import classNames from 'classnames';
 
-import useForkRef from '@ui/hooks/useForkRef';
-import InputAdornment from './InputAdornment';
+import { useMergedRefs } from '../utils';
+import { InputAdornment } from './InputAdornment';
 
-const Input = forwardRef(function Input(props, ref) {
+type InputType = 'text' | 'textarea';
+
+export interface InputProps extends React.ComponentPropsWithRef<'input'> {
+    type?: InputType;
+    fullWidth?: boolean;
+    inputComponent?: React.ElementType;
+    inputProps: React.PropsWithoutRef<'input'>;
+    error?: boolean;
+    displayRef?: React.Ref<HTMLDivElement>;
+    prependAdornment?: (props: InputProps) => React.ReactNode;
+    appendAdornment?: (props: InputProps) => React.ReactNode;
+}
+
+export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(props, forwardedRef) {
     const {
         type = 'text',
         id,
@@ -40,10 +52,12 @@ const Input = forwardRef(function Input(props, ref) {
 
     const [focused, setFocused] = useState(false);
 
-    const inputRef = useRef(null);
-    const handleInputRef = useForkRef(inputRef, ref);
+    const inputRef = useRef<HTMLInputElement | null>(null);
+    const handleInputRef = useMergedRefs(inputRef, forwardedRef);
 
-    const handleFocus = (ev) => {
+    // Handlers
+
+    const handleFocus = (ev: React.FocusEvent<HTMLInputElement>) => {
         if (onFocus) {
             onFocus(ev);
         }
@@ -51,7 +65,7 @@ const Input = forwardRef(function Input(props, ref) {
         setFocused(true);
     };
 
-    const handleBlur = (ev) => {
+    const handleBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
         if (onBlur) {
             onBlur(ev);
         }
@@ -59,19 +73,22 @@ const Input = forwardRef(function Input(props, ref) {
         setFocused(false);
     };
 
-    const handleChange = (ev) => {
+    const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
         if (onChange) {
             onChange(ev);
         }
     };
 
-    const handleClick = useCallback((ev) => {
+    const handleClick = useCallback((ev: React.MouseEvent<HTMLDivElement>) => {
         if (inputRef.current && ev.target === ev.currentTarget) {
             inputRef.current.focus();
         }
     }, []);
 
+    // Render
+
     let InputComponent = inputComponent;
+
     if (type === 'textarea') {
         InputComponent = 'textarea';
     }
@@ -114,55 +131,14 @@ const Input = forwardRef(function Input(props, ref) {
                 'input--full-width': fullWidth,
                 'input--error': error
             })}
-            style={style}
-            tabIndex="-1"
-            ref={displayRef}
+            tabIndex={-1}
+            {...other}
             onClick={handleClick}
+            ref={displayRef}
         >
-            {prependAdornment && (
-                <InputAdornment start disabled={disabled}>
-                    {prependAdornment(props)}
-                </InputAdornment>
-            )}
+            {prependAdornment && <InputAdornment start>{prependAdornment(props)}</InputAdornment>}
             {inputEl}
-            {appendAdornment && (
-                <InputAdornment end disabled={disabled}>
-                    {appendAdornment(props)}
-                </InputAdornment>
-            )}
+            {appendAdornment && <InputAdornment end>{appendAdornment(props)}</InputAdornment>}
         </div>
     );
 });
-
-Input.propTypes = {
-    name: PropTypes.string,
-    type: PropTypes.string,
-    id: PropTypes.string,
-    defaultValue: PropTypes.any,
-    value: PropTypes.any,
-    placeholder: PropTypes.string,
-    tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    disabled: PropTypes.bool,
-    required: PropTypes.bool,
-    readOnly: PropTypes.bool,
-    autoFocus: PropTypes.bool,
-    autoComplete: PropTypes.bool,
-    fullWidth: PropTypes.bool,
-    error: PropTypes.bool,
-    className: PropTypes.string,
-    style: PropTypes.object,
-    displayRef: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-    inputProps: PropTypes.object,
-    inputComponent: PropTypes.elementType,
-    prependAdornment: PropTypes.func,
-    appendAdornment: PropTypes.func,
-    onBlur: PropTypes.func,
-    onFocus: PropTypes.func,
-    onChange: PropTypes.func,
-    onClick: PropTypes.func,
-    onKeyDown: PropTypes.func,
-    onKeyUp: PropTypes.func,
-    onMouseDown: PropTypes.func
-};
-
-export default Input;
