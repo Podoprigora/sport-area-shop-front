@@ -1,13 +1,28 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const BoxLabel = React.forwardRef(function BoxLabel(props, ref) {
+export interface BoxLabelProps extends React.ComponentPropsWithRef<'label'> {
+    /**
+     * Should contain a valid `ReactElement`.
+     */
+    children?: React.ReactElement;
+    label?: React.ReactNode;
+    labelAlign?: 'left' | 'right' | 'top' | 'bottom';
+    disabled?: boolean;
+    condensed?: boolean;
+}
+
+export const BoxLabel = React.forwardRef<HTMLLabelElement, BoxLabelProps>(function BoxLabel(
+    props,
+    forwardedRef
+) {
     const { children, className, label, labelAlign, disabled, condensed, ...other } = props;
 
-    const childElement = React.cloneElement(children, {
-        disabled
-    });
+    const childElement = React.isValidElement(children)
+        ? React.cloneElement(children, {
+              disabled
+          })
+        : null;
 
     return (
         <label
@@ -16,7 +31,7 @@ const BoxLabel = React.forwardRef(function BoxLabel(props, ref) {
                 'box-label--disabled': disabled,
                 'box-label--condensed': condensed
             })}
-            ref={ref}
+            ref={forwardedRef}
             {...other}
         >
             <div className="box-label__content">{childElement}</div>
@@ -24,14 +39,3 @@ const BoxLabel = React.forwardRef(function BoxLabel(props, ref) {
         </label>
     );
 });
-
-BoxLabel.propTypes = {
-    children: PropTypes.element.isRequired,
-    className: PropTypes.string,
-    label: PropTypes.node,
-    labelAlign: PropTypes.oneOf(['left', 'right', 'top', 'bottom']),
-    disabled: PropTypes.bool,
-    condensed: PropTypes.bool
-};
-
-export default BoxLabel;

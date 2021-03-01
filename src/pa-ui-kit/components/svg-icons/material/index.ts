@@ -1,5 +1,6 @@
 export * from './AddIcon';
 export * from './CheckBoxIcon';
+export * from './ErrorOutlineIcon';
 export * from './ClearCloseIcon';
 export * from './ArrowDropDownIcon';
 export * from './KeyboardArrowDown';

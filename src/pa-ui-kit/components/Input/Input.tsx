@@ -4,10 +4,7 @@ import classNames from 'classnames';
 import { useMergedRefs } from '../utils';
 import { InputAdornment } from './InputAdornment';
 
-type InputType = 'text' | 'textarea';
-
 export interface InputProps extends React.ComponentPropsWithRef<'input'> {
-    type?: InputType;
     fullWidth?: boolean;
     /**
      * Custom input component, useful when using `react-text-mask`, `react-number-format`.
