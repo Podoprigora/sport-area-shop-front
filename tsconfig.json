@@ -2,6 +2,9 @@
   "compilerOptions": {
       "target": "es6",
       "lib": ["dom", "dom.iterable", "esnext"],
+      "module": "esnext",
+      "moduleResolution": "node",
+      "jsx": "react",
       "allowJs": true,
       "skipLibCheck": true,
       "esModuleInterop": true,
@@ -9,13 +12,10 @@
       "strict": true,
       "forceConsistentCasingInFileNames": true,
       "noFallthroughCasesInSwitch": true,
-      "module": "esnext",
-      "moduleResolution": "node",
       "resolveJsonModule": true,
       "isolatedModules": true,
       "noEmit": true,
       "noImplicitThis": true,
-      "jsx": "react",
       "paths": {
           "@ui/*": ["./src/pa-ui-kit/components/*"],
           "@utils/*": ["./src/utils/*"],

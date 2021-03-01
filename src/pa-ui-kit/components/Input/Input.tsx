@@ -9,8 +9,11 @@ type InputType = 'text' | 'textarea';
 export interface InputProps extends React.ComponentPropsWithRef<'input'> {
     type?: InputType;
     fullWidth?: boolean;
+    /**
+     * Custom input component, useful when using `react-text-mask`, `react-number-format`.
+     */
     inputComponent?: React.ElementType;
-    inputProps: React.PropsWithoutRef<'input'>;
+    inputProps?: Partial<React.ComponentPropsWithoutRef<'input'>>;
     error?: boolean;
     displayRef?: React.Ref<HTMLDivElement>;
     prependAdornment?: (props: InputProps) => React.ReactNode;

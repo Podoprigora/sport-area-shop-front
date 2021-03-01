@@ -1,0 +1,19 @@
+.custom-input {
+	border-radius: 10rem;
+	box-shadow: transparent;
+	transition: all .2s ease-out;
+
+	&::after {
+		content: none;
+	}
+
+	&.input--focused {
+		border-color: transparent;
+		box-shadow: 0 0 1px 2px rgba(rgb(53, 156, 252), .8);
+	}
+
+	.input__el {
+		font-size: 1.6rem;
+		padding: 1rem 1.2rem;
+	}
+}
