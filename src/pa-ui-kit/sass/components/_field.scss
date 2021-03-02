@@ -1,10 +1,126 @@
 .field {
+	$this: &;
+
 	display: flex;
 	flex-wrap: wrap;
 	min-width: 0;
 
 	&--full-width {
 		width: 100%;
+	}
+
+	&--outlined {
+		position: relative;
+
+		#{$this}__fieldset {
+			position: relative;
+			background-color: $input-bg-color;
+			width: 100%;
+			max-width: $input-default-width;
+			border: 1px solid $input-border-color;
+			border-radius: $input-border-radius;
+
+			transition: all .2s ease-out;
+
+			&-legend {
+				position: relative;
+				margin-top: 0;
+				margin-bottom: 0;
+				padding: 0;
+				margin-bottom: -$field-label-font-size / 2;
+				margin-left: $input-padding-x - .4rem;
+				z-index: 1;
+
+				&::before {
+					position: absolute;
+					content: "";
+					top: 50%;
+					left: 0;
+					right: 0;
+					height: .2rem;
+					margin-top: -.15rem;
+					transform: translateY(-50%);
+					background-color: $input-bg-color;
+					opacity: 0;
+					z-index: 0;
+					transition: opacity .1s ease-out .1s;
+				}
+			}
+		}
+
+		&#{$this}--full-width {
+			#{$this}__fieldset {
+				width: 100%;
+				max-width: none;
+			}
+		}
+
+		&#{$this}--error {
+			#{$this}__fieldset {
+				border-color: transparent;
+				box-shadow: 0 0 0 .1rem $color-red;
+
+				&-legend {
+					&::before {
+						opacity: 1;
+						transition: none;
+					}
+				}
+			}
+
+			#{$this}__label {
+				color: $color-red;
+			}
+		}
+
+		#{$this}__label {
+			text-align: left;
+			line-height: 1;
+			width: auto;
+			padding: 0 .4rem;
+			transition: all .2s ease-out;
+		}
+
+		& .input {
+			border-width: 0;
+			background-color: inherit;
+
+			&:after {
+				content: none;
+			}
+		}
+	}
+
+	&--focused:not(&--error) {
+		&#{$this}--outlined {
+			#{$this}__fieldset {
+				border-color: transparent;
+				box-shadow: 0 0 0 .2rem $input-focus-stripe-color;
+
+				&-legend {
+					&::before {
+						opacity: 1;
+						transition: none;
+					}
+				}
+			}
+
+			#{$this}__label {
+				color: darken($input-focus-stripe-color, 5%);
+			}
+		}
+	}
+
+	&--filled:not(&--focused) {
+		&#{$this}--outlined {
+			#{$this}__fieldset {
+				background-color: $field-filled-bg-color;
+			}
+		}
+
+		& .input {
+			background-color: $field-filled-bg-color;
+		}
 	}
 
 	&__input {
@@ -35,6 +151,10 @@
 
 		&--disabled {
 			opacity: $input-disabled-opacity;
+		}
+
+		&--align-left {
+			@include truncation;
 		}
 
 		&--align-top {

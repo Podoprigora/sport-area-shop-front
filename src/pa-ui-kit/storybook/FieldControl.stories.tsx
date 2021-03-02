@@ -10,25 +10,47 @@ import './sass/custom-field-control.scss';
 
 export default {
     title: 'PA-UI-KIT/FieldControl',
-    component: FieldControl
+    component: FieldControl,
+    argTypes: {
+        component: {
+            control: {
+                type: null
+            }
+        }
+    }
 } as Meta;
 
 type DefaultProps = Assign<InputProps, FieldControlProps>;
 
 export const Default: Story<DefaultProps> = (args) => {
-    return <FieldControl {...args} />;
+    return (
+        <div style={{ padding: 20 }}>
+            <div style={{ paddingBottom: 12 }}>
+                <FieldControl {...args} />
+            </div>
+            <div style={{ paddingBottom: 12 }}>
+                <FieldControl {...args} />
+            </div>
+            <div style={{ paddingBottom: 12 }}>
+                <FieldControl {...args} />
+            </div>
+            <div style={{ paddingBottom: 12 }}>
+                <FieldControl {...args} />
+            </div>
+        </div>
+    );
 };
 
 Default.args = {
     component: Input,
-    label: 'Email',
+    variant: 'outlined',
+    label: 'Login',
+    // label: 'Long long long text label Long long long text label Long long long text label',
     labelAlign: 'top',
-    labelTextAlign: 'left',
-    placeholder: 'Enter your email',
+    placeholder: 'Enter your login',
     helperText: 'test@mail.com',
     error: 'Some error',
     touched: false,
-    className: 'custom-field-control',
-    type: 'email',
+    required: true,
     prependAdornment: () => <UserIcon size="medium" />
 } as DefaultProps;

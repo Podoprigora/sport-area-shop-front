@@ -1,7 +1,7 @@
-import React, { useState, useCallback, useRef, forwardRef } from 'react';
+import React, { useCallback, useRef, forwardRef } from 'react';
 import classNames from 'classnames';
 
-import { useMergedRefs } from '../utils';
+import { useControlled, useMergedRefs } from '../utils';
 import { InputAdornment } from './InputAdornment';
 
 export interface InputProps extends React.ComponentPropsWithRef<'input'> {
@@ -12,6 +12,7 @@ export interface InputProps extends React.ComponentPropsWithRef<'input'> {
     inputComponent?: React.ElementType;
     inputProps?: Partial<React.ComponentPropsWithoutRef<'input'>>;
     error?: boolean;
+    focused?: boolean;
     displayRef?: React.Ref<HTMLDivElement>;
     prependAdornment?: (props: InputProps) => React.ReactNode;
     appendAdornment?: (props: InputProps) => React.ReactNode;
@@ -27,6 +28,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(pro
         placeholder,
         disabled,
         required,
+        focused: focusedProp,
         readOnly,
         autoFocus,
         autoComplete,
@@ -50,7 +52,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(pro
         ...other
     } = props;
 
-    const [focused, setFocused] = useState(false);
+    const [focused, setFocused] = useControlled(focusedProp, false);
+
+    console.log('rerender');
 
     const inputRef = useRef<HTMLInputElement | null>(null);
     const handleInputRef = useMergedRefs(inputRef, forwardedRef);

@@ -6,6 +6,7 @@
 	& .input {
 		border-radius: 2px;
 		font-weight: 500;
+		transition: all .2s ease-out;
 
 		&:after {
 			content: none;
@@ -13,7 +14,7 @@
 
 		&--focused:not(&--error) {
 			border-color: transparent;
-			box-shadow: 0 0 0 2px #1ea7fd;
+			box-shadow: 0 0 0px 2px rgba(#1ea7fd, .6);
 		}
 
 		&--error {
@@ -21,6 +22,44 @@
 		}
 
 		&__el {
+			padding: 1rem 1.2rem;
+		}
+	}
+}
+
+.field-outlined {
+	position: relative;
+	display: inline-block;
+	background-color: inherit;
+	border-radius: .4rem;
+	border: 1px solid #dddddd;
+	transition: border-color .2s ease-out;
+	z-index: 0;
+
+	&--focused {
+		// border-color: rgba(#1ea7fd, .6);
+		// border: 2px solid rgba(#1ea7fd, .6);
+	}
+
+	&__label-container {
+		margin: 0 .8rem -.8rem;
+	}
+
+	&__label {
+		position: relative;
+		font-size: 1.2rem;
+		font-weight: 500;
+		color: #858585;
+		background-color: transparent;
+		padding: 0 .3rem;
+		z-index: 1;
+	}
+
+	&__input {
+		border-width: 0;
+		background-color: inherit;
+
+		.input__el {
 			padding: 1rem 1.2rem;
 		}
 	}
