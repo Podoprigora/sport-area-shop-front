@@ -51,8 +51,7 @@ export const FieldControl = React.forwardRef<HTMLDivElement, FieldControlProps>(
 
         // Render
 
-        const hasError =
-            error !== undefined && error.length > 0 && touched !== undefined && touched;
+        const hasError = !!error && error.length > 0 && !!touched;
 
         const inputProps = {
             fullWidth,

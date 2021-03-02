@@ -1,7 +1,7 @@
 import React from 'react';
+import { Optional } from 'utility-types';
 
 import { CheckboxBase, CheckboxBaseProps } from '../CheckboxBase';
-import { Optional } from '../utils/types';
 import { CheckBoxIcon } from '../svg-icons/material';
 import { SquareIcon } from '../svg-icons/feather';
 

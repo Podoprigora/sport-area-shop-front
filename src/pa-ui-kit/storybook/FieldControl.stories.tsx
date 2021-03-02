@@ -1,9 +1,9 @@
 import React from 'react';
-import { Overwrite } from 'utility-types';
+import { Assign } from 'utility-types';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { FieldControl, FieldControlProps } from '../components/FieldControl';
-import { Input } from '../components/Input';
+import { Input, InputProps } from '../components/Input';
 import { UserIcon } from '../components/svg-icons/feather';
 
 import './sass/custom-field-control.scss';
@@ -13,13 +13,14 @@ export default {
     component: FieldControl
 } as Meta;
 
-type DefaultProps = Overwrite<React.ComponentProps<typeof Input>, FieldControlProps>;
+type DefaultProps = Assign<InputProps, FieldControlProps>;
 
 export const Default: Story<DefaultProps> = (args) => {
-    return <FieldControl {...args} component={Input} />;
+    return <FieldControl {...args} />;
 };
 
 Default.args = {
+    component: Input,
     label: 'Email',
     labelAlign: 'top',
     labelTextAlign: 'left',
