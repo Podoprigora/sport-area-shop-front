@@ -215,8 +215,8 @@ $input-padding-y: $spacing-scale-4;
 $input-padding-x: $spacing-scale-5;
 $input-focus-stripe-width: 2px;
 $input-focus-stripe-color: rgba($color-primary, .85);
-$input-placeholder-color: $grey;
-$input-adornment-color: $grey;
+$input-placeholder-color: $blue-grey-lighten-2;
+$input-adornment-color: $blue-grey-lighten-2;
 $input-autofill-bg-color: $white;
 $input-default-width: 22rem;
 
@@ -239,14 +239,14 @@ $helper-text-font-weight: 400;
 $helper-text-letter-spacing: .3px;
 
 // Field
-$field-filled-bg-color: $body-bg-color;
-$field-label-color: $grey-darken-3;
+$field-filled-bg-color: lighten($blue-grey-lighten-6, 3%);
+$field-label-color: #2c334a;
 $field-label-font-size: $font-size-small;
 $field-label-line-height: 1.6;
 $field-label-font-weight: 500;
 $field-label-letter-spacing: .3px;
 $field-label-width: 12rem;
-$field-helper-text-color: $grey;
+$field-helper-text-color: $blue-grey-lighten-2;
 $field-helper-text-font-size: $font-size-small;
 $field-helper-text-font-weight: 400;
 $field-helper-text-letter-spacing: .3px;

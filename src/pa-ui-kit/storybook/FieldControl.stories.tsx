@@ -3,6 +3,8 @@ import { Assign } from 'utility-types';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { FieldControl, FieldControlProps } from '../components/FieldControl';
+import { FlexCol } from '../components/FlexCol';
+import { FlexRow } from '../components/FlexRow';
 import { Input, InputProps } from '../components/Input';
 import { UserIcon } from '../components/svg-icons/feather';
 
@@ -24,19 +26,18 @@ type DefaultProps = Assign<InputProps, FieldControlProps>;
 
 export const Default: Story<DefaultProps> = (args) => {
     return (
-        <div style={{ padding: 20 }}>
-            <div style={{ paddingBottom: 12 }}>
-                <FieldControl {...args} />
+        <div className="u-padding-6">
+            <div className="u-padding-b-6">
+                <FieldControl {...args} fullWidth />
             </div>
-            <div style={{ paddingBottom: 12 }}>
-                <FieldControl {...args} />
-            </div>
-            <div style={{ paddingBottom: 12 }}>
-                <FieldControl {...args} />
-            </div>
-            <div style={{ paddingBottom: 12 }}>
-                <FieldControl {...args} />
-            </div>
+            <FlexRow alignItems="flex-start" className="u-padding-b-6">
+                <FlexCol md className="u-padding-r-md-6 u-padding-b-down-md-6">
+                    <FieldControl {...args} fullWidth />
+                </FlexCol>
+                <FlexCol md>
+                    <FieldControl {...args} fullWidth helperText="" />
+                </FlexCol>
+            </FlexRow>
         </div>
     );
 };
@@ -44,13 +45,52 @@ export const Default: Story<DefaultProps> = (args) => {
 Default.args = {
     component: Input,
     variant: 'outlined',
-    label: 'Login',
-    // label: 'Long long long text label Long long long text label Long long long text label',
+    label: 'Test Label',
     labelAlign: 'top',
-    placeholder: 'Enter your login',
-    helperText: 'test@mail.com',
+    placeholder: 'Enter some text',
+    helperText: 'Helper text',
     error: 'Some error',
+    filled: true,
     touched: false,
     required: true,
     prependAdornment: () => <UserIcon size="medium" />
 } as DefaultProps;
+Default.parameters = {
+    docs: {
+        source: {
+            code: `
+export const Default: Story<DefaultProps> = (args) => {
+    return (
+        <div className="u-padding-6">
+            <div className="u-padding-b-6">
+                <FieldControl {...args} fullWidth />
+            </div>
+            <FlexRow alignItems="flex-start" className="u-padding-b-6">
+                <FlexCol md className="u-padding-r-md-6 u-padding-b-down-md-6">
+                    <FieldControl {...args} fullWidth />
+                </FlexCol>
+                <FlexCol md>
+                    <FieldControl {...args} fullWidth helperText="" />
+                </FlexCol>
+            </FlexRow>
+        </div>
+    );
+};
+
+Default.args = {
+    component: Input,
+    variant: 'outlined',
+    label: 'Test Label',
+    labelAlign: 'top',
+    placeholder: 'Enter some text',
+    helperText: 'Helper text',
+    error: 'Some error',
+    filled: true,
+    touched: false,
+    required: true,
+    prependAdornment: () => <UserIcon size="medium" />
+} as DefaultProps;
+            `
+        }
+    }
+};

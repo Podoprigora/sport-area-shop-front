@@ -54,8 +54,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(pro
 
     const [focused, setFocused] = useControlled(focusedProp, false);
 
-    console.log('rerender');
-
     const inputRef = useRef<HTMLInputElement | null>(null);
     const handleInputRef = useMergedRefs(inputRef, forwardedRef);
 

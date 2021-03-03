@@ -115,11 +115,13 @@
 		&#{$this}--outlined {
 			#{$this}__fieldset {
 				background-color: $field-filled-bg-color;
+				border-color: $field-filled-bg-color;
 			}
 		}
 
 		& .input {
 			background-color: $field-filled-bg-color;
+			border-color: $field-filled-bg-color;
 		}
 	}
 
