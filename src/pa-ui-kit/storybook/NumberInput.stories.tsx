@@ -11,7 +11,7 @@ export default {
 export const Default: Story<NumberInputProps> = (args) => {
     return (
         <div className="u-padding-6">
-            <NumberInput {...args} />
+            <NumberInput {...args} defaultValue="" />
         </div>
     );
 };
