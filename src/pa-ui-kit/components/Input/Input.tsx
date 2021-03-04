@@ -36,7 +36,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(pro
         tabIndex = '0',
         error,
         className,
-        style,
         inputComponent = 'input',
         inputProps,
         displayRef,
