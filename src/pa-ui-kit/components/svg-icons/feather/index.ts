@@ -20,4 +20,5 @@ export * from './MoreVerticalIcon';
 export * from './PlusCircleIcon';
 export * from './PlusIcon';
 export * from './TrashIcon';
+export * from './TagIcon';
 export * from './UserIcon';

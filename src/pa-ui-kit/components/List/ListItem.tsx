@@ -5,7 +5,14 @@ import { useMergedRefs, useIsFocusVisible, useEventCallback } from '../utils';
 import { FlexRowAlignItems } from '../FlexRow';
 import { ListItemContext } from './ListItemContext';
 
-export interface ListItemProps extends React.ComponentPropsWithRef<'div'> {
+/**
+ * For compatibility with SelectInput component.
+ */
+interface ValueProp {
+    value?: unknown;
+}
+
+export interface ListItemProps extends React.ComponentPropsWithRef<'div'>, ValueProp {
     /**
      * Normally contains `ListItemText`, `ListItemIcon`, `ListItemAction`
      */
