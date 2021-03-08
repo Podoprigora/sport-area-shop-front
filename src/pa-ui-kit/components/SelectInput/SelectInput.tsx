@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import {
     useMergedRefs,
     useEventCallback,
-    isEmptyValue,
     isEmptyString,
     useControlled,
     defineEventTarget,
@@ -35,7 +34,7 @@ export interface SelectInputProps extends React.ComponentPropsWithRef<'input'> {
     emptyItemText?: string;
     emptyItemValue?: string;
 
-    renderItem?(item: DataItem): React.ReactNode;
+    renderItem?(item: DataItem, selected: boolean): React.ReactNode;
     getItemText?(item: DataItem): string;
     getItemValue?(item: DataItem, index?: number): string;
     getItemSelected?(item: DataItem, value?: SelectInputProps['value']): boolean;
@@ -59,9 +58,8 @@ export const useSelectInputContext = SelectInputContext.useContext;
 
 const getDefaultItemValue = (item: DataItem) => (typeof item === 'string' ? item : '');
 const getDefaultItemText = (item: DataItem) => (typeof item === 'string' ? item : '');
-const getDefaultItemSelected = (item: DataItem, value?: SelectInputProps['value']) => {
-    return String(item) === String(value);
-};
+const getDefaultItemSelected = (item: DataItem, value?: SelectInputProps['value']) =>
+    String(item) === String(value);
 
 export const SelectInput = React.forwardRef<HTMLInputElement, SelectInputProps>(
     function SelectInput(props, forwardedRef) {
@@ -105,7 +103,7 @@ export const SelectInput = React.forwardRef<HTMLInputElement, SelectInputProps>(
         const displayRef = useRef<HTMLDivElement | null>(null);
         const inputRef = useRef<HTMLInputElement | null>(null);
         const handleInputRef = useMergedRefs(inputRef, forwardedRef);
-        const displayValueRef = useRef('');
+        const displayValueRef = useRef<React.ReactNode>('');
 
         const hadBlurRecently = useRef(false);
         const hadBlurRecentlyTimeout = useRef<number>();
@@ -219,11 +217,13 @@ export const SelectInput = React.forwardRef<HTMLInputElement, SelectInputProps>(
 
         const handleItemClick = useCallback(
             (ev: React.SyntheticEvent, newValue: string) => {
-                doOpenChange(false);
-
                 if (value !== newValue) {
                     doChange(ev, newValue);
                 }
+
+                setTimeout(() => {
+                    doOpenChange(false);
+                }, 100);
             },
             [value, doChange, doOpenChange]
         );
@@ -239,19 +239,19 @@ export const SelectInput = React.forwardRef<HTMLInputElement, SelectInputProps>(
         // Render
 
         data.forEach((item) => {
-            const selected = !isEmptyValue(value) && getItemSelected(item, value);
+            const selected = !isEmptyString(value) && getItemSelected(item, value);
             const itemText = getItemText(item);
 
             if (selected) {
                 displayValueRef.current = itemText;
-            } else if (isEmptyValue(value)) {
+            } else if (isEmptyString(value)) {
                 displayValueRef.current = '';
             }
         });
 
         const ChevronIconComponent = open ? KeyboardArrowUpIcon : KeyboardArrowDownIcon;
 
-        let displayContent: React.ReactElement | string = displayValueRef.current;
+        let displayContent = displayValueRef.current;
 
         if (isEmptyString(displayContent)) {
             if (!isEmptyString(placeholder)) {
@@ -308,6 +308,7 @@ export const SelectInput = React.forwardRef<HTMLInputElement, SelectInputProps>(
             >
                 <input type="hidden" ref={handleInputRef} {...{ id, value, disabled, readOnly }} />
                 <div className="select-input__display">{displayContent}</div>
+
                 {resetButton && !!value && (
                     <InputIconButton tabIndex={-1} onMouseDown={handleResetButtonClick}>
                         <ClearCloseIcon />

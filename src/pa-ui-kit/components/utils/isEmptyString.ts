@@ -1,3 +1,3 @@
-export function isEmptyString(string: string | undefined | null) {
+export function isEmptyString<T = unknown>(string: T) {
     return !string || (typeof string === 'string' && !string.trim());
 }

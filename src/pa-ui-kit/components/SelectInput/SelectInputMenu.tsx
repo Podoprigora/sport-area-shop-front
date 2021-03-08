@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
-import { isEmptyValue } from '../utils';
+import { isEmptyString } from '../utils';
 import { ElementOf } from '../utils/types';
 import { Menu, MenuItem } from '../Menu';
-import { ListItem, ListItemText } from '../List';
+import { ListItem, ListItemProps, ListItemText } from '../List';
 
 import { useSelectInputContext } from './SelectInput';
 
@@ -14,6 +14,8 @@ export interface SelectInputMenuProps {
     onItemClick: (ev: React.SyntheticEvent, value: string) => void;
     onClose: () => void;
 }
+
+export type SelectInputMenuItemProps = ListItemProps;
 
 export const SelectInputMenu = (props: SelectInputMenuProps) => {
     const { open, anchorRef, menuListMaxHeight = 250, onItemClick, onClose } = props;
@@ -45,22 +47,22 @@ export const SelectInputMenu = (props: SelectInputMenuProps) => {
     };
 
     const items = data.map((item, index) => {
-        const selected = !isEmptyValue(value) && getItemSelected(item, value);
+        const selected = !isEmptyString(value) && getItemSelected(item, value);
         const itemValue = getItemValue(item);
         const itemText = getItemText(item);
 
         const itemProps = {
             selected,
-            value: undefined,
+            value,
             'data-value': itemValue,
             onClick: handleItemClick(item)
-        };
+        } as SelectInputMenuItemProps;
 
         if (renderItem) {
-            const itemElement = renderItem(item);
+            const itemElement = renderItem(item, selected);
 
             if (React.isValidElement(itemElement)) {
-                return React.cloneElement(itemElement, { key: itemValue, ...itemProps });
+                return React.cloneElement(itemElement, { key: index, ...itemProps });
             }
         }
 
@@ -84,14 +86,10 @@ export const SelectInputMenu = (props: SelectInputMenuProps) => {
         );
     }
 
+    const listProps = useMemo(() => ({ maxHeight: menuListMaxHeight }), [menuListMaxHeight]);
+
     return (
-        <Menu
-            open={open}
-            anchorRef={anchorRef}
-            onClose={onClose}
-            autoWidth
-            listProps={{ maxHeight: menuListMaxHeight }}
-        >
+        <Menu open={open} anchorRef={anchorRef} onClose={onClose} autoWidth listProps={listProps}>
             {items}
         </Menu>
     );

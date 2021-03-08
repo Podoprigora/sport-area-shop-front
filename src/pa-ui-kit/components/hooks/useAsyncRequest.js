@@ -44,6 +44,7 @@ export default function useAsyncRequest(props = {}) {
         onError,
         onCompleted
     } = props;
+
     const [state, dispatch] = useReducer(reducer, defaultState);
 
     const isMountedRef = useMountedRef();

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 export type SvgIconSize = 'small' | 'medium' | 'large' | 'xlarge';
 
-export interface SvgIconProps {
+export interface SvgIconProps extends React.ComponentPropsWithRef<'span'> {
     className?: string;
     size?: SvgIconSize;
     primary?: boolean;

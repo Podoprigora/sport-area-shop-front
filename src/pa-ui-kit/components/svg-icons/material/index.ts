@@ -7,5 +7,7 @@ export * from './KeyboardArrowDown';
 export * from './KeyboardArrowLeftIcon';
 export * from './KeyboardArrowRightIcon';
 export * from './KeyboardArrowUpIcon';
+export * from './RadioButtonBlankIcon';
+export * from './RadioButtonCheckedIcon';
 export * from './ThumbUpIcon';
 export * from './ThumbDownIcon';

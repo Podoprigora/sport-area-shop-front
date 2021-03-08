@@ -26,7 +26,7 @@ export const Default: Story<MenuProps> = (args) => {
 
     const handleItemClick = useCallback((ev, index) => {
         console.log({ index });
-        // setOpen(false);
+        setOpen(false);
     }, []);
 
     return (

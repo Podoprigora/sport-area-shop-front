@@ -34,6 +34,7 @@ export interface MenuProps extends React.ComponentPropsWithRef<'div'> {
      * Apply `Modal` as a wrapper component.
      */
     modal?: boolean;
+    offset?: [number, number];
     onClose?: () => void;
     onItemClick?: (ev: React.SyntheticEvent, index: number) => void;
 }
@@ -86,6 +87,10 @@ export const Menu = React.forwardRef<HTMLDivElement, MenuProps>(function Menu(pr
         modal = true,
         width,
         listProps = {},
+        /**
+         * Offset of the current position `[x, y]`.
+         */
+        offset = [0, 2],
         className,
         style,
         onClose,
@@ -98,7 +103,7 @@ export const Menu = React.forwardRef<HTMLDivElement, MenuProps>(function Menu(pr
             {
                 name: 'offset',
                 options: {
-                    offset: [0, 2]
+                    offset
                 }
             }
         ]
@@ -234,6 +239,15 @@ export const Menu = React.forwardRef<HTMLDivElement, MenuProps>(function Menu(pr
 
     const isClosed = !open && exited;
 
+    childrenRef.current.forEach((child, index) => {
+        if (child.props.selected && !child.props.disabled) {
+            activeIndexRef.current = index;
+        }
+    });
+
+    // To accomplish a proper update items.
+    const updatedActiveIndex = activeIndexRef.current;
+
     const items = useMemo(() => {
         if (isClosed) {
             return null;
@@ -251,16 +265,10 @@ export const Menu = React.forwardRef<HTMLDivElement, MenuProps>(function Menu(pr
             }
         };
 
-        childrenRef.current.forEach((child, index) => {
-            if (child.props.selected && !child.props.disabled) {
-                activeIndexRef.current = index;
-            }
-        });
-
         return childrenRef.current.map((child, index) => {
             if (
                 autoFocusItem &&
-                activeIndexRef.current === defaultActiveIndex &&
+                updatedActiveIndex === defaultActiveIndex &&
                 child.props.children &&
                 !child.props.disabled
             ) {
@@ -273,7 +281,7 @@ export const Menu = React.forwardRef<HTMLDivElement, MenuProps>(function Menu(pr
                 onClick: handleItemClick(child, index)
             });
         });
-    }, [isClosed, autoFocusItem, onItemClick]);
+    }, [isClosed, autoFocusItem, updatedActiveIndex, onItemClick]);
 
     if (isClosed) {
         return null;

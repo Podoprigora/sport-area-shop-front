@@ -5,7 +5,7 @@ export interface ListItemIconProps extends React.ComponentPropsWithRef<'div'> {
     /**
      * Normally contains a sole Icon component
      */
-    children?: React.ReactElement;
+    children?: React.ReactElement | null;
     className?: string;
 }
 

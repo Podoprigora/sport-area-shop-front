@@ -14,6 +14,5 @@ export * from './setRef';
 
 export * from './isString';
 export * from './isEmptyString';
-export * from './isEmptyValue';
 export * from './defineEventTarget';
 export * from './shallowDiffers';
