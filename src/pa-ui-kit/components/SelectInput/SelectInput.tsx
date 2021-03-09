@@ -12,7 +12,7 @@ import {
 import { InputIconButton } from '../Input';
 import { KeyboardArrowDownIcon, KeyboardArrowUpIcon, ClearCloseIcon } from '../svg-icons/material';
 
-import { SelectInputMenu } from './SelectInputMenu';
+import { SelectInputMenu, SelectInputMenuProps } from './SelectInputMenu';
 
 type DataItem = string | Record<string, unknown>;
 
@@ -27,6 +27,7 @@ export interface SelectInputProps extends React.ComponentPropsWithRef<'input'> {
     multiline?: boolean;
     resetButton?: boolean;
     menuListMaxHeight?: number;
+    menuOffset?: SelectInputMenuProps['menuOffset'];
     /**
      * Should display empty item to reset.
      */
@@ -83,6 +84,7 @@ export const SelectInput = React.forwardRef<HTMLInputElement, SelectInputProps>(
             resetButton = false,
             style,
             menuListMaxHeight,
+            menuOffset,
             emptyItem = false,
             emptyItemText = 'None',
             emptyItemValue = '',
@@ -141,14 +143,14 @@ export const SelectInput = React.forwardRef<HTMLInputElement, SelectInputProps>(
                     doOpenChange(true);
                 }
 
-                if (!open && onFocus) {
+                if (onFocus) {
                     const focusEvent = ev as React.FocusEvent<HTMLInputElement>;
 
                     defineEventTarget<HTMLInputElement>(focusEvent, { name, value });
                     onFocus(focusEvent);
                 }
             },
-            [setFocused, openOnFocus, open, onFocus, doOpenChange, name, value]
+            [setFocused, openOnFocus, onFocus, doOpenChange, name, value]
         );
 
         const handleBlur = useCallback(
@@ -164,14 +166,14 @@ export const SelectInput = React.forwardRef<HTMLInputElement, SelectInputProps>(
 
                 setFocused(false);
 
-                if (!open && onBlur) {
+                if (onBlur) {
                     const focusEvent = ev as React.FocusEvent<HTMLInputElement>;
 
                     defineEventTarget<HTMLInputElement>(focusEvent, { name, value });
                     onBlur(focusEvent);
                 }
             },
-            [setFocused, open, onBlur, name, value]
+            [setFocused, onBlur, name, value]
         );
 
         const handleMouseDown = useCallback(
@@ -323,6 +325,7 @@ export const SelectInput = React.forwardRef<HTMLInputElement, SelectInputProps>(
                         onClose={handleMenuClose}
                         onItemClick={handleItemClick}
                         menuListMaxHeight={menuListMaxHeight}
+                        menuOffset={menuOffset}
                     />
                 </SelectInputContext.Provider>
             </div>

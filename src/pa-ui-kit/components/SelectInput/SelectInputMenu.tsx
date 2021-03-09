@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 
 import { isEmptyString } from '../utils';
 import { ElementOf } from '../utils/types';
-import { Menu, MenuItem } from '../Menu';
+import { Menu, MenuItem, MenuProps } from '../Menu';
 import { ListItem, ListItemProps, ListItemText } from '../List';
 
 import { useSelectInputContext } from './SelectInput';
@@ -11,6 +11,7 @@ export interface SelectInputMenuProps {
     open?: boolean;
     anchorRef: React.RefObject<HTMLElement>;
     menuListMaxHeight?: number;
+    menuOffset?: MenuProps['offset'];
     onItemClick: (ev: React.SyntheticEvent, value: string) => void;
     onClose: () => void;
 }
@@ -18,7 +19,7 @@ export interface SelectInputMenuProps {
 export type SelectInputMenuItemProps = ListItemProps;
 
 export const SelectInputMenu = (props: SelectInputMenuProps) => {
-    const { open, anchorRef, menuListMaxHeight = 250, onItemClick, onClose } = props;
+    const { open, anchorRef, menuListMaxHeight = 250, menuOffset, onItemClick, onClose } = props;
 
     const {
         data = [],
@@ -89,7 +90,14 @@ export const SelectInputMenu = (props: SelectInputMenuProps) => {
     const listProps = useMemo(() => ({ maxHeight: menuListMaxHeight }), [menuListMaxHeight]);
 
     return (
-        <Menu open={open} anchorRef={anchorRef} onClose={onClose} autoWidth listProps={listProps}>
+        <Menu
+            open={open}
+            anchorRef={anchorRef}
+            onClose={onClose}
+            autoWidth
+            offset={menuOffset}
+            listProps={listProps}
+        >
             {items}
         </Menu>
     );
