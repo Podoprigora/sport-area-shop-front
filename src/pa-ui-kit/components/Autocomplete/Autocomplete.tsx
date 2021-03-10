@@ -19,6 +19,7 @@ type DefaultListProps = {
     placement?: UsePopperProps['placement'];
     maxHeight?: number;
     width?: number;
+    offset?: [number, number];
 };
 
 type ListScrollbarRef = Required<Pick<ListProps, 'scrollbarRef'>>['scrollbarRef'];
@@ -92,6 +93,7 @@ function defaultFilterItems(
 const defaultListProps = {
     maxHeight: 250,
     placement: 'bottom-start',
+    offset: undefined,
     width: undefined
 } as DefaultListProps;
 
@@ -135,7 +137,7 @@ function AutocompleteWithRef<T extends DataItem>(
         ...other
     } = props;
 
-    const { placement: listPlacement, width: listWidth, ...listProps } = {
+    const { placement: listPlacement, width: listWidth, offset: listOffset, ...listProps } = {
         ...defaultListProps,
         ...listPropsProp
     };
@@ -155,8 +157,19 @@ function AutocompleteWithRef<T extends DataItem>(
     const anchorRef = useRef<HTMLDivElement | null>(null);
     const inputRef = useRef<HTMLInputElement | null>(null);
     const handleAnchorRef = useMergedRefs(anchorRef, forwardedRef);
+
     const { referenceRef, popperRef, popperInstance } = usePopper({
-        placement: listPlacement
+        placement: listPlacement,
+        ...(listOffset && {
+            modifiers: [
+                {
+                    name: 'offset',
+                    options: {
+                        offset: listOffset
+                    }
+                }
+            ]
+        })
     });
 
     const inputValueIsSelectedValue = useMemo(() => {
