@@ -30,7 +30,7 @@ const DefaultListItem = (props: SelectInputMenuItemProps) => {
     );
 };
 
-export const Default: Story<SelectInputProps> = (args) => {
+export const Default: Story<SelectInputProps<string>> = (args) => {
     const data = useMemo(() => {
         return Array.from({ length: 25 }, (_, index) => `Item  ${index}`);
     }, []);
@@ -49,11 +49,11 @@ Default.args = {
     openOnFocus: true,
     placeholder: 'Select item',
     emptyItem: true
-} as SelectInputProps;
+} as SelectInputProps<string>;
 
 // FieldControl story
 
-type FieldControlStoryProps = Assign<SelectInputProps, FieldControlProps>;
+type FieldControlStoryProps = Assign<SelectInputProps<string>, FieldControlProps>;
 
 export const FieldControlStory: Story<FieldControlStoryProps> = (args) => {
     const menuOffset = args.variant === 'outlined' ? [0, 4] : undefined;
