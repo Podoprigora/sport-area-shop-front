@@ -1,7 +1,19 @@
 .autocomplete-input {
+	$this: &;
+
 	display: inline-block;
 
 	&--full-width {
 		width: 100%;
+	}
+
+	&:not(#{$this}--full-width) {
+		width: 100%;
+		max-width: $input-default-width;
+
+		.input {
+			width: 100%;
+			max-width: none;
+		}
 	}
 }
