@@ -12,6 +12,7 @@ export * from './createCtx';
 export * from './composeEventHandlers';
 export * from './setRef';
 
+export * from './getTouchPosition';
 export * from './isString';
 export * from './isEmptyString';
 export * from './defineEventTarget';

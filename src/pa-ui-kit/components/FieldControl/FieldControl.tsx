@@ -7,7 +7,9 @@ import { BoxLabel, BoxLabelProps } from '../BoxLabel';
 import { HelperText, HelperTextProps } from '../HelperText';
 import { FieldLabel, FieldLabelProps } from './FieldLabel';
 
-export interface FieldControlProps extends React.ComponentPropsWithRef<'div'> {
+type ExtendedProps = Omit<React.ComponentPropsWithRef<'div'>, 'defaultValue'>;
+
+export interface FieldControlProps extends ExtendedProps {
     /**
      * Should make use for an `focusable` `ElementType` of input component that has `fullWidth`, `error` props.
      * In other case making use the `component` prop.

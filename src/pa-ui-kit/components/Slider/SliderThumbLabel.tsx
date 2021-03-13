@@ -1,10 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const defaultRenderValue = (v) => v;
+export interface SliderThumbLabelProps {
+    children: React.ReactElement;
+    value: number;
+    open?: boolean;
+    disabled?: boolean;
+    renderValue?: (value: number) => React.ReactNode;
+}
 
-const SliderThumbLabel = (props) => {
+const defaultRenderValue = (value: number) => value;
+
+export const SliderThumbLabel = (props: SliderThumbLabelProps) => {
     const { children, value, open, disabled, renderValue = defaultRenderValue } = props;
 
     if (disabled) {
@@ -23,13 +30,3 @@ const SliderThumbLabel = (props) => {
         </div>
     );
 };
-
-SliderThumbLabel.propTypes = {
-    children: PropTypes.node.isRequired,
-    value: PropTypes.number.isRequired,
-    open: PropTypes.bool,
-    disabled: PropTypes.bool,
-    renderValue: PropTypes.func
-};
-
-export default SliderThumbLabel;
