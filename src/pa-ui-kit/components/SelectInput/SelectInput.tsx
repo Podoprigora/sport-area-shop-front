@@ -38,7 +38,7 @@ export interface SelectInputProps<T extends DataItem> extends React.ComponentPro
     renderItem?(item: T, selected: boolean): React.ReactNode;
     getItemText?(item: T): string;
     getItemValue?(item: T, index?: number): string;
-    getItemSelected?(item: T, value?: SelectInputProps<DataItem>['value']): boolean;
+    getItemSelected?(item: T, value: SelectInputProps<DataItem>['value']): boolean;
 }
 
 type SelectInputContextValue = Pick<SelectInputProps<DataItem>, 'data' | 'value' | 'renderItem'> &
@@ -59,7 +59,7 @@ export const useSelectInputContext = SelectInputContext.useContext;
 
 const getDefaultItemValue = (item: DataItem) => (typeof item === 'string' ? item : '');
 const getDefaultItemText = (item: DataItem) => (typeof item === 'string' ? item : '');
-const getDefaultItemSelected = (item: DataItem, value?: SelectInputProps<DataItem>['value']) =>
+const getDefaultItemSelected = (item: DataItem, value: SelectInputProps<DataItem>['value']) =>
     String(item) === String(value);
 
 function SelectInputWithRef<T extends DataItem>(

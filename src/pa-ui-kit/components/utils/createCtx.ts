@@ -1,7 +1,9 @@
 // Source: https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/context/
 import React from 'react';
 
-export function createCtx<T extends Record<string, unknown> | null>() {
+type ExtendedProps = Record<string, unknown> | null;
+
+export function createCtx<T extends ExtendedProps>() {
     const Context = React.createContext<T | undefined>(undefined);
     const Provider = Context.Provider;
 

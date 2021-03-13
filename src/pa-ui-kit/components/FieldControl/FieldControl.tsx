@@ -8,7 +8,15 @@ import { HelperText, HelperTextProps } from '../HelperText';
 import { FieldLabel, FieldLabelProps } from './FieldLabel';
 
 export interface FieldControlProps extends React.ComponentPropsWithRef<'div'> {
-    component: React.ElementType;
+    /**
+     * Should make use for an `focusable` `ElementType` of input component that has `fullWidth`, `error` props.
+     * In other case making use the `component` prop.
+     */
+    inputComponent?: React.ElementType;
+    /**
+     * Contains an `ElementType` of input component.
+     */
+    component?: React.ElementType;
     inputRef?: React.Ref<HTMLInputElement>;
     variant?: 'standard' | 'outlined';
     label?: string;
@@ -29,9 +37,10 @@ export interface FieldControlProps extends React.ComponentPropsWithRef<'div'> {
 }
 
 export const FieldControl = React.forwardRef<HTMLDivElement, FieldControlProps>(
-    function FieldControl(props, forwardedRef) {
+    function FieldControlWithRef(props, forwardedRef) {
         const {
             component: Component,
+            inputComponent: InputComponent,
             variant = 'standard',
             inputRef,
             label,
@@ -75,17 +84,30 @@ export const FieldControl = React.forwardRef<HTMLDivElement, FieldControlProps>(
         const shouldDisplayTextError = hasError && errorVariant !== 'input';
 
         const inputProps = {
-            fullWidth,
             required,
             disabled,
-            focused,
-            error: shouldDisplayInputError,
             onFocus: composeEventHandlers(handleFocus, onFocus),
             onBlur: composeEventHandlers(handleBlur, onBlur),
-            ...other
+            ...other,
+            ref: inputRef
         };
 
-        const inputElement = <Component {...inputProps} ref={inputRef} />;
+        let inputElement: React.ReactElement | undefined;
+
+        if (InputComponent) {
+            const renderInputProps = {
+                fullWidth,
+                focused,
+                error: shouldDisplayInputError,
+                ...inputProps
+            };
+
+            inputElement = <InputComponent {...renderInputProps} />;
+        } else if (Component) {
+            inputElement = <Component {...inputProps} />;
+        }
+
+        inputElement = React.isValidElement(inputElement) ? inputElement : undefined;
 
         const labelElement = useMemo(() => {
             const labelProps = {

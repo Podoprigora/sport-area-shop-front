@@ -89,6 +89,10 @@
 				content: none;
 			}
 		}
+
+		& .radio-group {
+			margin-left: $input-padding-x - .4rem;
+		}
 	}
 
 	&--focused:not(&--error) {

@@ -112,7 +112,7 @@ export const FieldControlStory: Story<FieldControlStoryProps> = (args) => {
 
     return (
         <div className="u-padding-6">
-            <FieldControl {...props} component={Default} />
+            <FieldControl {...props} inputComponent={Default} />
         </div>
     );
 };

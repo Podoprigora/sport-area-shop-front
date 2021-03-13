@@ -43,7 +43,7 @@ export const Default: Story<DefaultProps> = (args) => {
 };
 
 Default.args = {
-    component: Input,
+    inputComponent: Input,
     variant: 'outlined',
     label: 'Test Label',
     labelAlign: 'top',
@@ -78,7 +78,7 @@ export const Default: Story<DefaultProps> = (args) => {
 };
 
 Default.args = {
-    component: Input,
+    inputComponent: Input,
     variant: 'outlined',
     label: 'Test Label',
     labelAlign: 'top',
