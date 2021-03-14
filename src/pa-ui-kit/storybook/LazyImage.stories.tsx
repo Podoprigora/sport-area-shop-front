@@ -17,7 +17,7 @@ interface IImage {
     src: string;
 }
 
-export const Default: Story<LazyImageProps> = (args) => {
+export const Default: Story<LazyImageProps> = () => {
     return (
         <div className="lazy-images">
             {images.map((image: IImage) => {

@@ -1,17 +1,30 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import useEventCallback from '@ui/hooks/useEventCallback';
-import Scrollbar from '@ui/Scrollbar';
-import { useSticky } from './StickyContext';
+import { Scrollbar, ScrollbarProps } from '../Scrollbar';
 
-const defaultStyle = {
+import { useSticky } from './StickyContainer';
+
+export interface StickyItemProps extends React.ComponentPropsWithRef<'div'> {
+    children?: React.ReactNode;
+    /**
+     * If `true` will apply `Scrollbar` component as wrapper component for children.
+     */
+    scrollbar?: boolean;
+    scrollbarProps?: Omit<ScrollbarProps, 'ref'>;
+    minHeight?: number;
+}
+
+const defaultStyle: React.CSSProperties = {
     width: 'inherit',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    height: '100%'
 };
 
-const StickyItem = (props) => {
+export const StickyItem = React.forwardRef<HTMLDivElement, StickyItemProps>(function StickyItem(
+    props,
+    forwardedRef
+) {
     const {
         children,
         style,
@@ -40,19 +53,9 @@ const StickyItem = (props) => {
             })}
             style={mergedStyles}
             {...other}
+            ref={forwardedRef}
         >
             {scrollbar ? <Scrollbar {...scrollbarProps}>{children}</Scrollbar> : children}
         </div>
     );
-};
-
-StickyItem.propTypes = {
-    children: PropTypes.node,
-    style: PropTypes.object,
-    className: PropTypes.string,
-    scrollbar: PropTypes.bool,
-    scrollbarProps: PropTypes.object,
-    minHeight: PropTypes.number
-};
-
-export default StickyItem;
+});

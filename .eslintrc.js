@@ -93,8 +93,9 @@ module.exports = {
         {
             files: ['*.ts', '*.tsx', '*.js', '*.jsx'],
             rules: {
-                '@typescript-eslint/explicit-module-boundary-types': 'off',
-                '@typescript-eslint/no-explicit-any': ['error', { ignoreRestArgs: true }]
+                '@typescript-eslint/explicit-module-boundary-types': 0,
+                '@typescript-eslint/no-explicit-any': ['error', { ignoreRestArgs: true }],
+                '@typescript-eslint/ban-ts-comment': 0
             }
         }
     ]
