@@ -7,8 +7,8 @@
     "serve": "httpster -p 3010 -d ./dist",
     "start": "webpack serve --env DEV",
     "build": "webpack --env PROD",
-    "storybook": "start-storybook -p 1006 --ci",
-    "build-storybook": "build-storybook --docs -o ./dist/storybook"
+    "storybook": "start-storybook -s ./src/pa-ui-kit/storybook/images -p 1006 --ci",
+    "build-storybook": "build-storybook --docs -o ./dist/storybook -s ./src/pa-ui-kit/storybook/images"
   },
   "author": "Alexandr Podoprigora",
   "license": "ISC",

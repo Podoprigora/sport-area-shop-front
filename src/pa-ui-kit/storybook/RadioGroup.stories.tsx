@@ -48,7 +48,7 @@ FieldControlStory.args = {
     variant: 'standard',
     filled: true,
     required: true,
-    disabled: true,
+    disabled: false,
     error: 'Some error',
     touched: false
 } as FieldControlStoryProps;
