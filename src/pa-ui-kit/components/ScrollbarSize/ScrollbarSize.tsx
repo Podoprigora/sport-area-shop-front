@@ -1,8 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
 import throttle from 'lodash/throttle';
 
-const style = {
+const style: React.CSSProperties = {
     position: 'absolute',
     top: '-100000px',
     width: '100px',
@@ -10,20 +9,29 @@ const style = {
     overflow: 'scroll'
 };
 
-const ScrollbarSize = ({ onChange }) => {
-    const node = useRef(null);
-    const scrollbarHeight = useRef(null);
+export interface ScrollbarSizeProps {
+    onChange?(height?: number): void;
+}
+
+export const ScrollbarSize = (props: ScrollbarSizeProps) => {
+    const { onChange } = props;
+
+    const nodeRef = useRef<HTMLDivElement>(null);
+    const scrollbarHeight = useRef<number>();
 
     const setMeasurement = () => {
-        scrollbarHeight.current = node.current.offsetHeight - node.current.clientHeight;
+        if (nodeRef.current) {
+            scrollbarHeight.current = nodeRef.current.offsetHeight - nodeRef.current.clientHeight;
+        }
     };
 
     useEffect(() => {
         const handleResize = throttle(() => {
             const prevHeight = scrollbarHeight.current;
+
             setMeasurement();
 
-            if (prevHeight !== scrollbarHeight.current) {
+            if (prevHeight !== scrollbarHeight.current && onChange) {
                 onChange(scrollbarHeight.current);
             }
         }, 166);
@@ -37,18 +45,11 @@ const ScrollbarSize = ({ onChange }) => {
 
     useEffect(() => {
         setMeasurement();
-        onChange(scrollbarHeight.current);
+
+        if (onChange) {
+            onChange(scrollbarHeight.current);
+        }
     }, [onChange]);
 
-    return <div style={style} ref={node} />;
+    return <div style={style} ref={nodeRef} />;
 };
-
-ScrollbarSize.propTypes = {
-    onChange: PropTypes.func
-};
-
-ScrollbarSize.defaultProps = {
-    onChange: () => {}
-};
-
-export default ScrollbarSize;
