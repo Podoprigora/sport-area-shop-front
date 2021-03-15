@@ -1,15 +1,20 @@
 import React, { memo, useCallback } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import ChevronLeftIcon from '@ui/svg-icons/feather/ChevronLeftIcon';
-import ChevronRightIcon from '@ui/svg-icons/feather/ChevronRightIcon';
+import { ChevronLeftIcon, ChevronRightIcon } from '../svg-icons/feather';
 
-const CarouselControl = (props) => {
+export interface CarouselControlProps {
+    type?: 'next' | 'prev';
+    active?: boolean;
+    disabled?: boolean;
+    onClick?: (ev: React.MouseEvent<HTMLButtonElement>) => void;
+}
+
+const CarouselControlInner = (props: CarouselControlProps) => {
     const { type = 'next', active = false, disabled, onClick } = props;
 
     const handleClick = useCallback(
-        (ev) => {
+        (ev: React.MouseEvent<HTMLButtonElement>) => {
             if (active && !disabled && onClick) {
                 onClick(ev);
             }
@@ -37,11 +42,4 @@ const CarouselControl = (props) => {
     );
 };
 
-CarouselControl.propTypes = {
-    type: PropTypes.oneOf(['next', 'prev']),
-    active: PropTypes.bool,
-    disabled: PropTypes.bool,
-    onClick: PropTypes.func
-};
-
-export default memo(CarouselControl);
+export const CarouselControl = memo(CarouselControlInner);

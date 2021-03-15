@@ -1,14 +1,19 @@
 import React, { memo } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const CarouselIndicators = (props) => {
+export interface CarouselIndicatorsProps {
+    size?: number;
+    activeIndex?: number;
+    onSelect: (ev: React.MouseEvent<HTMLButtonElement>, index: number) => void;
+}
+
+const CarouselIndicatorsInner = (props: CarouselIndicatorsProps) => {
     const { size = 0, activeIndex = 0, onSelect } = props;
 
-    const items = [...Array(size)];
+    const items = Array.from({ length: size });
 
-    const indicators = items.map((item, index) => {
-        const handleClick = (ev) => {
+    const indicators = items.map((_, index) => {
+        const handleClick = (ev: React.MouseEvent<HTMLButtonElement>) => {
             if (onSelect) {
                 onSelect(ev, index);
             }
@@ -35,10 +40,4 @@ const CarouselIndicators = (props) => {
     return <ul className="carousel__indicators">{indicators}</ul>;
 };
 
-CarouselIndicators.propTypes = {
-    size: PropTypes.number,
-    activeIndex: PropTypes.number,
-    onSelect: PropTypes.func
-};
-
-export default memo(CarouselIndicators);
+export const CarouselIndicators = memo(CarouselIndicatorsInner);
