@@ -8,7 +8,7 @@ export interface LazyImageProps extends React.ComponentPropsWithRef<'img'> {
     containerProps?: React.ComponentPropsWithoutRef<'div'>;
 }
 
-const supportedIntersectionObserver = !!(window as typeof globalThis).IntersectionObserver;
+const supportedIntersectionObserver = !!window.IntersectionObserver;
 
 export const LazyImage = React.forwardRef<HTMLImageElement, LazyImageProps>(function LazyImage(
     props,
