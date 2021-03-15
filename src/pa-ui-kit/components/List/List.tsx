@@ -1,9 +1,8 @@
 import React, { useCallback } from 'react';
 import classNames from 'classnames';
-import Scrollbars from 'react-custom-scrollbars';
 
 import { useControlled } from '../utils';
-import { Scrollbar, ScrollbarProps } from '../Scrollbar';
+import { Scrollbar, ScrollbarProps, ScrollbarRef } from '../Scrollbar';
 import { ListItemToggle, ListItemToggleProps } from './ListItemToggle';
 
 export interface ListProps extends React.ComponentPropsWithRef<'div'> {
@@ -25,7 +24,7 @@ export interface ListProps extends React.ComponentPropsWithRef<'div'> {
     expanded?: boolean;
     defaultExpanded?: boolean;
     scrollbarProps?: ScrollbarProps;
-    scrollbarRef?: React.Ref<Scrollbars>;
+    scrollbarRef?: React.Ref<ScrollbarRef>;
     renderItemToggle?: React.FunctionComponent<ListItemToggleProps>;
     onToggle?: React.ReactEventHandler;
 }

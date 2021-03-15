@@ -10,6 +10,10 @@ export interface ScrollbarProps extends CustomScrollbarProps {
     enableHorizontalTrack?: boolean;
 }
 
+export interface ScrollbarRef extends Scrollbars {
+    view: HTMLElement;
+}
+
 export const Scrollbar = React.forwardRef<Scrollbars, ScrollbarProps>(function Scrollbar(
     props,
     forwardedRef

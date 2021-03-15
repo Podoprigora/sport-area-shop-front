@@ -1,0 +1,16 @@
+.scrolling-carousel {
+	&__item {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: #1ea7fd;
+		color: #fff;
+		margin: 4px;
+		width: 10rem;
+		height: 12rem;
+
+		&:not(:first-child) {
+			margin-left: 0;
+		}
+	}
+}

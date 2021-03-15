@@ -1,5 +1,4 @@
 import React, { useState, memo, useRef, useCallback, useMemo } from 'react';
-import Scrollbars from 'react-custom-scrollbars';
 import {
     FixedSizeList as VirtulizedFizedSizeList,
     ListChildComponentProps as VirtualizedListChildComponentProps,
@@ -19,7 +18,7 @@ import {
     ListItemProps,
     ListSubheader
 } from '../components/List';
-import { Scrollbar } from '../components/Scrollbar';
+import { Scrollbar, ScrollbarRef } from '../components/Scrollbar';
 import { Checkbox } from '../components/Checkbox';
 import { Badge } from '../components/Badge';
 import { IconButton } from '../components/IconButton';
@@ -244,7 +243,7 @@ export const VirtualizedList: Story<ListProps> = (args) => {
     const [checked, setChecked] = useState<number[]>([]);
     const forceUpdate = useForceUpdate();
     const listRef = useRef<VirtulizedFizedSizeList>(null);
-    const scrollbarRef = useRef<Scrollbars>(null);
+    const scrollbarRef = useRef<ScrollbarRef>(null);
 
     const handleScroll = useCallback((ev: React.SyntheticEvent<HTMLElement>) => {
         const target = ev.target as HTMLElement;
