@@ -37,14 +37,17 @@ const AlertFallback = ({ error }: { error?: Error }) => {
 };
 
 export const Default: Story<ErrorBoundaryProps> = () => {
-    const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
     const throwAsyncError = useAsyncError();
     const mountedRef = useMountedRef();
 
     const handleThrowErrorClick = useCallback(() => {
-        setError(true);
-    }, []);
+        throwAsyncError(
+            Error(
+                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam dolorum non nesciunt voluptatem perferendis beatae fuga nobis voluptas! Debitis, accusantium non neque vitae facilis nihil ullam quas quae sit possimus?'
+            )
+        );
+    }, [throwAsyncError]);
 
     const handleThrowAsyncErrorClick = useCallback(async () => {
         try {
@@ -62,12 +65,6 @@ export const Default: Story<ErrorBoundaryProps> = () => {
             }
         }
     }, [mountedRef, throwAsyncError]);
-
-    if (error) {
-        throw new Error(
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam dolorum non nesciunt voluptatem perferendis beatae fuga nobis voluptas! Debitis, accusantium non neque vitae facilis nihil ullam quas quae sit possimus?'
-        );
-    }
 
     return (
         <FlexRow spacing={4}>
