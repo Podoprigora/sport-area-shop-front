@@ -103,6 +103,7 @@
 		& > * {
 			padding-right: $spacing-scale-6;
 			padding-bottom: $spacing-scale-6;
+			padding-left: 0;
 		}
 
 		& > :not(.u-flex-col, .u-flex-col-auto) {
@@ -110,37 +111,6 @@
 			margin-bottom: $spacing-scale-6;
 		}
 	}
-
-	// &__actions {
-	// 	display: flex;
-	// 	flex-flow: row nowrap;
-	// 	align-items: center;
-	// 	padding: $spacing-scale-6;
-
-	// 	&--justify-start {
-	// 		justify-content: flex-start;
-	// 	}
-
-	// 	&--justify-end {
-	// 		justify-content: flex-end;
-	// 	}
-
-	// 	&--justify-center {
-	// 		justify-content: center;
-	// 	}
-
-	// 	&--justify-stretch {
-	// 		justify-content: stretch;
-
-	// 		& > * {
-	// 			flex: 1;
-	// 		}
-	// 	}
-
-	// 	& > *:not(:first-child) {
-	// 		margin-left: $spacing-scale-6;
-	// 	}
-	// }
 
 	&-appear {
 		transform: translate3d(0, -5rem, 0) !important;

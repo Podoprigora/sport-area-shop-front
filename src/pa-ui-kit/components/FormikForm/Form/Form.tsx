@@ -1,12 +1,19 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Form as FormikForm } from 'formik';
+import { Form as FormikForm, FormikFormProps } from 'formik';
 import classNames from 'classnames';
 
-const Form = React.forwardRef(function Form(props, ref) {
+export interface FormProps extends FormikFormProps {
+    centered?: boolean;
+    maxWidth?: number;
+}
+
+export const Form = React.forwardRef<HTMLFormElement, FormProps>(function Form(
+    props,
+    forwardedRef
+) {
     const { className, centered, maxWidth, style, ...other } = props;
 
-    const componentStyle = {
+    const componentStyle: React.CSSProperties = {
         ...(maxWidth && { width: '100%', maxWidth }),
         ...style
     };
@@ -18,16 +25,7 @@ const Form = React.forwardRef(function Form(props, ref) {
             })}
             style={componentStyle}
             {...other}
-            ref={ref}
+            ref={forwardedRef}
         />
     );
 });
-
-Form.propTypes = {
-    className: PropTypes.string,
-    maxWidth: PropTypes.number,
-    centered: PropTypes.bool,
-    style: PropTypes.object
-};
-
-export default Form;

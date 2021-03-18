@@ -1,0 +1,9 @@
+.actions-bar {
+	& > * {
+		padding-left: $spacing-scale-6;
+
+		&:first-child {
+			padding-left: 0;
+		}
+	}
+}

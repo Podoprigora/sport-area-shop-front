@@ -46,10 +46,6 @@
 					transition: opacity .1s ease-out .1s;
 				}
 			}
-
-			& > :nth-child(2) {
-				padding: 0 $input-padding-x - .2rem;
-			}
 		}
 
 		&#{$this}--full-width {

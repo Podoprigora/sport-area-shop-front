@@ -4,7 +4,13 @@ import classNames from 'classnames';
 import throttle from 'lodash/throttle';
 
 import { usePopper, UsePopperProps } from '../Popper';
-import { useMergedRefs, useEventCallback, defineEventTarget, useControlled } from '../utils';
+import {
+    useMergedRefs,
+    useEventCallback,
+    defineEventTarget,
+    useControlled,
+    isEmptyString
+} from '../utils';
 import { Portal } from '../Portal';
 import { ClickAwayListener } from '../ClickAwayListener';
 import { List, ListItem, ListItemText, ListProps } from '../List';
@@ -13,7 +19,7 @@ import { InputIconButton, InputProps } from '../Input';
 import { CircularProgress } from '../CircularProgress';
 import { KeyboardArrowUpIcon, KeyboardArrowDownIcon, ClearCloseIcon } from '../svg-icons/material';
 
-type DataItem = string | Record<string, unknown> | undefined | null;
+export type DataItem = string | Record<string, unknown> | undefined | null;
 
 type DefaultListProps = {
     placement?: UsePopperProps['placement'];
@@ -543,7 +549,8 @@ function AutocompleteWithRef<T extends DataItem>(
         return null;
     }
 
-    const inputElement = React.cloneElement(renderInput(), {
+    const inputRenderElement = renderInput();
+    const inputElement = React.cloneElement(inputRenderElement, {
         ...other,
         value: inputValue,
         defaultValue,
@@ -555,11 +562,13 @@ function AutocompleteWithRef<T extends DataItem>(
         onFocus: handleInputFocus,
         onBlur: handleInputBlur,
         ...((resetButton || openButton || loading) && {
-            appendAdornment: () => {
+            appendAdornment: (inputProps: InputProps) => {
+                const appendAdornmentElement = inputRenderElement.props.appendAdornment;
+
                 return (
                     <>
                         {loading && <CircularProgress size="small" />}
-                        {resetButton && !loading && inputValue && inputValue.length > 0 && (
+                        {resetButton && !loading && !isEmptyString(inputValue) && (
                             <InputIconButton tabIndex={-1} onClick={handleResetButtonClick}>
                                 <ClearCloseIcon />
                             </InputIconButton>
@@ -573,6 +582,10 @@ function AutocompleteWithRef<T extends DataItem>(
                                 )}
                             </InputIconButton>
                         )}
+                        {!openButton &&
+                            !loading &&
+                            appendAdornmentElement &&
+                            appendAdornmentElement(inputProps)}
                     </>
                 );
             }

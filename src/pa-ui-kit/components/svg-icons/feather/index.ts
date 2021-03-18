@@ -9,6 +9,8 @@ export * from './ChevronLeftIcon';
 export * from './ChevronRightIcon';
 export * from './CheckCircleIcon';
 export * from './EditIcon';
+export * from './EyeIcon';
+export * from './EyeOffIcon';
 export * from './ShoppingBagIcon';
 export * from './InfoIcon';
 export * from './SquareIcon';

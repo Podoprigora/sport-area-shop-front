@@ -14,7 +14,7 @@ import { KeyboardArrowDownIcon, KeyboardArrowUpIcon, ClearCloseIcon } from '../s
 
 import { SelectInputMenu, SelectInputMenuProps } from './SelectInputMenu';
 
-type DataItem = string | Record<string, unknown>;
+export type DataItem = string | Record<string, unknown>;
 
 export interface SelectInputProps<T extends DataItem> extends React.ComponentPropsWithRef<'input'> {
     data?: T[];

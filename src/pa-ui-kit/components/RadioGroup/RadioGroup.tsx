@@ -84,7 +84,7 @@ export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(func
             onBlur: handleBlur,
             onFocus: handleFocus
         }),
-        [value, name, disabled, readOnly, required, handleBlur, handleFocus, handleChange]
+        [value, name, readOnly, required, disabled, handleChange, handleBlur, handleFocus]
     );
 
     const items = React.Children.map(children, (child, index) => {

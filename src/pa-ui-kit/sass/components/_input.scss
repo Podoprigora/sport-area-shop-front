@@ -56,9 +56,14 @@
 		&--end {
 			margin-right: $input-padding-x;
 
-			& > *:not(:last-of-type) {
+			// Reset marging
+			& > * {
 				margin: 0;
 				margin-right: $input-padding-x;
+
+				&:last-child {
+					margin: 0;
+				}
 			}
 		}
 	}
@@ -88,12 +93,6 @@
 		&::after {
 			background-color: $color-red;
 			transform: scale3d(1, 1, 1);
-		}
-	}
-
-	&__btn-icon {
-		&:last-of-type {
-			margin: 0;
 		}
 	}
 }
