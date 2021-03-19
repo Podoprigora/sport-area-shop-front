@@ -5,11 +5,9 @@ export function useUrlSearchParams<T extends Record<string, unknown>>(urlParamsS
         if (urlParamsString) {
             const searchQuery = new URLSearchParams(urlParamsString);
 
-            return Array.from(searchQuery.entries()).reduce((result: T, param) => {
-                return { ...result, [param[0]]: param[1] };
-            }, {} as T);
+            return Object.fromEntries(searchQuery.entries()) as T;
         }
 
-        return null;
+        return undefined;
     }, [urlParamsString]);
 }

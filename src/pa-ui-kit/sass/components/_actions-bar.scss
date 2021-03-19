@@ -1,9 +1,15 @@
 .actions-bar {
-	& > * {
-		padding-left: $spacing-scale-6;
+	display: flex;
+	column-gap: $spacing-scale-6;
+	row-gap: $spacing-scale-6;
 
-		&:first-child {
-			padding-left: 0;
+	@supports not (column-gap: 1px) {
+		& > * {
+			padding-left: $spacing-scale-6;
+
+			&:first-child {
+				padding-left: 0;
+			}
 		}
 	}
 }
