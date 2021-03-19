@@ -10,6 +10,7 @@ export * from './useForceUpdate';
 export * from './useEventListener';
 export * from './usePrevious';
 export * from './useAsyncRequest';
+export * from './useUrlSearchParams';
 export * from './createCtx';
 export * from './composeEventHandlers';
 export * from './setRef';
