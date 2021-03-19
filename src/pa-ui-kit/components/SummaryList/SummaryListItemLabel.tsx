@@ -1,8 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const SummaryListItemLabel = (props) => {
+export type SummaryListItemLabelProps = React.ComponentPropsWithoutRef<'div'>;
+
+export const SummaryListItemLabel = (props: SummaryListItemLabelProps) => {
     const { children, className, ...other } = props;
 
     return (
@@ -11,10 +12,3 @@ const SummaryListItemLabel = (props) => {
         </div>
     );
 };
-
-SummaryListItemLabel.propTypes = {
-    children: PropTypes.node,
-    className: PropTypes.string
-};
-
-export default SummaryListItemLabel;
