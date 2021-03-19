@@ -11,7 +11,7 @@ export type AutocompleteFieldProps<T extends DataItem> = Assign<
     Omit<FieldControlProps, 'ref'>
 > & {
     name: string;
-    inputName: string;
+    inputName?: string;
 };
 
 function AutocompleteFieldWithRef<T extends DataItem>(
@@ -19,10 +19,17 @@ function AutocompleteFieldWithRef<T extends DataItem>(
     forwardedRef: React.Ref<HTMLDivElement>
 ) {
     const { name, inputName, onChange, onInputChange, ...other } = props;
-    const { setFieldValue, getFieldProps } = useFormikContext();
-    const { value: inputValue } = getFieldProps(inputName);
-    const [field, meta, helpers] = useField(props);
+    const { setFieldValue, getFieldMeta } = useFormikContext();
+    const [field, meta, helpers] = useField<typeof props.value>(props);
     const { error, touched } = meta;
+
+    let inputValue: typeof props.inputValue;
+
+    if (inputName) {
+        const inputFieldMeta = getFieldMeta<typeof inputValue>(inputName);
+
+        inputValue = inputFieldMeta.value;
+    }
 
     const handleInputChange = useEventCallback((ev: React.ChangeEvent<HTMLInputElement>) => {
         if (inputName) {
