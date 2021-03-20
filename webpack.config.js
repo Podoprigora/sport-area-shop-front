@@ -22,12 +22,12 @@ module.exports = (env = {}) => {
                       })
                   ]
                 : []),
-            new ForkTsCheckerWebpackPlugin({
-                async: false,
-                eslint: {
-                    files: './src/**/*.{ts,tsx}'
-                }
-            }),
+            // new ForkTsCheckerWebpackPlugin({
+            //     async: false,
+            //     eslint: {
+            //         files: './src/**/*.{ts,tsx}'
+            //     }
+            // }),
             new MiniCssExtractPlugin({
                 filename: devMode ? '[name].css' : 'resources/[name]-[contenthash].css',
                 chunkFilename: devMode ? '[name].css' : 'resources/[name]-[contenthash].css'

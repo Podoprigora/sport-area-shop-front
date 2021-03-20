@@ -1,13 +1,12 @@
 import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
 
-import Panel, { PanelHeader, PanelBody } from '@ui/Panel';
-import FileTextIcon from '@ui/svg-icons/feather/FileTextIcon';
+import { Panel, PanelHeader, PanelBody } from '@ui/Panel';
+import { FileTextIcon } from '@ui/svg-icons/feather';
 
 import { useProductPageState } from '@pages/ProductPage/context';
 import ProductFeatureList from './ProductFeatureList';
 
-const ProductFeatures = (props) => {
+const ProductFeatures = () => {
     const { features } = useProductPageState();
 
     return useMemo(() => {

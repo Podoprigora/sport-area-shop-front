@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import useEventCallback from '@ui/hooks/useEventCallback';
-import Window, { WindowHeader, WindowBody, WindowTitle } from '@ui/Window';
-import IconButton from '@ui/IconButton';
-import ChevronLeftIcon from '@ui/svg-icons/feather/ChevronLeftIcon';
-import ClearCloseIcon from '@ui/svg-icons/material/ClearCloseIcon';
+import { useEventCallback } from '@ui/utils';
+import { Window, WindowHeader, WindowBody, WindowTitle } from '@ui/Window';
+import { IconButton } from '@ui/IconButton';
+import { ChevronLeftIcon } from '@ui/svg-icons/feather';
+import { ClearCloseIcon } from '@ui/svg-icons/material';
 
 const MobileCategoryMenuWindow = (props) => {
     const { open, children, onClose, onBack } = props;

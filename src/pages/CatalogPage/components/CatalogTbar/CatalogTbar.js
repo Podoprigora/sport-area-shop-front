@@ -1,11 +1,10 @@
 import React, { useCallback, memo } from 'react';
-import PropTypes from 'prop-types';
 
-import useEventCallback from '@ui/hooks/useEventCallback';
+import { useEventCallback } from '@ui/utils';
 import { useWindowManager } from '@ui/WindowManager';
-import Hidden from '@ui/Hidden';
-import Button from '@ui/Button';
-import FilterIcon from '@ui/svg-icons/feather/FilterIcon';
+import { Hidden } from '@ui/Hidden';
+import { Button } from '@ui/Button';
+import { FilterIcon } from '@ui/svg-icons/feather';
 import {
     useCatalogPageState,
     useCatalogPageSelectors,
@@ -13,7 +12,7 @@ import {
 } from '@pages/CatalogPage/context';
 import CatalogSortByDropdown from './CatalogSortByDropdown';
 
-const CatalogTbar = (props) => {
+const CatalogTbar = () => {
     const state = useCatalogPageState();
     const { sortBy } = useCatalogPageSelectors(state);
     const { changeSort } = useCatalogPageActions();

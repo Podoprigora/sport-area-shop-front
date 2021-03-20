@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Tooltip from '@ui/Tooltip';
-import IconButton from '@ui/IconButton';
-import ThumbDownIcon from '@ui/svg-icons/material/ThumbDownIcon';
+
+import { Tooltip } from '@ui/Tooltip';
+import { IconButton } from '@ui/IconButton';
+import { ThumbDownIcon } from '@ui/svg-icons/material';
 
 const CommentDislikeControl = (props) => {
     const { selected } = props;

@@ -2,7 +2,7 @@ import { useCallback, useMemo } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import useEventCallback from '@ui/hooks/useEventCallback';
+import { useEventCallback } from '@ui/utils';
 import CategoriesService from '@services/CategoriesService';
 import {
     categoriesStateSelector,

@@ -1,6 +1,7 @@
 import React, { memo, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import Pagination from '@ui/Pagination';
+
+import { Pagination } from '@ui/Pagination';
 
 const defaultSelected = [1];
 

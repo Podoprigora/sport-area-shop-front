@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Alert, { AlertActions, AlertTitle } from '@ui/Alert';
-import Button from '@ui/Button';
-import useEventCallback from '@ui/hooks/useEventCallback';
+import { Alert, AlertActions, AlertTitle } from '@ui/Alert';
+import { Button } from '@ui/Button';
+import { useEventCallback } from '@ui/utils';
 
 const defaultTitle = 'We could not fetch data!';
 

@@ -1,7 +1,6 @@
-import React, { useEffect, useCallback, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
-import useEventCallback from '@ui/hooks/useEventCallback';
+import { useEventCallback } from '@ui/utils';
 
 import {
     useCatalogPageState,
@@ -12,7 +11,7 @@ import {
 import CatalogFiltersSkeleton from './CatalogFiltersSkeleton';
 import getCatalogFiltersComponentById from './getCatalogFiltersComponentById';
 
-const CatalogFilters = (props) => {
+const CatalogFilters = () => {
     const catalogPageState = useCatalogPageState();
     const { initialLoading, filtersItems, getSelectedFiltersById } = useCatalogPageSelectors(
         catalogPageState
@@ -45,10 +44,6 @@ const CatalogFilters = (props) => {
             {initialLoading ? <CatalogFiltersSkeleton /> : items}
         </div>
     );
-};
-
-CatalogFilters.propTypes = {
-    style: PropTypes.object
 };
 
 export default CatalogFilters;

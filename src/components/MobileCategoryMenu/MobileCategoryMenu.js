@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import { TransitionGroup } from 'react-transition-group';
 
-import useEventCallback from '@ui/hooks/useEventCallback';
+import { useEventCallback } from '@ui/utils';
 import MobileCategoryMenuWindow from './MobileCategoryMenuWindow';
 import MobileCategoryMenuCard from './MobileCategoryMenuCard';
 import { MobileCategoryMenuContext } from './MobileCategoryMenuContext';

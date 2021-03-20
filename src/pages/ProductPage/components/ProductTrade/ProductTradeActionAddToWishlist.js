@@ -1,20 +1,19 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import PropTypes from 'prop-types';
-
-import IconButton from '@ui/IconButton';
-import Tooltip from '@ui/Tooltip';
-import { makeIsProductAddedToWishlistSelector, useWishlistActions } from '@store/wishlist';
 import { useSelector } from 'react-redux';
-import { authSelector } from '@store/identity';
-import { useProductPageState } from '@pages/ProductPage/context';
-import FavoriteOutlineIcon from '@ui/svg-icons/material/FavoriteOutlineIcon';
-import CircularProgress from '@ui/CircularProgress';
-import useMountedRef from '@ui/hooks/useMountedRef';
-import FavoriteIcon from '@ui/svg-icons/material/FavoriteIcon';
-import { useWindowManager } from '@ui/WindowManager';
-import useNotification from '@ui/Notification';
 
-const ProductTradeActionAddToWishlist = (props) => {
+import { useMountedRef } from '@ui/utils';
+import { IconButton } from '@ui/IconButton';
+import { Tooltip } from '@ui/Tooltip';
+import { CircularProgress } from '@ui/CircularProgress';
+import { useWindowManager } from '@ui/WindowManager';
+import { useNotification } from '@ui/Notification';
+import { FavoriteOutlineIcon, FavoriteIcon } from '@ui/svg-icons/material';
+
+import { useProductPageState } from '@pages/ProductPage/context';
+import { makeIsProductAddedToWishlistSelector, useWishlistActions } from '@store/wishlist';
+import { authSelector } from '@store/identity';
+
+const ProductTradeActionAddToWishlist = () => {
     const [pending, setPending] = useState(false);
     const isMountedRef = useMountedRef();
 

@@ -1,12 +1,12 @@
-import React, { useCallback, memo, useRef, useState, useEffect } from 'react';
+import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import Window, { WindowHeader, WindowTitle, WindowBody, WindowActions } from '@ui/Window';
-import IconButton from '@ui/IconButton';
-import ChevronLeftIcon from '@ui/svg-icons/feather/ChevronLeftIcon';
-import ClearCloseIcon from '@ui/svg-icons/material/ClearCloseIcon';
-import Button from '@ui/Button';
-import useEventCallback from '@ui/hooks/useEventCallback';
+import { useEventCallback } from '@ui/utils';
+import { Window, WindowHeader, WindowTitle, WindowBody, WindowActions } from '@ui/Window';
+import { IconButton } from '@ui/IconButton';
+import { Button } from '@ui/Button';
+import { ChevronLeftIcon } from '@ui/svg-icons/feather';
+import { ClearCloseIcon } from '@ui/svg-icons/material';
 
 const CatalogFiltersMobileWindow = (props) => {
     const {

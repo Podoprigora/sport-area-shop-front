@@ -2,10 +2,10 @@ import React, { memo, useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
+import { useNotification } from '@ui/Notification';
+import { useWindowManager } from '@ui/WindowManager';
 import { useWishlistActions, makeIsProductAddedToWishlistSelector } from '@store/wishlist';
 import { authSelector } from '@store/identity';
-import { useWindowManager } from '@ui/WindowManager';
-import useNotification from '@ui/Notification';
 import ProductActionAddToWishlistView from './ProductActionAddToWishlistView';
 
 const ProductActionAddToWishlist = (props) => {

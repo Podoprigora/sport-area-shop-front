@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 
 import { Formik } from 'formik';
-import Form from '@ui/FormikForm/Form';
-import RatingField from '@ui/FormikForm/RatingField';
-import InputField from '@ui/FormikForm/InputField';
-import FormRow from '@ui/FormikForm/FormRow';
-import useForkRef from '@ui/hooks/useForkRef';
-import useEventCallback from '@ui/hooks/useEventCallback';
+import { Form } from '@ui/FormikForm/Form';
+import { RatingField } from '@ui/FormikForm/RatingField';
+import { InputField } from '@ui/FormikForm/InputField';
+import { FormRow } from '@ui/FormikForm/FormRow';
+import { useEventCallback } from '@ui/utils';
 
 const initialValues = {
     rating: '',

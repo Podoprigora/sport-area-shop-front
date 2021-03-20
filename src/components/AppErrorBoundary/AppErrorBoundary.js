@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ErrorBoundary from '@ui/ErrorBoundary';
+import { ErrorBoundary } from '@ui/ErrorBoundary';
 import AppErrorBoundaryAlert from './AppErrorBoundaryAlert';
 
 const AppErrorBoundary = (props) => {

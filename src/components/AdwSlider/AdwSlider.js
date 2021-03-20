@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
-import Carousel from '@ui/Carousel';
+
+import { Carousel } from '@ui/Carousel';
 import AdwSliderSkeleton from '../Skeletons/AdwSliderSkeleton';
 
 const AdwSlider = ({ data, className, loading }) => {

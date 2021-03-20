@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import ProductSkeleton from './ProductSkeleton';
 
 const CatalogGridItemsSkeleton = (props) => {

@@ -1,7 +1,8 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
-import CellList from '@ui/CellList';
+import { CellList } from '@ui/CellList';
+
 import ProductTradeSizeItem from './ProductTradeSizeItem';
 
 const ProductTradeSizesList = (props) => {

@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import WindowManagerProvider from '@ui/WindowManager';
+
+import { WindowManagerProvider } from '@ui/WindowManager';
 import { NotificationProvider } from '@ui/Notification';
+
 import { ScreenMaskProvider } from './ScreenMaskContext';
 
 const AppContext = (props) => {

@@ -1,11 +1,10 @@
 import React, { memo } from 'react';
-import PropTypes from 'prop-types';
 
+import { Mask, MaskProgress } from '@ui/Mask';
+import { LinearProgress } from '@ui/LinearProgress';
 import useScreenMask from '@contexts/ScreenMaskContext';
-import Mask, { MaskProgress } from '@ui/Mask';
-import LinearProgress from '@ui/LinearProgress';
 
-const ScreenMask = (props) => {
+const ScreenMask = () => {
     const { isMaskShown } = useScreenMask();
 
     return (

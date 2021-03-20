@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useLayoutEffect, useCallback, useRef } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import debounce from 'lodash/debounce';
-import Skeleton from '@ui/Skeleton';
-import Panel from '@ui/Panel';
-import PanelHeader from '@ui/Panel/PanelHeader';
-import PanelBody from '@ui/Panel/PanelBody';
+
+import { Skeleton } from '@ui/Skeleton';
+import { Panel, PanelHeader, PanelBody } from '@ui/Panel';
+
 import ProductSkeleton from './ProductSkeleton';
 
-const ProductsCarouselSkeleton = (props) => {
+const ProductsCarouselSkeleton = () => {
     const [itemsLength, setItemLength] = useState(0);
     const containerRef = useRef(null);
     const itemRef = useRef(null);

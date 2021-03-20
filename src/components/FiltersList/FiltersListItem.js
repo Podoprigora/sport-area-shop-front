@@ -1,9 +1,9 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import { ListItem, ListItemAction, ListItemText } from '@ui/List';
-import Checkbox from '@ui/Checkbox';
-import useEventCallback from '@ui/hooks/useEventCallback';
+import { Checkbox } from '@ui/Checkbox';
+import { useEventCallback } from '@ui/utils';
 
 const FiltersListItem = (props) => {
     const { id, title, selected, onClick } = props;

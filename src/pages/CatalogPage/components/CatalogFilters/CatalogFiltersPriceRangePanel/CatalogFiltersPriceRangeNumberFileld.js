@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import NumberInput from '@ui/NumberInput';
-import FieldControl from '@ui/FieldControl';
+import { NumberInput } from '@ui/NumberInput';
+import { FieldControl } from '@ui/FieldControl';
 
 const CatalogFiltersPriceRangeNumberFileld = (props) => {
     const { error, ...other } = props;
@@ -11,13 +11,13 @@ const CatalogFiltersPriceRangeNumberFileld = (props) => {
 
     return (
         <FieldControl
-            component={NumberInput}
+            {...other}
+            inputComponent={NumberInput}
             error={errorText}
             errorVariant="input"
             touched
             simple
             fullWidth
-            {...other}
         />
     );
 };

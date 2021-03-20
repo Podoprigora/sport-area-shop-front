@@ -2,9 +2,9 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { useProductPageState } from '@pages/ProductPage/context';
 import Format from '@utils/Format';
 import Calc from '@utils/Calc';
+import { useProductPageState } from '@pages/ProductPage/context';
 
 const ProductTradePrice = (props) => {
     const { className } = props;

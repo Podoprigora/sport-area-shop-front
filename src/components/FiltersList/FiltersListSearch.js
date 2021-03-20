@@ -1,8 +1,8 @@
 import React, { useState, useCallback, memo } from 'react';
 import PropTypes from 'prop-types';
 
-import Input, { InputIconButton } from '@ui/Input';
-import ClearCloseIcon from '@ui/svg-icons/material/ClearCloseIcon';
+import { Input, InputIconButton } from '@ui/Input';
+import { ClearCloseIcon } from '@ui/svg-icons/material';
 
 const CatalogFiltersBrandsSearch = (props) => {
     const { onChange } = props;

@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import Rating from '@ui/Rating';
-import MessageSquareIcon from '@ui/svg-icons/feather/MessageSquareIcon';
+import { Rating } from '@ui/Rating';
+import { MessageSquareIcon } from '@ui/svg-icons/feather';
 
 const ProductStat = (props) => {
     const { rating, comments, size = 'small', className } = props;

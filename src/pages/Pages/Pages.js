@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import useNotification from '@ui/Notification';
-import useMountedRef from '@ui/hooks/useMountedRef';
+import { useMountedRef } from '@ui/utils';
+import { useNotification } from '@ui/Notification';
+
 import { useCategoriesActions } from '@store/categories';
 import { authSelector, useIdentityActions } from '@store/identity';
 import { useWishlistActions } from '@store/wishlist';

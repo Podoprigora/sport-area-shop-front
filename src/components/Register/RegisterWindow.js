@@ -1,18 +1,13 @@
-import React, { useCallback, useMemo, memo, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useCallback, memo, useState } from 'react';
 
-import useMediaQuery from '@ui/hooks/useMediaQuery';
-import useMountedRef from '@ui/hooks/useMountedRef';
-import Window, { WindowLoadingMask } from '@ui/Window';
-import WindowHeader from '@ui/Window/WindowHeader';
-import WindowBody from '@ui/Window/WindowBody';
+import { useMountedRef, useMediaQuery, useEventCallback } from '@ui/utils';
+import { Window, WindowBody, WindowHeader, WindowLoadingMask } from '@ui/Window';
 import { useWindowManager } from '@ui/WindowManager';
-import useEventCallback from '@ui/hooks/useEventCallback';
 
 import UserService from '@services/UserService';
 import RegisterForm from './RegisterForm';
 
-const RegisterWindow = (props) => {
+const RegisterWindow = () => {
     const [mask, setMask] = useState(false);
 
     const isMountedRef = useMountedRef();

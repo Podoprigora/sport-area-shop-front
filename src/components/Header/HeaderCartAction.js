@@ -1,16 +1,14 @@
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 
-import IconButton from '@ui/IconButton';
-import ShoppingCartIcon from '@ui/svg-icons/feather/ShoppingCartIcon';
-import useEventCallback from '@ui/hooks/useEventCallback';
-import { numOfCartItemsSelector } from '@store/cart';
-import Badge from '@ui/Badge';
-import Tooltip from '@ui/Tooltip';
+import { IconButton } from '@ui/IconButton';
+import { ShoppingCartIcon } from '@ui/svg-icons/feather';
+import { useEventCallback } from '@ui/utils';
+import { Badge } from '@ui/Badge';
 import { useWindowManager } from '@ui/WindowManager';
+import { numOfCartItemsSelector } from '@store/cart';
 
-const HeaderCartAction = (props) => {
+const HeaderCartAction = () => {
     const numOfCartItems = useSelector(numOfCartItemsSelector);
     const { openWindow } = useWindowManager();
 

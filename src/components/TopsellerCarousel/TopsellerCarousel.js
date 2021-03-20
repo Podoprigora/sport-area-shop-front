@@ -1,27 +1,17 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
-import useEventCallback from '@ui/hooks/useEventCallback';
-import ScrollingCarousel from '@ui/ScrollingCarousel';
-import Panel from '@ui/Panel';
-import PanelHeader from '@ui/Panel/PanelHeader';
-import Link from '@ui/Link';
-import PanelBody from '@ui/Panel/PanelBody';
-import StarIcon from '@ui/svg-icons/feather/StarIcon';
-import ChevronRightIcon from '@ui/svg-icons/feather/ChevronRightIcon';
+import { ScrollingCarousel } from '@ui/ScrollingCarousel';
+import { Panel, PanelHeader, PanelBody } from '@ui/Panel';
+import { Link } from '@ui/Link';
+import { StarIcon, ChevronRightIcon } from '@ui/svg-icons/feather';
+
 import FetchDataErrorAlert from '@components/Alerts/FetchDataErrorAlert';
 import ProductsCarouselSkeleton from '../Skeletons/ProductsCarouselSkeleton';
 import TopsellerCarouselItem from './TopsellerCarouselItem';
 
 const TopsellerCarousel = (props) => {
     const { data, className, loading, error, onItemClick, onReload, ...other } = props;
-
-    const handleItemClick = useEventCallback((ev, item) => {
-        if (onItemClick) {
-            onItemClick(ev, item);
-        }
-    });
 
     if (loading) {
         return <ProductsCarouselSkeleton />;

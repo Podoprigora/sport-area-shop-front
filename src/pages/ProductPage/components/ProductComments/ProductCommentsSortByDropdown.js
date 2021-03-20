@@ -1,12 +1,11 @@
 import React, { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
-import useControlled from '@ui/hooks/useControlled';
+import { useControlled } from '@ui/utils';
 import { ListItem, ListItemIcon, ListItemText } from '@ui/List';
-import CheckIcon from '@ui/svg-icons/feather/CheckIcon';
-import ButtonMenu from '@ui/ButtonMenu';
-import SortIcon from '@ui/svg-icons/material/SortIcon';
-import Menu from '@ui/Menu';
+import { CheckIcon } from '@ui/svg-icons/feather';
+import { SortIcon } from '@ui/svg-icons/material';
+import { Menu } from '@ui/Menu';
 
 const options = [
     { id: 'top', title: 'Top comments' },
@@ -58,11 +57,15 @@ const ProductCommentsSortByDropdown = (props) => {
         });
     }, [selectedState, setSelectedState, onChange]);
 
-    return (
-        <ButtonMenu text={displayValue} plain arrow icon={SortIcon} style={{ minWidth: '14rem' }}>
-            <Menu autoWidth>{menuItems}</Menu>
-        </ButtonMenu>
-    );
+    // @TODO: Should make use the Dropdown component instead.
+
+    return '[Dropdown]';
+
+    // return (
+    //     <ButtonMenu text={displayValue} plain arrow icon={SortIcon} style={{ minWidth: '14rem' }}>
+    //         <Menu autoWidth>{menuItems}</Menu>
+    //     </ButtonMenu>
+    // );
 };
 
 ProductCommentsSortByDropdown.propTypes = {

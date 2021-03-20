@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import debounce from 'lodash/debounce';
-import Skeleton from '@ui/Skeleton';
+
+import { Skeleton } from '@ui/Skeleton';
 
 const AdwSliderSkeleton = () => {
     const [style, setStyle] = useState({ height: '10rem' });

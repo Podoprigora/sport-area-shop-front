@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import List, { ListItem, ListItemIcon, ListItemText } from '@ui/List';
-import InfoIcon from '@ui/svg-icons/feather/InfoIcon';
+import { List, ListItem, ListItemIcon, ListItemText } from '@ui/List';
+import { InfoIcon } from '@ui/svg-icons/feather';
 
 const ProductTradeModelInfo = (props) => {
     const { className } = props;

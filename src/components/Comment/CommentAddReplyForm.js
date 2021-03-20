@@ -1,13 +1,12 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import useEventCallback from '@ui/hooks/useEventCallback';
-import Input from '@ui/Input';
-import Button from '@ui/Button';
-import Mask from '@ui/Mask';
-import HelperText from '@ui/HelperText';
-import CircularProgress from '@ui/CircularProgress';
-import useMountedRef from '@ui/hooks/useMountedRef';
+import { useEventCallback, useMountedRef } from '@ui/utils';
+import { Input } from '@ui/Input';
+import { Button } from '@ui/Button';
+import { Mask } from '@ui/Mask';
+import { HelperText } from '@ui/HelperText';
+import { CircularProgress } from '@ui/CircularProgress';
 
 const maxLength = 200;
 

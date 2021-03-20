@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-import useAsyncRequest from '@ui/hooks/useAsyncRequest';
-import TopsellerCarousel from '@components/TopsellerCarousel/TopsellerCarousel';
+import { useAsyncRequest } from '@ui/utils';
+
+import TopsellerCarousel from '@components/TopsellerCarousel';
 import ProductsService from '@services/ProductsService';
 
 const TopsellerCarouselWithFetchingDataOnDemand = (props) => {

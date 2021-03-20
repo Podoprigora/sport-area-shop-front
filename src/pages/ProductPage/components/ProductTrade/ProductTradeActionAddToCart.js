@@ -2,15 +2,14 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 
-import useMountedRef from '@ui/hooks/useMountedRef';
-import CircularProgress from '@ui/CircularProgress';
-import ShoppingCartIcon from '@ui/svg-icons/feather/ShoppingCartIcon';
-import Button from '@ui/Button';
-import CheckCircleIcon from '@ui/svg-icons/feather/CheckCircleIcon';
+import { useMountedRef } from '@ui/utils';
+import { CircularProgress } from '@ui/CircularProgress';
+import { Button } from '@ui/Button';
+import { ShoppingCartIcon, CheckCircleIcon } from '@ui/svg-icons/feather';
 
 import { makeCartIdByProductSelector, useCartActions } from '@store/cart';
 import { useProductPageActions, useProductPageState } from '@pages/ProductPage/context';
-import useNotification from '@ui/Notification';
+import { useNotification } from '@ui/Notification';
 
 const ProductTradeActionAddToCart = () => {
     const { showAlert } = useNotification();

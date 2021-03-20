@@ -1,5 +1,4 @@
-import React, { memo, useCallback, useEffect, useState, useRef } from 'react';
-import PropTypes from 'prop-types';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 
 import useScreenMask from '@contexts/ScreenMaskContext';
 import {
@@ -12,7 +11,7 @@ import CatalogGridBody from './CatalogGridBody';
 import CatalogGridPagination from './CatalogGridPagination';
 import CatalogGridLoadingMore from './CatalogGridLoadingMore';
 
-const CatalogGrid = (props) => {
+const CatalogGrid = () => {
     const catalogPageState = useCatalogPageState();
     const {
         products,
@@ -89,10 +88,6 @@ const CatalogGrid = (props) => {
             )}
         </div>
     );
-};
-
-CatalogGrid.propTypes = {
-    loading: PropTypes.bool
 };
 
 export default memo(CatalogGrid);

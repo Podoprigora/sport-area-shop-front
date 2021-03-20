@@ -2,8 +2,7 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { ListItem, ListItemIcon, ListItemText } from '@ui/List';
-import KeyboardArrowUpIcon from '@ui/svg-icons/material/KeyboardArrowUp';
-import KeyboardArrowDownIcon from '@ui/svg-icons/material/KeyboardArrowDown';
+import { KeyboardArrowUpIcon, KeyboardArrowDownIcon } from '@ui/svg-icons/material';
 
 const FiltersListItemToggle = (props) => {
     const { items, expanded, minLength, onClick } = props;

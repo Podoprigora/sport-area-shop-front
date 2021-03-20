@@ -1,8 +1,7 @@
-import React, { useCallback, useState, useEffect, useMemo } from 'react';
-import PropTypes from 'prop-types';
+import React, { useCallback, useState, useEffect } from 'react';
 
 import { useWindowManager } from '@ui/WindowManager';
-import useEventCallback from '@ui/hooks/useEventCallback';
+import { useEventCallback } from '@ui/utils';
 
 import {
     useCatalogPageState,
@@ -12,7 +11,7 @@ import {
 import CatalogFiltersMobileWindow from './CatalogFiltersMobileWindow';
 import getCatalogFiltersComponentById from '../getCatalogFiltersComponentById';
 
-const CatalogFiltersMobile = (props) => {
+const CatalogFiltersMobile = () => {
     const catalogPageState = useCatalogPageState();
     const { filtersItems, selectedFilters } = useCatalogPageSelectors(catalogPageState);
     const { changeFilters } = useCatalogPageActions();

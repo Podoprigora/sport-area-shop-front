@@ -6,7 +6,7 @@ import AppContext from '@contexts/AppContext';
 
 import Pages from '@pages/Pages';
 
-import '../../sass/index.scss';
+import '../../scss/index.scss';
 
 const App = () => {
     return (

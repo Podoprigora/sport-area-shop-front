@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import Tooltip from '@ui/Tooltip';
-import IconButton from '@ui/IconButton';
-import ThumbUpIcon from '@ui/svg-icons/material/ThumbUpIcon';
-import BoxLabel from '@ui/BoxLabel';
-import useMountedRef from '@ui/hooks/useMountedRef';
+import { Tooltip } from '@ui/Tooltip';
+import { IconButton } from '@ui/IconButton';
+import { ThumbUpIcon } from '@ui/svg-icons/material';
+import { BoxLabel } from '@ui/BoxLabel';
+import { useMountedRef } from '@ui/utils';
 
 const CommentLikeControl = (props) => {
     const { qty, selected, disabled, onClick } = props;

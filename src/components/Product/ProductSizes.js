@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import ProductLink from './ProductLink';
 
 const ProductSizes = (props) => {

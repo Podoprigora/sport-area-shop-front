@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import Button from '@ui/Button';
-import Hidden from '@ui/Hidden';
-import MenuIcon from '@ui/svg-icons/material/MenuIcon';
+import { Button } from '@ui/Button';
+import { Hidden } from '@ui/Hidden';
+import { MenuIcon } from '@ui/svg-icons/material';
+import { useEventCallback } from '@ui/utils';
 import MobileCategoryMenu from '@components/MobileCategoryMenu';
-import useEventCallback from '@ui/hooks/useEventCallback';
 
 import {
     categoriesSelector,
@@ -14,7 +13,7 @@ import {
     selectedCategoryIdSelector
 } from '@store/categories';
 
-const HeaderMobileCategoryMenu = (props) => {
+const HeaderMobileCategoryMenu = () => {
     const [open, setOpen] = useState(false);
 
     const data = useSelector(categoriesSelector);

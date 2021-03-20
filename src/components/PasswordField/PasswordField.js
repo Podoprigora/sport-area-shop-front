@@ -1,22 +1,20 @@
 import React, { useState, useCallback, memo } from 'react';
-import PropTypes from 'prop-types';
 
-import InputField from '@ui/FormikForm/InputField';
+import { InputField } from '@ui/FormikForm/InputField';
 import { InputIconButton } from '@ui/Input';
-import EyeIcon from '@ui/svg-icons/feather/EyeIcon';
-import EyeOffIcon from '@ui/svg-icons/feather/EyeOffIcon';
+import { EyeIcon, EyeOffIcon } from '@ui/svg-icons/feather';
 
 const PasswordField = (props) => {
     const [passwordVisible, setPasswordVisible] = useState(false);
 
-    const handlePasswordVisibility = useCallback((ev) => {
+    const handlePasswordVisibility = useCallback(() => {
         setPasswordVisible((prevState) => !prevState);
     }, []);
 
     return (
         <InputField
-            type={passwordVisible ? 'text' : 'password'}
             {...props}
+            type={passwordVisible ? 'text' : 'password'}
             appendAdornment={() => {
                 return (
                     <InputIconButton onClick={handlePasswordVisibility}>

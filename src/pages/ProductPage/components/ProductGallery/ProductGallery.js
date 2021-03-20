@@ -1,8 +1,9 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import Carousel from '@ui/Carousel';
-import ImageEasyZoom from '@ui/ImageEasyZoom';
+import { Carousel } from '@ui/Carousel';
+import { ImageEasyZoom } from '@ui/ImageEasyZoom';
+
 import { useProductPageState } from '@pages/ProductPage/context';
 import ProductGalleryThumbnailList from './ProductGalleryThumbnailList';
 

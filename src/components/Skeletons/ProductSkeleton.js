@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import Skeleton from '@ui/Skeleton';
+import { Skeleton } from '@ui/Skeleton';
 
 const ProductSkeleton = React.forwardRef(function ProductSkeleton(props, ref) {
     const { className, ...other } = props;

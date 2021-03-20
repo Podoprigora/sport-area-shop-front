@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Alert, { AlertActions, AlertTitle } from '@ui/Alert';
-import useEventCallback from '@ui/hooks/useEventCallback';
-import Button from '@ui/Button';
+import { Alert, AlertActions, AlertTitle } from '@ui/Alert';
+import { useEventCallback } from '@ui/utils';
+import { Button } from '@ui/Button';
 import Main from '@components/Main';
 
 const AppErrorBoundaryAlert = (props) => {

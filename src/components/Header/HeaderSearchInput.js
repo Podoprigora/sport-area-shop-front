@@ -3,14 +3,12 @@ import PropTypes from 'prop-types';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
 
-import Autocomplete from '@ui/Autocomplete';
-import Input from '@ui/Input';
-import SearchIcon from '@ui/svg-icons/feather/SearchIcon';
+import { Autocomplete } from '@ui/Autocomplete';
+import { Input } from '@ui/Input';
 import { ListItem, ListItemText, ListItemIcon, ListItemAction } from '@ui/List';
-import HistoryRestoreIcon from '@ui/svg-icons/material/HistoryRestoreIcon';
-
-import IconButton from '@ui/IconButton';
-import ClearCloseIcon from '@ui/svg-icons/material/ClearCloseIcon';
+import { IconButton } from '@ui/IconButton';
+import { SearchIcon } from '@ui/svg-icons/feather';
+import { HistoryRestoreIcon, ClearCloseIcon } from '@ui/svg-icons/material';
 
 const getItemText = ({ title }) => title;
 

@@ -1,7 +1,8 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import List, { ListItemIcon, ListItemText, ListItem } from '@ui/List';
-import ChevronRightIcon from '@ui/svg-icons/feather/ChevronRightIcon';
+
+import { List, ListItemIcon, ListItemText, ListItem } from '@ui/List';
+import { ChevronRightIcon } from '@ui/svg-icons/feather';
 import { useMobileCategoryMenu } from './MobileCategoryMenuContext';
 
 const MobileCategoryMenuList = (props) => {

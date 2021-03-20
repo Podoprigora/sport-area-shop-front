@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
-import FolderIcon from '@ui/svg-icons/feather/FolderIcon';
+import { FolderIcon } from '@ui/svg-icons/feather';
 import { useMobileCategoryMenu } from './MobileCategoryMenuContext';
 
 const MobileCategoryMenuGroup = (props) => {

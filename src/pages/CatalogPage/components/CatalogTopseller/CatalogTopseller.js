@@ -1,12 +1,11 @@
-import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
-import PropTypes from 'prop-types';
+import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 import TopsellerCarouselWithFetchingDataOnDemand from '@components/TopsellerCarouselWithFetchingDataOnDemand';
 import { makeSelectCategoryIdByPathSelector } from '@store/categories';
 
-const CatalogTopseller = (props) => {
+const CatalogTopseller = () => {
     const { pathname } = useLocation();
 
     const selectCategoryIdByPathSelector = useMemo(() => makeSelectCategoryIdByPathSelector(), []);

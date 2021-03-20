@@ -2,7 +2,7 @@ import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import WishlistService from '@services/WishlistService';
-import useEventCallback from '@ui/hooks/useEventCallback';
+import { useEventCallback } from '@ui/utils';
 import { wishlistSelectedSelector } from './wishlistSelectors';
 
 export const ADD_TO_WISHLIST = 'wishlist/ADD_TO_WISHLIST';

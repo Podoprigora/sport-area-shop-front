@@ -4,7 +4,7 @@ import { CatalogPageProvider } from './context';
 import CatalogPageView from './CatalogPageView';
 import CatalogPageEffects from './CatalogPageEffects';
 
-const CatalogPage = (props) => {
+const CatalogPage = () => {
     return (
         <CatalogPageProvider>
             <CatalogPageEffects>

@@ -1,5 +1,6 @@
 import React, { useMemo, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
+
 import { ScreeMaskContext } from './ScreenMaskContext';
 
 const ScreenMaskProvider = (props) => {

@@ -1,4 +1,4 @@
-const { createSelector } = require('reselect');
+import { createSelector } from 'reselect';
 
 export const getCategories = (state) => {
     return state.categories;
@@ -13,9 +13,7 @@ export const getCategoryPathById = (categoryState, id) => {
     let item = getCategory(categoryState, id);
 
     while (item.title) {
-        const formatedTitle = String(item.title)
-            .toLowerCase()
-            .replace(/\s+/g, '_');
+        const formatedTitle = String(item.title).toLowerCase().replace(/\s+/g, '_');
 
         path.unshift(formatedTitle);
 

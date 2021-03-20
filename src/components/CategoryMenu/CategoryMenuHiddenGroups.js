@@ -1,7 +1,7 @@
 import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import useEventCallback from '@ui/hooks/useEventCallback';
+import { useEventCallback } from '@ui/utils';
 import CategoryMenuGroup from './CategoryMenuGroup';
 
 const CategoryMenuHiddenGroups = React.forwardRef(function CategoryMenuHiddenGroups(props, ref) {

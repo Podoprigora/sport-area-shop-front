@@ -1,17 +1,18 @@
-import React, { useState, useCallback, memo } from 'react';
+import React, { useCallback, memo } from 'react';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import Form from '@ui/FormikForm/Form';
-import InputField from '@ui/FormikForm/InputField';
-import Button from '@ui/Button';
-import CheckboxField from '@ui/FormikForm/CheckboxField';
-import FlexRow from '@ui/FlexRow';
-import Link from '@ui/Link';
-import LoginIcon from '@ui/svg-icons/feather/LoginIcon';
-import FormRow from '@ui/FormikForm/FormRow';
-import useEventCallback from '@ui/hooks/useEventCallback';
+import { Form } from '@ui/FormikForm/Form';
+import { InputField } from '@ui/FormikForm/InputField';
+import { Button } from '@ui/Button';
+import { CheckboxField } from '@ui/FormikForm/CheckboxField';
+import { FlexRow } from '@ui/FlexRow';
+import { Link } from '@ui/Link';
+import { LoginIcon } from '@ui/svg-icons/feather';
+import { FormRow } from '@ui/FormikForm/FormRow';
+import { useEventCallback } from '@ui/utils';
+
 import PasswordField from '@components/PasswordField';
 
 const initialValues = {
@@ -21,9 +22,7 @@ const initialValues = {
 };
 
 const validationShcema = Yup.object({
-    login: Yup.string()
-        .required('This field is required!')
-        .email('Invalid email address!'),
+    login: Yup.string().required('This field is required!').email('Invalid email address!'),
     password: Yup.string().required('This field is required!')
 });
 

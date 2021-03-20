@@ -1,9 +1,9 @@
-import React, { useState, useRef, useEffect, useCallback, memo } from 'react';
+import React, { useRef, memo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import useEventCallback from '@ui/hooks/useEventCallback';
-import ChevronRightIcon from '@ui/svg-icons/feather/ChevronRightIcon';
+import { useEventCallback } from '@ui/utils';
+import { ChevronRightIcon } from '@ui/svg-icons/feather';
 import { useCategoryMenu } from './CategoryMenuContext';
 
 const CategoryMenuItem = (props) => {

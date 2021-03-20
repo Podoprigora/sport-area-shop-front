@@ -1,9 +1,8 @@
 import React, { memo } from 'react';
-import PropTypes from 'prop-types';
 
 import FiltersPanelSkeleton from '@components/Skeletons/FiltersPanelSkeleton';
 
-const CatalogFiltersSkeleton = (props) => {
+const CatalogFiltersSkeleton = () => {
     return (
         <>
             <FiltersPanelSkeleton className="catalog-page-filters-panel" size={10} />

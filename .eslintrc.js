@@ -32,6 +32,7 @@ module.exports = {
         'no-restricted-syntax': 0,
         'no-prototype-builtins': 0,
         'no-template-curly-in-string': 0, // For Formik error message template
+        'no-param-reassign': 0,
         'func-names': 0,
         'arrow-body-style': 0,
         'dot-notation': 0,

@@ -1,7 +1,12 @@
-export function setRef<T>(ref: React.Ref<T>, value: T | null) {
+import React from 'react';
+
+export function setRef<T>(
+    ref: React.MutableRefObject<T | null> | ((instance: T | null) => void) | null | undefined,
+    value: T | null
+): void {
     if (typeof ref === 'function') {
         ref(value);
     } else if (ref) {
-        (ref as React.MutableRefObject<typeof value>).current = value;
+        ref.current = value;
     }
 }

@@ -2,8 +2,8 @@ import React, { useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
-import useMountedRef from '@ui/hooks/useMountedRef';
-import useNotification from '@ui/Notification';
+import { useMountedRef } from '@ui/utils';
+import { useNotification } from '@ui/Notification';
 
 import { cartItemsSelector, cartTotalsSelector, useCartActions } from '@store/cart';
 

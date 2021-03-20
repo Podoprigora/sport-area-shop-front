@@ -1,21 +1,22 @@
-import React, { useCallback, useState, memo } from 'react';
+import React, { useCallback, memo } from 'react';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import Form from '@ui/FormikForm/Form';
-import InputField from '@ui/FormikForm/InputField';
-import FormRow from '@ui/FormikForm/FormRow';
-import FlexRow from '@ui/FlexRow';
-import FlexCol from '@ui/FlexCol';
-import CheckboxField from '@ui/FormikForm/CheckboxField';
-import Button from '@ui/Button';
-import Link from '@ui/Link';
-import RadioGroupField from '@ui/FormikForm/RadioGroupField';
-import Radio from '@ui/Radio';
-import BoxLabel from '@ui/BoxLabel';
-import UserPlusIcon from '@ui/svg-icons/feather/UserPlusIcon';
-import useEventCallback from '@ui/hooks/useEventCallback';
+import { Form } from '@ui/FormikForm/Form';
+import { InputField } from '@ui/FormikForm/InputField';
+import { FormRow } from '@ui/FormikForm/FormRow';
+import { FlexRow } from '@ui/FlexRow';
+import { FlexCol } from '@ui/FlexCol';
+import { CheckboxField } from '@ui/FormikForm/CheckboxField';
+import { Button } from '@ui/Button';
+import { Link } from '@ui/Link';
+import { RadioGroupField } from '@ui/FormikForm/RadioGroupField';
+import { Radio } from '@ui/Radio';
+import { BoxLabel } from '@ui/BoxLabel';
+import { UserPlusIcon } from '@ui/svg-icons/feather';
+import { useEventCallback } from '@ui/utils';
+
 import PasswordField from '@components/PasswordField';
 import BirsdayMonthsSelectInput from './BirsdayMonthsSelectInput';
 import BirsdayDaysSelectInput from './BirsdayDaysSelectInput';
@@ -35,9 +36,7 @@ const initialValues = {
 const validationSchema = Yup.object({
     firstName: Yup.string().required('This field is required!'),
     lastName: Yup.string().required('This field is required!'),
-    email: Yup.string()
-        .required('This field is required!')
-        .email('Invalid email address!'),
+    email: Yup.string().required('This field is required!').email('Invalid email address!'),
     password: Yup.string()
         .required('This field is required!')
         .min(8, 'At least ${min} characters long required!'),

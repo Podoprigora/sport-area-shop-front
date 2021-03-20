@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 
-import List from '@ui/List';
-import useControlled from '@ui/hooks/useControlled';
+import { List } from '@ui/List';
+import { useControlled } from '@ui/utils';
 
 import FiltersListItemToggle from './FiltersListItemToggle';
 import FiltersListSearch from './FiltersListSearch';

@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import CatalogGridItemsSkeleton from '@components/Skeletons/CatalogGridItemsSkeleton';

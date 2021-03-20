@@ -1,4 +1,4 @@
-const { createSelector } = require('reselect');
+import { createSelector } from 'reselect';
 
 const getIdentity = (state) => {
     return state.identity;

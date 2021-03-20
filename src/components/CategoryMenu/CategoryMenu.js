@@ -2,12 +2,10 @@ import React, { useRef, useState, useEffect, useMemo, useCallback, memo } from '
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
-import { scrollbarSize } from 'dom-helpers';
 
-import Modal from '@ui/Modal';
-import ClickAwayListener from '@ui/ClickAwayListener';
-import useEventCallback from '@ui/hooks/useEventCallback';
-import useForkRef from '@ui/hooks/useForkRef';
+import { Modal } from '@ui/Modal';
+import { ClickAwayListener } from '@ui/ClickAwayListener';
+import { useEventCallback, useForkRef } from '@ui/utils';
 import { CategoryMenuContext } from './CategoryMenuContext';
 import CategoryMenuHiddenGroups from './CategoryMenuHiddenGroups';
 import CategoryMenuList from './CategoryMenuList';

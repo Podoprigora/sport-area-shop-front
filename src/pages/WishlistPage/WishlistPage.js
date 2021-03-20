@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import useMountedRef from '@ui/hooks/useMountedRef';
-import useNotification from '@ui/Notification';
-import useScreenMask from '@contexts/ScreenMaskContext';
+import { useMountedRef } from '@ui/utils';
+import { useNotification } from '@ui/Notification';
+
 import { useWishlistActions, wishlistSortBySelector } from '@store/wishlist';
+import useScreenMask from '@contexts/ScreenMaskContext';
 import WishlistPageView from './WishlistPageView';
 
 const WishlistPage = () => {

@@ -1,8 +1,7 @@
 import React, { useCallback, useMemo, useReducer } from 'react';
 import PropTypes from 'prop-types';
 
-import useEventCallback from '@ui/hooks/useEventCallback';
-import useMountedRef from '@ui/hooks/useMountedRef';
+import { useEventCallback } from '@ui/utils';
 import ProductsService from '@services/ProductsService';
 import { ProductPageActionsContext, ProductPageContext } from './ProductPageContext';
 import {
@@ -21,7 +20,6 @@ import {
     RECEIVE_COMMENTS,
     REQUEST_COMMENTS,
     SET_ERROR,
-    TOGGLE_COMMENTS_LOADING,
     RECEIVE_COMMENTS_ERROR
 } from './productPageReducers';
 import ProductPageContextLog from './ProductPageContextLog';

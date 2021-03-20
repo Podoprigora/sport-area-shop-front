@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 
-import Hidden from '@ui/Hidden';
-import FlexRow from '@ui/FlexRow';
+import { Hidden } from '@ui/Hidden';
+import { FlexRow } from '@ui/FlexRow';
 import { StickyContainer, StickyItem } from '@ui/Sticky';
 
 import { Page, PageSection, PageAside, PageContent, PageHeader, PageTitle } from '@components/Page';
@@ -11,7 +11,7 @@ import CatalogTbar from './components/CatalogTbar';
 import CatalogFiltersMobile from './components/CatalogFilters/CatalogFiltersMobile';
 import CatalogTopseller from './components/CatalogTopseller';
 
-const CatalogPageView = (props) => {
+const CatalogPageView = () => {
     return (
         <Page className="catalog-page">
             <PageHeader>

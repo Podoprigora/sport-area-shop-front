@@ -1,14 +1,11 @@
 import React, { memo, useCallback } from 'react';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
-import useNotification from '@ui/Notification';
-import Button from '@ui/Button';
-import Hidden from '@ui/Hidden';
-import useEventCallback from '@ui/hooks/useEventCallback';
-import useMountedRef from '@ui/hooks/useMountedRef';
-import CheckAllIcon from '@ui/svg-icons/feather/CheckAllIcon';
-import TrashIcon from '@ui/svg-icons/feather/TrashIcon';
+import { useEventCallback, useMountedRef } from '@ui/utils';
+import { useNotification } from '@ui/Notification';
+import { Button } from '@ui/Button';
+import { Hidden } from '@ui/Hidden';
+import { CheckAllIcon, TrashIcon } from '@ui/svg-icons/feather';
 
 import useScreenMask from '@contexts/ScreenMaskContext';
 import {
@@ -20,7 +17,7 @@ import {
 
 import WishlistSortByDropdown from './WishlistSortByDropdown';
 
-const WisthlistTbar = (props) => {
+const WisthlistTbar = () => {
     const sortBy = useSelector(wishlistSortBySelector);
     const numOfItems = useSelector(numOfWishlistItemsSelector);
     const numOfSelection = useSelector(numOfWishlistSelectionSelector);

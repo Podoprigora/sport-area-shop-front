@@ -3,14 +3,12 @@ import React, { useMemo, useState } from 'react';
 import BrandsService from '@services/BrandsService';
 import ProductsService from '@services/ProductsService';
 
+import { useAsyncRequest, useEventCallback } from '@ui/utils';
 import { Page, PageSection } from '@components/Page';
 import AdwSlider from '@components/AdwSlider';
 import BrandsCarousel from '@components/BrandsCarousel';
 import BrandnewCarousel from '@components/BrandnewCarousel';
 import TopsellerCarousel from '@components/TopsellerCarousel';
-import useAsyncRequest from '@ui/hooks/useAsyncRequest';
-import useEventCallback from '@ui/hooks/useEventCallback';
-import AppErrorBoundary from '@components/AppErrorBoundary';
 
 const MainPage = () => {
     const [errors, setErrors] = useState(() => Array.from(Array(4)));

@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
 
-import Mask, { MaskProgress } from '@ui/Mask';
-import CircularProgress from '@ui/CircularProgress';
+import { Mask, MaskProgress } from '@ui/Mask';
+import { CircularProgress } from '@ui/CircularProgress';
+
 import { useProductPageSelectors, useProductPageState } from '@pages/ProductPage/context';
 
-const ProductCommentsMask = (props) => {
+const ProductCommentsMask = () => {
     const state = useProductPageState();
     const { commentsLoading: open } = useProductPageSelectors(state);
 

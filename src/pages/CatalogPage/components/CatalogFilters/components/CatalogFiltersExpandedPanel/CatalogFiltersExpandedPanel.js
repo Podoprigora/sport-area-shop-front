@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { ExpandedPanel, ExpandedPanelHeader, ExpandedPanelBody } from '@ui/ExpandedPanel';
-import Link from '@ui/Link';
-import useEventCallback from '@ui/hooks/useEventCallback';
+import { Link } from '@ui/Link';
+import { useEventCallback } from '@ui/utils';
 
 const CatalogFiltersExpandedPanel = (props) => {
     const { children, title, resetButton, defaultExpanded = true, onResetClick } = props;

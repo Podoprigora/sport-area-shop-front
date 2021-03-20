@@ -1,9 +1,9 @@
-import React, { useCallback, useState } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
+import { useEventCallback } from '@ui/utils';
 import { useWindowManager } from '@ui/WindowManager';
-import Button from '@ui/Button';
-import useEventCallback from '@ui/hooks/useEventCallback';
+import { Button } from '@ui/Button';
+
 import {
     useProductPageActions,
     useProductPageSelectors,

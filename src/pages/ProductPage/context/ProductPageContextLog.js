@@ -1,9 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { useProductPageState } from './ProductPageContext';
 import { useProductPageSelectors } from './productPageSelectors';
 
-export default function ProductPageContextLog(props) {
+export default function ProductPageContextLog() {
     const state = useProductPageState();
     const selectors = useProductPageSelectors(state);
 

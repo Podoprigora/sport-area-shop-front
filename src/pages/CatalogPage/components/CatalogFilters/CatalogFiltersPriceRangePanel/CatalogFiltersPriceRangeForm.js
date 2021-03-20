@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import Button from '@ui/Button';
-import Slider from '@ui/Slider';
+import { Button } from '@ui/Button';
+import { Slider } from '@ui/Slider';
 
 import CatalogFiltersPriceRangeNumberFileld from './CatalogFiltersPriceRangeNumberFileld';
 

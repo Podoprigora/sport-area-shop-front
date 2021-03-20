@@ -1,7 +1,6 @@
-import React, { memo, useMemo } from 'react';
-import PropTypes from 'prop-types';
+import React, { useMemo } from 'react';
 
-import Hidden from '@ui/Hidden';
+import { Hidden } from '@ui/Hidden';
 import ProductSkeleton from '@components/Skeletons/ProductSkeleton';
 import { Page, PageAside, PageContent, PageSection } from '@components/Page';
 import ProductTrade from './components/ProductTrade';
@@ -18,7 +17,7 @@ import ProductTradeActionAddToWishlist from './components/ProductTrade/ProductTr
 import ProductTradeDeliveryList from './components/ProductTrade/ProductTradeDeliveryList';
 import { useProductPageState } from './context';
 
-const ProductPageView = (props) => {
+const ProductPageView = () => {
     const { loading, id } = useProductPageState();
 
     return useMemo(() => {

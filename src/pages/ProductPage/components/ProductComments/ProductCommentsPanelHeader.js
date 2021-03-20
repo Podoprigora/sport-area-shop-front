@@ -1,11 +1,12 @@
 import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
+
 import { PanelHeader } from '@ui/Panel';
-import MessageSquareIcon from '@ui/svg-icons/feather/MessageSquareIcon';
+import { MessageSquareIcon } from '@ui/svg-icons/feather';
+
 import { useProductPageState } from '@pages/ProductPage/context';
 import { useProductPageSelectors } from '@pages/ProductPage/context/productPageSelectors';
 
-const ProductCommentsPanelHeader = (props) => {
+const ProductCommentsPanelHeader = () => {
     const state = useProductPageState();
     const { commentsCount = 0 } = useProductPageSelectors(state);
 

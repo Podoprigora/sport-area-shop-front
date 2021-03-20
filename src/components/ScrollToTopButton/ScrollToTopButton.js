@@ -1,12 +1,11 @@
 import React, { memo, useCallback } from 'react';
-import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 
-import useScrollTrigger from '@ui/hooks/useScrollTrigger';
-import IconButton from '@ui/IconButton';
-import ArrowUpIcon from '@ui/svg-icons/feather/ArrowUpIcon';
+import { useScrollTrigger } from '@ui/utils';
+import { IconButton } from '@ui/IconButton';
+import { ArrowUpIcon } from '@ui/svg-icons/feather';
 
-const ScrollToTopButton = (props) => {
+const ScrollToTopButton = () => {
     const trigger = useScrollTrigger({ threshold: 400, disableReverseScroll: true });
 
     const handleButtonClick = useCallback(() => {

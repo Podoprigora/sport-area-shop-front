@@ -1,12 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React from 'react';
 
 import ProductPageProvider from './context';
 import ProductPageEffects from './ProductPageEffects';
 
 import ProductPageView from './ProductPageView';
 
-const ProductPage = (props) => {
+const ProductPage = () => {
     return (
         <ProductPageProvider>
             <ProductPageEffects>

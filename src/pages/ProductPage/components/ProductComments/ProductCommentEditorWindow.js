@@ -1,28 +1,26 @@
 import React, { useCallback, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
 
-import Window, { WindowActions, WindowBody, WindowHeader, WindowLoadingMask } from '@ui/Window';
+import { useEventCallback, useMountedRef } from '@ui/utils';
+import { Button } from '@ui/Button';
+import { Window, WindowActions, WindowBody, WindowHeader, WindowLoadingMask } from '@ui/Window';
 import { useWindowManager } from '@ui/WindowManager';
-import useEventCallback from '@ui/hooks/useEventCallback';
-import Button from '@ui/Button';
+import { useNotification } from '@ui/Notification';
 import { useProductPageActions } from '@pages/ProductPage/context';
-import useMountedRef from '@ui/hooks/useMountedRef';
-import useNotification from '@ui/Notification';
 
 import ProductCommentEditorForm from './ProductCommentEditorForm';
 
 const windowName = 'ProductCommentEditorWindow';
 
-const ProductCommentEditorWindow = (props) => {
+const ProductCommentEditorWindow = () => {
     const { asyncSaveProductComment } = useProductPageActions();
-    const { isOpenWindow, getWindowParams, closeWindow } = useWindowManager();
+    const { isOpenWindow, closeWindow } = useWindowManager();
     const { showAlert } = useNotification();
 
     const [loading, setLoading] = useState(false);
     const formikRef = useRef(null);
     const isMoutedRef = useMountedRef();
 
-    const handleClose = useEventCallback((ev) => {
+    const handleClose = useEventCallback(() => {
         if (!loading) {
             closeWindow(windowName);
         }
@@ -35,7 +33,7 @@ const ProductCommentEditorWindow = (props) => {
     });
 
     const handleFormSubmit = useCallback(
-        async (values, actions) => {
+        async (values) => {
             if (asyncSaveProductComment) {
                 try {
                     setLoading(true);
@@ -85,7 +83,5 @@ const ProductCommentEditorWindow = (props) => {
         </Window>
     );
 };
-
-ProductCommentEditorWindow.propTypes = {};
 
 export default ProductCommentEditorWindow;

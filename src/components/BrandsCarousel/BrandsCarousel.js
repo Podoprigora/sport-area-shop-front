@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import ScrollingCarousel from '@ui/ScrollingCarousel';
+
+import { ScrollingCarousel } from '@ui/ScrollingCarousel';
 import BrandsCarouselSkeleton from '../Skeletons/BrandsCarouselSkeleton';
 
 const BrandsCarousel = ({ data, className, onItemClick, loading, ...props }) => {

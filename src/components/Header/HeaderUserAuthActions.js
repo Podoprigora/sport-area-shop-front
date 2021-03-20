@@ -1,11 +1,9 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo } from 'react';
 
-import Link from '@ui/Link';
+import { Link } from '@ui/Link';
 import { useWindowManager } from '@ui/WindowManager';
-import useEventCallback from '@ui/hooks/useEventCallback';
-
-import UserPlusIcon from '@ui/svg-icons/feather/UserPlusIcon';
-import LoginIcon from '@ui/svg-icons/feather/LoginIcon';
+import { useEventCallback } from '@ui/utils';
+import { LoginIcon, UserPlusIcon } from '@ui/svg-icons/feather';
 
 const HeaderUserAuthActions = () => {
     const { openWindow } = useWindowManager();

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Heading from '@ui/Heading';
+
+import { Heading } from '@ui/Heading';
 
 const PageTitle = (props) => {
     const { children, ...other } = props;

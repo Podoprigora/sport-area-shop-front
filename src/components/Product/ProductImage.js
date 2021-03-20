@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import LazyImage from '@ui/LazyImage';
+import { LazyImage } from '@ui/LazyImage';
 import ProductImagePlaceholder from './ProductImagePlaceholder';
 
 const ProductImage = (props) => {

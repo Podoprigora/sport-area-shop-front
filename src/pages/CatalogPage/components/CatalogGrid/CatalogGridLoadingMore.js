@@ -1,9 +1,9 @@
 import React, { memo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-import RotateCwIcon from '@ui/svg-icons/feather/RotateCwIcon';
-import CircularProgress from '@ui/CircularProgress';
-import Button from '@ui/Button';
+import { CircularProgress } from '@ui/CircularProgress';
+import { Button } from '@ui/Button';
+import { RotateCwIcon } from '@ui/svg-icons/feather';
 
 const CatalogGridLoadingMore = (props) => {
     const { loading, onClick, ...other } = props;

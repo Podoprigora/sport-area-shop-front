@@ -2,8 +2,7 @@ import React, { useState, useRef, useMemo, useCallback, useEffect } from 'react'
 import { useHistory, useLocation } from 'react-router-dom';
 import debounce from 'lodash/debounce';
 
-import useLocalStorage from '@ui/hooks/useLocalStorage';
-import useMountedRef from '@ui/hooks/useMountedRef';
+import { useMountedRef, useLocalStorage } from '@ui/utils';
 import QuickSearchService from '@services/QuickSearchService';
 import HeaderSearchInput from './HeaderSearchInput';
 

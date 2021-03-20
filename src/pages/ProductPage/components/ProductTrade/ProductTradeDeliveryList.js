@@ -1,12 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import List, { ListItem, ListItemIcon, ListItemText } from '@ui/List';
-import CheckIcon from '@ui/svg-icons/feather/CheckIcon';
-import DateRangeIcon from '@ui/svg-icons/material/DateRangeIcon';
-import CalendarIcon from '@ui/svg-icons/feather/CalendarIcon';
-import TruckIcon from '@ui/svg-icons/feather/TruckIcon';
 
-const ProductTradeDeliveryList = (props) => {
+import { List, ListItem, ListItemIcon, ListItemText } from '@ui/List';
+import { CheckIcon, TruckIcon } from '@ui/svg-icons/feather';
+
+const ProductTradeDeliveryList = () => {
     return (
         <List className="product-trade__list">
             <ListItem className="product-trade__list-item">
@@ -35,7 +32,5 @@ const ProductTradeDeliveryList = (props) => {
         </List>
     );
 };
-
-ProductTradeDeliveryList.propTypes = {};
 
 export default ProductTradeDeliveryList;

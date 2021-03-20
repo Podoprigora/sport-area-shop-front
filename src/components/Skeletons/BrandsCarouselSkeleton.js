@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import debounce from 'lodash/debounce';
 
-import Skeleton from '@ui/Skeleton';
+import { Skeleton } from '@ui/Skeleton';
 
 const BrandsCarouselSkeleton = () => {
     const containerRef = useRef(null);

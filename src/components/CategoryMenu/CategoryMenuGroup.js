@@ -1,8 +1,8 @@
 import React, { memo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-import KeyboardArrowRightIcon from '@ui/svg-icons/material/KeyboardArrowRightIcon';
-import useEventCallback from '@ui/hooks/useEventCallback';
+import { KeyboardArrowRightIcon } from '@ui/svg-icons/material';
+import { useEventCallback } from '@ui/utils';
 import { useCategoryMenu } from './CategoryMenuContext';
 
 const CategoryMenuGroup = (props) => {

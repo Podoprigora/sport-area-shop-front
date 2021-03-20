@@ -1,24 +1,22 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, { memo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
-import Form from '@ui/FormikForm/Form';
-import FormRow from '@ui/FormikForm/FormRow';
-import InputField from '@ui/FormikForm/InputField';
-import FlexRow from '@ui/FlexRow';
-import Button from '@ui/Button';
-import Link from '@ui/Link';
-import useEventCallback from '@ui/hooks/useEventCallback';
+import { Form } from '@ui/FormikForm/Form';
+import { FormRow } from '@ui/FormikForm/FormRow';
+import { InputField } from '@ui/FormikForm/InputField';
+import { FlexRow } from '@ui/FlexRow';
+import { Button } from '@ui/Button';
+import { Link } from '@ui/Link';
+import { useEventCallback } from '@ui/utils';
 
 const initialValues = {
     email: ''
 };
 
 const validationSchema = Yup.object({
-    email: Yup.string()
-        .required('This field is required!')
-        .email('Invalid email address!')
+    email: Yup.string().required('This field is required!').email('Invalid email address!')
 });
 
 const ForgotPasswordForm = (props) => {

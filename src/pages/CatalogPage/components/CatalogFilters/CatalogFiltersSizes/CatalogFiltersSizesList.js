@@ -1,9 +1,9 @@
-import React, { useCallback, useState, useMemo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-import useEventCallback from '@ui/hooks/useEventCallback';
+import { useEventCallback } from '@ui/utils';
+import { CellList } from '@ui/CellList';
 import FiltersList from '@components/FiltersList/FiltersList';
-import CellList from '@ui/CellList';
 
 import CatalogFiltersSizesListItem from './CatalogFiltersSizesListItem';
 

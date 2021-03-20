@@ -1,12 +1,8 @@
 import React, { useCallback, memo, useState } from 'react';
 
-import useMediaQuery from '@ui/hooks/useMediaQuery';
-import useEventCallback from '@ui/hooks/useEventCallback';
-import useMountedRef from '@ui/hooks/useMountedRef';
-import Alert, { AlertTitle } from '@ui/Alert';
-import Window, { WindowLoadingMask } from '@ui/Window';
-import WindowHeader from '@ui/Window/WindowHeader';
-import WindowBody from '@ui/Window/WindowBody';
+import { useMountedRef, useEventCallback, useMediaQuery } from '@ui/utils';
+import { Alert, AlertTitle } from '@ui/Alert';
+import { Window, WindowHeader, WindowBody, WindowLoadingMask } from '@ui/Window';
 import { useWindowManager } from '@ui/WindowManager';
 
 import { useIdentityActions } from '@store/identity';

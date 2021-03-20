@@ -1,19 +1,18 @@
-import React, { memo, useCallback, useMemo } from 'react';
-import PropTypes from 'prop-types';
+import React, { memo, useMemo } from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 
-import IconButton from '@ui/IconButton';
-import HeartIcon from '@ui/svg-icons/feather/HeartIcon';
-import Badge from '@ui/Badge';
-import Tooltip from '@ui/Tooltip';
+import { IconButton } from '@ui/IconButton';
+import { Badge } from '@ui/Badge';
+import { Tooltip } from '@ui/Tooltip';
 import { useWindowManager } from '@ui/WindowManager';
+import { HeartIcon } from '@ui/svg-icons/feather';
+import { useEventCallback } from '@ui/utils';
 
 import { authSelector } from '@store/identity';
 import { numOfWishlistItemsSelector } from '@store/wishlist';
-import { useHistory, useRouteMatch } from 'react-router-dom';
-import useEventCallback from '@ui/hooks/useEventCallback';
 
-const HeaderWishlistAction = (props) => {
+const HeaderWishlistAction = () => {
     const num = useSelector(numOfWishlistItemsSelector);
     const isAuth = useSelector(authSelector);
 

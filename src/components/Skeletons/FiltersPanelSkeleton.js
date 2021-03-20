@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
-import Skeleton from '@ui/Skeleton';
+import { Skeleton } from '@ui/Skeleton';
 
 const FiltersPanelSkeleton = React.forwardRef(function FiltersPanelSkeleton(props, ref) {
     const { size = 8, ...other } = props;

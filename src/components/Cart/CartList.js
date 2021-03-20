@@ -1,9 +1,9 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
-import List from '@ui/List';
-import Empty from '@ui/Empty';
-import Divider from '@ui/Divider';
+import { List } from '@ui/List';
+import { Empty } from '@ui/Empty';
+import { Divider } from '@ui/Divider';
 import CartListItem from './CartListItem';
 
 const CartList = (props) => {

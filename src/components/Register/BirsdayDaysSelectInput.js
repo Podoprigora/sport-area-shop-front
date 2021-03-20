@@ -1,7 +1,6 @@
 import React, { memo, useMemo } from 'react';
-import PropTypes from 'prop-types';
 
-import SelectField from '@ui/FormikForm/SelectField';
+import { SelectField } from '@ui/FormikForm/SelectField';
 import { MenuItem } from '@ui/Menu';
 
 const days = Array.from(Array(31)).map((_, index) => {
@@ -18,6 +17,7 @@ const BirsdayDaysSelectInput = (props) => {
 
     return (
         <SelectField
+            {...props}
             name="birthdayDay"
             placeholder="Day"
             emptyItem

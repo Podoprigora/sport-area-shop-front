@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation, useParams } from 'react-router-dom';
 
-import useNotification from '@ui/Notification';
+import { useNotification } from '@ui/Notification';
 import { useAsyncError } from '@ui/ErrorBoundary';
 import { useProductPageActions } from './context';
 

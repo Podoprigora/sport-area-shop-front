@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import ProductTradeSizes from './ProductTradeSizes';
 import ProductTradeActionAddToCart from './ProductTradeActionAddToCart';
@@ -9,7 +8,7 @@ import ProductTradeModelInfo from './ProductTradeModelInfo';
 import ProductTradePrice from './ProductTradePrice';
 import ProductTradeTitle from './ProductTradeTitle';
 
-const ProductTrade = (props) => {
+const ProductTrade = () => {
     return (
         <div className="product-trade product">
             <ProductTradeTitle className="product-trade__section" />
@@ -23,10 +22,6 @@ const ProductTrade = (props) => {
             <ProductTradeDeliveryList />
         </div>
     );
-};
-
-ProductTrade.propTypes = {
-    className: PropTypes.string
 };
 
 export default ProductTrade;

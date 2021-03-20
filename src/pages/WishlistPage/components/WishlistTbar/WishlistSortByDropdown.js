@@ -1,13 +1,11 @@
-import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
+import React, { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
-import SortIcon from '@ui/svg-icons/material/SortIcon';
-import Menu from '@ui/Menu';
-import useControlled from '@ui/hooks/useControlled';
+import { useControlled } from '@ui/utils';
+import { Menu } from '@ui/Menu';
 import { ListItem, ListItemIcon, ListItemText } from '@ui/List';
-import CheckIcon from '@ui/svg-icons/feather/CheckIcon';
-import ButtonMenu from '@ui/ButtonMenu';
+import { SortIcon } from '@ui/svg-icons/material';
+import { CheckIcon } from '@ui/svg-icons/feather';
 
 const options = [
     { id: 'added-date', title: 'By added date' },
@@ -60,11 +58,14 @@ const WishlistSortByDropdown = (props) => {
         }, defaultDisplayValue);
     }, [selectedState]);
 
-    return (
-        <ButtonMenu text={displayValue} plain arrow icon={SortIcon} {...other}>
-            <Menu autoWidth>{menuItems}</Menu>
-        </ButtonMenu>
-    );
+    // @TODO: Should make use the Dropdown component instead.
+    return '[Dropdown]';
+
+    // return (
+    //     <ButtonMenu text={displayValue} plain arrow icon={SortIcon} {...other}>
+    //         <Menu autoWidth>{menuItems}</Menu>
+    //     </ButtonMenu>
+    // );
 };
 
 WishlistSortByDropdown.propTypes = {

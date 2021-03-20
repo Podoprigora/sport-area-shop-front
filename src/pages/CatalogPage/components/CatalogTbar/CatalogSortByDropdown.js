@@ -1,13 +1,11 @@
-import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
+import React, { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
-import useControlled from '@ui/hooks/useControlled';
+import { useControlled } from '@ui/utils';
 import { ListItem, ListItemText, ListItemIcon } from '@ui/List';
-import CheckIcon from '@ui/svg-icons/feather/CheckIcon';
-import Menu from '@ui/Menu';
-import SortIcon from '@ui/svg-icons/material/SortIcon';
-import ButtonMenu from '@ui/ButtonMenu';
+import { Menu } from '@ui/Menu';
+import { SortIcon } from '@ui/svg-icons/material';
+import { CheckIcon } from '@ui/svg-icons/feather';
 
 const options = [
     { id: 'relevance', name: 'Relevance' },
@@ -63,11 +61,14 @@ const CatalogSortByDropdown = (props) => {
         }, defaultDisplayValue);
     }, [selectedState]);
 
-    return (
-        <ButtonMenu text={displayValue} plain arrow icon={SortIcon} {...other}>
-            <Menu autoWidth>{menuItems}</Menu>
-        </ButtonMenu>
-    );
+    // @TODO: Should make use the Dropdown component instead.
+    return '[Dropdown]';
+
+    // return (
+    //     <ButtonMenu text={displayValue} plain arrow icon={SortIcon} {...other}>
+    //         <Menu autoWidth>{menuItems}</Menu>
+    //     </ButtonMenu>
+    // );
 };
 
 CatalogSortByDropdown.propTypes = {

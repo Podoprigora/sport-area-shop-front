@@ -1,13 +1,11 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
-import Window, { WindowActions, WindowBody, WindowHeader, WindowLoadingMask } from '@ui/Window';
-import ShoppingCartIcon from '@ui/svg-icons/feather/ShoppingCartIcon';
-import ChevronLeftIcon from '@ui/svg-icons/feather/ChevronLeftIcon';
-import Button from '@ui/Button';
-import useMediaQuery from '@ui/hooks/useMediaQuery';
+
+import { Window, WindowActions, WindowBody, WindowHeader, WindowLoadingMask } from '@ui/Window';
+import { ShoppingCartIcon, ChevronLeftIcon } from '@ui/svg-icons/feather';
+import { Button } from '@ui/Button';
 import { useWindowManager } from '@ui/WindowManager';
-import useEventCallback from '@ui/hooks/useEventCallback';
-import useControlled from '@ui/hooks/useControlled';
+import { useEventCallback, useMediaQuery } from '@ui/utils';
 
 const windowName = 'CartWindow';
 

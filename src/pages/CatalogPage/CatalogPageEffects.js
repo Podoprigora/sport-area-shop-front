@@ -1,10 +1,9 @@
-import React, { useCallback, useRef, useEffect } from 'react';
+import { useCallback, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useParams, useHistory, useLocation } from 'react-router-dom';
 
-import useUrlSearchParams from '@ui/hooks/useUrlSearchParams';
+import { useMountedRef, useUrlSearchParams } from '@ui/utils';
 import { useAsyncError } from '@ui/ErrorBoundary';
-import useMountedRef from '@ui/hooks/useMountedRef';
 import ProductsService from '@services/ProductsService';
 
 import { useCatalogPageState, useCatalogPageSelectors, useCatalogPageActions } from './context';

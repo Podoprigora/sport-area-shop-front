@@ -1,13 +1,12 @@
 import React, { memo, useCallback, useLayoutEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import useEventCallback from '@ui/hooks/useEventCallback';
-import useMountedRef from '@ui/hooks/useMountedRef';
-import useNotification from '@ui/Notification';
-import CircularProgress from '@ui/CircularProgress';
-import ChevronUpIcon from '@ui/svg-icons/feather/ChevronUpIcon';
-import ChevronDownIcon from '@ui/svg-icons/feather/ChevronDownIcon';
-import Button from '@ui/Button';
+import { useEventCallback, useMountedRef } from '@ui/utils';
+import { Button } from '@ui/Button';
+import { useNotification } from '@ui/Notification';
+import { CircularProgress } from '@ui/CircularProgress';
+import { ChevronUpIcon, ChevronDownIcon } from '@ui/svg-icons/feather';
+
 import {
     useProductPageActions,
     useProductPageSelectors,

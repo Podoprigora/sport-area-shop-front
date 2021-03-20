@@ -1,15 +1,11 @@
 import React, { memo, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-import useMediaQuery from '@ui/hooks/useMediaQuery';
-import useMountedRef from '@ui/hooks/useMountedRef';
+import { useEventCallback, useMediaQuery, useMountedRef } from '@ui/utils';
 import { useWindowManager } from '@ui/WindowManager';
-import Window from '@ui/Window';
-import WindowHeader from '@ui/Window/WindowHeader';
-import useEventCallback from '@ui/hooks/useEventCallback';
-import WindowBody from '@ui/Window/WindowBody';
-import Mask, { MaskProgress } from '@ui/Mask';
-import LinearProgress from '@ui/LinearProgress';
+import { Window, WindowHeader, WindowBody } from '@ui/Window';
+import { Mask, MaskProgress } from '@ui/Mask';
+import { LinearProgress } from '@ui/LinearProgress';
 import UserService from '@services/UserService';
 
 import ForgotPasswordForm from './ForgotPasswordForm';

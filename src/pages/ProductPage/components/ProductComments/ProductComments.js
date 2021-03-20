@@ -1,8 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 
-import Panel, { PanelHeader, PanelBody } from '@ui/Panel';
+import { Panel, PanelBody } from '@ui/Panel';
 
 import ProductCommentsTbar from './ProductCommentsTbar';
 import ProductCommentsList from './ProductCommentsList';
@@ -10,7 +9,7 @@ import ProductCommentsMask from './ProductCommentsMask';
 import ProductCommentEditorWindow from './ProductCommentEditorWindow';
 import ProductCommentsPanelHeader from './ProductCommentsPanelHeader';
 
-const ProductComments = (props) => {
+const ProductComments = () => {
     const location = useLocation();
     const nodeRef = useRef(null);
 
@@ -36,7 +35,5 @@ const ProductComments = (props) => {
         </>
     );
 };
-
-ProductComments.propTypes = {};
 
 export default ProductComments;

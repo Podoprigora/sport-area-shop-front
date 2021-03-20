@@ -1,11 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { Page, PageHeader, PageSection, PageTitle } from '@components/Page';
 import WisthlistTbar from './components/WishlistTbar';
 import WishlistGrid from './components/WishlistGrid';
 
-const WishlistPageView = (props) => {
+const WishlistPageView = () => {
     return (
         <Page>
             <PageHeader>
@@ -18,7 +17,5 @@ const WishlistPageView = (props) => {
         </Page>
     );
 };
-
-WishlistPageView.propTypes = {};
 
 export default WishlistPageView;

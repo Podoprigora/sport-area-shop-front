@@ -2,8 +2,9 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import useEventCallback from '@ui/hooks/useEventCallback';
-import HelperText from '@ui/HelperText';
+import { useEventCallback } from '@ui/utils';
+import { HelperText } from '@ui/HelperText';
+
 import {
     useProductPageActions,
     useProductPageSelectors,

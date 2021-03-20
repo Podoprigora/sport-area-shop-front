@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { format as timeAgoFormat } from 'timeago.js';
 
-import useEventCallback from '@ui/hooks/useEventCallback';
-import Rating from '@ui/Rating';
-import Button from '@ui/Button';
+import { useEventCallback } from '@ui/utils';
+import { Rating } from '@ui/Rating';
+import { Button } from '@ui/Button';
 import CommentLikeControl from './CommentLikeControl';
 import CommentAddReplyForm from './CommentAddReplyForm';
 import CommentAlterMenu from './CommentAlterMenu';

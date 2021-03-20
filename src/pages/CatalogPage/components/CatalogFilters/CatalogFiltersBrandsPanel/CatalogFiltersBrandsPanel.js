@@ -1,7 +1,7 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
-import useEventCallback from '@ui/hooks/useEventCallback';
+import { useEventCallback } from '@ui/utils';
 
 import CatalogFiltersBrandsList from './CatalogFiltersBrandsList';
 import CatalogFiltersExpandedPanel from '../components/CatalogFiltersExpandedPanel';

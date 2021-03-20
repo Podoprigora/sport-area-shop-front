@@ -1,10 +1,10 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
-import Button from '@ui/Button';
-import ChevronDownIcon from '@ui/svg-icons/feather/ChevronDownIcon';
-import useEventCallback from '@ui/hooks/useEventCallback';
-import CircularProgress from '@ui/CircularProgress';
+import { useEventCallback } from '@ui/utils';
+import { Button } from '@ui/Button';
+import { CircularProgress } from '@ui/CircularProgress';
+import { ChevronDownIcon } from '@ui/svg-icons/feather';
 
 const ProductCommentsListLoadMore = (props) => {
     const { loading, onClick } = props;

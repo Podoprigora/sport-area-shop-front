@@ -1,5 +1,6 @@
 import React, { memo, useCallback } from 'react';
 import PropTypes from 'prop-types';
+
 import { CellListItem } from '@ui/CellList';
 
 const ProductTradeSizeItem = (props) => {

@@ -1,10 +1,9 @@
 import React, { memo } from 'react';
-import PropTypes from 'prop-types';
 
-import LinearProgress from '@ui/LinearProgress';
+import { LinearProgress } from '@ui/LinearProgress';
 import Logo from '../../assets/images/sport-area-logo.svg';
 
-const PagesLoadingScreen = (props) => {
+const PagesLoadingScreen = () => {
     return (
         <div className="loading-screen">
             <div className="loading-screen__content">

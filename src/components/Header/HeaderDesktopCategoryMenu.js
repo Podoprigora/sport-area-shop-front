@@ -1,17 +1,15 @@
 import React, { useState, useCallback, useRef } from 'react';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
-import Button from '@ui/Button';
-import MenuIcon from '@ui/svg-icons/material/MenuIcon';
+import { Button } from '@ui/Button';
+import { MenuIcon } from '@ui/svg-icons/material';
+import { Hidden } from '@ui/Hidden';
+import { useEventCallback } from '@ui/utils';
 import CategoryMenu from '@components/CategoryMenu';
-import Hidden from '@ui/Hidden';
-import useEventCallback from '@ui/hooks/useEventCallback';
 
 import { categoriesTreeSelector, useCategoriesActions } from '@store/categories';
-import { useLocation, useHistory, useRouteMatch } from 'react-router-dom';
 
-const HeaderDesktopCategoryMenu = (props) => {
+const HeaderDesktopCategoryMenu = () => {
     const [open, setOpen] = useState(false);
 
     const data = useSelector(categoriesTreeSelector);

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import List, { ListItem, ListItemIcon, ListItemText } from '@ui/List';
-import Divider from '@ui/Divider';
-import NavigateNextChevronRightIcon from '@ui/svg-icons/material/NavigateNextChevronRightIcon';
+import { List, ListItem, ListItemIcon, ListItemText } from '@ui/List';
+import { Divider } from '@ui/Divider';
+import { NavigateNextChevronRightIcon } from '@ui/svg-icons/material';
 
 function formatFeatureItemTitleByKey(key = '') {
     let result = String(key).replace(/[A-W]/g, (match) => {
