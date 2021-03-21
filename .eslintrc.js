@@ -32,7 +32,10 @@ module.exports = {
         'no-restricted-syntax': 0,
         'no-prototype-builtins': 0,
         'no-template-curly-in-string': 0, // For Formik error message template
-        'no-param-reassign': 0,
+        'no-param-reassign': [
+            'error',
+            { props: true, ignorePropertyModificationsFor: ['draft', 'ref'] }
+        ],
         'func-names': 0,
         'arrow-body-style': 0,
         'dot-notation': 0,
@@ -96,7 +99,8 @@ module.exports = {
             rules: {
                 '@typescript-eslint/explicit-module-boundary-types': 0,
                 '@typescript-eslint/no-explicit-any': ['error', { ignoreRestArgs: true }],
-                '@typescript-eslint/ban-ts-comment': 0
+                '@typescript-eslint/ban-ts-comment': 0,
+                '@typescript-eslint/no-use-before-define': 0
             }
         }
     ]

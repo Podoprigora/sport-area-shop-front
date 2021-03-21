@@ -22,12 +22,12 @@ module.exports = (env = {}) => {
                       })
                   ]
                 : []),
-            // new ForkTsCheckerWebpackPlugin({
-            //     async: false,
-            //     eslint: {
-            //         files: './src/**/*.{ts,tsx}'
-            //     }
-            // }),
+            new ForkTsCheckerWebpackPlugin({
+                async: false,
+                eslint: {
+                    files: './src/**/*.{ts,tsx}'
+                }
+            }),
             new MiniCssExtractPlugin({
                 filename: devMode ? '[name].css' : 'resources/[name]-[contenthash].css',
                 chunkFilename: devMode ? '[name].css' : 'resources/[name]-[contenthash].css'
@@ -158,6 +158,7 @@ module.exports = (env = {}) => {
                     loader: '@svgr/webpack',
                     include: /[\\\/]svg\-icons[\\\/]/i,
                     options: {
+                        svgo: true,
                         dimensions: false,
                         ref: true
                     }

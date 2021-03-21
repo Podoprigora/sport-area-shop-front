@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classNames from 'classnames';
 import throttle from 'lodash/throttle';
@@ -137,26 +137,30 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(function
         }
     }, [autoPlay, interval, nextSlide, stop, isMountedRef]);
 
-    const handlePrevControlClick = useCallback(
-        throttle(
-            () => {
-                prevSlide();
-            },
-            animationTimeout,
-            { leading: true, trailing: false }
-        ),
-        [prevSlide]
+    // NOTE: The reason why useMemo was applied instead of useCallback is to prevent eslint warn.
+    // Explanation: https://github.com/facebook/react/issues/19240#issuecomment-652945246
+    const handlePrevControlClick = useMemo(
+        () =>
+            throttle(
+                () => {
+                    prevSlide();
+                },
+                animationTimeout,
+                { leading: true, trailing: false }
+            ),
+        [animationTimeout, prevSlide]
     );
 
-    const handleNextControlClick = useCallback(
-        throttle(
-            () => {
-                nextSlide();
-            },
-            animationTimeout,
-            { leading: true, trailing: false }
-        ),
-        [nextSlide]
+    const handleNextControlClick = useMemo(
+        () =>
+            throttle(
+                () => {
+                    nextSlide();
+                },
+                animationTimeout,
+                { leading: true, trailing: false }
+            ),
+        [animationTimeout, nextSlide]
     );
 
     const handleMouseEnter = useEventCallback(() => {

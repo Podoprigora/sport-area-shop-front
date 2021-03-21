@@ -86,10 +86,9 @@ export const ListItem = React.forwardRef<HTMLDivElement, ListItemProps>(function
         [onClick, disabled]
     );
 
-    // TODO: Remove handleClick callback when Enter key's pressed and come up with better approach
     const handleKeyDown = useCallback(
         (ev: React.KeyboardEvent<HTMLDivElement>) => {
-            if (ev.key === 'Enter') {
+            if (ev.key === 'Enter' || ev.key === ' ') {
                 ev.preventDefault();
 
                 handleClick(
@@ -120,7 +119,6 @@ export const ListItem = React.forwardRef<HTMLDivElement, ListItemProps>(function
             'list__item--highlighted': highlighted,
             'list__item--disabled': disabled,
             'list__item--focus-visible': focusVisible,
-            // TODO: Try to make use of FlexRow instead
             [`u-flex-align-items-${alignItems}`]: alignItems
         }),
         ...other,
