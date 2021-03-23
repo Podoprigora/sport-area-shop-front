@@ -100,7 +100,7 @@ module.exports = {
                 '@typescript-eslint/explicit-module-boundary-types': 0,
                 '@typescript-eslint/no-explicit-any': ['error', { ignoreRestArgs: true }],
                 '@typescript-eslint/ban-ts-comment': 0,
-                '@typescript-eslint/no-use-before-define': 0
+                '@typescript-eslint/no-use-before-define': ['error', { functions: false }]
             }
         }
     ]
