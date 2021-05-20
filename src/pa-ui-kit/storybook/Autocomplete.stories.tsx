@@ -21,7 +21,7 @@ type CountryItem = {
     phone: string;
 };
 
-const data: CountryItem[] = countries.slice(0, 150);
+const data: CountryItem[] = countries.slice(0, 100);
 
 function getItemText(item: CountryItem) {
     return item?.label ? item.label : '';
@@ -89,6 +89,7 @@ export const Default: Story<AutocompleteProps<CountryItem>> = (args) => {
             onChange={handleChange}
             onInputChange={handleInputChange}
             onInputKeyDown={() => {}}
+            listProps={{ maxHeight: 200 }}
             // style={{ width: 300, maxWidth: 'none' }}
             ref={nodeRef}
         />

@@ -14,6 +14,7 @@ export interface RatingItemProps {
     disabled?: boolean;
     readOnly?: boolean;
     tabIndex?: number | string;
+    onClick: React.MouseEventHandler<HTMLInputElement>;
     onChange: React.ChangeEventHandler<HTMLInputElement>;
     onFocus: React.FocusEventHandler<HTMLInputElement>;
     onBlur: React.FocusEventHandler<HTMLInputElement>;
@@ -30,6 +31,7 @@ export const RatingItem = (props: RatingItemProps) => {
         size = 'large',
         disabled,
         readOnly,
+        onClick,
         onChange,
         onMouseEnter,
         onFocus,
@@ -49,7 +51,7 @@ export const RatingItem = (props: RatingItemProps) => {
     });
 
     const handleMouseEnter = useEventCallback((ev: React.MouseEvent<HTMLInputElement>): void => {
-        if (onMouseEnter && !disabled && !readOnly) {
+        if (!disabled && !readOnly) {
             onMouseEnter(ev);
         }
     });
@@ -97,6 +99,15 @@ export const RatingItem = (props: RatingItemProps) => {
         [readOnly, onBlur]
     );
 
+    const handleClick = useCallback(
+        (ev) => {
+            if (!readOnly && onClick) {
+                onClick(ev);
+            }
+        },
+        [readOnly, onClick]
+    );
+
     // Render
 
     const formatedTabIndex = isString(tabIndex) ? parseInt(tabIndex, 10) : tabIndex;
@@ -126,6 +137,7 @@ export const RatingItem = (props: RatingItemProps) => {
                     disabled={disabled}
                     tabIndex={formatedTabIndex ? -1 : formatedTabIndex}
                     ref={inputRef}
+                    onClick={handleClick}
                     onChange={handleChange}
                     onMouseEnter={handleMouseEnter}
                     onMouseDown={handleMouseDown}

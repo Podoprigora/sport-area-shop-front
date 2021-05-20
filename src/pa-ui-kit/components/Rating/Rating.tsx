@@ -1,16 +1,17 @@
 import React, { useCallback, useState, useRef } from 'react';
 import classNames from 'classnames';
 
-import { useControlled, useMergedRefs } from '../utils';
+import { defineEventTarget, useControlled, useMergedRefs } from '../utils';
 import { RatingItem, RatingItemSize } from './RatingItem';
 
 export interface RatingProps {
     name?: string;
-    value?: string | number;
-    defaultValue?: string | number;
+    value?: number;
+    defaultValue?: number;
     disabled?: boolean;
     readOnly?: boolean;
     max?: number;
+    precision?: number;
     size?: RatingItemSize;
     className?: string;
     style?: React.CSSProperties;
@@ -19,6 +20,17 @@ export interface RatingProps {
     onFocus?: React.FocusEventHandler<HTMLInputElement>;
     onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
+
+const getDecimalPrecision = (precision: number): number => {
+    const decimal = String(precision).split('.')[1];
+    return decimal ? decimal.length : 0;
+};
+
+const roundValueToPreceision = (value = 0, precision = 1): number => {
+    const nearest = Math.round(value * precision) / precision;
+
+    return Number(nearest.toFixed(getDecimalPrecision(precision)));
+};
 
 export const Rating = React.forwardRef<HTMLDivElement, RatingProps>(function Rating(
     props,
@@ -31,6 +43,7 @@ export const Rating = React.forwardRef<HTMLDivElement, RatingProps>(function Rat
         disabled,
         readOnly,
         max = 5,
+        precision = 1,
         size,
         className,
         style,
@@ -40,13 +53,12 @@ export const Rating = React.forwardRef<HTMLDivElement, RatingProps>(function Rat
         onBlur
     }: RatingProps = props;
 
-    const numValueProp = valueProp ? parseInt(valueProp as string, 10) : undefined;
-    const numDefaultValueProp = defaultValueProp ? parseInt(defaultValueProp as string, 10) : 0;
-
-    const [value, setValue] = useControlled(numValueProp, numDefaultValueProp);
+    const [value, setValue] = useControlled(valueProp, defaultValueProp);
     const [hoveredItemValue, setHoveredItemValue] = useState(0);
     const nodeRef = useRef<HTMLDivElement>(null);
     const handleNodeRef = useMergedRefs(nodeRef, forwardedRef);
+
+    const valueRounded = roundValueToPreceision(value, precision);
 
     // Events handlers
 
@@ -97,6 +109,24 @@ export const Rating = React.forwardRef<HTMLDivElement, RatingProps>(function Rat
         [onBlur]
     );
 
+    // Reset when click again
+    const handleItemClick = useCallback(
+        (ev) => {
+            ev.persist();
+
+            if (ev.target && Number.parseInt(ev.target?.value, 10) === value) {
+                setValue(0);
+
+                defineEventTarget(ev, { name, value: 0 });
+
+                if (onChange) {
+                    onChange(ev);
+                }
+            }
+        },
+        [setValue, value, name, onChange]
+    );
+
     // Render
 
     const items = [...Array(max)].map((_, index) => {
@@ -116,6 +146,7 @@ export const Rating = React.forwardRef<HTMLDivElement, RatingProps>(function Rat
                 disabled={disabled}
                 readOnly={readOnly}
                 tabIndex={tabIndex}
+                onClick={handleItemClick}
                 onChange={handleItemChange}
                 onMouseEnter={handleItemMouseEnter}
                 onFocus={handleItemFocus}
