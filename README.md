@@ -8,7 +8,8 @@ All images and data have been taken from [https://www.planet-sports.com/](https:
 
 # Demo
 
-See the [Demo](https://podoprigora.github.io/sport-area-shop-front) of shop.
+See the [Demo](https://podoprigora.github.io/sport-area-shop-front) of shop.    
+Storybook of UI components: [Link](https://podoprigora.github.io/sport-area-shop-front/storybook).
 
 # Setup
 
