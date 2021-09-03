@@ -81,7 +81,7 @@
     "classnames": "^2.2.6",
     "dom-helpers": "^5.2.0",
     "formik": "^2.1.5",
-    "immer": "^8.0.1",
+    "immer": "^9.0.6",
     "lodash": "^4.17.20",
     "memoize-one": "^5.1.1",
     "normalizr": "^3.6.0",
